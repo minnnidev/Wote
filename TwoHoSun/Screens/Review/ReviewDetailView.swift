@@ -83,8 +83,7 @@ struct ReviewDetailView: View {
         .sheet(isPresented: $isDetailCommentShown) {
             CommentsView(showComplaint: $showCustomAlert,
                          applyComplaint: $applyComplaint,
-                         viewModel: CommentsViewModel(apiManager: loginState.serviceRoot.apimanager,
-                                                      postId: viewModel.reviewId))
+                         viewModel: CommentsViewModel(postId: viewModel.reviewId))
             .presentationDetents([.large,.fraction(0.9)])
             .presentationContentInteraction(.scrolls)
         }

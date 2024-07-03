@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(AppLoginState.self) private var loginStateManager
+
     @State private var showconfirm = false
     @State private var backgroundColor: Color = .background
     @State private var showCustomAlert = false
@@ -18,7 +18,7 @@ struct DetailView: View {
     @State private var currentAlert = AlertType.closeVote
     @State private var isButtonTapped = false
     @State private var isDuplicationAlertShown = false
-    @StateObject var viewModel: DetailViewModel
+
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
     var isShowingItems = true
     @State var showDetailComments = false
@@ -26,18 +26,21 @@ struct DetailView: View {
     var directComments = false
     let commentNotification = NotificationCenter.default.publisher(for: Notification.Name("showComment"))
 
+    @StateObject var viewModel = DetailViewModel()
+
     var body: some View {
         ZStack {
             backgroundColor
                 .ignoresSafeArea()
+            
             if let data = viewModel.postDetail {
                 ScrollView {
                     VStack(spacing: 0) {
                         if isShowingItems {
-                            DetailHeaderView(alertOn: data.post.isNotified ?? false, 
-                                             viewModel: DetailHeaderViewModel(apiManager: loginStateManager.serviceRoot.apimanager),
-                                             data: data)
+
+                            DetailHeaderView(data: data)
                                 .padding(.top, 18)
+
                             Divider()
                                 .background(Color.disableGray)
                                 .padding(.horizontal, 12)
@@ -148,7 +151,7 @@ struct DetailView: View {
             
             if showAlert {
                 CustomAlertModalView(alertType: .ban(nickname: viewModel.postDetail?.post.author.nickname ?? ""), isPresented: $showAlert) {
-                    loginStateManager.serviceRoot.memberManager.blockUser(memberId: viewModel.postDetail?.post.author.id ?? 0)
+                    // TODO: block
                     showAlert.toggle()
                     dismiss()
                 }
@@ -179,8 +182,7 @@ struct DetailView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $showDetailComments) {
             CommentsView(showComplaint: $showCustomAlert,
-                         applyComplaint: $applyComplaint,
-                         viewModel: CommentsViewModel(apiManager: loginStateManager.serviceRoot.apimanager, postId: postId))
+                         applyComplaint: $applyComplaint)
             .presentationDetents([.large,.fraction(0.9)])
             .presentationContentInteraction(.scrolls)
         }
@@ -245,7 +247,7 @@ struct DetailView: View {
             Alert(title: Text("투표는 1번만 가능합니다."))
         }
         .errorAlert(error: $viewModel.error) {
-            loginStateManager.serviceRoot.navigationManager.back()
+            // TODO: navigatin pop
             NotificationCenter.default.post(name: NSNotification.voteStateUpdated, object: nil)
         }
     }
@@ -259,8 +261,7 @@ extension DetailView {
                        commentPreviewImage: viewModel.postDetail?.commentPreviewImage)
             .onTapGesture {
                 guard haveConsumerType else {
-                    loginStateManager.serviceRoot.navigationManager.countDeque(count: 1)
-                    loginStateManager.serviceRoot.navigationManager.navigate(.testIntroView)
+                    // TODO: - 소비 성향 테스트 뷰로 이동
                     return
                 }
                 showDetailComments.toggle()
@@ -336,8 +337,7 @@ extension DetailView {
 
     private func votePost(id: Int, choice: Bool) {
         guard haveConsumerType else {
-            loginStateManager.serviceRoot.navigationManager.countDeque(count: 1)
-            loginStateManager.serviceRoot.navigationManager.navigate(.testIntroView)
+            // TODO: - 소비 성향 테스트 뷰로 이동
             return
         }
 

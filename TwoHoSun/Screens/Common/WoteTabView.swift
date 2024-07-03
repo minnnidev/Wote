@@ -76,6 +76,8 @@ struct WoteTabView: View {
                 switch destination {
                 case .makeVoteView:
                     VoteWriteView()
+                case let .detailView(postId: postId, dirrectComments: dirrectComments, isShowingItems: isShowingItems):
+                    DetailView(postId: postId)
                 default:
                     Text("default")
                 }

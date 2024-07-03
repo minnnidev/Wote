@@ -57,9 +57,12 @@ enum ClosedPostStatus: Codable {
 
 struct DetailHeaderView: View {
     @Environment(AppLoginState.self) private var loginState
+
     @State var alertOn = false
-    @State var viewModel: DetailHeaderViewModel
+
     var data: PostDetailModel
+
+    @StateObject var viewModel = DetailHeaderViewModel()
 
     var body: some View {
         switch PostStatus(rawValue: data.post.postStatus) {
@@ -180,13 +183,12 @@ struct DetailHeaderView: View {
                                                image: data.image,
                                                contents: data.contents,
                                                price: data.price)
-            loginState.serviceRoot.navigationManager.navigate(.reviewWriteView(post: summaryPost))
         case .othersPostWithoutReview:
-            break
+            // TODO: 후기 작성으로 이동
+            return
         default:
-            loginState.serviceRoot.navigationManager.navigate(.reviewDetailView(postId: post.post.id,
-                                                                                reviewId: nil,
-                                                                                isShowingItems: false))
+            // TODO: 후기 작성으로 이동
+            return
         }
     }
 }

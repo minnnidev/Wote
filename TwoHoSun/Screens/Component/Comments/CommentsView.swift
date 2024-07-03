@@ -10,15 +10,15 @@ import SwiftUI
 struct CommentsView: View {
     @State private var scrollSpot: Int = 0
     @FocusState private var isFocus: Bool
-    // MARK: eclips버튼눌렸을떄 관련된 변수들
     @State private var ismyCellconfirm = false
     @State private var showConfirm = false
+    @State private var replyForAnotherName: String?
+    @State private var lastCommentClick = false
+
     @Binding var showComplaint : Bool
     @Binding var applyComplaint: Bool
-    @ObservedObject var viewModel: CommentsViewModel
-    @State private var replyForAnotherName: String?
-    @Environment(AppLoginState.self) private var loginStateManager
-    @State private var lastCommentClick = false
+
+    @StateObject var viewModel = CommentsViewModel(postId: 0)
 
     var body: some View {
         ZStack {
@@ -50,7 +50,9 @@ struct CommentsView: View {
                             viewModel.deleteComments(commentId: scrollSpot)
                         } else {
                             if let commentIDtoBlock = viewModel.commentsDatas.first(where: {$0.commentId == scrollSpot})?.author?.id {
-                                loginStateManager.serviceRoot.memberManager.blockUser(memberId: commentIDtoBlock)
+
+                                // TODO: 유저 차단
+
                                 viewModel.presentAlert.toggle()
                                 viewModel.refreshComments()
                             }
@@ -154,7 +156,7 @@ extension CommentsView {
 
     var commentInputView: some View {
         HStack {
-            ProfileImageView(imageURL: loginStateManager.serviceRoot.memberManager.profile?.profileImage)
+            ProfileImageView(imageURL: nil)
                 .frame(width: 32, height: 32)
             withAnimation(.easeInOut) {
                 TextField("", text: $viewModel.comments, prompt: Text("소비고민을 함께 나누어 보세요")
