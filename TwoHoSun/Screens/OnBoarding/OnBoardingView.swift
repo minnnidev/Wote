@@ -6,17 +6,13 @@
 //
 
 import SwiftUI
-
 import AuthenticationServices
 import Combine
 
 struct OnBoardingView : View {
     @State private var goProfileView = false
-    @State var viewModel: LoginViewModel
-    @Environment(AppLoginState.self) private var loginStateManager
-    init(viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-    }
+    @StateObject var viewModel = LoginViewModel()
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -55,40 +51,18 @@ struct OnBoardingView : View {
                 BottomSheetView(goProfileView: $goProfileView)
                     .presentationDetents([.medium])
             }
-            .navigationDestination(isPresented: $goProfileView) {
-                ProfileSettingsView(viewType: .setting,
-                                                       viewModel: ProfileSettingViewModel(appState: loginStateManager))
-            }
         }
     }
 }
 
 extension OnBoardingView {
+
     private var appleLoginButton: some View {
-        SignInWithAppleButton( onRequest: { request in
-            request.requestedScopes = [.fullName, .email]
-        }, onCompletion: { result in
-            switch result {
-            case .success(let authResults):
-                switch authResults.credential {
-                case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                    let identifier = appleIDCredential.user
-                    KeychainManager.shared.saveToken(key: "identifier", token: identifier)
-                    let authorization = String(data: appleIDCredential.authorizationCode!, encoding:  .utf8)
-                
-                    guard let authorizationCode = authorization else { return }
-                    viewModel.setAuthorizationCode(authorizationCode)
-                    viewModel.postAuthorCode()
-                default:
-                    break
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-            }
-        })
-        .signInWithAppleButtonStyle(.white)
-        .frame(height: 54)
-        .cornerRadius(27)
+        NavigationLink {
+            ProfileSettingsView(viewType: .setting)
+        } label: {
+            Text("Apple Login")
+        }
     }
 
     private var hyeprLinkText: some View {

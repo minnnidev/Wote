@@ -19,7 +19,7 @@ struct TwoHoSunApp: App {
         WindowGroup {
             switch appState.serviceRoot.auth.authState {
             case .none, .allexpired, .unfinishRegister:
-                OnBoardingView(viewModel: LoginViewModel(appState: appState))
+                OnBoardingView()
                     .environment(appState)
             case .loggedIn:
                 WoteTabView(notiManager: dataController)

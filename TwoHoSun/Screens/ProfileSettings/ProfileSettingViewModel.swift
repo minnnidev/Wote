@@ -12,8 +12,7 @@ import SwiftUI
 import Alamofire
 import Moya
 
-@Observable
-final class ProfileSettingViewModel {
+final class ProfileSettingViewModel: ObservableObject {
     var nickname = ""
     var selectedSchoolInfo: SchoolInfoModel?
     var selectedGrade: String?    
@@ -22,15 +21,13 @@ final class ProfileSettingViewModel {
     var isNicknameDuplicated = false
     var isFormValid = true
     var model: ProfileSetting? 
+
     private let forbiddenWord = ["금지어1", "금지어2"]
+
     var bag = Set<AnyCancellable>()
     var firstNickname = ""
     var firstSchool: SchoolInfoModel?
 
-    private var appState: AppLoginState
-    init(appState: AppLoginState) {
-        self.appState = appState
-    }
     var isSchoolFilled: Bool {
         return selectedSchoolInfo != nil
     }
@@ -102,40 +99,9 @@ final class ProfileSettingViewModel {
                                    nickname: nickname,
                                    school: school)
         }
-        postProfileSetting(isRegister: isRegsiter)
     }
     
     func postNickname() {
-        appState.serviceRoot.apimanager.request(.userService(.checkNicknameValid(nickname: nickname)),
-                           decodingType: NicknameValidation.self)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error)
-                }
-            } receiveValue: { data in
-                guard let isExist = data.data?.isExist else { return }
-                self.isNicknameDuplicated = isExist
-                self.nicknameValidationType = self.isNicknameDuplicated ? .duplicated : .valid
-            }
-            .store(in: &bag)
-    }
-    
-    func postProfileSetting(isRegister: Bool = false) {
-        guard let model = model else { return }
-        var cancellable: AnyCancellable?
-        cancellable = appState.serviceRoot.apimanager.request(.userService(.postProfileSetting(profile: model)),
-                           decodingType: NoData.self)
-            .sink { completion in
-                print("끝남? \(completion)")
-            } receiveValue: { _ in
-                self.appState.serviceRoot.memberManager.fetchProfile()
-                if isRegister {
-                    self.appState.serviceRoot.auth.authState = .loggedIn
-                }
-                cancellable?.cancel()
-            }
+        // TODO: - 닉네임 중복 체크 API
     }
 }

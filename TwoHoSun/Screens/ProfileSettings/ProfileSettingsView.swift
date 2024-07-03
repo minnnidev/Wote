@@ -91,14 +91,17 @@ struct ProfileSettingsView: View {
     @State private var isProfileSheetShowed = false
     @State private var retryProfileImage = false
     @State private var isRestricted = false
+    
     @State var viewType: ProfileSettingType
     @State var originalImage: String?
-    @Bindable var viewModel: ProfileSettingViewModel
+
+    @StateObject var viewModel = ProfileSettingViewModel()
+
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
     @Environment(\.dismiss) private var dismiss
     @Environment(AppLoginState.self) private var loginStateManager
     @FocusState var focusState: Bool
-    
+
     var body: some View {
         ZStack {
             Color.background
@@ -385,12 +388,8 @@ extension ProfileSettingsView {
     }
 
     private var nextButton: some View {
-        Button {
-            guard viewModel.isAllInputValid else {
-                viewModel.setInvalidCondition()
-                return
-            }
-            viewModel.setProfile(isRestricted, true)
+        NavigationLink {
+            // TODO: 
         } label: {
             Text("완료")
                 .font(.system(size: 20, weight: .semibold))
@@ -399,7 +398,6 @@ extension ProfileSettingsView {
                 .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
                 .cornerRadius(10)
         }
-        .disabled(viewModel.isAllInputValid ? false : true)
     }
 
     private var completeButton: some View {
