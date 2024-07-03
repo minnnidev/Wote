@@ -56,7 +56,6 @@ enum ClosedPostStatus: Codable {
 }
 
 struct DetailHeaderView: View {
-    @Environment(AppLoginState.self) private var loginState
 
     @State var alertOn = false
 
