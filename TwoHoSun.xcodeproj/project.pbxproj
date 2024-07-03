@@ -65,7 +65,6 @@
 		ABAFB6412AF978790070512F /* PurchaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAFB6402AF978790070512F /* PurchaseLabel.swift */; };
 		ABB71D642AE26EB100BE0671 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = ABB71D632AE26EB100BE0671 /* Kingfisher */; };
 		ABB71D6E2AE2754300BE0671 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71D6D2AE2754300BE0671 /* PostModel.swift */; };
-		ABB71D7C2AE2B3F100BE0671 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71D7B2AE2B3F100BE0671 /* NotificationView.swift */; };
 		ABBBC67C2AE49CC800B1E614 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */; };
 		ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */; };
 		ABBFB6322AE3EABD006CE8CA /* VoteCreateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */; };
@@ -75,9 +74,6 @@
 		ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE51ED02B054ED5009C6CA5 /* DetailHeaderView.swift */; };
 		ABF0644A2B15177A00C45E73 /* WoteTabHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF064492B15177A00C45E73 /* WoteTabHandler.swift */; };
 		C721D5BB2B07CA8D00564EE0 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C721D5BA2B07CA8D00564EE0 /* CommentsViewModel.swift */; };
-		C72B3DB62B0E273A00D65C79 /* NotiDecodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B3DB52B0E273A00D65C79 /* NotiDecodeModel.swift */; };
-		C72B3DBD2B0EB5B000D65C79 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B3DBC2B0EB5B000D65C79 /* DataController.swift */; };
-		C72B3DC22B0F2A9800D65C79 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C72B3DC02B0F2A9800D65C79 /* DataModel.xcdatamodeld */; };
 		C73F8E832AE54DD8001C6B07 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73F8E822AE54DD8001C6B07 /* CommentsModel.swift */; };
 		C73F8E8C2AE5527B001C6B07 /* CommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73F8E8B2AE5527B001C6B07 /* CommonModel.swift */; };
 		C73F8E8E2AE56168001C6B07 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73F8E8D2AE56168001C6B07 /* String+.swift */; };
@@ -204,7 +200,6 @@
 		ABAFB6402AF978790070512F /* PurchaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseLabel.swift; sourceTree = "<group>"; };
 		ABB71D6D2AE2754300BE0671 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		ABB71D792AE2A64300BE0671 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
-		ABB71D7B2AE2B3F100BE0671 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		ABBBC6772AE471B700B1E614 /* VoteWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteWriteViewModel.swift; sourceTree = "<group>"; };
 		ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateModel.swift; sourceTree = "<group>"; };
 		ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachViewModel.swift; sourceTree = "<group>"; };
@@ -213,9 +208,6 @@
 		ABF064492B15177A00C45E73 /* WoteTabHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoteTabHandler.swift; sourceTree = "<group>"; };
 		C721D5BA2B07CA8D00564EE0 /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		C721D5BC2B08182000564EE0 /* PostDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailModel.swift; sourceTree = "<group>"; };
-		C72B3DB52B0E273A00D65C79 /* NotiDecodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiDecodeModel.swift; sourceTree = "<group>"; };
-		C72B3DBC2B0EB5B000D65C79 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		C72B3DC12B0F2A9800D65C79 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		C73F8E822AE54DD8001C6B07 /* CommentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsModel.swift; sourceTree = "<group>"; };
 		C73F8E8B2AE5527B001C6B07 /* CommonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModel.swift; sourceTree = "<group>"; };
 		C73F8E8D2AE56168001C6B07 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
@@ -430,17 +422,6 @@
 				AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		ABFE077A2AF2E03E006CA743 /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				C72B3DC02B0F2A9800D65C79 /* DataModel.xcdatamodeld */,
-				ABB71D7B2AE2B3F100BE0671 /* NotificationView.swift */,
-				C72B3DBC2B0EB5B000D65C79 /* DataController.swift */,
-				C72B3DB52B0E273A00D65C79 /* NotiDecodeModel.swift */,
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 		C721D5B92B07C80000564EE0 /* Comments */ = {
@@ -701,7 +682,6 @@
 				C7E459D42AE01FE300ECD008 /* Main */,
 				C7DE44B92AE0BB4E001639CB /* Detail */,
 				ABBFB6332AE43561006CE8CA /* VoteWrite */,
-				ABFE077A2AF2E03E006CA743 /* Notification */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -826,7 +806,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C72B3DBD2B0EB5B000D65C79 /* DataController.swift in Sources */,
 				FD5ABEA22B0BCF2800272A53 /* PostDetailModel.swift in Sources */,
 				AB03D7482B0276F9000C927A /* ProfileImageView.swift in Sources */,
 				ABDED8852B00B17F00D78BEA /* VoteWriteViewModel.swift in Sources */,
@@ -908,7 +887,6 @@
 				C7F1FD842ADDA2F000C5A2A1 /* OnBoardingView.swift in Sources */,
 				ABA1E8392AFD576A009051E0 /* ReviewDetailView.swift in Sources */,
 				C7DE44BD2AE0DCE7001639CB /* CommentCell.swift in Sources */,
-				ABB71D7C2AE2B3F100BE0671 /* NotificationView.swift in Sources */,
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
 				C768F1A32AE656570020F82C /* SchoolModel.swift in Sources */,
 				ABBBC67C2AE49CC800B1E614 /* PostCreateModel.swift in Sources */,
@@ -934,7 +912,6 @@
 				C768F1A42AE656570020F82C /* ProfileSetting.swift in Sources */,
 				AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */,
 				FD8D9F812ADC5FAD0072F4BA /* KeychainManager.swift in Sources */,
-				C72B3DC22B0F2A9800D65C79 /* DataModel.xcdatamodeld in Sources */,
 				AB6845B22AFC145000C3F7C2 /* TypeTestView.swift in Sources */,
 				AB38A1C72B0BE1BE004153B5 /* DetailViewModel.swift in Sources */,
 				AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */,
@@ -944,7 +921,6 @@
 				C77113712AF0E7D500BAB128 /* Color+.swift in Sources */,
 				AB6845B02AFC143700C3F7C2 /* TypeTestIntroView.swift in Sources */,
 				FD9DDB6E2B06F76D006D738A /* MyPageViewModel.swift in Sources */,
-				C72B3DB62B0E273A00D65C79 /* NotiDecodeModel.swift in Sources */,
 				C7EFA7DD2AF94DD800C9BEA0 /* CustomAlertModalView.swift in Sources */,
 				C7A95F192B01FFEC00F8595A /* APIConstants.swift in Sources */,
 				AB03D73B2B0137D5000C927A /* PostService.swift in Sources */,
@@ -1233,19 +1209,6 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		C72B3DC02B0F2A9800D65C79 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C72B3DC12B0F2A9800D65C79 /* Model.xcdatamodel */,
-			);
-			currentVersion = C72B3DC12B0F2A9800D65C79 /* Model.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = FD132BE22ADBE8FA00F31AAF /* Project object */;
 }

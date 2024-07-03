@@ -39,20 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logger.error("Failed to register for remote notifications: \(error.localizedDescription)")
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
-        logger.log("Will present notification in foreground: \(self.formatDictionary(notification.request.content.userInfo))")
-        let decoder = JSONDecoder()
-        do {
-            let data = try JSONSerialization.data(withJSONObject: notification.request.content.userInfo)
-            let notimodel = try decoder.decode(NotiDecodeModel.self, from: data)
-            await app?.savePush(notiModel: notimodel)
-        } catch {
-            print(error)
-        }
-        return [.banner, .sound]
-    }
-
     private func formatDictionary(_ dictionary: [AnyHashable: Any]?) -> String {
         guard let dictionary = dictionary else { return "None" }
         return dictionary.map { key, value in
@@ -72,16 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        let decoder = JSONDecoder()
-        do {
-            let data = try JSONSerialization.data(withJSONObject: response.notification.request.content.userInfo)
-            let notimodel = try decoder.decode(NotiDecodeModel.self, from: data)
-            await app?.handleDeepPush(notiModel: notimodel)
-        } catch {
-            print(error)
-        }
-    }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
         if let consumerType = userInfo["consumer_type_exist"] {
