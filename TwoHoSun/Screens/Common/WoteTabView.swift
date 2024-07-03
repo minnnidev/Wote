@@ -76,15 +76,19 @@ struct WoteTabView: View {
                 switch destination {
                 case .makeVoteView:
                     VoteWriteView()
-                case let .detailView(postId: postId, dirrectComments: dirrectComments, isShowingItems: isShowingItems):
+                case let .detailView(postId: postId,
+                                     dirrectComments: _,
+                                     isShowingItems: _):
                     DetailView(postId: postId)
-                case let .reviewDetailView(postId: postId?,
-                                           reviewId: reviewId?,
-                                           directComments: directComments,
-                                           isShowingItems: isShowingItems):
+                case let .reviewDetailView(postId: _?,
+                                           reviewId: _?,
+                                           directComments: _,
+                                           isShowingItems: _):
                     ReviewDetailView()
                 case .reviewWriteView:
                     ReviewWriteView()
+                case .searchView:
+                    SearchView()
                 default:
                     Text("default")
                 }
@@ -140,7 +144,7 @@ extension WoteTabView {
 
     private var searchButton: some View {
         Button {
-
+            navigationRouter.navigate(.searchView)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
