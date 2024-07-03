@@ -44,9 +44,9 @@ enum WoteTabType: Int, CaseIterable {
     }
 }
 
-@Observable
-final class WoteTabHandler {
+final class WoteTabHandler: ObservableObject {
     var scrollToTop = false
+    
     var selectedTab: WoteTabType = .consider {
         didSet {
             if oldValue == selectedTab && selectedTab == .consider {

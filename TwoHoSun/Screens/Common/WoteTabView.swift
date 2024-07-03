@@ -8,27 +8,36 @@
 import SwiftUI
 
 struct WoteTabView: View {
-    @State private var selection = WoteTabType.consider
     @State private var visibilityScope = VisibilityScopeType.global
     @State private var isVoteCategoryButtonDidTap = false
-    @Environment(AppLoginState.self) private var loginStateManager
-    @ObservedObject var notiManager: DataController
     @State private var tabScrollHandler = WoteTabHandler()
+    @State private var selectedTab = WoteTabType.consider
+
+    @EnvironmentObject private var navigationRouter: NavigationManager
 
     var body: some View {
-        @Bindable var navigationPath = loginStateManager.serviceRoot.navigationManager
-        NavigationStack(path: $navigationPath.navigatePath) {
+        NavigationStack(path: $navigationRouter.navigatePath) {
             ZStack(alignment: .topLeading) {
                 VStack(spacing: 0) {
                     navigationBar
-                    TabView(selection: $tabScrollHandler.selectedTab) {
+                    TabView(selection: $selectedTab) {
                         ForEach(WoteTabType.allCases, id: \.self) { tab in
-                            tabDestinationView(for: tab)
-                                .tabItem {
-                                    Image(tabScrollHandler.selectedTab == tab ?
-                                          tab.selectedTabIcon : tab.unselectedTabIcon)
-                                    Text(tab.tabTitle)
+                            Group {
+                                switch tab {
+                                case .consider:
+                                    ConsiderationView(visibilityScope: $visibilityScope, scrollToTop: $tabScrollHandler.scrollToTop)
+                                case .review:
+                                    ReviewView(visibilityScope: $visibilityScope)
+                                case .myPage:
+                                    MyPageView(selectedVisibilityScope: $visibilityScope)
                                 }
+                            }
+                            .tabItem {
+                                Image(selectedTab == tab ?
+                                      tab.selectedTabIcon : tab.unselectedTabIcon)
+                                Text(tab.tabTitle)
+                            }
+                            .tag(tab)
                         }
                     }
                 }
@@ -52,95 +61,22 @@ struct WoteTabView: View {
                     voteCategoryMenu
                         .offset(x: 16, y: 40)
                 }
-
-            }  
-            .navigationDestination(for: AllNavigation.self) { destination in
-                switch destination {
-                case .profileSettingView(let viewType):
-                    ProfileSettingsView(viewType: viewType)
-                case .considerationView:
-                    ConsiderationView(visibilityScope: $visibilityScope,
-                                      scrollToTop: $tabScrollHandler.scrollToTop,
-                                      viewModel: ConsiderationViewModel(appLoginState: loginStateManager))
-                case .detailView(let postId,
-                                 let showDetailComments,
-                                 let isShowingItems):
-                    DetailView(viewModel: DetailViewModel(appLoginState: loginStateManager),
-                               isShowingItems: isShowingItems,
-                               postId: postId,
-                               directComments: showDetailComments
-                    )
-                case .makeVoteView:
-                    VoteWriteView(viewModel: VoteWriteViewModel(visibilityScope: visibilityScope, 
-                                                                apiManager: loginStateManager.serviceRoot.apimanager), 
-                                  tabselection: $tabScrollHandler.selectedTab)
-                case .testIntroView:
-                    TypeTestIntroView()
-                        .toolbar(.hidden, for: .navigationBar)
-                case .testView:
-                    TypeTestView(viewModel: TypeTestViewModel(apiManager: loginStateManager.serviceRoot.apimanager))
-                case .reviewView:
-                    ReviewView(visibilityScope: $visibilityScope,
-                               viewModel: ReviewTabViewModel(loginState: loginStateManager))
-                case .writeReiview:
-                    Text("아직")
-                case .settingView:
-                    SettingView(viewModel: SettingViewModel(loginStateManager: loginStateManager))
-                case .mypageView:
-                    MyPageView(viewModel: MyPageViewModel(loginState: loginStateManager),
-                               selectedVisibilityScope: $visibilityScope)
-                case .searchView:
-                    SearchView(viewModel: SearchViewModel(apiManager: loginStateManager.serviceRoot.apimanager,
-                                                          selectedVisibilityScope: visibilityScope))
-                case .reviewDetailView(let postId, 
-                                       let reviewId,
-                                       let isShowDetailComments,
-                                       let isShowingItems):
-                    ReviewDetailView(viewModel: ReviewDetailViewModel(loginState: loginStateManager),
-                                     isShowingItems: isShowingItems,
-                                     postId: postId,
-                                     reviewId: reviewId,
-                                     directComments: isShowDetailComments
-                    )
-                case .reviewWriteView(let post):
-                    ReviewWriteView(viewModel: ReviewWriteViewModel(post: post,
-                                                                    apiManager: loginStateManager.serviceRoot.apimanager))
-                case .notiView:
-                    NotificationView( viewModel: notiManager)
-                }
             }
+            .onAppear {
+                let appearance = UITabBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                UITabBar.appearance().backgroundColor = .background
+                UITabBar.appearance().unselectedItemTintColor = .gray400
+                UITabBar.appearance().standardAppearance = appearance
+            }
+            .navigationTitle(tabScrollHandler.selectedTab.tabTitle)
+            .toolbar(.hidden, for: .navigationBar)
+            .tint(Color.accentBlue)
         }
-        .onAppear {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            UITabBar.appearance().backgroundColor = .background
-            UITabBar.appearance().unselectedItemTintColor = .gray400
-            UITabBar.appearance().standardAppearance = appearance
-        }
-        .navigationTitle(tabScrollHandler.selectedTab.tabTitle)
-        .toolbar(.hidden, for: .navigationBar)
-        .tint(Color.accentBlue)
-        
     }
 }
 
 extension WoteTabView {
-
-    @ViewBuilder
-    private func tabDestinationView(for tab: WoteTabType) -> some View {
-        switch tab {
-        case .consider:
-            ConsiderationView(visibilityScope: $visibilityScope, 
-                              scrollToTop: $tabScrollHandler.scrollToTop,
-                              viewModel: ConsiderationViewModel(appLoginState: loginStateManager))
-        case .review:
-            ReviewView(visibilityScope: $visibilityScope,
-                       viewModel: ReviewTabViewModel(loginState: loginStateManager))
-        case .myPage:
-            MyPageView(viewModel: MyPageViewModel(loginState: loginStateManager),
-                       selectedVisibilityScope: $visibilityScope)
-        }
-    }
 
     @ViewBuilder
     private var navigationBar: some View {
@@ -172,7 +108,7 @@ extension WoteTabView {
 
     private var notificationButton: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.notiView)
+
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
@@ -187,7 +123,7 @@ extension WoteTabView {
 
     private var searchButton: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.searchView)
+
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
@@ -202,7 +138,7 @@ extension WoteTabView {
 
     private var settingButton: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.settingView)
+
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)

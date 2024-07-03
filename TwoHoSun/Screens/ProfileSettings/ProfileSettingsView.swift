@@ -389,7 +389,7 @@ extension ProfileSettingsView {
 
     private var nextButton: some View {
         NavigationLink {
-            // TODO: 
+            WoteTabView()
         } label: {
             Text("완료")
                 .font(.system(size: 20, weight: .semibold))

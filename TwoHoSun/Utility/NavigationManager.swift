@@ -29,9 +29,8 @@ enum AllNavigation: Decodable, Hashable {
     case profileSettingView(type: ProfileSettingType)
 }
 
-@Observable
-final class NavigationManager {
-    var navigatePath = [AllNavigation]()
+final class NavigationManager: ObservableObject {
+    @Published var navigatePath = [AllNavigation]()
 
     func navigate(_ route: AllNavigation) {
         guard !navigatePath.contains(route) else {
