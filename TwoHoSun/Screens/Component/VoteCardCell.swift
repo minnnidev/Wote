@@ -59,7 +59,6 @@ struct VoteCardCell: View {
         return nil
     }
     var data: SummaryPostModel
-    @Environment(AppLoginState.self) private var loginStateManager
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
