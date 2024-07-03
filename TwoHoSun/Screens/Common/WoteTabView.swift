@@ -78,6 +78,13 @@ struct WoteTabView: View {
                     VoteWriteView()
                 case let .detailView(postId: postId, dirrectComments: dirrectComments, isShowingItems: isShowingItems):
                     DetailView(postId: postId)
+                case let .reviewDetailView(postId: postId?,
+                                           reviewId: reviewId?,
+                                           directComments: directComments,
+                                           isShowingItems: isShowingItems):
+                    ReviewDetailView()
+                case .reviewWriteView:
+                    ReviewWriteView()
                 default:
                     Text("default")
                 }

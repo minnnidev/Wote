@@ -140,7 +140,7 @@ struct VoteCardCell: View {
             if progressType == .closed && cellType == .myVote && data.hasReview == false {
 //            if progressType == .closed && cellType == .myVote && data.hasReview == false {
                 Button {
-                    loginStateManager.serviceRoot.navigationManager.navigate(.reviewWriteView(post: data))
+                    
                 } label: {
                     Text("후기 작성하기")
                         .font(.system(size: 16, weight: .semibold))

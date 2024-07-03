@@ -25,7 +25,7 @@ enum AllNavigation: Decodable, Hashable {
                           reviewId: Int?,
                           directComments: Bool = false,
                           isShowingItems: Bool = true)
-    case reviewWriteView(post: SummaryPostModel)
+    case reviewWriteView
     case profileSettingView(type: ProfileSettingType)
 }
 

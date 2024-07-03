@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ReviewDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(AppLoginState.self) private var loginState
+
     @State private var isDetailCommentShown = false
     @State private var showCustomAlert = false
     @State private var showConfirm = false
     @State private var applyComplaint = false
     @State private var showAlert = false
-    @StateObject var viewModel: ReviewDetailViewModel
+
+    @StateObject var viewModel = ReviewDetailViewModel()
+
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
     var isShowingItems = true
     var postId: Int?
@@ -57,14 +59,8 @@ struct ReviewDetailView: View {
                 ZStack {
                     Color.black.opacity(0.7)
                         .ignoresSafeArea()
-                    CustomAlertModalView(alertType: .deleteReview,
-                                         isPresented: $showCustomAlert) {
-                        viewModel.deleteReview(postId: viewModel.postId)
-                        dismiss()
-                    }
                 }
             }
-            AlertModalView(showAlert: $showAlert, viewModel: viewModel, loginState: loginState)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -134,7 +130,7 @@ struct ReviewDetailView: View {
             }
         }
         .errorAlert(error: $viewModel.error) {
-            loginState.serviceRoot.navigationManager.back()
+            // TODO: navigation back
             NotificationCenter.default.post(name: NSNotification.reviewStateUpdated, object: nil)
         }
     }
@@ -168,10 +164,7 @@ extension ReviewDetailView {
                     .foregroundStyle(Color.woteWhite)
                 Spacer()
                 Button {
-                    loginState.serviceRoot.navigationManager.navigate(.detailView(postId: viewModel.postId,
-                                                                                  dirrectComments: false, 
-                                                                                  isShowingItems: reviewId != nil ? false : true))
-
+                    // TODO: 투표 게시글 상세 조회로 이동
                 } label: {
                     HStack(spacing: 2) {
                         Text("바로가기")
@@ -182,9 +175,7 @@ extension ReviewDetailView {
                 }
             }
             Button {
-                loginState.serviceRoot.navigationManager.navigate(.detailView(postId: viewModel.postId,
-                                                                              dirrectComments: false, 
-                                                                              isShowingItems: reviewId != nil ? false : true))
+                // TODO: 투표 게시글 상세 조회로 이동
             } label: {
                 VoteCardCell(cellType: .simple,
                              progressType: .closed,
@@ -223,8 +214,7 @@ extension ReviewDetailView {
             .font(.system(size: 14))
             .foregroundStyle(Color.gray100)
             .padding(.bottom, 20)
-//            shareButton
-//                .padding(.bottom, 4)
+
             if let image = data.image {
                 ImageView(imageURL: image)
                     .padding(.bottom, 28)
@@ -233,8 +223,7 @@ extension ReviewDetailView {
                            commentPreviewImage: viewModel.reviewData?.commentPreviewImage)
                 .onTapGesture {
                     guard haveConsumerType else {
-                        loginState.serviceRoot.navigationManager.countPop(count: 1)
-                        loginState.serviceRoot.navigationManager.navigate(.testIntroView)
+                        // TODO: 소비 성향 테스트로 이동
                         return
                     }
                     isDetailCommentShown.toggle()
@@ -255,23 +244,6 @@ extension ReviewDetailView {
                     .padding(.vertical, 6)
                     .background(Color.lightBlue)
                     .clipShape(RoundedRectangle(cornerRadius: 34))
-            }
-        }
-    }
-}
-
-struct AlertModalView: View {
-    @Binding var showAlert: Bool
-    @Environment(\.dismiss) var dismiss
-    var viewModel: ReviewDetailViewModel
-    var loginState: AppLoginState
-
-    var body: some View {
-        if showAlert {
-            CustomAlertModalView(alertType: .ban(nickname: viewModel.reviewData?.reviewPost.author.nickname ?? ""), isPresented: $showAlert) {
-                loginState.serviceRoot.memberManager.blockUser(memberId: viewModel.reviewData?.reviewPost.author.id ?? 0)
-                showAlert.toggle()
-                dismiss()
             }
         }
     }

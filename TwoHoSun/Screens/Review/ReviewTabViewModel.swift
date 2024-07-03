@@ -19,8 +19,10 @@ class PaginationState {
 }
 
 final class ReviewTabViewModel: ObservableObject {
+    
     @Published var consumerType: ConsumerType?
     @Published var isFetching = true
+    
     private var cancellable = Set<AnyCancellable>()
     private var allTypePagination = PaginationState()
     private var purchasedTypePagination = PaginationState()
