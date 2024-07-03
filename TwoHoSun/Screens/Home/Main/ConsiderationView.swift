@@ -9,14 +9,17 @@ import SwiftUI
 
 struct ConsiderationView: View {
     @State private var didFinishSetup = false
-    @Binding var visibilityScope: VisibilityScopeType
-    @Binding var scrollToTop: Bool
-    @Environment(AppLoginState.self) private var loginState
     @State private var isRefreshing = false
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
     @State var isPostCreated = false
 
+    @Binding var visibilityScope: VisibilityScopeType
+    @Binding var scrollToTop: Bool
+
+    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
+
     @StateObject var viewModel = ConsiderationViewModel()
+
+    @EnvironmentObject var navigationRouter: NavigationManager
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -90,10 +93,7 @@ extension ConsiderationView {
 
     private var createVoteButton: some View {
         Button {
-            guard haveConsumerType else {
-                return loginState.serviceRoot.navigationManager.navigate(.testIntroView)
-            }
-            loginState.serviceRoot.navigationManager.navigate(.makeVoteView)
+            navigationRouter.navigate(.makeVoteView)
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")
@@ -124,13 +124,13 @@ extension ConsiderationView {
             Spacer()
             Button {
                 withAnimation {
-                    if viewModel.currentVote != loginState.appData.postManager.posts.count - 1 {
+                    if viewModel.currentVote != viewModel.posts.count - 1 {
                         viewModel.currentVote += 1
                     }
                 }
             } label: {
                 Image("icnCaretDown")
-                    .opacity(viewModel.currentVote != loginState.appData.postManager.posts.count - 1 ? 1 : 0)
+                    .opacity(viewModel.currentVote != viewModel.posts.count - 1 ? 1 : 0)
             }
             Spacer()
         }

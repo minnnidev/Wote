@@ -72,6 +72,14 @@ struct WoteTabView: View {
             .navigationTitle(tabScrollHandler.selectedTab.tabTitle)
             .toolbar(.hidden, for: .navigationBar)
             .tint(Color.accentBlue)
+            .navigationDestination(for: AllNavigation.self) { destination in
+                switch destination {
+                case .makeVoteView:
+                    VoteWriteView()
+                default:
+                    Text("default")
+                }
+            }
         }
     }
 }
