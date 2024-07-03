@@ -89,6 +89,8 @@ struct WoteTabView: View {
                     ReviewWriteView()
                 case .searchView:
                     SearchView()
+                case .settingView:
+                    SettingView()
                 default:
                     Text("default")
                 }
@@ -101,7 +103,7 @@ extension WoteTabView {
 
     @ViewBuilder
     private var navigationBar: some View {
-        switch tabScrollHandler.selectedTab {
+        switch selectedTab {
         case .consider, .review:
             HStack(spacing: 0) {
                 voteCategoryButton
@@ -159,7 +161,7 @@ extension WoteTabView {
 
     private var settingButton: some View {
         Button {
-
+            navigationRouter.navigate(.settingView)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)

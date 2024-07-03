@@ -16,6 +16,7 @@ final class MyPageViewModel: ObservableObject {
     var profile: ProfileModel?
     var cacellabels: Set<AnyCancellable> = []
     var total = 0
+
     private var votePage = 0
     private var reviewPage = 0
     private var isVoteLastPage = false

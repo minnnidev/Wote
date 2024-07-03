@@ -409,7 +409,6 @@
 			children = (
 				ABA1E84D2AFE9F9A009051E0 /* MyPageView.swift */,
 				FD9DDB6D2B06F76D006D738A /* MyPageViewModel.swift */,
-				FD70B1F72B01C31D0097B727 /* Setting */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -641,6 +640,7 @@
 				AB637DE42AF184A0004ADB64 /* Search */,
 				AB4D82662ADD7F3700F35CCB /* ProfileSettings */,
 				ABA1E84C2AFE9F88009051E0 /* MyPage */,
+				FD70B1F72B01C31D0097B727 /* Setting */,
 				FD1DEBA92ADC212500588CE6 /* Component */,
 			);
 			path = Screens;

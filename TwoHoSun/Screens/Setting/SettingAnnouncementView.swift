@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingAnnouncementView: View {
+
     var body: some View {
         ZStack {
             Color.background
@@ -45,6 +46,7 @@ struct ExpandableList: View {
 }
 
 extension ExpandableList {
+    
     private var expandableListCell: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {

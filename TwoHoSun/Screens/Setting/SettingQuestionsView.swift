@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-@Observable
-class SettingQuestionsViewModel {
+class SettingQuestionsViewModel: ObservableObject {
     var content = ""
     var isContentValid: Bool {
         guard !content.isEmpty else { return false }
@@ -21,12 +20,15 @@ class SettingQuestionsViewModel {
 }
 
 struct SettingQuestionsView: View {
-    @Bindable var viewModel: SettingQuestionsViewModel
-    @FocusState private var isContentFocused: Bool
     @Environment(\.dismiss) private var dismiss
+
+    @FocusState private var isContentFocused: Bool
+
     @State private var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
+
     @Binding var isSubmited: Bool
-    
+    @ObservedObject var viewModel: SettingQuestionsViewModel
+
     var body: some View {
         ZStack {
             Color.background
