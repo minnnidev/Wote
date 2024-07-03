@@ -13,12 +13,8 @@ final class TypeTestViewModel: ObservableObject {
     @Published var testProgressValue = 1.0
     @Published var succeedPutData = false
     @Published var userType: ConsumerType?
-    private var apiManager: NewApiManager
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
-    init(apiManager: NewApiManager) {
-        self.apiManager = apiManager
-    }
+    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     var questionNumber: Int {
         Int(testProgressValue)
@@ -54,13 +50,7 @@ final class TypeTestViewModel: ObservableObject {
         setUserSpendType()
         var cancellable: AnyCancellable?
         guard let userType = userType else {return}
-        cancellable = apiManager.request(.userService(.putConsumerType(consumertype: userType)), decodingType: NoData.self)
-            .sink { completion in
-                print(completion)
-            } receiveValue: { _ in
-                self.haveConsumerType = true
-                self.succeedPutData.toggle()
-                cancellable?.cancel()
-            }
+
+        // TODO: 소비 성향 등록
     }
 }

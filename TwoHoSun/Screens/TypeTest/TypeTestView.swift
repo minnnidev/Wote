@@ -9,9 +9,10 @@ import SwiftUI
 
 struct TypeTestView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(AppLoginState.self) private var loginState
-    @StateObject var viewModel: TypeTestViewModel
+
     @State var successSpendType = false
+
+    @StateObject var viewModel = TypeTestViewModel()
 
     var body: some View {
         ZStack {
@@ -38,9 +39,6 @@ struct TypeTestView: View {
                 Spacer(minLength: 30)
             }
             .padding(.horizontal, 16)
-        }
-        .onDisappear {
-            loginState.serviceRoot.memberManager.fetchProfile()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
