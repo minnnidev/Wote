@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TypeTestResultView: View {
-    var spendType: ConsumerType
     @Environment(\.dismiss) private var dismiss
-    @Environment(AppLoginState.self) private var loginStateManager
+
+    var spendType: ConsumerType
 
     var body: some View {
         ZStack {
@@ -49,9 +49,6 @@ struct TypeTestResultView: View {
             .padding(.horizontal, 24)
         }
         .toolbar(.hidden, for: .navigationBar)
-        .onDisappear {
-            loginStateManager.serviceRoot.memberManager.fetchProfile()
-        }
     }
 }
 
@@ -59,11 +56,11 @@ extension TypeTestResultView {
 
     private var pushToHomeButton: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.makeVoteView)
+            // TODO: 투표 만들기로 이동
             var transaction = Transaction()
             transaction.disablesAnimations = true
             withTransaction(transaction) {
-                loginStateManager.serviceRoot.navigationManager.countDeque(count: 2)
+                // TODO: navigation 2개 dequeue
             }
         } label: {
             Text("소비 고민 등록하러 가기")
@@ -78,7 +75,7 @@ extension TypeTestResultView {
 
     private var dismissButton: some View {
         Button(action: {
-            loginStateManager.serviceRoot.navigationManager.countPop(count: 2)
+            // TODO: navigation dismiss
         }, label: {
             HStack(spacing: 7) {
                 Image(systemName: "xmark")

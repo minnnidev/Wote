@@ -77,9 +77,9 @@ enum SettingType {
 struct SettingView: View {
     @State private var isSubmited: Bool = false
     @State private var showLogOut: Bool = false
-    @Environment(AppLoginState.self) private var loginStateManager
-    var viewModel: SettingViewModel
-    
+
+    @StateObject var viewModel = SettingViewModel()
+
     var body: some View {
         ZStack {
             Color.background
@@ -90,7 +90,7 @@ struct SettingView: View {
                         SettingNotificationView()
                     }
                     settingLinkView(.block) {
-                        SettingBlockView(viewModel: SettingViewModel(loginStateManager: loginStateManager))
+                        SettingBlockView(viewModel: viewModel)
                     }
                 }
                 settingSectionView {
@@ -98,10 +98,10 @@ struct SettingView: View {
                         SettingAnnouncementView()
                     }
                     settingLinkView(.questions) {
-                        SettingQuestionsView(viewModel: SettingQuestionsViewModel(), isSubmited: $isSubmited)
+                        SettingQuestionsView(isSubmited: $isSubmited, viewModel: SettingQuestionsViewModel())
                     }
                     settingLinkView(.terms) {
-                        SettingTermsView(viewModel: SettingViewModel(loginStateManager: loginStateManager))
+                        SettingTermsView(viewModel: viewModel)
                     }
                     appVersionView
                 }

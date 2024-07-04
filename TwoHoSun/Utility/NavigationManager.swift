@@ -25,13 +25,13 @@ enum AllNavigation: Decodable, Hashable {
                           reviewId: Int?,
                           directComments: Bool = false,
                           isShowingItems: Bool = true)
-    case reviewWriteView(post: SummaryPostModel)
+    case reviewWriteView
     case profileSettingView(type: ProfileSettingType)
 }
 
-@Observable
-final class NavigationManager {
-    var navigatePath = [AllNavigation]()
+
+final class NavigationManager: ObservableObject {
+    @Published var navigatePath = [AllNavigation]()
 
     func navigate(_ route: AllNavigation) {
         guard !navigatePath.contains(route) else {

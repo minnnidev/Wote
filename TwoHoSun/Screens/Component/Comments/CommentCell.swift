@@ -6,19 +6,20 @@
 //
 
 import SwiftUI
+
 struct CommentCell: View {
     enum UserCommentType {
         case normal, banned, deletedUser
     }
 
+    @State private var isOpenComment: Bool = false
+    @State private var isExpended = false
+    @State private var canExpended: Bool?
+
     let comment: CommentsModel
     var onReplyButtonTapped: () -> Void
     var onConfirmDiaog: (Bool, Int) -> Void
     var childComments: [CommentsModel]?
-    @State private var isOpenComment: Bool = false
-    @State private var isExpended = false
-    @State private var canExpended: Bool?
-    @Environment(AppLoginState.self) private var loginStateManager
 
     init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
         self.comment = comment

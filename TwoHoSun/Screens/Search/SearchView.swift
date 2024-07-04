@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Environment(AppLoginState.self) private var loginState
     @Environment(\.dismiss) private var dismiss
+
     @State private var searchText = ""
     @State private var hasResult: Bool = false
     @State private var isSearchResultViewShown = false
     @State private var selectedFilterType = PostStatus.active
     @State private var searchTextFieldState = SearchTextFieldState.inactive
-    @FocusState private var isFocused: Bool
-    @StateObject var viewModel: SearchViewModel
     @State private var isOpen = true
+
+    @FocusState private var isFocused: Bool
+
+    @StateObject var viewModel = SearchViewModel()
 
     var body: some View {
         ZStack {
@@ -216,7 +218,7 @@ extension SearchView {
                 LazyVStack {
                     ForEach(Array(viewModel.searchedDatas.enumerated()), id: \.offset) { index, data in
                         Button {
-                            loginState.serviceRoot.navigationManager.navigate(.reviewDetailView(postId: nil, reviewId: data.id))
+                            // TODO: Review Detail로 이동
                         } label: {
                             VoteCardCell(cellType: .standard,
                                          progressType: .closed,
@@ -245,7 +247,7 @@ extension SearchView {
                 LazyVStack {
                     ForEach(Array(viewModel.searchedDatas.enumerated()), id: \.offset) { index, data in
                         Button {
-                            loginState.serviceRoot.navigationManager.navigate(.detailView(postId: data.id))
+                            // TODO: Vote Detail로 이동
                         } label: {
                             VoteCardCell(cellType: .standard,
                                          progressType: .closed,

@@ -8,19 +8,20 @@
 import Combine
 import Foundation
 
-@Observable
-final class ReviewWriteViewModel {
-    var isPurchased: Bool = true
-    var title: String = ""
-    var price: String = ""
-    var content: String = ""
-    var image: Data?
-    var post: SummaryPostModel
-    var isCreatingReview = false
-    var review: ReviewCreateModel?
-    var isCompleted = false
-    private var apiManager: NewApiManager
+final class ReviewWriteViewModel: ObservableObject {
+    @Published var isPurchased: Bool = true
+    @Published var title: String = ""
+    @Published var price: String = ""
+    @Published var content: String = ""
+    @Published var image: Data?
+
+    @Published var isCreatingReview = false
+    @Published var review: ReviewCreateModel?
+    @Published var isCompleted = false
+
     private var cancellable = Set<AnyCancellable>()
+
+
     var isValid: Bool {
         if isPurchased {
             if !title.isEmpty && image != nil {
@@ -36,12 +37,7 @@ final class ReviewWriteViewModel {
             }
         }
     }
-    
-    init(post: SummaryPostModel, apiManager: NewApiManager) {
-        self.post = post
-        self.apiManager = apiManager
-    }
-    
+
     func setReview() {
         review = ReviewCreateModel(title: title,
                                    contents: content.isEmpty ? nil : content,
@@ -54,20 +50,8 @@ final class ReviewWriteViewModel {
         isCreatingReview.toggle()
         setReview()
         guard let review = review else { return isCreatingReview.toggle()}
-        apiManager.request(.postService(.createReview(postId: post.id, review: review)),
-                           decodingType: NoData.self)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print("error: \(error)")
-                }
-            } receiveValue: { _ in
-                self.isCreatingReview.toggle()
-                self.isCompleted = true
-            }
-            .store(in: &cancellable)
+
+        // TODO: 리뷰 등록 API
     }
     
     func clearData(_ state: Bool) {

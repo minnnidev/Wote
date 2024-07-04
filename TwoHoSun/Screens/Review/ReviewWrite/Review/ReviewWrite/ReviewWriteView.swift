@@ -9,9 +9,12 @@ import PhotosUI
 import SwiftUI
 
 struct ReviewWriteView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @FocusState private var isTitleFocused: Bool
     @FocusState private var isPriceFocused: Bool
     @FocusState private var isContentFocused: Bool
+
     @State private var isRegisterButtonDidTap = false
     @State private var croppedImage: UIImage?
     @State private var showPicker: Bool = false
@@ -19,10 +22,9 @@ struct ReviewWriteView: View {
     @State private var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
     @State private var showCropView: Bool = false
     @State private var isMine: Bool = false
-    @Bindable var viewModel: ReviewWriteViewModel
-    @Environment(AppLoginState.self) private var loginState
-    @Environment(\.dismiss) private var dismiss
-    
+
+    @StateObject var viewModel = ReviewWriteViewModel() 
+
     var body: some View {
         ZStack {
             Color.background
@@ -33,7 +35,11 @@ struct ReviewWriteView: View {
                         VStack(spacing: 12) {
                             VoteCardCell(cellType: .simple, 
                                          progressType: .closed,
-                                         data: viewModel.post)
+                                         data: .init(id: 1,
+                                                     createDate: "",
+                                                     modifiedDate: "",
+                                                     postStatus: "CLOSED",
+                                                     title: ""))
                             buySelection
                         }
                         titleView
@@ -92,13 +98,6 @@ struct ReviewWriteView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .frame(height: 52)
-            }
-        }
-        .onChange(of: viewModel.isCompleted) { _, isCompleted in
-            if isCompleted {
-                loginState.appData.postManager.updateVote(postID: viewModel.post.id)
-                NotificationCenter.default.post(name: NSNotification.reviewStateUpdated, object: nil)
-                loginState.serviceRoot.navigationManager.back()
             }
         }
         .onDisappear {

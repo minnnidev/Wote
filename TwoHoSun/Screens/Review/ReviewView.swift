@@ -9,43 +9,37 @@ import SwiftUI
 
 struct ReviewView: View {
     @State private var didFinishSetup = false
-    @Binding var visibilityScope: VisibilityScopeType
     @State private var reviewType = ReviewType.all
-    @Environment(AppLoginState.self) private var loginState
-    @StateObject var viewModel: ReviewTabViewModel
+
+    @Binding var visibilityScope: VisibilityScopeType
+
+    @StateObject var viewModel = ReviewTabViewModel()
 
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
 
-            if !viewModel.isFetching {
-                ScrollView {
-                    sameSpendTypeReviewView(datas: loginState.appData.reviewManager.reviews?.recentReviews,
-                                            consumerType: viewModel.consumerType?.rawValue)
+            ScrollView {
+                sameSpendTypeReviewView()
                     .padding(.top, 24)
                     .padding(.bottom, 20)
                     .padding(.leading, 24)
-                    ScrollViewReader { proxy in
-                        LazyVStack(pinnedViews: .sectionHeaders) {
-                            Section {
-                                reviewListView(for: reviewType)
-                                    .padding(.leading, 16)
-                                    .padding(.trailing, 8)
-                            } header: {
-                                reviewFilterView
-                            }
-                            .id("reviewTypeSection")
+                ScrollViewReader { proxy in
+                    LazyVStack(pinnedViews: .sectionHeaders) {
+                        Section {
+                            reviewListView(for: reviewType)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 8)
+                        } header: {
+                            reviewFilterView
                         }
-                        .onChange(of: reviewType) { _, _ in
-                            proxy.scrollTo("reviewTypeSection", anchor: .top)
-                        }
+                        .id("reviewTypeSection")
+                    }
+                    .onChange(of: reviewType) { _, _ in
+                        proxy.scrollTo("reviewTypeSection", anchor: .top)
                     }
                 }
-            } else {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
-                    .scaleEffect(1.3, anchor: .center)
             }
         }
         .toolbarBackground(Color.background, for: .tabBar)
@@ -79,35 +73,27 @@ struct ReviewView: View {
 extension ReviewView {
 
     @ViewBuilder
-    private func sameSpendTypeReviewView(datas: [SummaryPostModel]?,
-                                         consumerType: String?) -> some View {
-        if let datas = datas, let consumerType = consumerType, !datas.isEmpty {
-            VStack(spacing: 18) {
-                HStack(spacing: 6) {
-                    ConsumerTypeLabel(consumerType: ConsumerType(rawValue: consumerType) ?? .adventurer,
-                                      usage: .standard)
-                    Text("나와 같은 성향의 소비 후기")
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundStyle(.white)
-                    Spacer()
-                }
-                ScrollView(.horizontal) {
-                    HStack(spacing: 10) {
-                        ForEach(datas) { data in
-                            Button {
-                                loginState.serviceRoot.navigationManager.navigate(.reviewDetailView(postId: nil,
-                                                                                                    reviewId: data.id))
-                            } label: {
-                                simpleReviewCell(title: data.title,
-                                                 content: data.contents,
-                                                 isPurchased: data.isPurchased)
-                            }
-                        }
+    private func sameSpendTypeReviewView() -> some View {
+        VStack(spacing: 18) {
+            HStack(spacing: 6) {
+                ConsumerTypeLabel(consumerType: .adventurer,
+                                  usage: .standard)
+                Text("나와 같은 성향의 소비 후기")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundStyle(.white)
+                Spacer()
+            }
+            ScrollView(.horizontal) {
+                HStack(spacing: 10) {
+                    Button {
+
+                    } label: {
+                        // TODO: Simple Review Cells
                     }
                 }
-                .scrollIndicators(.hidden)
             }
         }
+        .scrollIndicators(.hidden)
     }
 
     private func simpleReviewCell(title: String,
@@ -154,22 +140,15 @@ extension ReviewView {
 
     @ViewBuilder
     private func reviewListView(for filter: ReviewType) -> some View {
-        let datas = switch filter {
-                    case .all:
-                       loginState.appData.reviewManager.allReviews
-                    case .purchased:
-                       loginState.appData.reviewManager.purchasedReviews
-                    case .notPurchased:
-                       loginState.appData.reviewManager.notPurchasedReviews
-                   }
+        let datas: [SummaryPostModel] = []
+
         if datas.isEmpty {
             NoReviewView()
                 .padding(.top, 70)
         } else {
             ForEach(Array(zip(datas.indices, datas)), id: \.0) { index, data in
                 Button {
-                    loginState.serviceRoot.navigationManager.navigate(.reviewDetailView(postId: nil,
-                                                                                        reviewId: data.id))
+                    // TODO: Review deail
                 } label: {
                     VStack(spacing: 6) {
                         Divider()

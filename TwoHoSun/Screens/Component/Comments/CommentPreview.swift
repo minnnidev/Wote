@@ -58,8 +58,7 @@ extension CommentPreview {
                ProfileImageView(imageURL: previewImage)
                    .frame(width: 24, height: 24)
            } else {
-               ProfileImageView(imageURL: loginStateManager.serviceRoot.memberManager.profile?.profileImage)
-                   .frame(width: 24, height: 24)
+               //  TODO: Profile Image 가져오기
            }
        }
 

@@ -10,10 +10,13 @@ import SwiftUI
 import Kingfisher
 
 struct VoteContentCell: View {
-    @Environment(AppLoginState.self) private var loginState
+    @EnvironmentObject var navigationRouter: NavigationManager
+
     @State private var isButtonTapped = false
     @State private var isAlertShown = false
+
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
+
     var viewModel: ConsiderationViewModel
     var data: PostModel
     var index: Int
@@ -100,7 +103,8 @@ extension VoteContentCell {
 
     private func voteInfoButton(label: String, icon: String) -> some View {
         Button {
-            loginState.serviceRoot.navigationManager.navigate(.detailView(postId: data.id, dirrectComments: true))
+            // TODO: detailView로 이동
+            navigationRouter.navigate(.detailView(postId: data.id))
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: icon)
@@ -116,7 +120,7 @@ extension VoteContentCell {
 
     private var detailResultButton: some View {
         Button {
-            loginState.serviceRoot.navigationManager.navigate(.detailView(postId: data.id))
+            navigationRouter.navigate(.detailView(postId: data.id))
         } label: {
                 Text("상세보기")
                     .font(.system(size: 16, weight: .bold))
@@ -129,7 +133,7 @@ extension VoteContentCell {
 
     private func votePost(choice: Bool) {
         guard haveConsumerType else {
-            loginState.serviceRoot.navigationManager.navigate(.testIntroView)
+            // TODO: 소비 성향 테스트로 이동
             return
         }
 

@@ -64,10 +64,11 @@ struct MyPageView: View {
     @State private var didFinishSetup = false
     @State private var isMyVoteCategoryButtonDidTap = false
     @State private var isMyReviewCategoryButtonDidTap = false
-    @State var viewModel: MyPageViewModel
+
     @Binding var selectedVisibilityScope: VisibilityScopeType
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    @Environment(AppLoginState.self) private var loginStateManager
+
+    @StateObject var viewModel = MyPageViewModel()
 
     var body: some View {
         ScrollView {
@@ -75,11 +76,13 @@ struct MyPageView: View {
                 profileHeaderView
                     .padding(.top, 24)
                     .padding(.bottom, haveConsumerType ? 24 : 0)
+
                 if !haveConsumerType {
                     GoToTypeTestButton()
                         .padding(.horizontal, 24)
                         .padding(.top, 24)
                 }
+
                 ScrollViewReader { proxy in
                     LazyVStack(pinnedViews: .sectionHeaders) {
                         Section {
@@ -132,31 +135,28 @@ extension MyPageView {
 
     private var profileHeaderView: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.profileSettingView(type: .modfiy))
+
         } label: {
             HStack(spacing: 14) {
-                if let image = loginStateManager.serviceRoot.memberManager.profile?.profileImage {
-                    ProfileImageView(imageURL: image)
-                        .frame(width: 103, height: 103)
-                } else {
-                    Image("defaultProfile")
-                        .resizable()
-                        .frame(width: 103, height: 103)
-                }
+                Image("defaultProfile")
+                    .resizable()
+                    .frame(width: 103, height: 103)
+
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 0) {
-                        Text(loginStateManager.serviceRoot.memberManager.profile?.nickname ?? "")
+                        Text("")
                             .font(.system(size: 20, weight: .medium))
                             .padding(.trailing, 12)
-                        if let consumerType = loginStateManager.serviceRoot.memberManager.profile?.consumerType {
-                            ConsumerTypeLabel(consumerType: consumerType, usage: .standard)
-                        }
+
+                        ConsumerTypeLabel(consumerType: .adventurer, usage: .standard)
+
                         Spacer()
+
                         Image(systemName: "chevron.right")
                             .font(.system(size: 14))
                             .foregroundStyle(Color.subGray1)
                     }
-                    Text(loginStateManager.serviceRoot.memberManager.profile?.school.schoolName ?? "")
+                    Text("")
                         .font(.system(size: 14))
                 }
                 .foregroundStyle(.white)
@@ -242,10 +242,14 @@ extension MyPageView {
     private var myPageListTypeView: some View {
         switch viewModel.selectedMyPageListType {
         case .myVote:
-            let myPosts = loginStateManager.appData.postManager.myPosts
+            let myPosts: [SummaryPostModel] = [.init(id: 1,
+                                                     createDate: "",
+                                                     modifiedDate: "",
+                                                     postStatus: "CLOSED",
+                                                     title: "투표 테스트")]
             ForEach(Array(zip(myPosts.indices, myPosts)), id: \.0) { index, post in
                 Button {
-                    loginStateManager.serviceRoot.navigationManager.navigate(.detailView(postId: post.id))
+
                 } label: {
                     VStack(spacing: 0) {
                         VoteCardCell(cellType: .myVote,
@@ -263,12 +267,17 @@ extension MyPageView {
                 }
             }
             .padding(.horizontal, 8)
+
         case .myReview:
-            let myReviews = loginStateManager.appData.reviewManager.myReviews
+            let myReviews: [SummaryPostModel] = [.init(id: 2,
+                                                       createDate: "",
+                                                       modifiedDate: "",
+                                                       postStatus: "CLOSED",
+                                                       title: "후기 테스트")]
+
             ForEach(Array(zip(myReviews.indices, myReviews)), id: \.0) { index, data in
                 Button {
-                    loginStateManager.serviceRoot.navigationManager.navigate(.reviewDetailView(postId: nil,
-                                                                                               reviewId: data.id))
+
                 } label: {
                     VStack(spacing: 0) {
                         ReviewCardCell(cellType: .myReview,

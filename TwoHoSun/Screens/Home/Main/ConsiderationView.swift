@@ -9,13 +9,17 @@ import SwiftUI
 
 struct ConsiderationView: View {
     @State private var didFinishSetup = false
+    @State private var isRefreshing = false
+    @State var isPostCreated = false
+
     @Binding var visibilityScope: VisibilityScopeType
     @Binding var scrollToTop: Bool
-    @Environment(AppLoginState.self) private var loginState
-    @State private var isRefreshing = false
-    @StateObject var viewModel: ConsiderationViewModel
+
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    @State var isPostCreated = false
+
+    @StateObject var viewModel = ConsiderationViewModel()
+
+    @EnvironmentObject var navigationRouter: NavigationManager
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -23,25 +27,7 @@ struct ConsiderationView: View {
                 .ignoresSafeArea()
             VStack(spacing: 0) {
                 Spacer()
-                if !viewModel.isLoading {
-                    if loginState.appData.postManager.posts.isEmpty {
-                        NoVoteView(selectedVisibilityScope: $visibilityScope)
-                    } else {
-                        votePagingView
-                    }
-                } else {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
-                                .scaleEffect(1.3, anchor: .center)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                }
+                votePagingView
                 Spacer()
             }
             createVoteButton
@@ -56,22 +42,6 @@ struct ConsiderationView: View {
                 viewModel.currentVote = 0
             }
         }
-        .onAppear {
-            if !didFinishSetup {
-                viewModel.fetchPosts(visibilityScope: visibilityScope)
-                didFinishSetup = true
-            }
-        }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(NSNotification.voteStateUpdated)
-            NotificationCenter.default.removeObserver(NSNotification.userBlockStateUpdated)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.voteStateUpdated)) { _ in
-            viewModel.fetchPosts(visibilityScope: visibilityScope)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.userBlockStateUpdated)) { _ in
-            viewModel.fetchPosts(visibilityScope: visibilityScope)
-        }
         .errorAlert(error: $viewModel.error) {
             viewModel.fetchPosts(visibilityScope: visibilityScope)
         }
@@ -82,24 +52,15 @@ extension ConsiderationView {
 
     private var votePagingView: some View {
         GeometryReader { proxy in
-            let datas = loginState.appData.postManager.posts
             TabView(selection: $viewModel.currentVote) {
-                ForEach(Array(zip(datas.indices,
-                                  datas)), id: \.0) { index, item in
-                    VStack(spacing: 0) {
-                        VoteContentCell(viewModel: viewModel,
-                                        data: item,
-                                        index: index)
-                        nextVoteButton
-                            .padding(.top, 16)
-                    }
-                    .tag(index)
-                    .onAppear {
-                        if (index == datas.count - 2) {
-                            viewModel.fetchMorePosts(visibilityScope)
-                        }
-                    }
+                Group {
+                    VoteContentCell(viewModel: viewModel,
+                                    data: viewModel.posts[0],
+                                    index: 0)
+                    nextVoteButton
+                        .padding(.top, 16)
                 }
+                .tag(0)
                 .rotationEffect(.degrees(-90))
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
@@ -120,6 +81,7 @@ extension ConsiderationView {
                         }
                     }
             )
+
             if isRefreshing {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
@@ -131,10 +93,7 @@ extension ConsiderationView {
 
     private var createVoteButton: some View {
         Button {
-            guard haveConsumerType else {
-                return loginState.serviceRoot.navigationManager.navigate(.testIntroView)
-            }
-            loginState.serviceRoot.navigationManager.navigate(.makeVoteView)
+            navigationRouter.navigate(.makeVoteView)
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")
@@ -165,13 +124,13 @@ extension ConsiderationView {
             Spacer()
             Button {
                 withAnimation {
-                    if viewModel.currentVote != loginState.appData.postManager.posts.count - 1 {
+                    if viewModel.currentVote != viewModel.posts.count - 1 {
                         viewModel.currentVote += 1
                     }
                 }
             } label: {
                 Image("icnCaretDown")
-                    .opacity(viewModel.currentVote != loginState.appData.postManager.posts.count - 1 ? 1 : 0)
+                    .opacity(viewModel.currentVote != viewModel.posts.count - 1 ? 1 : 0)
             }
             Spacer()
         }

@@ -63,7 +63,8 @@ struct SettingTermsView: View {
     @State private var openLink: [TermsType: Bool] = [.first: false, .second: false, .third: false]
     @State private var currentTermsType: TermsType?
     @State private var showWithdrawal: Bool = false
-    var viewModel: SettingViewModel
+
+    @ObservedObject var viewModel: SettingViewModel
     
     var body: some View {
         ZStack {

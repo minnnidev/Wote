@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TypeTestIntroView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(AppLoginState.self) private var loginStateManager
 
     var body: some View {
         ZStack {
@@ -44,7 +43,7 @@ extension TypeTestIntroView {
 
     private var goToTestButton: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.testView)
+            // TODO: Test View로 이동
         } label: {
             Text("소비 성향 테스트하러가기")
                 .font(.system(size: 16, weight: .semibold))

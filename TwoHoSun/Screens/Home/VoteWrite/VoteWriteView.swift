@@ -13,6 +13,7 @@ struct VoteWriteView: View {
     @FocusState private var isPriceFocused: Bool
     @FocusState private var isLinkFocused: Bool
     @FocusState private var isContentFocused: Bool
+
     @State private var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
     @State private var isRegisterButtonDidTap = false
     @State private var croppedImage: UIImage?
@@ -21,12 +22,12 @@ struct VoteWriteView: View {
     @State private var isEditing: Bool = false
     @State private var showCropView: Bool = false
     @State private var isMine: Bool = false
-    @State var viewModel: VoteWriteViewModel
-    @Binding var tabselection: WoteTabType
-    @Environment(AppLoginState.self) private var loginState
 
-    init(viewModel: VoteWriteViewModel, tabselection: Binding<WoteTabType> = Binding.constant(.consider)) {
-        self.viewModel = viewModel
+    @Binding var tabselection: WoteTabType
+
+    @StateObject var viewModel = VoteWriteViewModel()
+
+    init(tabselection: Binding<WoteTabType> = Binding.constant(.consider)) {
         self._tabselection = tabselection
     }
 
@@ -34,6 +35,7 @@ struct VoteWriteView: View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
+            
             VStack {
                 ScrollView {
                     VStack(spacing: 48) {
@@ -97,8 +99,6 @@ struct VoteWriteView: View {
         }
         .onChange(of: viewModel.isPostCreated) { _, isPostCreated in
             if isPostCreated {
-                NotificationCenter.default.post(name: NSNotification.voteStateUpdated, object: nil)
-                loginState.serviceRoot.navigationManager.back()
                 tabselection = .consider
             }
         }
@@ -319,7 +319,6 @@ extension VoteWriteView {
                 .background(viewModel.title != "" ? Color.lightBlue : Color.disableGray)
                 .cornerRadius(10)
         }
-        .disabled(viewModel.isPostToserver)
     }
     
     private func headerLabel(_ title: String, essential: Bool) -> some View {
@@ -337,4 +336,8 @@ extension VoteWriteView {
                                         from: nil,
                                         for: nil)
     }
+}
+
+#Preview {
+    VoteWriteView(tabselection: .constant(.consider))
 }

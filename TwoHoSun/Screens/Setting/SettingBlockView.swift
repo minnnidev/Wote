@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingBlockView: View {
-    var viewModel: SettingViewModel
+    @ObservedObject var viewModel: SettingViewModel
     
     var body: some View {
         ZStack {
