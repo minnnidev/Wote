@@ -83,10 +83,10 @@ extension TypeTestView {
                 .animation(.easeIn, value: viewModel.testProgressValue)
             Text("0\(viewModel.questionNumber)")
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Color.accentBlue)
+                .foregroundColor(Color.accentBlue)
             + Text("/07")
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Color.darkGray)
+                .foregroundColor(Color.darkGray)
         }
     }
 

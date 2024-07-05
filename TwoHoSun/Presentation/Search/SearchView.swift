@@ -91,19 +91,19 @@ extension SearchView {
                       text: $searchText,
                       prompt: Text("원하는 소비항목을 검색해보세요.")
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Color.placeholderGray))
+                .foregroundColor(Color.placeholderGray))
             .focused($isFocused)
             .font(.system(size: 14, weight: .medium))
-            .foregroundStyle(searchTextFieldState.foregroundColor)
+            .foregroundColor(searchTextFieldState.foregroundColor)
             .tint(Color.placeholderGray)
             .frame(height: 32)
             .padding(.leading, 16)
-            .onChange(of: isFocused) { _, isFocused in
-                if isFocused {
-                    searchTextFieldState = .active
-                    viewModel.showEmptyView = false
-                }
-            }
+//            .onChange(of: isFocused) { _, isFocused in
+//                if isFocused {
+//                    searchTextFieldState = .active
+//                    viewModel.showEmptyView = false
+//                }
+//            }
             .onSubmit {
                 searchTextFieldState = .submitted
                 viewModel.fetchSearchedData(keyword: searchText, reset: true, save: searchText.isEmpty ? false : true)
@@ -231,10 +231,10 @@ extension SearchView {
                         }
                     }
                     .id("searchResult")
-                    .onChange(of: viewModel.selectedFilterType) { _, _ in
-                        viewModel.fetchSearchedData(keyword: searchText, reset: true)
-                        proxy.scrollTo("searchResult", anchor: .top)
-                    }
+//                    .onChange(of: viewModel.selectedFilterType) { _, _ in
+//                        viewModel.fetchSearchedData(keyword: searchText, reset: true)
+//                        proxy.scrollTo("searchResult", anchor: .top)
+//                    }
                 }
             }
         }
@@ -260,10 +260,10 @@ extension SearchView {
                         }
                     }
                     .id("searchResult")
-                    .onChange(of: viewModel.selectedFilterType) { _, _ in
-                        viewModel.fetchSearchedData(keyword: searchText, reset: true)
-                        proxy.scrollTo("searchResult", anchor: .top)
-                    }
+//                    .onChange(of: viewModel.selectedFilterType) { _, _ in
+//                        viewModel.fetchSearchedData(keyword: searchText, reset: true)
+//                        proxy.scrollTo("searchResult", anchor: .top)
+//                    }
                 }
             }
         }

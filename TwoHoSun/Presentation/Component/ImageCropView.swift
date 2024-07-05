@@ -27,18 +27,18 @@ struct CustomImagePicker<Content: View>: View {
     var body: some View {
         content
             .photosPicker(isPresented: $show, selection: $photosItem)
-            .onChange(of: photosItem) {
-                if let photosItem {
-                    Task {
-                        if let imageData = try? await photosItem.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
-                            await MainActor.run {
-                                selectedImage = image
-                            }
-                        }
-                    }
-                }
-                showCropView.toggle()
-            }
+//            .onChange(of: photosItem) {
+//                if let photosItem {
+//                    Task {
+//                        if let imageData = try? await photosItem.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+//                            await MainActor.run {
+//                                selectedImage = image
+//                            }
+//                        }
+//                    }
+//                }
+//                showCropView.toggle()
+//            }
             .fullScreenCover(isPresented: $showCropView, content: {
                 CropView(image: selectedImage) { croppedImage, _ in
                     if let croppedImage {
@@ -125,26 +125,26 @@ extension CropView {
                     offset = CGSize(width: translation.width + lastStoredOffset.width, height: translation.height + lastStoredOffset.height)
                 })
         )
-        .gesture(
-            MagnifyGesture()
-                .updating($isInteracting, body: { _, out, _ in
-                    out = true
-                })
-                .onChanged({ value in
-                    let updatedScale = value.magnification + lastScale
-                    scale = (updatedScale < 1 ? 1 : updatedScale)
-                })
-                .onEnded({ _ in
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        if scale < 1 {
-                            scale = 1
-                            lastScale = 0
-                        } else {
-                            lastScale = scale - 1
-                        }
-                    }
-                })
-        )
+//        .gesture(
+//            MagnifyGesture()
+//                .updating($isInteracting, body: { _, out, _ in
+//                    out = true
+//                })
+//                .onChanged({ value in
+//                    let updatedScale = value.magnification + lastScale
+//                    scale = (updatedScale < 1 ? 1 : updatedScale)
+//                })
+//                .onEnded({ _ in
+//                    withAnimation(.easeInOut(duration: 0.3)) {
+//                        if scale < 1 {
+//                            scale = 1
+//                            lastScale = 0
+//                        } else {
+//                            lastScale = scale - 1
+//                        }
+//                    }
+//                })
+//        )
         .frame(CGSize(width: 358, height: 240))
         .clipShape(.rect(cornerRadius: 0))
     }
@@ -157,23 +157,23 @@ extension CropView {
                    GeometryReader { proxy in
                        let rect = proxy.frame(in: .named("CROPVIEW"))
                        Color.clear
-                           .onChange(of: isInteracting) {
-                               withAnimation(.easeInOut(duration: 0.3)) {
-                                   if rect.minX > 0 {
-                                       offset.width = (offset.width - rect.minX)
-                                   }
-                                   if rect.minY > 0 {
-                                       offset.height = (offset.height - rect.minY)
-                                   }
-                                   if rect.maxX < size.width {
-                                       offset.width = (rect.minX - offset.width)
-                                   }
-                                   if rect.maxY < size.height {
-                                       offset.height = (rect.minY - offset.height)
-                                   }
-                               }
-                               lastStoredOffset = offset
-                           }
+//                           .onChange(of: isInteracting) {
+//                               withAnimation(.easeInOut(duration: 0.3)) {
+//                                   if rect.minX > 0 {
+//                                       offset.width = (offset.width - rect.minX)
+//                                   }
+//                                   if rect.minY > 0 {
+//                                       offset.height = (offset.height - rect.minY)
+//                                   }
+//                                   if rect.maxX < size.width {
+//                                       offset.width = (rect.minX - offset.width)
+//                                   }
+//                                   if rect.maxY < size.height {
+//                                       offset.height = (rect.minY - offset.height)
+//                                   }
+//                               }
+//                               lastStoredOffset = offset
+//                           }
                    }
                }
                .frame(size)

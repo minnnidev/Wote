@@ -10,7 +10,6 @@ import SwiftUI
 struct NoVoteView: View {
     @Binding var selectedVisibilityScope: VisibilityScopeType
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    @Environment(AppLoginState.self) private var loginState
 
     var body: some View {
         HStack {
@@ -22,12 +21,7 @@ struct NoVoteView: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, 8)
                 Button {
-                    guard haveConsumerType else {
-                        loginState.serviceRoot.navigationManager.navigate(.testIntroView)
-                        return
-                    }
-
-                    loginState.serviceRoot.navigationManager.navigate(.makeVoteView)
+                    // TODO: - 테스트하지 않았다면 테스트로, 했다면 투표 등록으로 이동
                 } label: {
                     Text("고민 등록하러 가기")
                         .font(.system(size: 16, weight: .semibold))

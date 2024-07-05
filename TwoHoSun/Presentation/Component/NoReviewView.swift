@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NoReviewView: View {
-    @Environment(AppLoginState.self) private var loginState
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     var body: some View {
@@ -20,12 +19,7 @@ struct NoReviewView: View {
                 .foregroundStyle(Color.subGray1)
                 .multilineTextAlignment(.center) 
             Button {
-                guard haveConsumerType else {
-                    loginState.serviceRoot.navigationManager.navigate(.testIntroView)
-                    return
-                }
-
-                loginState.serviceRoot.navigationManager.navigate(.makeVoteView)
+                // TODO: - 테스트하지 않았다면 테스트로, 했다면 투표 등록으로 이동
             } label: {
                 Text("고민 등록하러 가기")
                     .font(.system(size: 16, weight: .semibold))

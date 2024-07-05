@@ -143,9 +143,9 @@ extension CommentsView {
                         .onAppear {
                             lastCommentClick = true
                         }
-                    .onChange(of: scrollSpot) { _, _ in
-                        proxy.scrollTo(scrollSpot, anchor: .top)
-                    }
+//                    .onChange(of: scrollSpot) { _, _ in
+//                        proxy.scrollTo(scrollSpot, anchor: .top)
+//                    }
                     .padding(.bottom, isFocus && lastCommentClick ? 20 : 0)
                 }
             }
@@ -160,7 +160,7 @@ extension CommentsView {
                 .frame(width: 32, height: 32)
             withAnimation(.easeInOut) {
                 TextField("", text: $viewModel.comments, prompt: Text("소비고민을 함께 나누어 보세요")
-                    .foregroundStyle(viewModel.comments.isEmpty ? Color.subGray1 :Color.white)
+                    .foregroundColor(viewModel.comments.isEmpty ? Color.subGray1 :Color.white)
                     .font(.system(size: 14)) ,axis: .vertical)
                 .font(.system(size: 14))
                 .foregroundStyle(Color.white)

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CommentPreview: View {
-    @Environment(AppLoginState.self) private var loginStateManager
     var previewComment: String?
     var commentCount: Int?
     var commentPreviewImage: String?

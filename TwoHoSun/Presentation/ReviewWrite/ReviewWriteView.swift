@@ -161,7 +161,7 @@ extension ReviewWriteView {
                           prompt:
                             Text("예) 아이폰, 맥북 에어 사고싶은데")
                     .font(.system(size: 14))
-                    .foregroundStyle(Color.placeholderGray)
+                    .foregroundColor(Color.placeholderGray)
                 )
                 .font(.system(size: 14))
                 .focused($isTitleFocused)
@@ -199,7 +199,7 @@ extension ReviewWriteView {
                           text: $viewModel.price,
                           prompt: Text("예) 200,000")
                     .font(.system(size: 14))
-                    .foregroundStyle(Color.placeholderGray)
+                    .foregroundColor(Color.placeholderGray)
                 )
                 .focused($isPriceFocused)
                 .font(.system(size: 14))
@@ -267,13 +267,13 @@ extension ReviewWriteView {
             }
         }
         .cropImagePicker(show: $showPicker, showCropView: $showCropView, croppedImage: $croppedImage)
-        .onChange(of: croppedImage ) { _, newValue in
-            if let newValue = newValue {
-                if let imageData = newValue.jpegData(compressionQuality: 1.0) {
-                    viewModel.image = imageData
-                }
-            }
-        }
+//        .onChange(of: croppedImage ) { _, newValue in
+//            if let newValue = newValue {
+//                if let imageData = newValue.jpegData(compressionQuality: 1.0) {
+//                    viewModel.image = imageData
+//                }
+//            }
+//        }
     }
     
     private var contentView: some View {
@@ -322,10 +322,10 @@ extension ReviewWriteView {
     private var contentTextCountView: some View {
         Text("\(viewModel.content.count) ")
             .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(Color.subGray1)
+            .foregroundColor(Color.subGray1)
         + Text("/ 150")
             .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(.white)
+            .foregroundColor(.white)
     }
     
     private var reviewRegisterButton: some View {
@@ -349,10 +349,10 @@ extension ReviewWriteView {
     private func headerLabel(_ title: String, essential: Bool) -> some View {
         Text(title)
             .font(.system(size: 16, weight: .medium))
-            .foregroundStyle(.white)
+            .foregroundColor(.white)
         + Text(essential ? "(필수)" : "(선택)")
             .font(.system(size: 12, weight: essential ? .semibold : .medium))
-            .foregroundStyle(essential ? .red : Color.subGray3)
+            .foregroundColor(essential ? .red : Color.subGray3)
     }
     
     private func dismissKeyboard() {

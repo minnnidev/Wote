@@ -99,7 +99,6 @@ struct ProfileSettingsView: View {
 
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
     @Environment(\.dismiss) private var dismiss
-    @Environment(AppLoginState.self) private var loginStateManager
     @FocusState var focusState: Bool
 
     var body: some View {
@@ -112,46 +111,19 @@ struct ProfileSettingsView: View {
                     titleLabel
                         .padding(.top, 40)
                 case .modfiy:
-                    if let consumerType = loginStateManager.serviceRoot.memberManager.profile?.consumerType {
-                        HStack {
-                            ConsumerTypeLabel(consumerType: consumerType, usage: .standard)
-                            Spacer()
-                        }
-                        .padding(.top, 30)
-                    }
+                    Spacer()
+                    profileImageView
+                    Spacer()
+                    nicknameInputView
+                        .padding(.bottom, 34)
+                    schoolInputView
                 }
                 Spacer()
-                profileImageView
-                    .onAppear {
-                        if let image = loginStateManager.serviceRoot.memberManager.profile?.profileImage {
-                            originalImage = image
-                        }
-                    }
-                Spacer()
-                nicknameInputView
-                    .padding(.bottom, 34)
-                schoolInputView
-                    .onAppear {
-                        if let school = loginStateManager.serviceRoot.memberManager.profile?.school {
-                            if viewModel.selectedSchoolInfo == nil {
-                                viewModel.selectedSchoolInfo = SchoolInfoModel(school: school, schoolAddress: nil)
-                            }
-                            viewModel.firstSchool = SchoolInfoModel(school: school, schoolAddress: nil)
-                        }
-                        if let lastSchoolRegisterDate = loginStateManager.serviceRoot.memberManager.profile?.lastSchoolRegisterDate {
-                            isRestricted = viewModel.checkSchoolRegisterDate(lastSchoolRegisterDate)
-                        }
-                        
-                    }
-                Spacer()
+
                 switch viewType {
                 case .setting:
                     nextButton
                 case .modfiy:
-                    if haveConsumerType && loginStateManager.serviceRoot.memberManager.profile?.canUpdateConsumerType ?? false {
-                        goToTypeTestButton
-                            .padding(.bottom, 12)
-                    }
                     completeButton
                 }
             }
@@ -175,16 +147,16 @@ struct ProfileSettingsView: View {
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
-        .onChange(of: selectedPhoto) { _, newValue in
-            PHPhotoLibrary.requestAuthorization { status in
-                guard status == .authorized else { return }
-                Task {
-                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
-                        viewModel.selectedImageData = data
-                    }
-                }
-            }
-        }
+//        .onChange(of: selectedPhoto) { _, newValue in
+//            PHPhotoLibrary.requestAuthorization { status in
+//                guard status == .authorized else { return }
+//                Task {
+//                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
+//                        viewModel.selectedImageData = data
+//                    }
+//                }
+//            }
+//        }
         .customConfirmDialog(isPresented: $isProfileSheetShowed, isMine: .constant(true)) {_ in
             Button {
                 originalImage = nil
@@ -219,18 +191,18 @@ extension ProfileSettingsView {
                     .frame(width: 86, height: 28)
                 Text("설정해")
                     .font(.system(size: 32, weight: .medium))
-                    .foregroundStyle(Color.white)
+                    .foregroundColor(Color.white)
             }
             VStack(alignment: .leading) {
                 Text("프로필")
                     .font(.system(size: 32, weight: .bold))
-                    .foregroundStyle(Color.white) +
+                    .foregroundColor(Color.white) +
                 Text("을")
                     .font(.system(size: 32, weight: .medium))
-                    .foregroundStyle(Color.white)
+                    .foregroundColor(Color.white)
                 Text("주세요.")
                     .font(.system(size: 32, weight: .medium))
-                    .foregroundStyle(Color.white)
+                    .foregroundColor(Color.white)
             }
             Spacer()
         }
@@ -277,16 +249,16 @@ extension ProfileSettingsView {
                      matching: .images,
                      photoLibrary: .shared()) {
             content()
-                .onChange(of: selectedPhoto) { _, newValue in
-                    PHPhotoLibrary.requestAuthorization { status in
-                        guard status == .authorized else { return }
-                        Task {
-                            if let data = try? await newValue?.loadTransferable(type: Data.self) {
-                                viewModel.selectedImageData = data
-                            }
-                        }
-                    }
-                }
+//                .onChange(of: selectedPhoto) { _, newValue in
+//                    PHPhotoLibrary.requestAuthorization { status in
+//                        guard status == .authorized else { return }
+//                        Task {
+//                            if let data = try? await newValue?.loadTransferable(type: Data.self) {
+//                                viewModel.selectedImageData = data
+//                            }
+//                        }
+//                    }
+//                }
         }
     }
 
@@ -299,8 +271,8 @@ extension ProfileSettingsView {
                           text: $viewModel.nickname,
                           prompt: Text(ProfileInputType.nickname.placeholder)
                     .font(.system(size: 12))
-                    .foregroundStyle(Color.placeholderGray))
-                .foregroundStyle(Color.white)
+                    .foregroundColor(Color.placeholderGray))
+                .foregroundColor(Color.white)
                 .font(.system(size: 14))
                 .frame(height: 44)
                 .padding(EdgeInsets(top: 0, leading: 17, bottom: 0, trailing: 0))
@@ -317,14 +289,14 @@ extension ProfileSettingsView {
                     }
                 }
                 .onAppear {
-                    if let nickname = loginStateManager.serviceRoot.memberManager.profile?.nickname {
-                        viewModel.nickname = nickname
-                        viewModel.firstNickname = nickname
-                    }
+//                    if let nickname = loginStateManager.serviceRoot.memberManager.profile?.nickname {
+//                        viewModel.nickname = nickname
+//                        viewModel.firstNickname = nickname
+//                    }
                 }
-                .onChange(of: viewModel.nickname) { _, newValue in
-                    viewModel.checkNicknameValidation(newValue)
-                }
+//                .onChange(of: viewModel.nickname) { _, newValue in
+//                    viewModel.checkNicknameValidation(newValue)
+//                }
                 checkDuplicatedIdButton
             }
             nicknameValidationAlertMessage(for: viewModel.nicknameValidationType)
@@ -456,7 +428,7 @@ extension ProfileSettingsView {
 
     private var goToTypeTestButton: some View {
         Button {
-            loginStateManager.serviceRoot.navigationManager.navigate(.testIntroView)
+            // TODO: 소비 성향 테스트하기
         } label: {
             HStack(spacing: 0) {
                 Text("소비 성향 테스트하러가기")

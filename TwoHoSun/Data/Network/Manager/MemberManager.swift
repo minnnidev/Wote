@@ -8,7 +8,6 @@
 import Combine
 import SwiftUI
 
-@Observable
 final class MemberManager: NewApiManager {
     var profile: ProfileModel?
     var cancellables: Set<AnyCancellable> = []

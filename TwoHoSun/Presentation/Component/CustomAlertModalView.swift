@@ -114,23 +114,24 @@ struct CustomAlertModalView: View {
             VStack {
                 Text(titleText)
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.white)
+                    .foregroundColor(.white)
                 + Text(alertType.title)
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.red)
+                    .foregroundColor(.red)
                 + Text("하시겠어요?")
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.white)
+                    .foregroundColor(.white)
                 Text(alertType.subDescription)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(.white)
+                    .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.top, 3)
                     .padding(.bottom, alertType.optionalDescription.isEmpty ? 18 : 4)
+
                 if(!alertType.optionalDescription.isEmpty) {
                     Text(alertType.optionalDescription)
                         .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(Color.darkGray)
+                        .foregroundColor(Color.darkGray)
                         .padding(.bottom, 8)
                 }
                 HStack {
@@ -138,7 +139,7 @@ struct CustomAlertModalView: View {
                         leftButtonAction()
                     } label: {
                         Text(alertType.leftButtonLabel)
-                            .foregroundStyle(.white)
+                            .foregroundColor(.white)
                             .font(.system(size: 16, weight: .semibold))
                             .frame(width: 136, height: 41)
                     }

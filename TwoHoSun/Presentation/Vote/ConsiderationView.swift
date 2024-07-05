@@ -34,14 +34,14 @@ struct ConsiderationView: View {
                 .padding(.bottom, 21)
                 .padding(.trailing, 24)
         }
-        .onChange(of: visibilityScope) { _, newScope in
-            viewModel.fetchPosts(visibilityScope: newScope)
-        }
-        .onChange(of: scrollToTop) { _, _ in
-            withAnimation {
-                viewModel.currentVote = 0
-            }
-        }
+//        .onChange(of: visibilityScope) { _, newScope in
+//            viewModel.fetchPosts(visibilityScope: newScope)
+//        }
+//        .onChange(of: scrollToTop) { _, _ in
+//            withAnimation {
+//                viewModel.currentVote = 0
+//            }
+//        }
         .errorAlert(error: $viewModel.error) {
             viewModel.fetchPosts(visibilityScope: visibilityScope)
         }

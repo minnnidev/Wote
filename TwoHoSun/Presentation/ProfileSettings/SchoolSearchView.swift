@@ -46,7 +46,7 @@ extension SchoolSearchView {
                   text: $searchWord,
                   prompt: Text("학교명 검색")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(textFieldState.placeholderColor))
+                            .foregroundColor(textFieldState.placeholderColor))
             .focused($isFocused)
             .font(.system(size: 16, weight: .medium))
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
@@ -59,11 +59,11 @@ extension SchoolSearchView {
                     try await viewModel.setSchoolData(searchWord: searchWord)
                 }
             }
-            .onChange(of: isFocused) { _, isFocused in
-                if isFocused {
-                    textFieldState = .active
-                }
-            }
+//            .onChange(of: isFocused) { _, isFocused in
+//                if isFocused {
+//                    textFieldState = .active
+//                }
+//            }
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay {
                 if textFieldState == .active {

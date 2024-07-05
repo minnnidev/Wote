@@ -67,14 +67,6 @@ struct DetailHeaderView: View {
         switch PostStatus(rawValue: data.post.postStatus) {
         case .active:
             activeVoteHeaderView(author: data.post.author, isMine: data.post.isMine)
-                .onChange(of: alertOn) { _, newValue in
-                    guard !newValue else {
-                        viewModel.subscribeReview(postId: data.post.id)
-                        return
-                    }
-
-                    viewModel.deleteSubscribeReview(postId: data.post.id)
-                }
         case .closed:
             if let isMine = data.post.isMine,
                 let hasReview = data.post.hasReview {

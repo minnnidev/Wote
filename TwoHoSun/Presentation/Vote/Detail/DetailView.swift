@@ -184,7 +184,7 @@ struct DetailView: View {
             CommentsView(showComplaint: $showCustomAlert,
                          applyComplaint: $applyComplaint)
             .presentationDetents([.large,.fraction(0.9)])
-            .presentationContentInteraction(.scrolls)
+
         }
         .customConfirmDialog(isPresented: $showconfirm, isMine: $viewModel.isMine) { _ in
             if viewModel.isMine {

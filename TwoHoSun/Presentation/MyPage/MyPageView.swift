@@ -92,12 +92,12 @@ struct MyPageView: View {
                         }
                         .id("myPageList")
                     }
-                    .onChange(of: viewModel.selectedMyPageListType) { _, _ in
-                        isMyVoteCategoryButtonDidTap = false
-                        isMyReviewCategoryButtonDidTap = false
-                        proxy.scrollTo("myPageList", anchor: .top)
-                        viewModel.fetchPosts()
-                    }
+//                    .onChange(of: viewModel.selectedMyPageListType) { _, _ in
+//                        isMyVoteCategoryButtonDidTap = false
+//                        isMyReviewCategoryButtonDidTap = false
+//                        proxy.scrollTo("myPageList", anchor: .top)
+//                        viewModel.fetchPosts()
+//                    }
                 }
             }
         }
@@ -113,12 +113,12 @@ struct MyPageView: View {
         .onTapGesture {
             isMyVoteCategoryButtonDidTap = false
         }
-        .onChange(of: viewModel.selectedMyVoteCategoryType) { _, _ in
-            viewModel.fetchPosts()
-        }
-        .onChange(of: viewModel.selectedMyReviewCategoryType) { _, _ in
-            viewModel.fetchPosts()
-        }
+//        .onChange(of: viewModel.selectedMyVoteCategoryType) { _, _ in
+//            viewModel.fetchPosts()
+//        }
+//        .onChange(of: viewModel.selectedMyReviewCategoryType) { _, _ in
+//            viewModel.fetchPosts()
+//        }
         .refreshable {
             viewModel.fetchPosts()
         }

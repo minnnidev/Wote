@@ -98,10 +98,10 @@ extension SettingQuestionsView {
     private var contentTextCountView: some View {
         Text("\(viewModel.content.count) ")
             .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(Color.subGray1)
+            .foregroundColor(Color.subGray1)
         + Text("/ 150")
             .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(.white)
+            .foregroundColor(.white)
     }
     
     private var submitButton: some View {

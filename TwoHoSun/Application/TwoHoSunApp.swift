@@ -12,7 +12,7 @@ import Observation
 @main
 struct TwoHoSunApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var appState = AppLoginState()
+    @StateObject private var appState = AppLoginState()
 
     @StateObject private var navigationRouter = NavigationManager()
 
@@ -30,7 +30,7 @@ struct TwoHoSunApp: App {
 //            }
             WoteTabView()
                 .environmentObject(navigationRouter)
-                .environment(appState)
+                .environmentObject(appState)
         }
     }
 
@@ -46,14 +46,12 @@ class ServiceRoot {
     lazy var memberManager = MemberManager(authenticator: auth)
 }
 
-@Observable
-class AppData {
-    var reviewManager = ReviewManager()
-    var postManager = PostManager()
+
+class AppData: ObservableObject {
+
 }
 
-@Observable
-class AppLoginState {
+class AppLoginState: ObservableObject {
     var serviceRoot: ServiceRoot
     var appData: AppData
 

@@ -2,8 +2,7 @@ import Combine
 import SwiftUI
 import Moya
 
-@Observable
-class NewApiManager {
+class NewApiManager: ObservableObject {
     var provider = MoyaProvider<CommonAPIService>()
     var authenticator: Authenticator
 

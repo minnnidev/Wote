@@ -97,11 +97,11 @@ struct VoteWriteView: View {
                 .frame(height: 52)
             }
         }
-        .onChange(of: viewModel.isPostCreated) { _, isPostCreated in
-            if isPostCreated {
-                tabselection = .consider
-            }
-        }
+//        .onChange(of: viewModel.isPostCreated) { _, isPostCreated in
+//            if isPostCreated {
+//                tabselection = .consider
+//            }
+//        }
         .onDisappear {
             NotificationCenter.default.removeObserver(NSNotification.voteStateUpdated)
         }
@@ -119,7 +119,7 @@ extension VoteWriteView {
                           prompt:
                             Text("예) 아이폰, 맥북 에어 사고싶은데")
                     .font(.system(size: 14))
-                    .foregroundStyle(Color.placeholderGray)
+                    .foregroundColor(Color.placeholderGray)
                 )
                 .font(.system(size: 14))
                 .focused($isTitleFocused)
@@ -157,7 +157,7 @@ extension VoteWriteView {
                           text: $viewModel.price,
                           prompt: Text("예) 200,000")
                     .font(.system(size: 14))
-                    .foregroundStyle(Color.placeholderGray)
+                    .foregroundColor(Color.placeholderGray)
                 )
                 .focused($isPriceFocused)
                 .font(.system(size: 14))
@@ -231,7 +231,7 @@ extension VoteWriteView {
                       text: $viewModel.externalURL,
                       prompt: Text("예) 상품 페이지 주소 붙여넣기")
                 .font(.system(size: 14))
-                .foregroundStyle(Color.placeholderGray)
+                .foregroundColor(Color.placeholderGray)
             )
             .font(.system(size: 14))
             .focused($isLinkFocused)
@@ -298,10 +298,10 @@ extension VoteWriteView {
     private var contentTextCountView: some View {
         Text("\(viewModel.content.count) ")
             .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(Color.subGray1)
+            .foregroundColor(Color.subGray1)
         + Text("/ 150")
             .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(.white)
+            .foregroundColor(.white)
     }
     
     private var voteRegisterButton: some View {
@@ -324,10 +324,10 @@ extension VoteWriteView {
     private func headerLabel(_ title: String, essential: Bool) -> some View {
         Text(title)
             .font(.system(size: 16, weight: .medium))
-            .foregroundStyle(.white)
+            .foregroundColor(.white)
         + Text(essential ? "(필수)" : "(선택)")
             .font(.system(size: 12, weight: essential ? .semibold : .medium))
-            .foregroundStyle(essential ? .red : Color.subGray3)
+            .foregroundColor(essential ? .red : Color.subGray3)
     }
     
     private func dismissKeyboard() {

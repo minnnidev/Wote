@@ -9,8 +9,7 @@ import SwiftUI
 
 import Moya
 
-@Observable
-class Authenticator {
+class Authenticator: ObservableObject {
     enum TokenState {
         case none, allexpired, loggedIn, unfinishRegister
     }
