@@ -43,6 +43,7 @@ internal class MoyaPublisher<Output>: Publisher {
         subscriber.receive(subscription: subscription)
     }
 }
+
 public extension MoyaProvider {
     func requestPublisher(_ target: Target, callbackQueue: DispatchQueue? = nil) -> AnyPublisher<Response, MoyaError> {
           return MoyaPublisher { [weak self] subscriber in

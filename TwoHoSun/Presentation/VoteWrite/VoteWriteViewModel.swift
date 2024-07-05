@@ -25,7 +25,6 @@ final class VoteWriteViewModel: ObservableObject {
         return true
     }
 
-    
     func setPost() {
 
     }

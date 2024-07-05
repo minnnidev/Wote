@@ -432,7 +432,6 @@
 			children = (
 				5E5099532AED59DE0053E529 /* AppDelegate.swift */,
 				FD3205672ADD5C0D00B0D5F6 /* TwoHoSunApp.swift */,
-				FDDB990B2ADC1BEC00B1163F /* .swiftlint.yml */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -572,6 +571,7 @@
 			children = (
 				FD32055D2ADD16AC00B0D5F6 /* Info.plist */,
 				FDDB99042ADBF37100B1163F /* TwoHoSun.entitlements */,
+				FDDB990B2ADC1BEC00B1163F /* .swiftlint.yml */,
 				ABFEBD4C2C378D8F00367389 /* Application */,
 				ABFEBD4D2C378FC000367389 /* Dependency */,
 				FD1DEBA82ADC210B00588CE6 /* Presentation */,
@@ -749,7 +749,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					FD132BE92ADBE8FA00F31AAF = {
 						CreatedOnToolsVersion = 15.0;
@@ -916,7 +916,6 @@
 				C7E30E2B2ADC40E4001AE89B /* LoginViewModel.swift in Sources */,
 				C7719FE62AF2861000A520CB /* ConsumerType.swift in Sources */,
 				C7A95F1B2B03EB7B00F8595A /* NavigationManager.swift in Sources */,
-				C7719FE62AF2861000A520CB /* ConsumerType.swift in Sources */,
 				ABA1E8502AFEA3AF009051E0 /* SettingView.swift in Sources */,
 				C7DE44C22AE26109001639CB /* View+.swift in Sources */,
 				C7E459D12ADFF89000ECD008 /* WoteTabView.swift in Sources */,
@@ -952,6 +951,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1015,6 +1015,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

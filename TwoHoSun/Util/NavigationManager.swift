@@ -29,7 +29,6 @@ enum AllNavigation: Decodable, Hashable {
     case profileSettingView(type: ProfileSettingType)
 }
 
-
 final class NavigationManager: ObservableObject {
     @Published var navigatePath = [AllNavigation]()
 

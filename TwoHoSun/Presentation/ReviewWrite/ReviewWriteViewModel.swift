@@ -21,7 +21,6 @@ final class ReviewWriteViewModel: ObservableObject {
 
     private var cancellable = Set<AnyCancellable>()
 
-
     var isValid: Bool {
         if isPurchased {
             if !title.isEmpty && image != nil {
