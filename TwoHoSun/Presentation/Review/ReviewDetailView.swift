@@ -81,7 +81,7 @@ struct ReviewDetailView: View {
                          applyComplaint: $applyComplaint,
                          viewModel: CommentsViewModel(postId: viewModel.reviewId))
             .presentationDetents([.large,.fraction(0.9)])
-            .presentationContentInteraction(.scrolls)
+//            .presentationContentInteraction(.scrolls)
         }
         .onAppear {
             if directComments {

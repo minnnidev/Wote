@@ -36,9 +36,9 @@ struct ReviewView: View {
                         }
                         .id("reviewTypeSection")
                     }
-                    .onChange(of: reviewType) { _, _ in
-                        proxy.scrollTo("reviewTypeSection", anchor: .top)
-                    }
+//                    .onChange(of: reviewType) { _, _ in
+//                        proxy.scrollTo("reviewTypeSection", anchor: .top)
+//                    }
                 }
             }
         }
@@ -47,10 +47,10 @@ struct ReviewView: View {
         .refreshable {
             viewModel.fetchReviews(for: visibilityScope)
         }
-        .onChange(of: visibilityScope) { _, newScope in
-            viewModel.fetchReviews(for: newScope)
-            reviewType = .all
-        }
+//        .onChange(of: visibilityScope) { _, newScope in
+//            viewModel.fetchReviews(for: newScope)
+//            reviewType = .all
+//        }
         .onAppear {
             if !didFinishSetup {
                 viewModel.fetchReviews(for: .global)
