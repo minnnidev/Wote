@@ -6,18 +6,23 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
-import Alamofire
-import Combine
-import Moya
+final class LoginViewModel: ObservableObject {
 
-class LoginViewModel: ObservableObject {
-    var showSheet = false
-    var authorization: String = ""
+    enum Action {
+        case appleLogin(ASAuthorizationAppleIDRequest)
+        case appleLoginHandler(Result<ASAuthorization, Error>)
+    }
 
-    private var bag = Set<AnyCancellable>()
+    @Published var showSheet = false
 
-    func setAuthorizationCode(_ code: String) {
-        self.authorization = code
+    func send(action: Action) {
+        switch action {
+        case let .appleLogin(request):
+            return
+        case let .appleLoginHandler(result):
+            return
+        }
     }
 }

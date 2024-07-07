@@ -11,9 +11,7 @@ import Observation
 
 @main
 struct TwoHoSunApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appState = AppLoginState()
-
     @StateObject private var navigationRouter = NavigationManager()
 
     var body: some Scene {
@@ -28,9 +26,11 @@ struct TwoHoSunApp: App {
 //                    .environment(appState)
 //                    .environmentObject(navigationRouter)
 //            }
-            WoteTabView()
-                .environmentObject(navigationRouter)
-                .environmentObject(appState)
+//            WoteTabView()
+//                .environmentObject(navigationRouter)
+//                .environmentObject(appState)
+
+            OnBoardingView()
         }
     }
 

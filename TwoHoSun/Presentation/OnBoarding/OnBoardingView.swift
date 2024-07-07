@@ -21,6 +21,7 @@ struct OnBoardingView : View {
                     .scaledToFill()
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                     .ignoresSafeArea()
+
                 VStack {
                     HStack {
                         VStack(alignment: .leading, spacing: 26) {
@@ -32,15 +33,21 @@ struct OnBoardingView : View {
                         Spacer()
                     }
                     .padding(.top, 120)
+
                     Spacer()
+
                     Image("onboardingIllust")
+
                     Spacer()
+
                     VStack(spacing: 12) {
                         Text("계속하려면 로그인 하세요")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundStyle(.white)
                             .padding(.bottom, 4)
+
                         appleLoginButton
+
                         hyeprLinkText
                     }
                     .padding(.bottom, 60)
@@ -58,11 +65,15 @@ struct OnBoardingView : View {
 extension OnBoardingView {
 
     private var appleLoginButton: some View {
-        NavigationLink {
-            ProfileSettingsView(viewType: .setting)
-        } label: {
-            Text("Apple Login")
+        SignInWithAppleButton(.signIn) { request in
+            // TODO:
+        } onCompletion: { result in
+            // TODO:
         }
+        .signInWithAppleButtonStyle(.white)
+        .frame(maxWidth: .infinity)
+        .frame(height: 54)
+        .clipShape(RoundedRectangle(cornerRadius: 27))
     }
 
     private var hyeprLinkText: some View {
@@ -75,4 +86,8 @@ extension OnBoardingView {
         .font(.system(size: 12))
         .foregroundStyle(Color.subGray1)
     }
+}
+
+#Preview {
+    OnBoardingView()
 }
