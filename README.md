@@ -9,7 +9,7 @@
 
 ![](https://velog.velcdn.com/images/snack/post/d76069e9-fefb-477d-91e4-9ed5eb029a22/image.jpg)
 
-### 👨‍👩‍👧‍👦 Authors
+## 👨‍👩‍👧‍👦 Authors
 <div>
 
 | [Snack](https://github.com/snacknam) | [Soda](https://github.com/minnnidev) | [Sunday](https://github.com/sunhofficial) | [Woody](https://github.com/migusdn) | [Pin](https://github.com/pingse) | [Sia](https://github.com/hansn777) |
