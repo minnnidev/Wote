@@ -30,6 +30,15 @@ final class LoginViewModel: ObservableObject {
             request.requestedScopes = []
 
         case let .appleLoginHandler(result):
+            switch result {
+            case let .success(authorization):
+                guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
+                print(String(data: credential.authorizationCode!, encoding: .utf8))
+                // cf9ffa856f6e144be88587d9c5bd8027a.0.swzq.IKQRv9pp_U9vqb9bCTYL-g
+
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
             return
         }
     }

@@ -20,6 +20,8 @@
 		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
 		AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507032C3B0484009B0A3C /* AuthRepository.swift */; };
 		AB25070C2C3B063E009B0A3C /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070B2C3B063E009B0A3C /* AuthDataSource.swift */; };
+		AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070E2C3B1178009B0A3C /* Constants.swift */; };
+		AB2507122C3B1288009B0A3C /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507112C3B1288009B0A3C /* KeyChainService.swift */; };
 		AB38A1032B0646F1004153B5 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1022B0646F1004153B5 /* Double+.swift */; };
 		AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */; };
 		AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1062B06AE8B004153B5 /* PostEnums.swift */; };
@@ -156,6 +158,8 @@
 		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
 		AB2507032C3B0484009B0A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		AB25070B2C3B063E009B0A3C /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
+		AB25070E2C3B1178009B0A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AB2507112C3B1288009B0A3C /* KeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		AB38A1022B0646F1004153B5 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressStyle.swift; sourceTree = "<group>"; };
 		AB38A1062B06AE8B004153B5 /* PostEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEnums.swift; sourceTree = "<group>"; };
@@ -343,6 +347,21 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		AB25070D2C3B080B009B0A3C /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		AB2507102C3B127C009B0A3C /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				AB2507112C3B1288009B0A3C /* KeyChainService.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
 		AB4D82662ADD7F3700F35CCB /* ProfileSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +467,8 @@
 			children = (
 				AB8D1E1A2C3B00C200D333AC /* Repository */,
 				AB2507082C3B0562009B0A3C /* DataSource */,
+				AB25070D2C3B080B009B0A3C /* API */,
+				AB2507102C3B127C009B0A3C /* DB */,
 				FD1DEBAC2ADC219D00588CE6 /* Network */,
 			);
 			path = Data;
@@ -474,6 +495,7 @@
 			children = (
 				5E5099532AED59DE0053E529 /* AppDelegate.swift */,
 				FD3205672ADD5C0D00B0D5F6 /* TwoHoSunApp.swift */,
+				AB25070E2C3B1178009B0A3C /* Constants.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -917,6 +939,7 @@
 				AB38A10B2B077DEE004153B5 /* VoteResultView.swift in Sources */,
 				AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */,
 				ABA1E8402AFD5841009051E0 /* ConsiderationView.swift in Sources */,
+				AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */,
 				C7719FE82AF28A7B00A520CB /* ConsumerTypeLabel.swift in Sources */,
 				C721D5BB2B07CA8D00564EE0 /* CommentsViewModel.swift in Sources */,
 				FDDEC15B2AE3EABA004509EA /* SearchView.swift in Sources */,
@@ -967,6 +990,7 @@
 				AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */,
 				AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */,
 				AB38A1032B0646F1004153B5 /* Double+.swift in Sources */,
+				AB2507122C3B1288009B0A3C /* KeyChainService.swift in Sources */,
 				C78E7D012AF6AF4C00C2E220 /* CommentsView.swift in Sources */,
 				AB38A1172B0919C9004153B5 /* ReviewTabModel.swift in Sources */,
 				AB03D7392B0137CC000C927A /* UserService.swift in Sources */,
