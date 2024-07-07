@@ -17,6 +17,9 @@
 		AB03D73D2B0137DD000C927A /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D73C2B0137DD000C927A /* CommentService.swift */; };
 		AB03D7462B020EB2000C927A /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7452B020EB2000C927A /* ImageView.swift */; };
 		AB03D7482B0276F9000C927A /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7472B0276F9000C927A /* ProfileImageView.swift */; };
+		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
+		AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507032C3B0484009B0A3C /* AuthRepository.swift */; };
+		AB25070C2C3B063E009B0A3C /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070B2C3B063E009B0A3C /* AuthDataSource.swift */; };
 		AB38A1032B0646F1004153B5 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1022B0646F1004153B5 /* Double+.swift */; };
 		AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */; };
 		AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1062B06AE8B004153B5 /* PostEnums.swift */; };
@@ -46,6 +49,10 @@
 		AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */; };
 		AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F32AFF897100B272F2 /* NoVoteView.swift */; };
 		AB8770F62AFF8A5E00B272F2 /* NoReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */; };
+		AB8D1E122C3AFCEB00D333AC /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = AB8D1E112C3AFCEB00D333AC /* Swinject */; };
+		AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E132C3AFD4200D333AC /* AppDependency.swift */; };
+		AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */; };
+		AB8D1E1C2C3B010200D333AC /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */; };
 		AB94B1952B0FFF7000CD5A49 /* DetailHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94B1942B0FFF7000CD5A49 /* DetailHeaderViewModel.swift */; };
 		ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E82C2AFD0CD5009051E0 /* VoteContentCell.swift */; };
 		ABA1E83E2AFD57A4009051E0 /* VoteCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E83D2AFD57A4009051E0 /* VoteCardCell.swift */; };
@@ -146,6 +153,9 @@
 		AB03D73C2B0137DD000C927A /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		AB03D7452B020EB2000C927A /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AB03D7472B0276F9000C927A /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
+		AB2507032C3B0484009B0A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		AB25070B2C3B063E009B0A3C /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
 		AB38A1022B0646F1004153B5 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressStyle.swift; sourceTree = "<group>"; };
 		AB38A1062B06AE8B004153B5 /* PostEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEnums.swift; sourceTree = "<group>"; };
@@ -176,6 +186,9 @@
 		AB8770F22AFEDE0900B272F2 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		AB8770F32AFF897100B272F2 /* NoVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVoteView.swift; sourceTree = "<group>"; };
 		AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoReviewView.swift; sourceTree = "<group>"; };
+		AB8D1E132C3AFD4200D333AC /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
+		AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		AB94B1942B0FFF7000CD5A49 /* DetailHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderViewModel.swift; sourceTree = "<group>"; };
 		ABA1E82C2AFD0CD5009051E0 /* VoteContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteContentCell.swift; sourceTree = "<group>"; };
 		ABA1E83D2AFD57A4009051E0 /* VoteCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteCardCell.swift; sourceTree = "<group>"; };
@@ -270,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABB71D642AE26EB100BE0671 /* Kingfisher in Frameworks */,
+				AB8D1E122C3AFCEB00D333AC /* Swinject in Frameworks */,
 				FD3646F52ADD8E2D0064DF94 /* Alamofire in Frameworks */,
 				C782E7142AFCCA57006BCE59 /* Moya in Frameworks */,
 				C782E7122AFCCA57006BCE59 /* CombineMoya in Frameworks */,
@@ -321,6 +335,14 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
+		AB2507082C3B0562009B0A3C /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				AB25070B2C3B063E009B0A3C /* AuthDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		AB4D82662ADD7F3700F35CCB /* ProfileSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +373,38 @@
 				AB6845B52AFC147D00C3F7C2 /* TypeTestViewModel.swift */,
 			);
 			path = TypeTest;
+			sourceTree = "<group>";
+		};
+		AB8D1E152C3AFEB800D333AC /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		AB8D1E182C3B009500D333AC /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		AB8D1E192C3B009B00D333AC /* RepositoryInterface */ = {
+			isa = PBXGroup;
+			children = (
+				AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */,
+			);
+			path = RepositoryInterface;
+			sourceTree = "<group>";
+		};
+		AB8D1E1A2C3B00C200D333AC /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				AB2507032C3B0484009B0A3C /* AuthRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		ABA1E8442AFD5C0B009051E0 /* ReviewWrite */ = {
@@ -392,6 +446,8 @@
 		ABFEBD3D2C378D2400367389 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AB8D1E1A2C3B00C200D333AC /* Repository */,
+				AB2507082C3B0562009B0A3C /* DataSource */,
 				FD1DEBAC2ADC219D00588CE6 /* Network */,
 			);
 			path = Data;
@@ -400,6 +456,8 @@
 		ABFEBD3E2C378D2900367389 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				AB8D1E182C3B009500D333AC /* UseCase */,
+				AB8D1E192C3B009B00D333AC /* RepositoryInterface */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -423,6 +481,8 @@
 		ABFEBD4D2C378FC000367389 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
+				AB8D1E132C3AFD4200D333AC /* AppDependency.swift */,
+				AB8D1E152C3AFEB800D333AC /* Assembly */,
 			);
 			path = Dependency;
 			sourceTree = "<group>";
@@ -729,6 +789,7 @@
 				ABB71D632AE26EB100BE0671 /* Kingfisher */,
 				C782E7112AFCCA57006BCE59 /* CombineMoya */,
 				C782E7132AFCCA57006BCE59 /* Moya */,
+				AB8D1E112C3AFCEB00D333AC /* Swinject */,
 			);
 			productName = TwoHoSun;
 			productReference = FD132BEA2ADBE8FA00F31AAF /* TwoHoSun.app */;
@@ -763,6 +824,7 @@
 				FD3646F32ADD8E2D0064DF94 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				ABB71D622AE26EB100BE0671 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */,
+				AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = FD132BEB2ADBE8FA00F31AAF /* Products */;
 			projectDirPath = "";
@@ -826,6 +888,7 @@
 				ABF0644A2B15177A00C45E73 /* WoteTabHandler.swift in Sources */,
 				AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */,
 				FD7624A02AF954980079AEEF /* GeneralResponse.swift in Sources */,
+				AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */,
 				FD7624A12AF954980079AEEF /* NicknameValidation.swift in Sources */,
 				AB38A10F2B07DF49004153B5 /* InfoButton.swift in Sources */,
 				FD76249E2AF954670079AEEF /* LinkView.swift in Sources */,
@@ -834,6 +897,7 @@
 				ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */,
 				AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */,
 				ABA1E83E2AFD57A4009051E0 /* VoteCardCell.swift in Sources */,
+				AB8D1E1C2C3B010200D333AC /* AuthUseCase.swift in Sources */,
 				AB03D73D2B0137DD000C927A /* CommentService.swift in Sources */,
 				AB03D7462B020EB2000C927A /* ImageView.swift in Sources */,
 				ABB71D6E2AE2754300BE0671 /* PostModel.swift in Sources */,
@@ -851,6 +915,7 @@
 				C73F8E902AE562FE001C6B07 /* Date+.swift in Sources */,
 				FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */,
 				AB38A10B2B077DEE004153B5 /* VoteResultView.swift in Sources */,
+				AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */,
 				ABA1E8402AFD5841009051E0 /* ConsiderationView.swift in Sources */,
 				C7719FE82AF28A7B00A520CB /* ConsumerTypeLabel.swift in Sources */,
 				C721D5BB2B07CA8D00564EE0 /* CommentsViewModel.swift in Sources */,
@@ -879,6 +944,7 @@
 				C782E7642AFED523006BCE59 /* ErrorResponse.swift in Sources */,
 				AB4522562ADDDBC400B69F24 /* SchoolResponseModel.swift in Sources */,
 				C743044D2B16317D0046367E /* UserDefaults.swift in Sources */,
+				AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */,
 				AB8770F62AFF8A5E00B272F2 /* NoReviewView.swift in Sources */,
 				C73F8E8C2AE5527B001C6B07 /* CommonModel.swift in Sources */,
 				ABBFB6322AE3EABD006CE8CA /* VoteCreateRequestModel.swift in Sources */,
@@ -889,6 +955,7 @@
 				FDB4B1502AE68FC000720328 /* DetailView.swift in Sources */,
 				C7A95F132B01FFD600F8595A /* MoyaPublisher.swift in Sources */,
 				ABFEBD632C3795CA00367389 /* ReviewDetailView.swift in Sources */,
+				AB25070C2C3B063E009B0A3C /* AuthDataSource.swift in Sources */,
 				C7F1FD842ADDA2F000C5A2A1 /* OnBoardingView.swift in Sources */,
 				C7DE44BD2AE0DCE7001639CB /* CommentCell.swift in Sources */,
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
@@ -911,6 +978,7 @@
 				C7DE44C22AE26109001639CB /* View+.swift in Sources */,
 				C7E459D12ADFF89000ECD008 /* WoteTabView.swift in Sources */,
 				AB6845B42AFC146C00C3F7C2 /* TypeTestResultView.swift in Sources */,
+				AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */,
 				ABA1E84E2AFE9F9A009051E0 /* MyPageView.swift in Sources */,
 				C768F1A42AE656570020F82C /* ProfileSetting.swift in Sources */,
 				AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */,
@@ -1166,6 +1234,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
 		ABB71D622AE26EB100BE0671 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1193,6 +1269,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AB8D1E112C3AFCEB00D333AC /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
 		ABB71D632AE26EB100BE0671 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ABB71D622AE26EB100BE0671 /* XCRemoteSwiftPackageReference "Kingfisher" */;

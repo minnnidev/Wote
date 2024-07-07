@@ -16,11 +16,19 @@ final class LoginViewModel: ObservableObject {
     }
 
     @Published var showSheet = false
+    
+    private let authUseCase: AuthUseCaseType
+
+    init(authUseCase: AuthUseCaseType) {
+        self.authUseCase = authUseCase
+    }
 
     func send(action: Action) {
         switch action {
+
         case let .appleLogin(request):
-            return
+            request.requestedScopes = []
+
         case let .appleLoginHandler(result):
             return
         }

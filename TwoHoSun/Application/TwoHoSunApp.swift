@@ -12,6 +12,8 @@ import Observation
 @main
 struct TwoHoSunApp: App {
     @StateObject private var appState = AppLoginState()
+    
+    @StateObject private var appDependency = AppDependency()
     @StateObject private var navigationRouter = NavigationManager()
 
     var body: some Scene {
@@ -30,7 +32,8 @@ struct TwoHoSunApp: App {
 //                .environmentObject(navigationRouter)
 //                .environmentObject(appState)
 
-            OnBoardingView()
+            OnBoardingView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
+                .environmentObject(appDependency)
         }
     }
 

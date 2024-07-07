@@ -11,7 +11,8 @@ import Combine
 
 struct OnBoardingView : View {
     @State private var goProfileView = false
-    @StateObject var viewModel = LoginViewModel()
+
+    @StateObject var viewModel: LoginViewModel
 
     var body: some View {
         NavigationStack {
@@ -66,9 +67,9 @@ extension OnBoardingView {
 
     private var appleLoginButton: some View {
         SignInWithAppleButton(.signIn) { request in
-            // TODO:
+            viewModel.send(action: .appleLogin(request))
         } onCompletion: { result in
-            // TODO:
+            viewModel.send(action: .appleLoginHandler(result))
         }
         .signInWithAppleButtonStyle(.white)
         .frame(maxWidth: .infinity)
@@ -89,5 +90,5 @@ extension OnBoardingView {
 }
 
 #Preview {
-    OnBoardingView()
+    OnBoardingView(viewModel: .init(authUseCase: StubAuthUseCase()))
 }
