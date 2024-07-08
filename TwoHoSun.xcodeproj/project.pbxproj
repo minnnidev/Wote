@@ -362,6 +362,31 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		AB2507132C3BF7A7009B0A3C /* Prev */ = {
+			isa = PBXGroup;
+			children = (
+				FDF2D6CD2AE5DAD90027EE8F /* VoteInfoModel.swift */,
+				FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */,
+				FDF2D6CF2AE5E62B0027EE8F /* ChartModel.swift */,
+				AB4522552ADDDBC400B69F24 /* SchoolResponseModel.swift */,
+				FD9DDB6B2B06F746006D738A /* SummaryPostModel.swift */,
+				ABB71D6D2AE2754300BE0671 /* PostModel.swift */,
+				ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */,
+				AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */,
+				AB38A10C2B07D914004153B5 /* PostDetailModel.swift */,
+				AB38A1162B0919C9004153B5 /* ReviewTabModel.swift */,
+				FD84A6952B0A859A00F6EBB7 /* ProfileModel.swift */,
+				C73F8E842AE54F78001C6B07 /* LoginModel */,
+				C73F8E852AE55014001C6B07 /* FeedModel */,
+				C73F8E862AE550E4001C6B07 /* CommonModel */,
+				ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */,
+				FD1B6D452B0BEBC50097F789 /* ReviewCreateModel.swift */,
+				AB6845AC2AFC13FF00C3F7C2 /* TypeTestModel.swift */,
+				C7719FE42AF2769E00A520CB /* EnumType */,
+			);
+			path = Prev;
+			sourceTree = "<group>";
+		};
 		AB4D82662ADD7F3700F35CCB /* ProfileSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -686,24 +711,7 @@
 		FD1DEBA72ADC20EE00588CE6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C7719FE42AF2769E00A520CB /* EnumType */,
-				FDF2D6CD2AE5DAD90027EE8F /* VoteInfoModel.swift */,
-				FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */,
-				FDF2D6CF2AE5E62B0027EE8F /* ChartModel.swift */,
-				AB4522552ADDDBC400B69F24 /* SchoolResponseModel.swift */,
-				FD9DDB6B2B06F746006D738A /* SummaryPostModel.swift */,
-				ABB71D6D2AE2754300BE0671 /* PostModel.swift */,
-				ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */,
-				AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */,
-				AB38A10C2B07D914004153B5 /* PostDetailModel.swift */,
-				AB38A1162B0919C9004153B5 /* ReviewTabModel.swift */,
-				FD84A6952B0A859A00F6EBB7 /* ProfileModel.swift */,
-				C73F8E842AE54F78001C6B07 /* LoginModel */,
-				C73F8E852AE55014001C6B07 /* FeedModel */,
-				C73F8E862AE550E4001C6B07 /* CommonModel */,
-				ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */,
-				FD1B6D452B0BEBC50097F789 /* ReviewCreateModel.swift */,
-				AB6845AC2AFC13FF00C3F7C2 /* TypeTestModel.swift */,
+				AB2507132C3BF7A7009B0A3C /* Prev */,
 			);
 			path = Model;
 			sourceTree = "<group>";
