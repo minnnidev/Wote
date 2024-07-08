@@ -19,10 +19,6 @@ final class AuthAssembly: Assembly {
             AuthUseCase(authRepository: res.resolve(AuthRepositoryType.self)!)
         }
 
-        container.register(AuthRepositoryType.self) { res in
-            AuthRepository(authDataSource: res.resolve(AuthDataSourceType.self)!)
-        }
-
-        container.register(AuthDataSourceType.self) { _ in AuthDataSource() }
+        container.register(AuthRepositoryType.self) { _ in AuthRepository() }
     }
 }

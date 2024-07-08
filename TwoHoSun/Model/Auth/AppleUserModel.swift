@@ -1,18 +1,18 @@
 //
-//  LoginModel.swift
+//  AppleUserModel.swift
 //  TwoHoSun
 //
-//  Created by 235 on 10/16/23.
+//  Created by 김민 on 7/8/24.
 //
 
 import Foundation
 
-struct Users: Codable {
+struct AppleUserModel {
     var consumerTypeExist: Bool?
     var jwtToken : Tokens
 }
 
-struct Tokens: Codable {
+struct Tokens {
     var accessToken: String
     var refreshToken: String
 }

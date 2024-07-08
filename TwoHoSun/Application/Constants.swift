@@ -7,13 +7,13 @@
 
 import Foundation
 
-typealias TokenType = Constants.tokenType
+typealias TokenType = Constants.TokenType
 
 struct Constants { }
 
 extension Constants {
 
-    struct tokenType {
+    struct TokenType {
         static let accessToken = "accessToken"
         static let refreshToken = "refreshToken"
     }

@@ -24,21 +24,21 @@ class NewApiManager: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    func requestLogin(authorization: String) -> AnyPublisher<GeneralResponse<Users>, NetworkError> {
-        return provider
-            .requestPublisher(.userService(
-                .postAuthorCode(authorization: authorization)))
-            .tryMap { response in
-                try self.handleResponse(response, Users.self)
-            }
-            .mapError { error in
-                if let networkError = error as? ErrorResponse {
-                    return NetworkError(divisionCode: networkError.divisionCode)
-                }
-                return NetworkError(divisionCode: "unknown")
-            }
-            .eraseToAnyPublisher()
-    }
+//    func requestLogin(authorization: String) -> AnyPublisher<GeneralResponse<Users>, NetworkError> {
+//        return provider
+//            .requestPublisher(.userService(
+//                .postAuthorCode(authorization: authorization)))
+//            .tryMap { response in
+//                try self.handleResponse(response, Users.self)
+//            }
+//            .mapError { error in
+//                if let networkError = error as? ErrorResponse {
+//                    return NetworkError(divisionCode: networkError.divisionCode)
+//                }
+//                return NetworkError(divisionCode: "unknown")
+//            }
+//            .eraseToAnyPublisher()
+//    }
 
     private func performRequest<T: Decodable>(_ request: CommonAPIService, decodingType: T.Type) -> AnyPublisher<GeneralResponse<T>, NetworkError> {
             return provider

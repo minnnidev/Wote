@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AuthenticationServices
+import Combine
 
 final class LoginViewModel: ObservableObject {
 
@@ -18,6 +19,8 @@ final class LoginViewModel: ObservableObject {
     @Published var showSheet = false
     
     private let authUseCase: AuthUseCaseType
+
+    private var cancellables = Set<AnyCancellable>()
 
     init(authUseCase: AuthUseCaseType) {
         self.authUseCase = authUseCase
@@ -32,9 +35,13 @@ final class LoginViewModel: ObservableObject {
         case let .appleLoginHandler(result):
             switch result {
             case let .success(authorization):
-                guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
-                print(String(data: credential.authorizationCode!, encoding: .utf8))
-                // cf9ffa856f6e144be88587d9c5bd8027a.0.swzq.IKQRv9pp_U9vqb9bCTYL-g
+                authUseCase.loginWithApple(authorization)
+                    .sink { completion in
+                        print(completion)
+                    } receiveValue: { _ in
+                        print("헿")
+                    }
+                    .store(in: &cancellables)
 
             case let .failure(error):
                 print(error.localizedDescription)
