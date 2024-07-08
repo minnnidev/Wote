@@ -10,7 +10,7 @@ import AuthenticationServices
 import Combine
 
 protocol AuthUseCaseType {
-    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, TestError>
+    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, CustomError>
 }
 
 final class AuthUseCase: AuthUseCaseType {
@@ -21,13 +21,11 @@ final class AuthUseCase: AuthUseCaseType {
         self.authRepository = authRepository
     }
 
-    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, TestError> {
+    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, CustomError> {
         let code = getCredential(authorization)
 
-        return authRepository.signIn(code)
-            .map { 
-                print($0)
-            }
+        return authRepository.loginWithApple(code)
+            .map { _ in }
             .eraseToAnyPublisher()
     }
 }
@@ -45,7 +43,7 @@ extension AuthUseCase {
 
 final class StubAuthUseCase: AuthUseCaseType {
 
-    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, TestError> {
+    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, CustomError> {
         Empty()
             .eraseToAnyPublisher()
     }

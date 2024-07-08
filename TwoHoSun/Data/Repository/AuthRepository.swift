@@ -10,32 +10,26 @@ import Combine
 
 import Moya
 
-enum TestError: Error {
-    case error(Error)
-}
+final class AuthRepository: AuthRepositoryType {
 
-final class AuthRepository: AuthRepositoryType, Networkable {
+    private let provider = MoyaProvider<AuthAPI>()
 
-    typealias target = AuthAPI
-
-    private let test = MoyaProvider<AuthAPI>()
-
-    func signIn(_ authorizationCode: String) -> AnyPublisher<Tokens, TestError> {
+    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<Tokens, CustomError> {
         let object: AppleUserRequestObject = .init(code: authorizationCode, state: "APPLE")
 
-        return test.requestPublisher(.loginWithApple(object))
-            .tryMap { try JSONDecoder().decode(APIResponse.self, from: $0.data) }
-            .map(\.data)
+        return provider.requestPublisher(.loginWithApple(object))
+            .tryMap { try JSONDecoder().decode(GeneralResponse<AppleUserResponseObject>.self, from: $0.data) }
+            .compactMap { $0.data }
             .map { $0.jwtToken }
             .map { $0.toToken() }
-            .mapError { TestError.error($0) }
+            .mapError { CustomError.error($0) }
             .eraseToAnyPublisher()
     }
 }
 
 final class StubAuthRepository: AuthRepositoryType {
 
-    func signIn(_ authorizationCode: String) -> AnyPublisher<Tokens, TestError> {
+    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<Tokens, CustomError> {
         Empty()
             .eraseToAnyPublisher()
     }

@@ -21,12 +21,12 @@
 		AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507032C3B0484009B0A3C /* AuthRepository.swift */; };
 		AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070E2C3B1178009B0A3C /* Constants.swift */; };
 		AB2507122C3B1288009B0A3C /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507112C3B1288009B0A3C /* KeyChainService.swift */; };
-		AB2507152C3BF830009B0A3C /* AppleUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507142C3BF830009B0A3C /* AppleUserModel.swift */; };
+		AB2507152C3BF830009B0A3C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507142C3BF830009B0A3C /* UserModel.swift */; };
 		AB2507172C3BF94E009B0A3C /* AppleUserRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507162C3BF94E009B0A3C /* AppleUserRequestObject.swift */; };
 		AB2507192C3BF95D009B0A3C /* AppleUserResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507182C3BF95D009B0A3C /* AppleUserResponseObject.swift */; };
 		AB25071D2C3BFA86009B0A3C /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25071C2C3BFA86009B0A3C /* AuthAPI.swift */; };
 		AB25071F2C3BFD03009B0A3C /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25071E2C3BFD03009B0A3C /* Encodable+.swift */; };
-		AB2507212C3C0DEF009B0A3C /* MoyaProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507202C3C0DEF009B0A3C /* MoyaProviderType.swift */; };
+		AB2507272C3C4616009B0A3C /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507262C3C4616009B0A3C /* CustomError.swift */; };
 		AB38A1032B0646F1004153B5 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1022B0646F1004153B5 /* Double+.swift */; };
 		AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */; };
 		AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1062B06AE8B004153B5 /* PostEnums.swift */; };
@@ -162,12 +162,12 @@
 		AB2507032C3B0484009B0A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		AB25070E2C3B1178009B0A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AB2507112C3B1288009B0A3C /* KeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
-		AB2507142C3BF830009B0A3C /* AppleUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserModel.swift; sourceTree = "<group>"; };
+		AB2507142C3BF830009B0A3C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		AB2507162C3BF94E009B0A3C /* AppleUserRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserRequestObject.swift; sourceTree = "<group>"; };
 		AB2507182C3BF95D009B0A3C /* AppleUserResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserResponseObject.swift; sourceTree = "<group>"; };
 		AB25071C2C3BFA86009B0A3C /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		AB25071E2C3BFD03009B0A3C /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
-		AB2507202C3C0DEF009B0A3C /* MoyaProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderType.swift; sourceTree = "<group>"; };
+		AB2507262C3C4616009B0A3C /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		AB38A1022B0646F1004153B5 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressStyle.swift; sourceTree = "<group>"; };
 		AB38A1062B06AE8B004153B5 /* PostEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEnums.swift; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 		AB25071A2C3BFA64009B0A3C /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				AB2507142C3BF830009B0A3C /* AppleUserModel.swift */,
+				AB2507142C3BF830009B0A3C /* UserModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -406,6 +406,7 @@
 		AB2507222C3C1EED009B0A3C /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				AB2507262C3C4616009B0A3C /* CustomError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -518,7 +519,6 @@
 				AB25070D2C3B080B009B0A3C /* API */,
 				AB2507102C3B127C009B0A3C /* DB */,
 				FD1DEBAC2ADC219D00588CE6 /* Network */,
-				AB2507202C3C0DEF009B0A3C /* MoyaProviderType.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -913,7 +913,7 @@
 				ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */,
 				ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */,
 				C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */,
-				AB2507152C3BF830009B0A3C /* AppleUserModel.swift in Sources */,
+				AB2507152C3BF830009B0A3C /* UserModel.swift in Sources */,
 				ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */,
 				C7EFA7D92AF9279200C9BEA0 /* ComplaintView.swift in Sources */,
 				AB7317EC2AF90F40008B5E41 /* ProfileSettingViewModel.swift in Sources */,
@@ -923,6 +923,7 @@
 				FD7624A02AF954980079AEEF /* GeneralResponse.swift in Sources */,
 				AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */,
 				FD7624A12AF954980079AEEF /* NicknameValidation.swift in Sources */,
+				AB2507272C3C4616009B0A3C /* CustomError.swift in Sources */,
 				AB38A10F2B07DF49004153B5 /* InfoButton.swift in Sources */,
 				FD76249E2AF954670079AEEF /* LinkView.swift in Sources */,
 				AB94B1952B0FFF7000CD5A49 /* DetailHeaderViewModel.swift in Sources */,
@@ -1005,7 +1006,6 @@
 				AB2507122C3B1288009B0A3C /* KeyChainService.swift in Sources */,
 				C78E7D012AF6AF4C00C2E220 /* CommentsView.swift in Sources */,
 				AB38A1172B0919C9004153B5 /* ReviewTabModel.swift in Sources */,
-				AB2507212C3C0DEF009B0A3C /* MoyaProviderType.swift in Sources */,
 				AB03D7392B0137CC000C927A /* UserService.swift in Sources */,
 				AB38A1C52B0BACC7004153B5 /* ConsiderationViewModel.swift in Sources */,
 				C7E30E2B2ADC40E4001AE89B /* LoginViewModel.swift in Sources */,
