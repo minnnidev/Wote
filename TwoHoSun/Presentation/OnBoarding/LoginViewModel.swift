@@ -46,7 +46,6 @@ final class LoginViewModel: ObservableObject {
             case let .failure(error):
                 print(error.localizedDescription)
             }
-            return
         }
     }
 }

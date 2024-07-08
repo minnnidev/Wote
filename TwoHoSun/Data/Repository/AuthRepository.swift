@@ -12,17 +12,19 @@ import Moya
 
 final class AuthRepository: AuthRepositoryType {
 
-    private let provider = MoyaProvider<AuthAPI>()
+    private let authDataSource: AuthDataSourceType
+
+    init(authDataSource: AuthDataSourceType) {
+        self.authDataSource = authDataSource
+    }
+
 
     func loginWithApple(_ authorizationCode: String) -> AnyPublisher<Tokens, CustomError> {
         let object: AppleUserRequestObject = .init(code: authorizationCode, state: "APPLE")
 
-        return provider.requestPublisher(.loginWithApple(object))
-            .tryMap { try JSONDecoder().decode(GeneralResponse<AppleUserResponseObject>.self, from: $0.data) }
-            .compactMap { $0.data }
+        return authDataSource.loginWithApple(object)
             .map { $0.jwtToken }
             .map { $0.toToken() }
-            .mapError { CustomError.error($0) }
             .eraseToAnyPublisher()
     }
 }
