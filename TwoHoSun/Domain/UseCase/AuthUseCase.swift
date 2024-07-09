@@ -25,7 +25,10 @@ final class AuthUseCase: AuthUseCaseType {
         let code = getCredential(authorization)
 
         return authRepository.loginWithApple(code)
-            .map { _ in }
+            .map { token in
+                KeychainManager.shared.save(key: TokenType.accessToken, token: token.accessToken)
+                KeychainManager.shared.save(key: TokenType.refreshToken, token: token.refreshToken)
+            }
             .eraseToAnyPublisher()
     }
 }

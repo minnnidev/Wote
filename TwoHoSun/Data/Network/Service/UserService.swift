@@ -88,8 +88,8 @@ extension UserService: TargetType {
         case .postProfileSetting:
             return [:]
         case .refreshToken:
-            return ["refreshToken": KeychainManager.shared.readToken(key: "refreshToken")!,
-                    "identifier": KeychainManager.shared.readToken(key: "identifier")!]
+            return ["refreshToken": KeychainManager.shared.read(key: "refreshToken")!,
+                    "identifier": KeychainManager.shared.read(key: "identifier")!]
         case .putConsumerType(let consumerType):
             return ["consumerType": consumerType.rawValue]
         case .getProfile:

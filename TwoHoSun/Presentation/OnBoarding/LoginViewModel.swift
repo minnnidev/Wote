@@ -38,8 +38,8 @@ final class LoginViewModel: ObservableObject {
                 authUseCase.loginWithApple(authorization)
                     .sink { completion in
                         print(completion)
-                    } receiveValue: { _ in
-                        print("헿")
+                    } receiveValue: { [weak self] _ in
+                        self?.showSheet = true
                     }
                     .store(in: &cancellables)
 

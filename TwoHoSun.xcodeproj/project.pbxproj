@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E5099542AED59DE0053E529 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5099532AED59DE0053E529 /* AppDelegate.swift */; };
 		5E5099582AFBDC5E0053E529 /* sprite.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5E5099572AFBDC5E0053E529 /* sprite.sks */; };
 		5E5099712AFBE2970053E529 /* CelebrateScean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5099702AFBE2970053E529 /* CelebrateScean.swift */; };
 		5E5099732AFBE3AF0053E529 /* ParticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5099722AFBE3AF0053E529 /* ParticleView.swift */; };
@@ -20,7 +19,6 @@
 		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
 		AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507032C3B0484009B0A3C /* AuthRepository.swift */; };
 		AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070E2C3B1178009B0A3C /* Constants.swift */; };
-		AB2507122C3B1288009B0A3C /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507112C3B1288009B0A3C /* KeyChainService.swift */; };
 		AB2507152C3BF830009B0A3C /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507142C3BF830009B0A3C /* Tokens.swift */; };
 		AB2507172C3BF94E009B0A3C /* AppleUserRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507162C3BF94E009B0A3C /* AppleUserRequestObject.swift */; };
 		AB2507192C3BF95D009B0A3C /* AppleUserResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507182C3BF95D009B0A3C /* AppleUserResponseObject.swift */; };
@@ -149,7 +147,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5E5099532AED59DE0053E529 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E5099572AFBDC5E0053E529 /* sprite.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sprite.sks; sourceTree = "<group>"; };
 		5E5099702AFBE2970053E529 /* CelebrateScean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrateScean.swift; sourceTree = "<group>"; };
 		5E5099722AFBE3AF0053E529 /* ParticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleView.swift; sourceTree = "<group>"; };
@@ -162,7 +159,6 @@
 		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
 		AB2507032C3B0484009B0A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		AB25070E2C3B1178009B0A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		AB2507112C3B1288009B0A3C /* KeyChainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		AB2507142C3BF830009B0A3C /* Tokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		AB2507162C3BF94E009B0A3C /* AppleUserRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserRequestObject.swift; sourceTree = "<group>"; };
 		AB2507182C3BF95D009B0A3C /* AppleUserResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserResponseObject.swift; sourceTree = "<group>"; };
@@ -355,14 +351,6 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		AB2507102C3B127C009B0A3C /* DB */ = {
-			isa = PBXGroup;
-			children = (
-				AB2507112C3B1288009B0A3C /* KeyChainService.swift */,
-			);
-			path = DB;
-			sourceTree = "<group>";
-		};
 		AB2507132C3BF7A7009B0A3C /* Prev */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,7 +516,6 @@
 				AB8D1E1A2C3B00C200D333AC /* Repository */,
 				AB25072A2C3C5375009B0A3C /* DataSource */,
 				AB25070D2C3B080B009B0A3C /* API */,
-				AB2507102C3B127C009B0A3C /* DB */,
 				FD1DEBAC2ADC219D00588CE6 /* Network */,
 			);
 			path = Data;
@@ -554,7 +541,6 @@
 		ABFEBD4C2C378D8F00367389 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				5E5099532AED59DE0053E529 /* AppDelegate.swift */,
 				FD3205672ADD5C0D00B0D5F6 /* TwoHoSunApp.swift */,
 				AB25070E2C3B1178009B0A3C /* Constants.swift */,
 			);
@@ -971,7 +957,6 @@
 				FD50A0482B01EBE000CF7F59 /* SettingNotificationView.swift in Sources */,
 				FD0E8B5A2B0DDCBB002CED68 /* SettingViewModel.swift in Sources */,
 				C7B5A8882B01641A00B73881 /* Authenticator.swift in Sources */,
-				5E5099542AED59DE0053E529 /* AppDelegate.swift in Sources */,
 				AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */,
 				C7A95F172B01FFE600F8595A /* NetworkLoggerPlugin.swift in Sources */,
 				C7A95F152B01FFDC00F8595A /* NetworkError.swift in Sources */,
@@ -1015,7 +1000,6 @@
 				AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */,
 				AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */,
 				AB38A1032B0646F1004153B5 /* Double+.swift in Sources */,
-				AB2507122C3B1288009B0A3C /* KeyChainService.swift in Sources */,
 				C78E7D012AF6AF4C00C2E220 /* CommentsView.swift in Sources */,
 				AB38A1172B0919C9004153B5 /* ReviewTabModel.swift in Sources */,
 				AB03D7392B0137CC000C927A /* UserService.swift in Sources */,
