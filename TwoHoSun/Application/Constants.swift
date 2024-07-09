@@ -8,6 +8,7 @@
 import Foundation
 
 typealias TokenType = Constants.TokenType
+typealias AppStorageKey = Constants.AppStorageKey
 
 struct Constants { }
 
@@ -16,5 +17,9 @@ extension Constants {
     struct TokenType {
         static let accessToken = "accessToken"
         static let refreshToken = "refreshToken"
+    }
+
+    struct AppStorageKey {
+        static let loginState = "loginState"
     }
 }

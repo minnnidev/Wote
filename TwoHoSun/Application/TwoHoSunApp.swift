@@ -15,6 +15,7 @@ struct TwoHoSunApp: App {
     
     @StateObject private var appDependency = AppDependency()
     @StateObject private var navigationRouter = NavigationManager()
+    
 
     var body: some Scene {
         WindowGroup {
@@ -32,8 +33,16 @@ struct TwoHoSunApp: App {
 //                .environmentObject(navigationRouter)
 //                .environmentObject(appState)
 
-            LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
+//            LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
+//                .environmentObject(appDependency)
+
+            OnboardingView()
                 .environmentObject(appDependency)
+                .environmentObject(navigationRouter)
+//                .onAppear {
+//                    KeychainManager.shared.delete(key: TokenType.accessToken)
+//                    KeychainManager.shared.delete(key: TokenType.refreshToken)
+//                }
         }
     }
 
