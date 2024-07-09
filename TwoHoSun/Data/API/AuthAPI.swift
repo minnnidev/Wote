@@ -10,6 +10,7 @@ import Moya
 
 enum AuthAPI {
     case loginWithApple(AppleUserRequestObject)
+    case getNewToken(RefreshTokenRequestObject)
 }
 
 extension AuthAPI: TargetType {
@@ -19,7 +20,12 @@ extension AuthAPI: TargetType {
     }
     
     var path: String {
-        "/login/oauth2/code/apple"
+        switch self {
+        case .loginWithApple(_):
+            "/login/oauth2/code/apple"
+        case .getNewToken(_):
+            "/api/auth/refresh"
+        }
     }
     
     var method: Moya.Method {
@@ -29,11 +35,18 @@ extension AuthAPI: TargetType {
     var task: Moya.Task {
         switch self {
         case let .loginWithApple(requestObject):
-            .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.default)
+                .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.default)
+        case let .getNewToken(requestObject):
+                .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.default)
         }
     }
     
     var headers: [String : String]? {
-        APIConstants.headerXform
+        switch self {
+        case .loginWithApple(_):
+            APIConstants.headerXform
+        case .getNewToken(_):
+            APIConstants.headerWithOutToken
+        }
     }
 }

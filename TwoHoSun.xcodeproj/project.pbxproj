@@ -26,8 +26,12 @@
 		AB25071F2C3BFD03009B0A3C /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25071E2C3BFD03009B0A3C /* Encodable+.swift */; };
 		AB2507272C3C4616009B0A3C /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507262C3C4616009B0A3C /* CustomError.swift */; };
 		AB25072C2C3C5382009B0A3C /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25072B2C3C5382009B0A3C /* AuthDataSource.swift */; };
-		AB2507342C3D3D34009B0A3C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = AB2507332C3D3D34009B0A3C /* Kingfisher */; };
 		AB2507372C3D3E5C009B0A3C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507362C3D3E5C009B0A3C /* OnboardingView.swift */; };
+		AB2507392C3D536B009B0A3C /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507382C3D536B009B0A3C /* AuthInterceptor.swift */; };
+		AB25073F2C3D6048009B0A3C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = AB25073E2C3D6048009B0A3C /* Kingfisher */; };
+		AB2507422C3D604F009B0A3C /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = AB2507412C3D604F009B0A3C /* Swinject */; };
+		AB2507452C3D60D0009B0A3C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = AB2507442C3D60D0009B0A3C /* Moya */; };
+		AB2507472C3D6D25009B0A3C /* RefreshTokenRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507462C3D6D25009B0A3C /* RefreshTokenRequestObject.swift */; };
 		AB38A1032B0646F1004153B5 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1022B0646F1004153B5 /* Double+.swift */; };
 		AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */; };
 		AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1062B06AE8B004153B5 /* PostEnums.swift */; };
@@ -57,7 +61,6 @@
 		AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */; };
 		AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F32AFF897100B272F2 /* NoVoteView.swift */; };
 		AB8770F62AFF8A5E00B272F2 /* NoReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */; };
-		AB8D1E122C3AFCEB00D333AC /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = AB8D1E112C3AFCEB00D333AC /* Swinject */; };
 		AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E132C3AFD4200D333AC /* AppDependency.swift */; };
 		AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */; };
 		AB8D1E1C2C3B010200D333AC /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */; };
@@ -97,8 +100,6 @@
 		C77113732AF2114800BAB128 /* CustomConfirmModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77113722AF2114800BAB128 /* CustomConfirmModifier.swift */; };
 		C7719FE62AF2861000A520CB /* ConsumerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7719FE52AF2861000A520CB /* ConsumerType.swift */; };
 		C7719FE82AF28A7B00A520CB /* ConsumerTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7719FE72AF28A7B00A520CB /* ConsumerTypeLabel.swift */; };
-		C782E7122AFCCA57006BCE59 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = C782E7112AFCCA57006BCE59 /* CombineMoya */; };
-		C782E7142AFCCA57006BCE59 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = C782E7132AFCCA57006BCE59 /* Moya */; };
 		C782E7642AFED523006BCE59 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C782E7632AFED523006BCE59 /* ErrorResponse.swift */; };
 		C78E7D012AF6AF4C00C2E220 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E7D002AF6AF4C00C2E220 /* CommentsView.swift */; };
 		C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7974E0C2B0A869600BE9AF9 /* CommentPreview.swift */; };
@@ -125,7 +126,6 @@
 		FD1B6D462B0BEBC50097F789 /* ReviewCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B6D452B0BEBC50097F789 /* ReviewCreateModel.swift */; };
 		FD2C7D8C2B0705DA00B5B494 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2C7D8B2B0705DA00B5B494 /* CardImageView.swift */; };
 		FD3205682ADD5C0D00B0D5F6 /* TwoHoSunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3205672ADD5C0D00B0D5F6 /* TwoHoSunApp.swift */; };
-		FD3646F52ADD8E2D0064DF94 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FD3646F42ADD8E2D0064DF94 /* Alamofire */; };
 		FD50A0482B01EBE000CF7F59 /* SettingNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50A0472B01EBE000CF7F59 /* SettingNotificationView.swift */; };
 		FD50A04A2B01F16200CF7F59 /* SettingAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50A0492B01F16200CF7F59 /* SettingAnnouncementView.swift */; };
 		FD50A04C2B02084600CF7F59 /* SettingQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50A04B2B02084600CF7F59 /* SettingQuestionsView.swift */; };
@@ -168,6 +168,8 @@
 		AB2507262C3C4616009B0A3C /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		AB25072B2C3C5382009B0A3C /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
 		AB2507362C3D3E5C009B0A3C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AB2507382C3D536B009B0A3C /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		AB2507462C3D6D25009B0A3C /* RefreshTokenRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestObject.swift; sourceTree = "<group>"; };
 		AB38A1022B0646F1004153B5 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressStyle.swift; sourceTree = "<group>"; };
 		AB38A1062B06AE8B004153B5 /* PostEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEnums.swift; sourceTree = "<group>"; };
@@ -292,11 +294,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB8D1E122C3AFCEB00D333AC /* Swinject in Frameworks */,
-				FD3646F52ADD8E2D0064DF94 /* Alamofire in Frameworks */,
-				C782E7142AFCCA57006BCE59 /* Moya in Frameworks */,
-				C782E7122AFCCA57006BCE59 /* CombineMoya in Frameworks */,
-				AB2507342C3D3D34009B0A3C /* Kingfisher in Frameworks */,
+				AB25073F2C3D6048009B0A3C /* Kingfisher in Frameworks */,
+				AB2507422C3D604F009B0A3C /* Swinject in Frameworks */,
+				AB2507452C3D60D0009B0A3C /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +391,7 @@
 			children = (
 				AB2507162C3BF94E009B0A3C /* AppleUserRequestObject.swift */,
 				AB2507182C3BF95D009B0A3C /* AppleUserResponseObject.swift */,
+				AB2507462C3D6D25009B0A3C /* RefreshTokenRequestObject.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -419,6 +420,13 @@
 				C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		AB25073A2C3D602A009B0A3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		AB4D82662ADD7F3700F35CCB /* ProfileSettings */ = {
@@ -529,6 +537,7 @@
 				AB25072A2C3C5375009B0A3C /* DataSource */,
 				AB25070D2C3B080B009B0A3C /* API */,
 				FD1DEBAC2ADC219D00588CE6 /* Network */,
+				AB2507382C3D536B009B0A3C /* AuthInterceptor.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -689,6 +698,7 @@
 			children = (
 				FD132BEC2ADBE8FA00F31AAF /* TwoHoSun */,
 				FD132BEB2ADBE8FA00F31AAF /* Products */,
+				AB25073A2C3D602A009B0A3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -847,11 +857,9 @@
 			);
 			name = TwoHoSun;
 			packageProductDependencies = (
-				FD3646F42ADD8E2D0064DF94 /* Alamofire */,
-				C782E7112AFCCA57006BCE59 /* CombineMoya */,
-				C782E7132AFCCA57006BCE59 /* Moya */,
-				AB8D1E112C3AFCEB00D333AC /* Swinject */,
-				AB2507332C3D3D34009B0A3C /* Kingfisher */,
+				AB25073E2C3D6048009B0A3C /* Kingfisher */,
+				AB2507412C3D604F009B0A3C /* Swinject */,
+				AB2507442C3D60D0009B0A3C /* Moya */,
 			);
 			productName = TwoHoSun;
 			productReference = FD132BEA2ADBE8FA00F31AAF /* TwoHoSun.app */;
@@ -883,10 +891,9 @@
 			);
 			mainGroup = FD132BE12ADBE8FA00F31AAF;
 			packageReferences = (
-				FD3646F32ADD8E2D0064DF94 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */,
-				AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */,
-				AB2507322C3D3D34009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				AB25073D2C3D6048009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				AB2507402C3D604F009B0A3C /* XCRemoteSwiftPackageReference "Swinject" */,
+				AB2507432C3D606A009B0A3C /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = FD132BEB2ADBE8FA00F31AAF /* Products */;
 			projectDirPath = "";
@@ -933,6 +940,7 @@
 				AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */,
 				FD7624A12AF954980079AEEF /* NicknameValidation.swift in Sources */,
 				AB2507272C3C4616009B0A3C /* CustomError.swift in Sources */,
+				AB2507472C3D6D25009B0A3C /* RefreshTokenRequestObject.swift in Sources */,
 				AB38A10F2B07DF49004153B5 /* InfoButton.swift in Sources */,
 				FD76249E2AF954670079AEEF /* LinkView.swift in Sources */,
 				AB94B1952B0FFF7000CD5A49 /* DetailHeaderViewModel.swift in Sources */,
@@ -980,6 +988,7 @@
 				FD70B1F62B01C3080097B727 /* SettingBlockView.swift in Sources */,
 				AB2507372C3D3E5C009B0A3C /* OnboardingView.swift in Sources */,
 				ABA1E8492AFD5C0B009051E0 /* ReviewWriteView.swift in Sources */,
+				AB2507392C3D536B009B0A3C /* AuthInterceptor.swift in Sources */,
 				C7F1FD862ADDA37E00C5A2A1 /* BottomSheetView.swift in Sources */,
 				ABA1E84A2AFD5C0B009051E0 /* ReviewWriteViewModel.swift in Sources */,
 				FD50A04C2B02084600CF7F59 /* SettingQuestionsView.swift in Sources */,
@@ -1280,7 +1289,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AB2507322C3D3D34009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		AB25073D2C3D6048009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -1288,7 +1297,7 @@
 				minimumVersion = 7.12.0;
 			};
 		};
-		AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */ = {
+		AB2507402C3D604F009B0A3C /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject.git";
 			requirement = {
@@ -1296,7 +1305,7 @@
 				minimumVersion = 2.9.1;
 			};
 		};
-		C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */ = {
+		AB2507432C3D606A009B0A3C /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
@@ -1304,41 +1313,23 @@
 				minimumVersion = 15.0.3;
 			};
 		};
-		FD3646F32ADD8E2D0064DF94 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.8.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AB2507332C3D3D34009B0A3C /* Kingfisher */ = {
+		AB25073E2C3D6048009B0A3C /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AB2507322C3D3D34009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = AB25073D2C3D6048009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		AB8D1E112C3AFCEB00D333AC /* Swinject */ = {
+		AB2507412C3D604F009B0A3C /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */;
+			package = AB2507402C3D604F009B0A3C /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
 		};
-		C782E7112AFCCA57006BCE59 /* CombineMoya */ = {
+		AB2507442C3D60D0009B0A3C /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = CombineMoya;
-		};
-		C782E7132AFCCA57006BCE59 /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */;
+			package = AB2507432C3D606A009B0A3C /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
-		};
-		FD3646F42ADD8E2D0064DF94 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FD3646F32ADD8E2D0064DF94 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
