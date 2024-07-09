@@ -26,6 +26,7 @@
 		AB25071F2C3BFD03009B0A3C /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25071E2C3BFD03009B0A3C /* Encodable+.swift */; };
 		AB2507272C3C4616009B0A3C /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507262C3C4616009B0A3C /* CustomError.swift */; };
 		AB25072C2C3C5382009B0A3C /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25072B2C3C5382009B0A3C /* AuthDataSource.swift */; };
+		AB2507342C3D3D34009B0A3C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = AB2507332C3D3D34009B0A3C /* Kingfisher */; };
 		AB38A1032B0646F1004153B5 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1022B0646F1004153B5 /* Double+.swift */; };
 		AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */; };
 		AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1062B06AE8B004153B5 /* PostEnums.swift */; };
@@ -69,7 +70,6 @@
 		ABA1E8502AFEA3AF009051E0 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E84F2AFEA3AF009051E0 /* SettingView.swift */; };
 		ABA1E8542AFEA640009051E0 /* GoToTypeTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E8532AFEA640009051E0 /* GoToTypeTestButton.swift */; };
 		ABAFB6412AF978790070512F /* PurchaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAFB6402AF978790070512F /* PurchaseLabel.swift */; };
-		ABB71D642AE26EB100BE0671 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = ABB71D632AE26EB100BE0671 /* Kingfisher */; };
 		ABB71D6E2AE2754300BE0671 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71D6D2AE2754300BE0671 /* PostModel.swift */; };
 		ABBBC67C2AE49CC800B1E614 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */; };
 		ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */; };
@@ -114,7 +114,7 @@
 		C7E459D12ADFF89000ECD008 /* WoteTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E459D02ADFF89000ECD008 /* WoteTabView.swift */; };
 		C7EFA7D92AF9279200C9BEA0 /* ComplaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA7D82AF9279200C9BEA0 /* ComplaintView.swift */; };
 		C7EFA7DD2AF94DD800C9BEA0 /* CustomAlertModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */; };
-		C7F1FD842ADDA2F000C5A2A1 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD832ADDA2F000C5A2A1 /* OnBoardingView.swift */; };
+		C7F1FD842ADDA2F000C5A2A1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */; };
 		C7F1FD862ADDA37E00C5A2A1 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */; };
 		FD0113C92B10097100CCAEE7 /* MemberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0113C82B10097100CCAEE7 /* MemberManager.swift */; };
 		FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */; };
@@ -254,7 +254,7 @@
 		C7EFA7D82AF9279200C9BEA0 /* ComplaintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintView.swift; sourceTree = "<group>"; };
 		C7EFA7DA2AF9432800C9BEA0 /* ComplaintReasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintReasonView.swift; sourceTree = "<group>"; };
 		C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModalView.swift; sourceTree = "<group>"; };
-		C7F1FD832ADDA2F000C5A2A1 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		FD0113C82B10097100CCAEE7 /* MemberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberManager.swift; sourceTree = "<group>"; };
 		FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserModel.swift; sourceTree = "<group>"; };
@@ -290,11 +290,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABB71D642AE26EB100BE0671 /* Kingfisher in Frameworks */,
 				AB8D1E122C3AFCEB00D333AC /* Swinject in Frameworks */,
 				FD3646F52ADD8E2D0064DF94 /* Alamofire in Frameworks */,
 				C782E7142AFCCA57006BCE59 /* Moya in Frameworks */,
 				C782E7122AFCCA57006BCE59 /* CombineMoya in Frameworks */,
+				AB2507342C3D3D34009B0A3C /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,7 +667,7 @@
 		C7F1FD822ADDA2D900C5A2A1 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
-				C7F1FD832ADDA2F000C5A2A1 /* OnBoardingView.swift */,
+				C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */,
 				C7E30E2A2ADC40E4001AE89B /* LoginViewModel.swift */,
 				C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */,
 			);
@@ -837,10 +837,10 @@
 			name = TwoHoSun;
 			packageProductDependencies = (
 				FD3646F42ADD8E2D0064DF94 /* Alamofire */,
-				ABB71D632AE26EB100BE0671 /* Kingfisher */,
 				C782E7112AFCCA57006BCE59 /* CombineMoya */,
 				C782E7132AFCCA57006BCE59 /* Moya */,
 				AB8D1E112C3AFCEB00D333AC /* Swinject */,
+				AB2507332C3D3D34009B0A3C /* Kingfisher */,
 			);
 			productName = TwoHoSun;
 			productReference = FD132BEA2ADBE8FA00F31AAF /* TwoHoSun.app */;
@@ -873,9 +873,9 @@
 			mainGroup = FD132BE12ADBE8FA00F31AAF;
 			packageReferences = (
 				FD3646F32ADD8E2D0064DF94 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				ABB71D622AE26EB100BE0671 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */,
 				AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */,
+				AB2507322C3D3D34009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = FD132BEB2ADBE8FA00F31AAF /* Products */;
 			projectDirPath = "";
@@ -988,7 +988,7 @@
 				FDB4B1502AE68FC000720328 /* DetailView.swift in Sources */,
 				C7A95F132B01FFD600F8595A /* MoyaPublisher.swift in Sources */,
 				ABFEBD632C3795CA00367389 /* ReviewDetailView.swift in Sources */,
-				C7F1FD842ADDA2F000C5A2A1 /* OnBoardingView.swift in Sources */,
+				C7F1FD842ADDA2F000C5A2A1 /* LoginView.swift in Sources */,
 				C7DE44BD2AE0DCE7001639CB /* CommentCell.swift in Sources */,
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
 				C768F1A32AE656570020F82C /* SchoolModel.swift in Sources */,
@@ -1268,20 +1268,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AB2507322C3D3D34009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 		AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.9.1;
-			};
-		};
-		ABB71D622AE26EB100BE0671 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.9.1;
 			};
 		};
 		C782E7102AFCCA57006BCE59 /* XCRemoteSwiftPackageReference "Moya" */ = {
@@ -1303,15 +1303,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AB2507332C3D3D34009B0A3C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB2507322C3D3D34009B0A3C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		AB8D1E112C3AFCEB00D333AC /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AB8D1E102C3AFCEB00D333AC /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-		ABB71D632AE26EB100BE0671 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ABB71D622AE26EB100BE0671 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 		C782E7112AFCCA57006BCE59 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -32,12 +32,8 @@ struct TwoHoSunApp: App {
 //                .environmentObject(navigationRouter)
 //                .environmentObject(appState)
 
-            OnBoardingView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
+            LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
                 .environmentObject(appDependency)
-                .onAppear {
-                    print(KeychainManager.shared.read(key: TokenType.accessToken))
-                    print(KeychainManager.shared.read(key: TokenType.refreshToken))
-                }
         }
     }
 

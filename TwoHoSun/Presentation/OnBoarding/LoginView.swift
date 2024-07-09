@@ -9,7 +9,7 @@ import SwiftUI
 import AuthenticationServices
 import Combine
 
-struct OnBoardingView : View {
+struct LoginView : View {
     @State private var goProfileView = false
 
     @StateObject var viewModel: LoginViewModel
@@ -63,7 +63,7 @@ struct OnBoardingView : View {
     }
 }
 
-extension OnBoardingView {
+extension LoginView {
 
     private var appleLoginButton: some View {
         SignInWithAppleButton(.signIn) { request in
@@ -90,5 +90,5 @@ extension OnBoardingView {
 }
 
 #Preview {
-    OnBoardingView(viewModel: .init(authUseCase: StubAuthUseCase()))
+    LoginView(viewModel: .init(authUseCase: StubAuthUseCase()))
 }
