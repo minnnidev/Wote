@@ -60,6 +60,11 @@ struct LoginView : View {
             .overlay {
                 if viewModel.isLoading {
                     LoadingView()
+                } else if viewModel.showErrorAlert {
+                    ErrorAlertView(
+                        isPresented: $viewModel.showErrorAlert,
+                        error: .authenticateFailed
+                    )
                 }
             }
             .sheet(isPresented: $viewModel.showSheet) {

@@ -18,6 +18,7 @@ final class LoginViewModel: ObservableObject {
 
     @Published var showSheet: Bool = false
     @Published var isLoading: Bool = false
+    @Published var showErrorAlert: Bool = false
 
     @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
 
@@ -42,9 +43,11 @@ final class LoginViewModel: ObservableObject {
             case let .success(authorization):
                 authUseCase.loginWithApple(authorization)
                     .sink { [weak self] completion in
-                        // TODO: - wote error handling
-
                         self?.isLoading = false
+
+                        if case .failure(_) = completion {
+                            self?.showErrorAlert.toggle()
+                        }
 
                     } receiveValue: { [weak self] authState in
 

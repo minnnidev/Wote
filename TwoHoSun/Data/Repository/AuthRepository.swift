@@ -26,12 +26,14 @@ final class AuthRepository: AuthRepositoryType {
                 let user: User = .init(
                     authenticationState: .authenticated,
                     tokens: object.jwtToken.toToken())
+
                 return user
             }
             .mapError { error -> WoteError in
                 switch error {
                 case let .notCompletedSignUp(tokenObject):
                     .notCompletedSignUp(token: tokenObject.toToken())
+
                 default:
                     WoteError.error(error)
                 }
@@ -42,11 +44,13 @@ final class AuthRepository: AuthRepositoryType {
                     let user: User = .init(
                         authenticationState: .notCompletedSetting,
                         tokens: tokens)
+
                     return Just(user)
                         .setFailureType(to: WoteError.self)
                         .eraseToAnyPublisher()
+
                 default:
-                    return Fail(error: error)
+                    return Fail(error: WoteError.authenticateFailed)
                         .eraseToAnyPublisher()
                 }
             }

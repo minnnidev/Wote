@@ -1,17 +1,11 @@
 //
-//  CustomError.swift
+//  APIError.swift
 //  TwoHoSun
 //
-//  Created by 김민 on 7/9/24.
+//  Created by 김민 on 7/10/24.
 //
 
 import Foundation
-
-enum WoteError: Error {
-    case error(Error)
-    case test
-    case notCompletedSignUp(token: Tokens)
-}
 
 enum APIError: Error {
     case error(Error)
