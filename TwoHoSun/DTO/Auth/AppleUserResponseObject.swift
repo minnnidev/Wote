@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct AppleUserResponseObjectWithMessage {
+    let message: String
+    let appleUserResponseObject: AppleUserResponseObject
+}
+
 struct AppleUserResponseObject: Codable {
     let consumerTypeExist: Bool?
     let jwtToken: TokenObject

@@ -69,6 +69,7 @@
 		AB7FE88C2C3E49ED00EDED20 /* ProfileRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE88B2C3E49ED00EDED20 /* ProfileRequestObject.swift */; };
 		AB7FE88E2C3E4ADC00EDED20 /* NicknameRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE88D2C3E4ADC00EDED20 /* NicknameRequestObject.swift */; };
 		AB7FE8902C3E4CF700EDED20 /* NicknameResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE88F2C3E4CF700EDED20 /* NicknameResponseObject.swift */; };
+		AB7FE8952C3E672100EDED20 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8942C3E672100EDED20 /* User.swift */; };
 		AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F32AFF897100B272F2 /* NoVoteView.swift */; };
 		AB8770F62AFF8A5E00B272F2 /* NoReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */; };
 		AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E132C3AFD4200D333AC /* AppDependency.swift */; };
@@ -217,6 +218,7 @@
 		AB7FE88B2C3E49ED00EDED20 /* ProfileRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequestObject.swift; sourceTree = "<group>"; };
 		AB7FE88D2C3E4ADC00EDED20 /* NicknameRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameRequestObject.swift; sourceTree = "<group>"; };
 		AB7FE88F2C3E4CF700EDED20 /* NicknameResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponseObject.swift; sourceTree = "<group>"; };
+		AB7FE8942C3E672100EDED20 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AB8770F22AFEDE0900B272F2 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		AB8770F32AFF897100B272F2 /* NoVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVoteView.swift; sourceTree = "<group>"; };
 		AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoReviewView.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2507142C3BF830009B0A3C /* Tokens.swift */,
+				AB7FE8942C3E672100EDED20 /* User.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1025,6 +1028,7 @@
 				AB38A1CD2B0D5580004153B5 /* ReviewDetailModel.swift in Sources */,
 				FDF2D6D02AE5E62B0027EE8F /* ChartModel.swift in Sources */,
 				C7A95F112B01FFBA00F8595A /* NewApiManager.swift in Sources */,
+				AB7FE8952C3E672100EDED20 /* User.swift in Sources */,
 				ABFEBD652C3795CA00367389 /* ReviewTabViewModel.swift in Sources */,
 				ABFEBD662C3795CA00367389 /* ReviewView.swift in Sources */,
 				FDF2D6CE2AE5DAD90027EE8F /* VoteInfoModel.swift in Sources */,

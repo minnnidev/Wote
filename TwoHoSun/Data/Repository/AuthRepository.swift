@@ -19,19 +19,25 @@ final class AuthRepository: AuthRepositoryType {
     }
 
 
-    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<Tokens, CustomError> {
+    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<User, CustomError> {
         let object: AppleUserRequestObject = .init(code: authorizationCode, state: "APPLE")
 
         return authDataSource.loginWithApple(object)
-            .map { $0.jwtToken }
-            .map { $0.toToken() }
+            .map { object in
+                if object.message == "Not Completed SignUp Exception" {
+                    let user: User = .init(authenticationState: .notCompletedSetting, tokens: object.appleUserResponseObject.jwtToken.toToken())
+                    return user
+                }
+
+                return User(authenticationState: .authenticated, tokens: object.appleUserResponseObject.jwtToken.toToken())
+            }
             .eraseToAnyPublisher()
     }
 }
 
 final class StubAuthRepository: AuthRepositoryType {
 
-    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<Tokens, CustomError> {
+    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<User, CustomError> {
         Empty()
             .eraseToAnyPublisher()
     }

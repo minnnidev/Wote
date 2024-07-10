@@ -10,7 +10,7 @@ import AuthenticationServices
 import Combine
 
 protocol AuthUseCaseType {
-    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, CustomError>
+    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<AuthenticationState, CustomError>
 }
 
 final class AuthUseCase: AuthUseCaseType {
@@ -21,14 +21,15 @@ final class AuthUseCase: AuthUseCaseType {
         self.authRepository = authRepository
     }
 
-    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, CustomError> {
+    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<AuthenticationState, CustomError> {
         let code = getCredential(authorization)
 
         return authRepository.loginWithApple(code)
-            .map { token in
-                KeychainManager.shared.save(key: TokenType.accessToken, token: token.accessToken)
-                KeychainManager.shared.save(key: TokenType.refreshToken, token: token.refreshToken)
-            }
+            .handleEvents(receiveOutput: { user in
+                KeychainManager.shared.save(key: TokenType.accessToken, token: user.tokens.accessToken)
+                KeychainManager.shared.save(key: TokenType.refreshToken, token: user.tokens.refreshToken)
+            })
+            .map { $0.authenticationState }
             .eraseToAnyPublisher()
     }
 }
@@ -46,7 +47,7 @@ extension AuthUseCase {
 
 final class StubAuthUseCase: AuthUseCaseType {
 
-    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<Void, CustomError> {
+    func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<AuthenticationState, CustomError> {
         Empty()
             .eraseToAnyPublisher()
     }

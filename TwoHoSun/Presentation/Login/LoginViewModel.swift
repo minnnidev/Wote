@@ -17,7 +17,9 @@ final class LoginViewModel: ObservableObject {
     }
 
     @Published var showSheet = false
-    
+
+    @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
+
     private let authUseCase: AuthUseCaseType
 
     private var cancellables = Set<AnyCancellable>()
@@ -36,9 +38,15 @@ final class LoginViewModel: ObservableObject {
             switch result {
             case let .success(authorization):
                 authUseCase.loginWithApple(authorization)
-                    .sink { completion in
-                        print(completion)
-                    } receiveValue: { [weak self] _ in
+                    .sink { compeltion in
+                        // TODO: completion: error
+                    } receiveValue: { [weak self] authState in
+
+                        guard authState == .notCompletedSetting else {
+                            self?.isLoggedIn = true
+                            return
+                        }
+
                         self?.showSheet = true
                     }
                     .store(in: &cancellables)
