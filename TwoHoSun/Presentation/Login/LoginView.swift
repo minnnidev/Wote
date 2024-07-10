@@ -57,6 +57,11 @@ struct LoginView : View {
                 }
                 .padding(.horizontal, 26)
             }
+            .overlay {
+                if viewModel.isLoading {
+                    LoadingView()
+                }
+            }
             .sheet(isPresented: $viewModel.showSheet) {
                 BottomSheetView(goProfileView: $goProfileView)
                     .presentationDetents([.medium])

@@ -16,7 +16,8 @@ final class LoginViewModel: ObservableObject {
         case appleLoginHandler(Result<ASAuthorization, Error>)
     }
 
-    @Published var showSheet = false
+    @Published var showSheet: Bool = false
+    @Published var isLoading: Bool = false
 
     @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
 
@@ -35,12 +36,18 @@ final class LoginViewModel: ObservableObject {
             request.requestedScopes = []
 
         case let .appleLoginHandler(result):
+            isLoading = true
+
             switch result {
             case let .success(authorization):
                 authUseCase.loginWithApple(authorization)
-                    .sink { compeltion in
+                    .sink { [weak self] _ in
                         // TODO: completion: error
+                        self?.isLoading = false
+
                     } receiveValue: { [weak self] authState in
+
+                        self?.isLoading = false
 
                         guard authState == .notCompletedSetting else {
                             self?.isLoggedIn = true
