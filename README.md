@@ -25,7 +25,7 @@
 
 * develop: 팀 프로젝트로 개발을 완료한 브랜치
 * refactoring: 혼자 리팩토링 중인 브랜치 (진행 중)
-    * 진행 상황은 refactoring 브랜치 및 개인 블로그 일지로 확인 가능
+    * 진행 상황은 refactoring 브랜치 및 [개인 블로그 일지](https://velog.io/@minnnidev/series/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81%EC%9D%BC%EC%A7%80)로 확인 가능
 
 ## 💻 Stack
 - SwiftUI
