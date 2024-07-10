@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol AuthRepositoryType {
-    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<User, CustomError>
+    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<User, WoteError>
 }

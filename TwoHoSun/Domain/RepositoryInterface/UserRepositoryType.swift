@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol UserRepositoryType {
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, CustomError>
+    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError>
 }

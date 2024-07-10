@@ -41,8 +41,9 @@ final class LoginViewModel: ObservableObject {
             switch result {
             case let .success(authorization):
                 authUseCase.loginWithApple(authorization)
-                    .sink { [weak self] _ in
-                        // TODO: completion: error
+                    .sink { [weak self] completion in
+                        // TODO: - wote error handling
+
                         self?.isLoading = false
 
                     } receiveValue: { [weak self] authState in

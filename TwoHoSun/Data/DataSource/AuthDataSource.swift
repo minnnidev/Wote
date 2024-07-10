@@ -10,30 +10,37 @@ import Moya
 import Combine
 
 protocol AuthDataSourceType {
-    func loginWithApple(_ object: AppleUserRequestObject) -> AnyPublisher<AppleUserResponseObjectWithMessage, CustomError>
+    func loginWithApple(_ object: AppleUserRequestObject) -> AnyPublisher<AppleUserResponseObject, APIError>
 }
 
 final class AuthDataSource: AuthDataSourceType {
 
     private let provider = MoyaProvider<AuthAPI>()
 
-    func loginWithApple(_ object: AppleUserRequestObject) -> AnyPublisher<AppleUserResponseObjectWithMessage, CustomError> {
-        provider.requestPublisher(.loginWithApple(object))
-            .tryMap {
-                let decodedResponse = try JSONDecoder().decode(GeneralResponse<AppleUserResponseObject>.self, from: $0.data)
+    func loginWithApple(_ object: AppleUserRequestObject) -> AnyPublisher<AppleUserResponseObject, APIError> {
 
-                guard let data = decodedResponse.data else {
-                    throw CustomError.test
+        provider.requestPublisher(.loginWithApple(object))
+            .tryMap { response in
+                let decodedResponse = try JSONDecoder().decode(GeneralResponse<AppleUserResponseObject>.self, from: response.data)
+
+                if let divisionCode = decodedResponse.divisionCode,
+                   let tokens = decodedResponse.data?.jwtToken,
+                   divisionCode == "E009" {
+                    let tokens: TokenObject = tokens
+                    
+                    throw APIError.notCompletedSignUp(token: tokens)
                 }
 
-                let responseObjectWithMessage: AppleUserResponseObjectWithMessage = .init(
-                    message: decodedResponse.message,
-                    appleUserResponseObject: decodedResponse.data!
-                )
-
-                return responseObjectWithMessage
+                return decodedResponse
             }
-            .mapError { CustomError.error($0) }
+            .compactMap { $0.data }
+            .mapError { error in
+                if let apiError = error as? APIError {
+                    apiError
+                } else {
+                    APIError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
 }

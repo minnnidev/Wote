@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol UserUseCaseType {
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, CustomError>
+    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -21,14 +21,14 @@ final class UserUseCase: UserUseCaseType {
         self.userRepository = userRepository
     }
 
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, CustomError> {
+    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         userRepository.checkNicknameDuplicated(nickname)
     }
 }
 
 final class StubUserUseCase: UserUseCaseType {
     
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, CustomError> {
+    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

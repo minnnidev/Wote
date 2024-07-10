@@ -16,7 +16,7 @@ final class UserRepository: UserRepositoryType {
         self.userDataSource = userDataSource
     }
 
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, CustomError> {
+    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         let requestObject: NicknameRequestObject = .init(nickname: nickname)
 
         return userDataSource.checkNicknameDuplicated(requestObject)
@@ -27,7 +27,7 @@ final class UserRepository: UserRepositoryType {
 
 final class StubUserRepository: UserRepositoryType {
     
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, CustomError> {
+    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }
