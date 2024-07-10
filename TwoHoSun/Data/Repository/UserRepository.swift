@@ -21,6 +21,7 @@ final class UserRepository: UserRepositoryType {
 
         return userDataSource.checkNicknameDuplicated(requestObject)
             .map { $0.isExist }
+            .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
 }
