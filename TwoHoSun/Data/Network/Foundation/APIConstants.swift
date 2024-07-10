@@ -23,7 +23,7 @@ enum APIConstants {
     static var headerWithAuthorization: [String: String] {
         [
             NetworkHeaderKey.contentType.rawValue: APIConstants.applicationJSON,
-            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.readToken(key: "accessToken") ?? "")"
+            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: "accessToken") ?? "")"
         ]
     }
     static var headerXform: [String: String] {
@@ -34,7 +34,7 @@ enum APIConstants {
     static var headerMultiPartForm: [String: String] {
         [
             NetworkHeaderKey.contentType.rawValue: APIConstants.multiPartForm,
-            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.readToken(key: "accessToken")!)"
+            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: "accessToken")!)"
         ]
     }
 }

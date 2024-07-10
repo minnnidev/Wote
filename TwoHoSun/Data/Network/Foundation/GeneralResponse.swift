@@ -8,13 +8,15 @@
 import Foundation
 
 struct GeneralResponse<T: Decodable>: Decodable {
-    var status: Int
-    var message: String
-    var data: T?
+    let status: Int
+    let message: String
+    let divisionCode: String?
+    let data: T?
 
     enum CodingKeys: String, CodingKey {
         case status
         case message
+        case divisionCode
         case data
     }
 
@@ -22,6 +24,7 @@ struct GeneralResponse<T: Decodable>: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         status = (try? values.decode(Int.self, forKey: .status)) ?? 0
         message = (try? values.decode(String.self, forKey: .message)) ?? ""
+        divisionCode = (try? values.decode(String.self, forKey: .divisionCode)) ?? ""
         data = (try? values.decode(T.self, forKey: .data)) ?? nil
     }
 }

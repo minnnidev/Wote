@@ -21,10 +21,10 @@ class Authenticator: ObservableObject {
     }
 
     var accessToken: String? {
-        return KeychainManager.shared.readToken(key: "accessToken")
+        return KeychainManager.shared.read(key: "accessToken")
     }
     var refreshToken: String? {
-       return KeychainManager.shared.readToken(key: "refreshToken")
+       return KeychainManager.shared.read(key: "refreshToken")
     }
     
     var relogin: (() -> Void)?
@@ -39,12 +39,12 @@ class Authenticator: ObservableObject {
      }
 
     func saveTokens(_ token: Tokens) {
-        KeychainManager.shared.saveToken(key: "accessToken", token: token.accessToken)
-        KeychainManager.shared.saveToken(key: "refreshToken", token: token.refreshToken)
+        KeychainManager.shared.save(key: "accessToken", token: token.accessToken)
+        KeychainManager.shared.save(key: "refreshToken", token: token.refreshToken)
     }
 
     func deleteTokens() {
-        KeychainManager.shared.deleteToken(key: "accessToken")
-        KeychainManager.shared.deleteToken(key: "refreshToken")
+        KeychainManager.shared.delete(key: "accessToken")
+        KeychainManager.shared.delete(key: "refreshToken")
     }
 }

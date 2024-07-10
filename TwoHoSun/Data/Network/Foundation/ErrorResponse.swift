@@ -12,3 +12,10 @@ struct ErrorResponse: Decodable, Error {
     let divisionCode: String
     let message: String
 }
+
+struct AuthErrorResponse: Decodable {
+    let status: Int
+    let divisionCode: String
+    let message: String
+    let data: TokenObject
+}

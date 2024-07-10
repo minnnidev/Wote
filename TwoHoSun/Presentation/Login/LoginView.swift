@@ -9,9 +9,12 @@ import SwiftUI
 import AuthenticationServices
 import Combine
 
-struct OnBoardingView : View {
+struct LoginView : View {
+    @EnvironmentObject private var appDependency: AppDependency
+
     @State private var goProfileView = false
-    @StateObject var viewModel = LoginViewModel()
+
+    @StateObject var viewModel: LoginViewModel
 
     var body: some View {
         NavigationStack {
@@ -21,6 +24,7 @@ struct OnBoardingView : View {
                     .scaledToFill()
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                     .ignoresSafeArea()
+
                 VStack {
                     HStack {
                         VStack(alignment: .leading, spacing: 26) {
@@ -32,37 +36,60 @@ struct OnBoardingView : View {
                         Spacer()
                     }
                     .padding(.top, 120)
+
                     Spacer()
+
                     Image("onboardingIllust")
+
                     Spacer()
+
                     VStack(spacing: 12) {
                         Text("계속하려면 로그인 하세요")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundStyle(.white)
                             .padding(.bottom, 4)
+
                         appleLoginButton
+
                         hyeprLinkText
                     }
                     .padding(.bottom, 60)
                 }
                 .padding(.horizontal, 26)
             }
+            .overlay {
+                if viewModel.isLoading {
+                    LoadingView()
+                } else if viewModel.showErrorAlert {
+                    ErrorAlertView(
+                        isPresented: $viewModel.showErrorAlert,
+                        error: .authenticateFailed
+                    )
+                }
+            }
             .sheet(isPresented: $viewModel.showSheet) {
                 BottomSheetView(goProfileView: $goProfileView)
                     .presentationDetents([.medium])
+            }
+            .navigationDestination(isPresented: $goProfileView) {
+                ProfileSettingsView(viewModel: appDependency.container.resolve(ProfileSettingViewModel.self)!)
             }
         }
     }
 }
 
-extension OnBoardingView {
+extension LoginView {
 
     private var appleLoginButton: some View {
-        NavigationLink {
-            ProfileSettingsView(viewType: .setting)
-        } label: {
-            Text("Apple Login")
+        SignInWithAppleButton(.signIn) { request in
+            viewModel.send(action: .appleLogin(request))
+        } onCompletion: { result in
+            viewModel.send(action: .appleLoginHandler(result))
         }
+        .signInWithAppleButtonStyle(.white)
+        .frame(maxWidth: .infinity)
+        .frame(height: 54)
+        .clipShape(RoundedRectangle(cornerRadius: 27))
     }
 
     private var hyeprLinkText: some View {
@@ -75,4 +102,8 @@ extension OnBoardingView {
         .font(.system(size: 12))
         .foregroundStyle(Color.subGray1)
     }
+}
+
+#Preview {
+    LoginView(viewModel: .init(authUseCase: StubAuthUseCase()))
 }

@@ -11,26 +11,17 @@ import Observation
 
 @main
 struct TwoHoSunApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appState = AppLoginState()
-
+    
+    @StateObject private var appDependency = AppDependency()
     @StateObject private var navigationRouter = NavigationManager()
+    
 
     var body: some Scene {
         WindowGroup {
-//            switch appState.serviceRoot.auth.authState {
-//            case .none, .allexpired, .unfinishRegister:
-//                OnBoardingView()
-//                    .environment(appState)
-//                    .environmentObject(navigationRouter)
-//            case .loggedIn:
-//                WoteTabView()
-//                    .environment(appState)
-//                    .environmentObject(navigationRouter)
-//            }
-            WoteTabView()
+            OnboardingView()
+                .environmentObject(appDependency)
                 .environmentObject(navigationRouter)
-                .environmentObject(appState)
         }
     }
 
