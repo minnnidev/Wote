@@ -10,7 +10,7 @@
 
 ![](https://velog.velcdn.com/images/snack/post/d76069e9-fefb-477d-91e4-9ed5eb029a22/image.jpg)
 
-### 👨‍👩‍👧‍👦 Authors
+## 👨‍👩‍👧‍👦 Authors
 <div>
 
 | [Snack](https://github.com/snacknam) | [Soda](https://github.com/minnnidev) | [Sunday](https://github.com/sunhofficial) | [Woody](https://github.com/migusdn) | [Pin](https://github.com/pingse) | [Sia](https://github.com/hansn777) |
@@ -21,7 +21,13 @@
   
 </div>
 
-### 💻 Stack
+## 🎄 Branch
+
+* develop: 팀 프로젝트로 개발을 완료한 브랜치
+* refactoring: 혼자 리팩토링 중인 브랜치 (진행 중)
+    * 진행 상황은 refactoring 브랜치 및 개인 블로그 일지로 확인 가능
+
+## 💻 Stack
 - SwiftUI
 - UIKit
 - Combine
@@ -35,7 +41,7 @@
 - UserNotifications
 - SpriteKit
 
-### 🖥️ Server Repository
+## 🖥️ Server Repository
 [Backend](https://github.com/DeveloperAcademy-POSTECH/MacC-Team8-2HoSun-Server)
 
 ### 🔒 License
