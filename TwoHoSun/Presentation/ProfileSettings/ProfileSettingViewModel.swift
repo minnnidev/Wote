@@ -13,20 +13,33 @@ import Alamofire
 import Moya
 
 final class ProfileSettingViewModel: ObservableObject {
-    var nickname = ""
-    var selectedSchoolInfo: SchoolInfoModel?
-    var selectedGrade: String?    
-    var nicknameValidationType = NicknameValidationType.none
-    var selectedImageData: Data?
-    var isNicknameDuplicated = false
-    var isFormValid = true
-    var model: ProfileSetting? 
+
+    enum Action {
+        case selectImage
+        case checkDuplicatedNickname(_ nickname: String)
+        case selectSchool
+    }
+
+    @Published var nickname = ""
+    @Published var selectedSchoolInfo: SchoolInfoModel?
+    @Published var selectedGrade: String?
+    @Published var nicknameValidationType = NicknameValidationType.none
+    @Published var selectedImageData: Data?
+    @Published var isNicknameDuplicated = false
+    @Published var isFormValid = true
+    @Published var model: ProfileSetting?
 
     private let forbiddenWord = ["금지어1", "금지어2"]
+    private var cancellables = Set<AnyCancellable>()
 
-    var bag = Set<AnyCancellable>()
     var firstNickname = ""
     var firstSchool: SchoolInfoModel?
+
+    private let userUseCase: UserUseCaseType
+
+    init(userUseCase: UserUseCaseType) {
+        self.userUseCase = userUseCase
+    }
 
     var isSchoolFilled: Bool {
         return selectedSchoolInfo != nil
@@ -103,5 +116,29 @@ final class ProfileSettingViewModel: ObservableObject {
     
     func postNickname() {
         // TODO: - 닉네임 중복 체크 API
+    }
+
+    func send(_ action: Action) {
+        switch action {
+        case .selectImage:
+            // TODO: - 이미지 선택 로직
+            return
+
+        case .checkDuplicatedNickname:
+            userUseCase.checkNicknameDuplicated(nickname)
+                .sink { _ in
+                } receiveValue: { [weak self] isExist in
+                    if isExist {
+                        self?.nicknameValidationType = .duplicated
+                    } else {
+                        self?.nicknameValidationType = .valid
+                    }
+                }
+                .store(in: &cancellables)
+
+        case .selectSchool:
+            // TODO: - 학교 선택 로직
+            return
+        }
     }
 }

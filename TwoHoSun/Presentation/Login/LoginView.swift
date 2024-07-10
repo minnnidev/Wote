@@ -10,6 +10,8 @@ import AuthenticationServices
 import Combine
 
 struct LoginView : View {
+    @EnvironmentObject private var appDependency: AppDependency
+
     @State private var goProfileView = false
 
     @StateObject var viewModel: LoginViewModel
@@ -58,6 +60,9 @@ struct LoginView : View {
             .sheet(isPresented: $viewModel.showSheet) {
                 BottomSheetView(goProfileView: $goProfileView)
                     .presentationDetents([.medium])
+            }
+            .navigationDestination(isPresented: $goProfileView) {
+                ProfileSettingsView(viewModel: appDependency.container.resolve(ProfileSettingViewModel.self)!)
             }
         }
     }

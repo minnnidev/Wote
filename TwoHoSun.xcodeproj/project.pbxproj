@@ -32,6 +32,7 @@
 		AB2507422C3D604F009B0A3C /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = AB2507412C3D604F009B0A3C /* Swinject */; };
 		AB2507452C3D60D0009B0A3C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = AB2507442C3D60D0009B0A3C /* Moya */; };
 		AB2507472C3D6D25009B0A3C /* RefreshTokenRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507462C3D6D25009B0A3C /* RefreshTokenRequestObject.swift */; };
+		AB2507492C3E4441009B0A3C /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507482C3E4441009B0A3C /* UserUseCase.swift */; };
 		AB38A1032B0646F1004153B5 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1022B0646F1004153B5 /* Double+.swift */; };
 		AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */; };
 		AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1062B06AE8B004153B5 /* PostEnums.swift */; };
@@ -59,6 +60,15 @@
 		AB7317EC2AF90F40008B5E41 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4E75B52ADE9C20000C2277 /* ProfileSettingViewModel.swift */; };
 		AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317EE2AF9178C008B5E41 /* FilterButton.swift */; };
 		AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */; };
+		AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE87E2C3E455700EDED20 /* ProfileType.swift */; };
+		AB7FE8812C3E45B400EDED20 /* UserRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */; };
+		AB7FE8832C3E45CE00EDED20 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8822C3E45CE00EDED20 /* UserRepository.swift */; };
+		AB7FE8852C3E461C00EDED20 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */; };
+		AB7FE8872C3E46B700EDED20 /* UserAssmbly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8862C3E46B700EDED20 /* UserAssmbly.swift */; };
+		AB7FE8892C3E499000EDED20 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8882C3E499000EDED20 /* UserAPI.swift */; };
+		AB7FE88C2C3E49ED00EDED20 /* ProfileRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE88B2C3E49ED00EDED20 /* ProfileRequestObject.swift */; };
+		AB7FE88E2C3E4ADC00EDED20 /* NicknameRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE88D2C3E4ADC00EDED20 /* NicknameRequestObject.swift */; };
+		AB7FE8902C3E4CF700EDED20 /* NicknameResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE88F2C3E4CF700EDED20 /* NicknameResponseObject.swift */; };
 		AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F32AFF897100B272F2 /* NoVoteView.swift */; };
 		AB8770F62AFF8A5E00B272F2 /* NoReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */; };
 		AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E132C3AFD4200D333AC /* AppDependency.swift */; };
@@ -170,6 +180,7 @@
 		AB2507362C3D3E5C009B0A3C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AB2507382C3D536B009B0A3C /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		AB2507462C3D6D25009B0A3C /* RefreshTokenRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequestObject.swift; sourceTree = "<group>"; };
+		AB2507482C3E4441009B0A3C /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		AB38A1022B0646F1004153B5 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		AB38A1042B06757C004153B5 /* CustomProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressStyle.swift; sourceTree = "<group>"; };
 		AB38A1062B06AE8B004153B5 /* PostEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEnums.swift; sourceTree = "<group>"; };
@@ -197,6 +208,15 @@
 		AB6845B52AFC147D00C3F7C2 /* TypeTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTestViewModel.swift; sourceTree = "<group>"; };
 		AB7317EE2AF9178C008B5E41 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardCell.swift; sourceTree = "<group>"; };
+		AB7FE87E2C3E455700EDED20 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
+		AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryType.swift; sourceTree = "<group>"; };
+		AB7FE8822C3E45CE00EDED20 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
+		AB7FE8862C3E46B700EDED20 /* UserAssmbly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAssmbly.swift; sourceTree = "<group>"; };
+		AB7FE8882C3E499000EDED20 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		AB7FE88B2C3E49ED00EDED20 /* ProfileRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequestObject.swift; sourceTree = "<group>"; };
+		AB7FE88D2C3E4ADC00EDED20 /* NicknameRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameRequestObject.swift; sourceTree = "<group>"; };
+		AB7FE88F2C3E4CF700EDED20 /* NicknameResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameResponseObject.swift; sourceTree = "<group>"; };
 		AB8770F22AFEDE0900B272F2 /* Secret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secret.xcconfig; sourceTree = "<group>"; };
 		AB8770F32AFF897100B272F2 /* NoVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVoteView.swift; sourceTree = "<group>"; };
 		AB8770F52AFF8A5E00B272F2 /* NoReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoReviewView.swift; sourceTree = "<group>"; };
@@ -349,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				AB25071C2C3BFA86009B0A3C /* AuthAPI.swift */,
+				AB7FE8882C3E499000EDED20 /* UserAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -408,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				AB25072B2C3C5382009B0A3C /* AuthDataSource.swift */,
+				AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -436,6 +458,7 @@
 				FD4E75B52ADE9C20000C2277 /* ProfileSettingViewModel.swift */,
 				AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */,
 				AB4522592ADDDC9E00B69F24 /* SchoolSearchViewModel.swift */,
+				AB7FE87E2C3E455700EDED20 /* ProfileType.swift */,
 			);
 			path = ProfileSettings;
 			sourceTree = "<group>";
@@ -461,10 +484,21 @@
 			path = TypeTest;
 			sourceTree = "<group>";
 		};
+		AB7FE88A2C3E49E300EDED20 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				AB7FE88B2C3E49ED00EDED20 /* ProfileRequestObject.swift */,
+				AB7FE88D2C3E4ADC00EDED20 /* NicknameRequestObject.swift */,
+				AB7FE88F2C3E4CF700EDED20 /* NicknameResponseObject.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		AB8D1E152C3AFEB800D333AC /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
 				AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */,
+				AB7FE8862C3E46B700EDED20 /* UserAssmbly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -473,6 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */,
+				AB2507482C3E4441009B0A3C /* UserUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -481,6 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */,
+				AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -489,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2507032C3B0484009B0A3C /* AuthRepository.swift */,
+				AB7FE8822C3E45CE00EDED20 /* UserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -555,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				AB25071B2C3BFA6E009B0A3C /* Auth */,
+				AB7FE88A2C3E49E300EDED20 /* User */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -928,6 +966,7 @@
 				ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */,
 				ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */,
 				C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */,
+				AB7FE8832C3E45CE00EDED20 /* UserRepository.swift in Sources */,
 				AB2507152C3BF830009B0A3C /* Tokens.swift in Sources */,
 				ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */,
 				C7EFA7D92AF9279200C9BEA0 /* ComplaintView.swift in Sources */,
@@ -954,6 +993,7 @@
 				ABB71D6E2AE2754300BE0671 /* PostModel.swift in Sources */,
 				AB3BACFD2AF7A5FC00E792BE /* SearchTextFieldState.swift in Sources */,
 				AB53CA6D2AF7AC4100FD850A /* UINavigationController+.swift in Sources */,
+				AB7FE8852C3E461C00EDED20 /* UserDataSource.swift in Sources */,
 				AB45225C2ADE665100B69F24 /* URLConst.swift in Sources */,
 				ABFEBD642C3795CA00367389 /* ReviewDetailViewModel.swift in Sources */,
 				AB03D7372B01378E000C927A /* CommonAPIService.swift in Sources */,
@@ -976,9 +1016,12 @@
 				FD50A0482B01EBE000CF7F59 /* SettingNotificationView.swift in Sources */,
 				FD0E8B5A2B0DDCBB002CED68 /* SettingViewModel.swift in Sources */,
 				C7B5A8882B01641A00B73881 /* Authenticator.swift in Sources */,
+				AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */,
+				AB7FE8902C3E4CF700EDED20 /* NicknameResponseObject.swift in Sources */,
 				AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */,
 				C7A95F172B01FFE600F8595A /* NetworkLoggerPlugin.swift in Sources */,
 				C7A95F152B01FFDC00F8595A /* NetworkError.swift in Sources */,
+				AB2507492C3E4441009B0A3C /* UserUseCase.swift in Sources */,
 				AB38A1CD2B0D5580004153B5 /* ReviewDetailModel.swift in Sources */,
 				FDF2D6D02AE5E62B0027EE8F /* ChartModel.swift in Sources */,
 				C7A95F112B01FFBA00F8595A /* NewApiManager.swift in Sources */,
@@ -987,6 +1030,7 @@
 				FDF2D6CE2AE5DAD90027EE8F /* VoteInfoModel.swift in Sources */,
 				FD70B1F62B01C3080097B727 /* SettingBlockView.swift in Sources */,
 				AB2507372C3D3E5C009B0A3C /* OnboardingView.swift in Sources */,
+				AB7FE8892C3E499000EDED20 /* UserAPI.swift in Sources */,
 				ABA1E8492AFD5C0B009051E0 /* ReviewWriteView.swift in Sources */,
 				AB2507392C3D536B009B0A3C /* AuthInterceptor.swift in Sources */,
 				C7F1FD862ADDA37E00C5A2A1 /* BottomSheetView.swift in Sources */,
@@ -1030,10 +1074,13 @@
 				C7A95F1B2B03EB7B00F8595A /* NavigationManager.swift in Sources */,
 				ABA1E8502AFEA3AF009051E0 /* SettingView.swift in Sources */,
 				C7DE44C22AE26109001639CB /* View+.swift in Sources */,
+				AB7FE88E2C3E4ADC00EDED20 /* NicknameRequestObject.swift in Sources */,
 				C7E459D12ADFF89000ECD008 /* WoteTabView.swift in Sources */,
 				AB6845B42AFC146C00C3F7C2 /* TypeTestResultView.swift in Sources */,
+				AB7FE8872C3E46B700EDED20 /* UserAssmbly.swift in Sources */,
 				AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */,
 				ABA1E84E2AFE9F9A009051E0 /* MyPageView.swift in Sources */,
+				AB7FE88C2C3E49ED00EDED20 /* ProfileRequestObject.swift in Sources */,
 				C768F1A42AE656570020F82C /* ProfileSetting.swift in Sources */,
 				AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */,
 				FD8D9F812ADC5FAD0072F4BA /* KeychainManager.swift in Sources */,
@@ -1051,6 +1098,7 @@
 				C7A95F192B01FFEC00F8595A /* APIConstants.swift in Sources */,
 				AB03D73B2B0137D5000C927A /* PostService.swift in Sources */,
 				AB38A1072B06AE8B004153B5 /* PostEnums.swift in Sources */,
+				AB7FE8812C3E45B400EDED20 /* UserRepositoryType.swift in Sources */,
 				5E5099712AFBE2970053E529 /* CelebrateScean.swift in Sources */,
 				C73F8E8E2AE56168001C6B07 /* String+.swift in Sources */,
 				C73F8E832AE54DD8001C6B07 /* CommentsModel.swift in Sources */,

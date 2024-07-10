@@ -19,30 +19,9 @@ struct TwoHoSunApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            switch appState.serviceRoot.auth.authState {
-//            case .none, .allexpired, .unfinishRegister:
-//                OnBoardingView()
-//                    .environment(appState)
-//                    .environmentObject(navigationRouter)
-//            case .loggedIn:
-//                WoteTabView()
-//                    .environment(appState)
-//                    .environmentObject(navigationRouter)
-//            }
-//            WoteTabView()
-//                .environmentObject(navigationRouter)
-//                .environmentObject(appState)
-
-//            LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
-//                .environmentObject(appDependency)
-
             OnboardingView()
                 .environmentObject(appDependency)
                 .environmentObject(navigationRouter)
-//                .onAppear {
-//                    KeychainManager.shared.delete(key: TokenType.accessToken)
-//                    KeychainManager.shared.delete(key: TokenType.refreshToken)
-//                }
         }
     }
 

@@ -8,124 +8,45 @@
 import PhotosUI
 import SwiftUI
 
-enum NicknameValidationType {
-    case none, empty, length, forbiddenWord, duplicated, valid, same
-
-    var alertMessage: String {
-        switch self {
-        case .none:
-            return ""
-        case .empty:
-            return "닉네임을 입력해주세요."
-        case .length:
-            return "닉네임은 1~10자로 설정해주세요."
-        case .forbiddenWord:
-            return "해당 닉네임으로는 아이디를 생성할 수 없어요."
-        case .duplicated:
-            return "중복된 닉네임입니다."
-        case .valid:
-            return "사용 가능한 닉네임입니다."
-        case .same:
-            return "같은 닉네임입니다."
-        }
-    }
-
-    var alertMessageColor: Color {
-        switch self {
-        case .none:
-            return .clear
-        case .valid:
-            return Color.deepBlue
-        default:
-            return Color.errorRed
-        }
-    }
-
-    var textfieldBorderColor: Color {
-        switch self {
-        case .none, .valid:
-            return Color.grayStroke
-        default:
-            return Color.errorRed
-        }
-    }
-}
-
-enum ProfileInputType {
-    case nickname, school
-
-    var iconName: String {
-        switch self {
-        case .nickname:
-            return ""
-        case .school:
-            return "magnifyingglass"
-        }
-    }
-
-    var placeholder: String {
-        switch self {
-        case .nickname:
-            return "한/영 10자 이내(특수문자 불가)"
-        case .school:
-            return "학교를 검색해주세요."
-        }
-    }
-
-    var alertMessage: String {
-        switch self {
-        case .nickname:
-            return "닉네임을 입력해주세요."
-        case .school:
-            return "학교를 입력해주세요."
-        }
-    }
-}
-
 enum ProfileSettingType: Decodable {
     case setting, modfiy
 }
 
 struct ProfileSettingsView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var isProfileSheetShowed = false
     @State private var retryProfileImage = false
     @State private var isRestricted = false
-    
-    @State var viewType: ProfileSettingType
-    @State var originalImage: String?
+    @State private var originalImage: String?
 
-    @StateObject var viewModel = ProfileSettingViewModel()
+    @FocusState private var focusState: Bool
 
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    @Environment(\.dismiss) private var dismiss
-    @FocusState var focusState: Bool
+    @StateObject var viewModel: ProfileSettingViewModel
 
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
+            
             VStack(spacing: 0) {
-                switch viewType {
-                case .setting:
-                    titleLabel
-                        .padding(.top, 40)
-                case .modfiy:
-                    Spacer()
-                    profileImageView
-                    Spacer()
-                    nicknameInputView
-                        .padding(.bottom, 34)
-                    schoolInputView
-                }
+                titleLabel
+                    .padding(.top, 40)
                 Spacer()
 
-                switch viewType {
-                case .setting:
-                    nextButton
-                case .modfiy:
-                    completeButton
-                }
+                profileImageView
+
+                Spacer()
+
+                nicknameInputView
+                    .padding(.bottom, 34)
+
+                schoolInputView
+
+                Spacer()
+
+                nextButton
             }
             .padding(.bottom, 12)
             .padding(.horizontal, 16)
@@ -134,16 +55,7 @@ struct ProfileSettingsView: View {
             endTextEditing()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(viewType == .setting ? true : false)
-        .toolbar {
-            if viewType == .modfiy {
-                ToolbarItem(placement: .principal) {
-                    Text("프로필 수정")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundStyle(.white)
-                }
-            }
-        }
+        .navigationBarBackButtonHidden(true)
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
@@ -182,7 +94,7 @@ struct ProfileSettingsView: View {
 }
 
 extension ProfileSettingsView {
-    // MARK: - UI Components
+
     private var titleLabel: some View {
         HStack(spacing: 7) {
             VStack(alignment: .leading, spacing: 9) {
@@ -306,10 +218,12 @@ extension ProfileSettingsView {
 
     private var checkDuplicatedIdButton: some View {
         Button {
-            viewModel.postNickname()
+            viewModel.send(.checkDuplicatedNickname(viewModel.nickname))
+
             if viewModel.nicknameValidationType == .valid {
                 endTextEditing()
             }
+            
         } label: {
             Text("중복확인")
                 .font(.system(size: 14, weight: .medium))
@@ -473,4 +387,8 @@ extension ProfileSettingsView {
                 .padding(.bottom, 8)
         }
     }
+}
+
+#Preview {
+    ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
 }

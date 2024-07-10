@@ -19,7 +19,8 @@ class AppDependency: ObservableObject {
 
     private func assembleDependencies() {
         let assemblies: [Assembly] = [
-            AuthAssembly()
+            AuthAssembly(),
+            UserAssmbly()
         ]
 
         assemblies.forEach { $0.assemble(container: container) }
