@@ -12,3 +12,13 @@ struct ProfileSettingModel: Codable {
     var nickname: String
     var school: SchoolModel?
 }
+
+extension ProfileSettingModel {
+
+    func toObject() -> ProfileRequestObject {
+        .init(
+            imageFile: imageFile,
+            nickname: nickname,
+            school: school?.toObject())
+    }
+}

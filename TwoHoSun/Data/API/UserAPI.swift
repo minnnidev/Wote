@@ -11,6 +11,7 @@ import Moya
 enum UserAPI {
     case checkNicknameDuplicate(NicknameRequestObject)
     case getSchoolData(String, SchoolDataType)
+    case postProfile(ProfileRequestObject)
 }
 
 extension UserAPI: TargetType {
@@ -30,6 +31,8 @@ extension UserAPI: TargetType {
             "/api/profiles/isValidNickname"
         case .getSchoolData(_, _):
             ""
+        case .postProfile(_):
+            "/api/profiles"
         }
     }
     
@@ -39,6 +42,8 @@ extension UserAPI: TargetType {
                 .post
         case .getSchoolData(_, _):
                 .get
+        case .postProfile(_):
+                .post
         }
     }
     
@@ -58,6 +63,10 @@ extension UserAPI: TargetType {
             ]
 
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+            
+        case let .postProfile(requestObject):
+            let formData = MultipartFormDataHelper.createMultipartFormData(from: requestObject)
+            return .uploadMultipart(formData)
         }
     }
     
@@ -65,6 +74,8 @@ extension UserAPI: TargetType {
         switch self {
         case .getSchoolData(_, _):
             nil
+        case .postProfile(_):
+            APIConstants.headerMultiPartForm
         default:
             APIConstants.headerWithAuthorization
         }

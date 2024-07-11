@@ -38,6 +38,12 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
+        userDataSource.setProfile(profile.toObject())
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
 
 final class StubUserRepository: UserRepositoryType {
@@ -48,6 +54,11 @@ final class StubUserRepository: UserRepositoryType {
     }
 
     func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

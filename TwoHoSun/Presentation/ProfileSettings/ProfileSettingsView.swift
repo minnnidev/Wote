@@ -61,6 +61,11 @@ struct ProfileSettingsView: View {
             .toolbarBackground(Color.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
+            .overlay {
+                if viewModel.isLoading {
+                    LoadingView()
+                }
+            }
     //        .onChange(of: selectedPhoto) { _, newValue in
     //            PHPhotoLibrary.requestAuthorization { status in
     //                guard status == .authorized else { return }
@@ -71,27 +76,6 @@ struct ProfileSettingsView: View {
     //                }
     //            }
     //        }
-            .customConfirmDialog(isPresented: $isProfileSheetShowed, isMine: .constant(true)) {_ in
-                Button {
-                    originalImage = nil
-                    selectedPhoto = nil
-                    viewModel.selectedImageData = nil
-                    isProfileSheetShowed.toggle()
-                } label: {
-                    Text("프로필 삭제하기")
-                        .frame(maxWidth: .infinity)
-                }
-                .frame(height: 42)
-                Divider()
-                    .background(Color.gray300)
-                Button {
-                    retryProfileImage = true
-                    isProfileSheetShowed.toggle()
-                } label: {
-                    Text("프로필 재설정하기")
-                }
-                .frame(height: 42)
-            } 
         }
     }
 }
@@ -266,24 +250,16 @@ extension ProfileSettingsView {
                 .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
                 .cornerRadius(10)
         }
-    }
-
-    private var completeButton: some View {
-        Button {
+        .simultaneousGesture(TapGesture().onEnded{
             guard viewModel.isAllInputValid else {
                 viewModel.setInvalidCondition()
                 return
             }
-            viewModel.setProfile(isRestricted, false)
+
+            viewModel.send(.completeProfileSetting)
+
             dismiss()
-        } label: {
-            Text("완료")
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundStyle(.white)
-                .frame(width: 361, height: 52)
-                .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
-                .cornerRadius(10)
-        }
+        })
         .disabled(viewModel.isAllInputValid ? false : true)
     }
 

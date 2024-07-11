@@ -12,6 +12,12 @@ struct SchoolModel: Codable {
     let schoolRegion: String
 }
 
+extension SchoolModel {
+    func toObject() -> SchoolObject {
+        .init(schoolName: schoolName, schoolRegion: schoolRegion)
+    }
+}
+
 struct SchoolInfoModel: Identifiable {
     let id = UUID()
     var school: SchoolModel
