@@ -14,6 +14,7 @@ enum ProfileSettingType: Decodable {
 
 struct ProfileSettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var appDependency: AppDependency
 
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var isProfileSheetShowed = false
@@ -26,69 +27,55 @@ struct ProfileSettingsView: View {
     @StateObject var viewModel: ProfileSettingViewModel
 
     var body: some View {
-        ZStack {
-            Color.background
-                .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                titleLabel
-                    .padding(.top, 40)
-                Spacer()
+        NavigationStack {
+            ZStack {
+                Color.background
+                    .ignoresSafeArea()
 
-                profileImageView
+                VStack(spacing: 0) {
+                    titleLabel
+                        .padding(.top, 40)
+                    Spacer()
 
-                Spacer()
+                    profileImageView
 
-                nicknameInputView
-                    .padding(.bottom, 34)
+                    Spacer()
 
-                schoolInputView
+                    nicknameInputView
+                        .padding(.bottom, 34)
 
-                Spacer()
+                    schoolInputView
 
-                nextButton
+                    Spacer()
+
+                    nextButton
+                }
+                .padding(.bottom, 12)
+                .padding(.horizontal, 16)
             }
-            .padding(.bottom, 12)
-            .padding(.horizontal, 16)
-        }
-        .onTapGesture {
-            endTextEditing()
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(Color.background, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
-//        .onChange(of: selectedPhoto) { _, newValue in
-//            PHPhotoLibrary.requestAuthorization { status in
-//                guard status == .authorized else { return }
-//                Task {
-//                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
-//                        viewModel.selectedImageData = data
-//                    }
-//                }
-//            }
-//        }
-        .customConfirmDialog(isPresented: $isProfileSheetShowed, isMine: .constant(true)) {_ in
-            Button {
-                originalImage = nil
-                selectedPhoto = nil
-                viewModel.selectedImageData = nil
-                isProfileSheetShowed.toggle()
-            } label: {
-                Text("프로필 삭제하기")
-                    .frame(maxWidth: .infinity)
+            .onTapGesture {
+                endTextEditing()
             }
-            .frame(height: 42)
-            Divider()
-                .background(Color.gray300)
-            Button {
-                retryProfileImage = true
-                isProfileSheetShowed.toggle()
-            } label: {
-                Text("프로필 재설정하기")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbarBackground(Color.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
+            .overlay {
+                if viewModel.isLoading {
+                    LoadingView()
+                }
             }
-            .frame(height: 42)
+    //        .onChange(of: selectedPhoto) { _, newValue in
+    //            PHPhotoLibrary.requestAuthorization { status in
+    //                guard status == .authorized else { return }
+    //                Task {
+    //                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
+    //                        viewModel.selectedImageData = data
+    //                    }
+    //                }
+    //            }
+    //        }
         }
     }
 }
@@ -105,6 +92,7 @@ extension ProfileSettingsView {
                     .font(.system(size: 32, weight: .medium))
                     .foregroundColor(Color.white)
             }
+
             VStack(alignment: .leading) {
                 Text("프로필")
                     .font(.system(size: 32, weight: .bold))
@@ -137,6 +125,7 @@ extension ProfileSettingsView {
                         .frame(width: 130, height: 130)
                 }
             }
+
             selectProfileButton
         }
         .onTapGesture {
@@ -155,6 +144,7 @@ extension ProfileSettingsView {
         }
     }
 
+    // TODO: - Photo Picker 
     @ViewBuilder
     func photoPickerView<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         PhotosPicker(selection: $selectedPhoto,
@@ -178,6 +168,7 @@ extension ProfileSettingsView {
         VStack(alignment: .leading, spacing: 0) {
             Text("닉네임")
                 .modifier(TitleTextStyle())
+
             HStack(spacing: 10) {
                 TextField("",
                           text: $viewModel.nickname,
@@ -200,15 +191,6 @@ extension ProfileSettingsView {
                         }
                     }
                 }
-                .onAppear {
-//                    if let nickname = loginStateManager.serviceRoot.memberManager.profile?.nickname {
-//                        viewModel.nickname = nickname
-//                        viewModel.firstNickname = nickname
-//                    }
-                }
-//                .onChange(of: viewModel.nickname) { _, newValue in
-//                    viewModel.checkNicknameValidation(newValue)
-//                }
                 checkDuplicatedIdButton
             }
             nicknameValidationAlertMessage(for: viewModel.nicknameValidationType)
@@ -237,37 +219,21 @@ extension ProfileSettingsView {
 
     @ViewBuilder
     private var schoolInputView: some View {
-        if isRestricted {
+        NavigationLink {
+            SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo,
+                             viewModel: appDependency.container.resolve(SchoolSearchViewModel.self)!)
+        } label: {
             VStack(alignment: .leading, spacing: 0) {
                 Text("우리 학교")
                     .modifier(TitleTextStyle())
+                
                 roundedIconTextField(for: .school,
-                                     text:  viewModel.selectedSchoolInfo?.school.schoolName,
+                                     text: viewModel.selectedSchoolInfo?.school.schoolName,
                                      isFilled: viewModel.isSchoolFilled)
-                if isRestricted {
-                    HStack {
-                        Image(systemName: "light.beacon.max")
-                        Text("학교를 변경한지 아직 6개월이 안 지났어요!")
-                    }
-                    .foregroundStyle(Color.errorRed)
-                    .font(.system(size: 12))
-                    .padding(.top, 4)
-                }
-            }
-        } else {
-            NavigationLink {
-                SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo)
-            } label: {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("우리 학교")
-                        .modifier(TitleTextStyle())
-                    roundedIconTextField(for: .school,
-                                         text: viewModel.selectedSchoolInfo?.school.schoolName,
-                                         isFilled: viewModel.isSchoolFilled)
-                    if !viewModel.isFormValid && !viewModel.isSchoolFilled {
-                        schoolValidationAlertMessage
-                            .padding(.top, 6)
-                    }
+
+                if !viewModel.isFormValid && !viewModel.isSchoolFilled {
+                    schoolValidationAlertMessage
+                        .padding(.top, 6)
                 }
             }
         }
@@ -284,44 +250,30 @@ extension ProfileSettingsView {
                 .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
                 .cornerRadius(10)
         }
-    }
-
-    private var completeButton: some View {
-        Button {
+        .simultaneousGesture(TapGesture().onEnded{
             guard viewModel.isAllInputValid else {
                 viewModel.setInvalidCondition()
                 return
             }
-            viewModel.setProfile(isRestricted, false)
+
+            viewModel.send(.completeProfileSetting)
+
             dismiss()
-        } label: {
-            Text("완료")
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundStyle(.white)
-                .frame(width: 361, height: 52)
-                .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
-                .cornerRadius(10)
-        }
+        })
         .disabled(viewModel.isAllInputValid ? false : true)
     }
 
     private func roundedIconTextField(for input: ProfileInputType, text: String?, isFilled: Bool) -> some View {
         VStack(spacing: 10) {
             HStack(spacing: 0) {
-                if isRestricted {
-                    Text(text ?? input.placeholder)
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.subGray7)
-                        .frame(height: 45)
-                        .padding(.leading, 17)
-                } else {
-                    Text(text ?? input.placeholder)
-                        .font(.system(size: 14))
-                        .foregroundColor(text != nil ? .white : Color.placeholderGray)
-                        .frame(height: 45)
-                        .padding(.leading, 17)
-                }
+                Text(text ?? input.placeholder)
+                    .font(.system(size: 14))
+                    .foregroundColor(text != nil ? .white : Color.placeholderGray)
+                    .frame(height: 45)
+                    .padding(.leading, 17)
+
                 Spacer()
+
                 Image(systemName: input.iconName)
                     .font(.system(size: 16))
                     .foregroundStyle(Color.placeholderGray)
@@ -329,32 +281,9 @@ extension ProfileSettingsView {
             }
             .frame(maxWidth: .infinity)
             .background {
-                if isRestricted {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(isRestricted ? Color.dividerGray : nil)
-                } else {
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(!isFilled && !viewModel.isFormValid ? Color.errorRed : Color.grayStroke, lineWidth: 1)
-                }
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(!isFilled && !viewModel.isFormValid ? Color.errorRed : Color.grayStroke, lineWidth: 1)
             }
-        }
-    }
-
-    private var goToTypeTestButton: some View {
-        Button {
-            // TODO: 소비 성향 테스트하기
-        } label: {
-            HStack(spacing: 0) {
-                Text("소비 성향 테스트하러가기")
-                    .foregroundStyle(.white)
-                Text("(1회)")
-                    .foregroundStyle(Color.gray500)
-            }
-            .font(.system(size: 16, weight: .semibold))
-            .frame(height: 52)
-            .frame(maxWidth: .infinity)
-            .background(Color.lightBlue)
-            .clipShape(.rect(cornerRadius: 10))
         }
     }
 
@@ -390,5 +319,7 @@ extension ProfileSettingsView {
 }
 
 #Preview {
-    ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
+    NavigationStack {
+        ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
+    }
 }
