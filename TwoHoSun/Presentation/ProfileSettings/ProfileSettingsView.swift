@@ -26,69 +26,71 @@ struct ProfileSettingsView: View {
     @StateObject var viewModel: ProfileSettingViewModel
 
     var body: some View {
-        ZStack {
-            Color.background
-                .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                titleLabel
-                    .padding(.top, 40)
-                Spacer()
+        NavigationStack {
+            ZStack {
+                Color.background
+                    .ignoresSafeArea()
 
-                profileImageView
+                VStack(spacing: 0) {
+                    titleLabel
+                        .padding(.top, 40)
+                    Spacer()
 
-                Spacer()
+                    profileImageView
 
-                nicknameInputView
-                    .padding(.bottom, 34)
+                    Spacer()
 
-                schoolInputView
+                    nicknameInputView
+                        .padding(.bottom, 34)
 
-                Spacer()
+                    schoolInputView
 
-                nextButton
+                    Spacer()
+
+                    nextButton
+                }
+                .padding(.bottom, 12)
+                .padding(.horizontal, 16)
             }
-            .padding(.bottom, 12)
-            .padding(.horizontal, 16)
-        }
-        .onTapGesture {
-            endTextEditing()
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(Color.background, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
-//        .onChange(of: selectedPhoto) { _, newValue in
-//            PHPhotoLibrary.requestAuthorization { status in
-//                guard status == .authorized else { return }
-//                Task {
-//                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
-//                        viewModel.selectedImageData = data
-//                    }
-//                }
-//            }
-//        }
-        .customConfirmDialog(isPresented: $isProfileSheetShowed, isMine: .constant(true)) {_ in
-            Button {
-                originalImage = nil
-                selectedPhoto = nil
-                viewModel.selectedImageData = nil
-                isProfileSheetShowed.toggle()
-            } label: {
-                Text("프로필 삭제하기")
-                    .frame(maxWidth: .infinity)
+            .onTapGesture {
+                endTextEditing()
             }
-            .frame(height: 42)
-            Divider()
-                .background(Color.gray300)
-            Button {
-                retryProfileImage = true
-                isProfileSheetShowed.toggle()
-            } label: {
-                Text("프로필 재설정하기")
-            }
-            .frame(height: 42)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbarBackground(Color.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
+    //        .onChange(of: selectedPhoto) { _, newValue in
+    //            PHPhotoLibrary.requestAuthorization { status in
+    //                guard status == .authorized else { return }
+    //                Task {
+    //                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
+    //                        viewModel.selectedImageData = data
+    //                    }
+    //                }
+    //            }
+    //        }
+            .customConfirmDialog(isPresented: $isProfileSheetShowed, isMine: .constant(true)) {_ in
+                Button {
+                    originalImage = nil
+                    selectedPhoto = nil
+                    viewModel.selectedImageData = nil
+                    isProfileSheetShowed.toggle()
+                } label: {
+                    Text("프로필 삭제하기")
+                        .frame(maxWidth: .infinity)
+                }
+                .frame(height: 42)
+                Divider()
+                    .background(Color.gray300)
+                Button {
+                    retryProfileImage = true
+                    isProfileSheetShowed.toggle()
+                } label: {
+                    Text("프로필 재설정하기")
+                }
+                .frame(height: 42)
+            } 
         }
     }
 }
@@ -285,20 +287,14 @@ extension ProfileSettingsView {
     private func roundedIconTextField(for input: ProfileInputType, text: String?, isFilled: Bool) -> some View {
         VStack(spacing: 10) {
             HStack(spacing: 0) {
-                if isRestricted {
-                    Text(text ?? input.placeholder)
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.subGray7)
-                        .frame(height: 45)
-                        .padding(.leading, 17)
-                } else {
-                    Text(text ?? input.placeholder)
-                        .font(.system(size: 14))
-                        .foregroundColor(text != nil ? .white : Color.placeholderGray)
-                        .frame(height: 45)
-                        .padding(.leading, 17)
-                }
+                Text(text ?? input.placeholder)
+                    .font(.system(size: 14))
+                    .foregroundColor(text != nil ? .white : Color.placeholderGray)
+                    .frame(height: 45)
+                    .padding(.leading, 17)
+
                 Spacer()
+
                 Image(systemName: input.iconName)
                     .font(.system(size: 16))
                     .foregroundStyle(Color.placeholderGray)
@@ -306,13 +302,8 @@ extension ProfileSettingsView {
             }
             .frame(maxWidth: .infinity)
             .background {
-                if isRestricted {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(isRestricted ? Color.dividerGray : nil)
-                } else {
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(!isFilled && !viewModel.isFormValid ? Color.errorRed : Color.grayStroke, lineWidth: 1)
-                }
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(!isFilled && !viewModel.isFormValid ? Color.errorRed : Color.grayStroke, lineWidth: 1)
             }
         }
     }
@@ -349,5 +340,7 @@ extension ProfileSettingsView {
 }
 
 #Preview {
-    ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
+    NavigationStack {
+        ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
+    }
 }
