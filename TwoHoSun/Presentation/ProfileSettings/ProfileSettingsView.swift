@@ -14,6 +14,7 @@ enum ProfileSettingType: Decodable {
 
 struct ProfileSettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var appDependency: AppDependency
 
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var isProfileSheetShowed = false
@@ -234,7 +235,8 @@ extension ProfileSettingsView {
     @ViewBuilder
     private var schoolInputView: some View {
         NavigationLink {
-            SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo)
+            SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo,
+                             viewModel: appDependency.container.resolve(SchoolSearchViewModel.self)!)
         } label: {
             VStack(alignment: .leading, spacing: 0) {
                 Text("우리 학교")

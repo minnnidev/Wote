@@ -19,7 +19,8 @@ struct TwoHoSunApp: App {
 
     var body: some Scene {
         WindowGroup {
-            OnboardingView()
+//            OnboardingView()
+            ProfileSettingsView(viewModel: appDependency.container.resolve(ProfileSettingViewModel.self)!)
                 .environmentObject(appDependency)
                 .environmentObject(navigationRouter)
         }

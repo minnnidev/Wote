@@ -14,6 +14,12 @@ final class SchoolSearchViewModel: ObservableObject {
     @Published var isFetching = false
     private let baseURL = "http://www.career.go.kr/cnet/openapi/getOpenApi"
 
+    private let userUseCase: UserUseCaseType
+
+    init(userUseCase: UserUseCaseType) {
+        self.userUseCase = userUseCase
+    }
+
     var apiKey: String {
         guard let key = Bundle.main.object(forInfoDictionaryKey: "SCHOOL_API_KEY") as? String else {
             fatalError("SCHOOL_API_KEY error")

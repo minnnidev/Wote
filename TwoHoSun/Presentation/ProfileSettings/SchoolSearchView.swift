@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct SchoolSearchView: View {
-    @State private var searchWord = ""
-    @Binding var selectedSchoolInfo: SchoolInfoModel?
     @Environment(\.dismiss) var dismiss
+
+    @Binding var selectedSchoolInfo: SchoolInfoModel?
+
+    @State private var searchWord = ""
     @State private var textFieldState = SearchTextFieldState.inactive
-    @StateObject private var viewModel = SchoolSearchViewModel()
+
+    @StateObject var viewModel: SchoolSearchViewModel
+
     @FocusState private var isFocused: Bool
 
     var body: some View {
