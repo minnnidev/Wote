@@ -12,7 +12,6 @@ struct SchoolSearchView: View {
 
     @Binding var selectedSchoolInfo: SchoolInfoModel?
 
-    @State private var searchWord = ""
     @State private var textFieldState = SearchTextFieldState.inactive
 
     @StateObject var viewModel: SchoolSearchViewModel
@@ -47,7 +46,7 @@ extension SchoolSearchView {
 
     private var schoolSearchField: some View {
         TextField("",
-                  text: $searchWord,
+                  text: $viewModel.searchSchoolText,
                   prompt: Text("학교명 검색")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(textFieldState.placeholderColor))
@@ -60,7 +59,7 @@ extension SchoolSearchView {
             .onSubmit {
                 Task {
                     textFieldState = .submitted
-                    try await viewModel.setSchoolData(searchWord: searchWord)
+                    try await viewModel.setSchoolData(searchWord: viewModel.searchSchoolText)
                 }
             }
 //            .onChange(of: isFocused) { _, isFocused in

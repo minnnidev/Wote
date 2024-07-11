@@ -10,14 +10,30 @@ import Foundation
 import Alamofire
 
 final class SchoolSearchViewModel: ObservableObject {
+
+    enum Action {
+        case submit(_ searchSchoolTextt: String)
+    }
+
     @Published var schools = [SchoolInfoModel]()
     @Published var isFetching = false
+    @Published var searchSchoolText = ""
+
+
     private let baseURL = "http://www.career.go.kr/cnet/openapi/getOpenApi"
 
     private let userUseCase: UserUseCaseType
 
     init(userUseCase: UserUseCaseType) {
         self.userUseCase = userUseCase
+    }
+
+    func send(action: Action) {
+        switch action {
+        case let .submit(searchSchoolTextt):
+            // TODO: - UseCase 호출
+            return
+        }
     }
 
     var apiKey: String {
@@ -32,8 +48,8 @@ final class SchoolSearchViewModel: ObservableObject {
         schools.removeAll()
         isFetching = true
 
-        let highSchoolValues: HighSchoolResponse = try await fetchSchoolData(schoolType: .highSchool, searchWord: searchWord)
-        let middleSchoolValues: MiddleSchoolResponse = try await fetchSchoolData(schoolType: .middleSchool, searchWord: searchWord)
+        let highSchoolValues: HighSchoolResponseObject = try await fetchSchoolData(schoolType: .highSchool, searchWord: searchWord)
+        let middleSchoolValues: MiddleSchoolResponseObject = try await fetchSchoolData(schoolType: .middleSchool, searchWord: searchWord)
         let highSchoolSchools = highSchoolValues.dataSearch.content.map { $0.convertToSchoolInfoModel() }
         let middleSchoolSchools = middleSchoolValues.dataSearch.content.map { $0.convertToSchoolInfoModel() }
 

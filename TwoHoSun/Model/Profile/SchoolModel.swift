@@ -18,6 +18,18 @@ struct SchoolInfoModel: Identifiable {
     let schoolAddress: String?
 }
 
+extension SchoolModel {
+    static var schoolStub: SchoolModel {
+        .init(schoolName: "샘플고등학교", schoolRegion: "서울")
+    }
+}
+
+extension SchoolInfoModel {
+    static var schoolInfoStub: SchoolInfoModel {
+        .init(school: .schoolStub, schoolAddress: "서울시 샘플구")
+    }
+}
+
 enum SchoolDataType {
     case highSchool, middleSchool
 

@@ -24,6 +24,10 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getSchoolsData(_ query: String) async throws -> [SchoolInfoModel] {
+        [.schoolInfoStub]
+    }
 }
 
 final class StubUserRepository: UserRepositoryType {
@@ -31,5 +35,9 @@ final class StubUserRepository: UserRepositoryType {
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         Empty()
             .eraseToAnyPublisher()
+    }
+
+    func getSchoolsData(_ query: String) async throws -> [SchoolInfoModel] {
+        [.schoolInfoStub]
     }
 }

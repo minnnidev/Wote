@@ -10,6 +10,7 @@ import Combine
 
 protocol UserUseCaseType {
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError>
+    func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -24,6 +25,11 @@ final class UserUseCase: UserUseCaseType {
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         userRepository.checkNicknameDuplicated(nickname)
     }
+
+    func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
 }
 
 final class StubUserUseCase: UserUseCaseType {
@@ -31,6 +37,11 @@ final class StubUserUseCase: UserUseCaseType {
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
         Just(false)
             .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
+        Empty()
             .eraseToAnyPublisher()
     }
 }

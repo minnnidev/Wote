@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HighSchoolResponse: Codable {
+struct HighSchoolResponseObject: Codable {
     let dataSearch: HighSchoolData
 }
 
@@ -30,7 +30,7 @@ struct HighSchoolContent: Codable, Hashable {
     }
 }
 
-struct MiddleSchoolResponse: Codable {
+struct MiddleSchoolResponseObject: Codable {
     let dataSearch: MiddleSchoolData
 }
 
