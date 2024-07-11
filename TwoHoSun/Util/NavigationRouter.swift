@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - 이전 Navigation
+
 enum AllNavigation: Decodable, Hashable {
     case considerationView
     case writeReiview
@@ -29,29 +31,24 @@ enum AllNavigation: Decodable, Hashable {
     case profileSettingView(type: ProfileSettingType)
 }
 
-final class NavigationManager: ObservableObject {
-    @Published var navigatePath = [AllNavigation]()
+enum VoteTabDestination {
 
-    func navigate(_ route: AllNavigation) {
-        guard !navigatePath.contains(route) else {
-            return
-        }
-        navigatePath.append(route)
+}
+
+enum ReviewTabDestination {
+
+}
+
+final class NavigationRouter: ObservableObject {
+    @Published var path: NavigationPath = NavigationPath()
+
+    func pop() {
+        guard !path.isEmpty else { return }
+
+        path.removeLast()
     }
 
-    func back() {
-        navigatePath.removeLast()
-    }
-
-    func countPop(count: Int) {
-        navigatePath.removeLast(count)
-    }
-    
-    func countDeque(count: Int) {
-        navigatePath.removeFirst(count)
-    }
-
-    func gotoMain() {
-        navigatePath.removeAll()
+    func popToRootView() {
+        path = .init()
     }
 }
