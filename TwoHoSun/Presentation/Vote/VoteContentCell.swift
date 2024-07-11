@@ -10,7 +10,7 @@ import SwiftUI
 import Kingfisher
 
 struct VoteContentCell: View {
-    @EnvironmentObject var navigationRouter: NavigationManager
+    @EnvironmentObject var navigationRouter: NavigationRouter
 
     @State private var isButtonTapped = false
     @State private var isAlertShown = false
@@ -104,7 +104,6 @@ extension VoteContentCell {
     private func voteInfoButton(label: String, icon: String) -> some View {
         Button {
             // TODO: detailView로 이동
-            navigationRouter.navigate(.detailView(postId: data.id))
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: icon)
@@ -120,7 +119,7 @@ extension VoteContentCell {
 
     private var detailResultButton: some View {
         Button {
-            navigationRouter.navigate(.detailView(postId: data.id))
+        
         } label: {
                 Text("상세보기")
                     .font(.system(size: 16, weight: .bold))
