@@ -15,7 +15,6 @@ protocol UserUseCaseType {
 
 final class UserUseCase: UserUseCaseType {
     
-
     private let userRepository: UserRepositoryType
 
     init(userRepository: UserRepositoryType) {
@@ -27,8 +26,7 @@ final class UserUseCase: UserUseCaseType {
     }
 
     func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
-        Empty()
-            .eraseToAnyPublisher()
+        userRepository.getSchoolsData(query)
     }
 }
 

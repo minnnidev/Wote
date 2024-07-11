@@ -25,8 +25,18 @@ final class UserRepository: UserRepositoryType {
             .eraseToAnyPublisher()
     }
 
-    func getSchoolsData(_ query: String) async throws -> [SchoolInfoModel] {
-        [.schoolInfoStub]
+    func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
+        Publishers.Zip(userDataSource.getHighSchoolData(query), userDataSource.getMiddleSchoolData(query))
+            .map { highSchoolObject, middleSchoolObject in
+                var schoolResult: [SchoolInfoModel] = .init()
+
+                schoolResult.append(contentsOf: highSchoolObject.dataSearch.content.map { $0.convertToSchoolInfoModel() })
+                schoolResult.append(contentsOf: middleSchoolObject.dataSearch.content.map { $0.convertToSchoolInfoModel() })
+
+                return schoolResult
+            }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -37,7 +47,8 @@ final class StubUserRepository: UserRepositoryType {
             .eraseToAnyPublisher()
     }
 
-    func getSchoolsData(_ query: String) async throws -> [SchoolInfoModel] {
-        [.schoolInfoStub]
+    func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
     }
 }

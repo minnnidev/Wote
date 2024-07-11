@@ -9,6 +9,8 @@ import Foundation
 
 typealias TokenType = Constants.TokenType
 typealias AppStorageKey = Constants.AppStorageKey
+typealias APIKey = Constants.APIKeyConst
+typealias URLConst = Constants.URLConst
 
 struct Constants { }
 
@@ -27,6 +29,7 @@ extension Constants {
 extension Constants {
 
     struct URLConst {
+
         static var baseURL: String {
             guard let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as? String else {
                 fatalError("BASE_URL is missing in the Info.plist")
@@ -34,7 +37,7 @@ extension Constants {
             return baseURL.replacingOccurrences(of: " ", with: "")
         }
 
-        static var cnetAPI: String {
+        static var cnetURL: String {
             return "http://www.career.go.kr/cnet/openapi/getOpenApi"
         }
     }
@@ -43,7 +46,7 @@ extension Constants {
 extension Constants {
 
     struct APIKeyConst {
-        static var apiKey: String {
+        static var cnetAPIKey: String {
             guard let key = Bundle.main.object(forInfoDictionaryKey: "SCHOOL_API_KEY") as? String else {
                 fatalError("SCHOOL_API_KEY error")
             }

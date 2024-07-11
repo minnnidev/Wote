@@ -6,11 +6,14 @@
 //
 
 import Foundation
-import Moya
 import Combine
+import Moya
+import Alamofire
 
 protocol UserDataSourceType {
     func checkNicknameDuplicated(_ object: NicknameRequestObject) -> AnyPublisher<NicknameResponseObject, APIError>
+    func getHighSchoolData(_ searchText: String) -> AnyPublisher<HighSchoolResponseObject, APIError>
+    func getMiddleSchoolData(_ searchText: String) -> AnyPublisher<MiddleSchoolResponseObject, APIError>
 }
 
 final class UserDataSource: UserDataSourceType {
@@ -25,4 +28,17 @@ final class UserDataSource: UserDataSourceType {
             .eraseToAnyPublisher()
     }
 
+    func getHighSchoolData(_ searchText: String) -> AnyPublisher<HighSchoolResponseObject, APIError> {
+        provider.requestPublisher(.getSchoolData(searchText, .highSchool))
+            .tryMap { try JSONDecoder().decode(HighSchoolResponseObject.self, from: $0.data) }
+            .mapError { APIError.error($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func getMiddleSchoolData(_ searchText: String) -> AnyPublisher<MiddleSchoolResponseObject, APIError> {
+        provider.requestPublisher(.getSchoolData(searchText, .middleSchool))
+            .tryMap { try JSONDecoder().decode(MiddleSchoolResponseObject.self, from: $0.data) }
+            .mapError { APIError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
