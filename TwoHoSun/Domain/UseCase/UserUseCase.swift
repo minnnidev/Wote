@@ -11,6 +11,7 @@ import Combine
 protocol UserUseCaseType {
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError>
     func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError>
+
 }
 
 final class UserUseCase: UserUseCaseType {

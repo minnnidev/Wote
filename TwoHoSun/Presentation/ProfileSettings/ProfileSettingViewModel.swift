@@ -27,7 +27,7 @@ final class ProfileSettingViewModel: ObservableObject {
     @Published var selectedImageData: Data?
     @Published var isNicknameDuplicated = false
     @Published var isFormValid = true
-    @Published var model: ProfileSetting?
+    @Published var model: ProfileSettingModel?
     @Published var isProfileSheetShowed: Bool = false
 
     private let forbiddenWord = ["금지어1", "금지어2"]
@@ -105,20 +105,16 @@ final class ProfileSettingViewModel: ObservableObject {
     func setProfile(_ isRestricted: Bool, _ isRegsiter: Bool) {
         guard let school = selectedSchoolInfo?.school else { return }
         if isRestricted {
-            model = ProfileSetting(imageFile: selectedImageData ?? Data(),
+            model = ProfileSettingModel(imageFile: selectedImageData ?? Data(),
                                    nickname: nickname,
                                    school: nil)
         } else {
-            model = ProfileSetting(imageFile: selectedImageData ?? Data(),
+            model = ProfileSettingModel(imageFile: selectedImageData ?? Data(),
                                    nickname: nickname,
                                    school: school)
         }
     }
     
-    func postNickname() {
-        // TODO: - 닉네임 중복 체크 API
-    }
-
     func send(_ action: Action) {
         switch action {
         case .selectImage:

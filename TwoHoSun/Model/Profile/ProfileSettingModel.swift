@@ -7,13 +7,8 @@
 
 import SwiftUI
 
-struct ProfileSetting: Codable {
+struct ProfileSettingModel: Codable {
     var imageFile: Data?
     var nickname: String
     var school: SchoolModel?
-}
-
-enum UserGender: String, CaseIterable {
-    case boy = "남"
-    case girl = "여"
 }
