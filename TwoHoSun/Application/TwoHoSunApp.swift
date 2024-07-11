@@ -14,7 +14,7 @@ struct TwoHoSunApp: App {
     @StateObject private var appState = AppLoginState()
     
     @StateObject private var appDependency = AppDependency()
-    @StateObject private var navigationRouter = NavigationRouter()
+    @StateObject private var navigationRouter = NavigationManager()
     
 
     var body: some Scene {
@@ -33,7 +33,7 @@ class ServiceRoot {
         let manager = NewApiManager(authenticator: auth)
         return manager
     }()
-    var navigationManager = NavigationRouter()
+    var navigationManager = NavigationManager()
     lazy var memberManager = MemberManager(authenticator: auth)
 }
 

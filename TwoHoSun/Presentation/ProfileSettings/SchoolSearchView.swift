@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct SchoolSearchView: View {
-    @Environment(\.dismiss) var dismiss
-
+    @State private var searchWord = ""
     @Binding var selectedSchoolInfo: SchoolInfoModel?
-
-    @StateObject var viewModel: SchoolSearchViewModel
-
+    @Environment(\.dismiss) var dismiss
+    @State private var textFieldState = SearchTextFieldState.inactive
+    @StateObject private var viewModel = SchoolSearchViewModel()
     @FocusState private var isFocused: Bool
 
     var body: some View {
         ZStack(alignment: .top) {
             Color.background
                 .ignoresSafeArea()
-
             VStack(spacing: 0) {
                 schoolSearchField
                     .padding(.horizontal, 16)
-
                 schoolSearchResultView
             }
             .padding(.top, 20)
@@ -39,60 +36,46 @@ struct SchoolSearchView: View {
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .foregroundStyle(.white)
-        .overlay {
-            if viewModel.isLoading {
-                ProgressView()
-                    .padding(.top, 100)
-            }
-        }
     }
 }
 
 extension SchoolSearchView {
 
-    @ViewBuilder
-    private var schoolSearchResultView: some View {
-        switch viewModel.textFieldState {
-        case .submitted:
-            if viewModel.schools.isEmpty {
-                emptyResultView
-            } else {
-                searchedSchoolList
-                    .padding(.top, 16)
-            }
-        default:
-            searchDescriptionView
-                .padding(.top, 32)
-        }
-    }
-
     private var schoolSearchField: some View {
         TextField("",
-                  text: $viewModel.searchSchoolText,
+                  text: $searchWord,
                   prompt: Text("학교명 검색")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(viewModel.textFieldState.placeholderColor))
+                            .foregroundColor(textFieldState.placeholderColor))
+            .focused($isFocused)
             .font(.system(size: 16, weight: .medium))
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
             .frame(height: 44)
-            .focused($isFocused)
-            .background(viewModel.textFieldState.backgroundColor)
+            .background(textFieldState.backgroundColor)
             .tint(Color.placeholderGray)
+            .onSubmit {
+                Task {
+                    textFieldState = .submitted
+                    try await viewModel.setSchoolData(searchWord: searchWord)
+                }
+            }
+//            .onChange(of: isFocused) { _, isFocused in
+//                if isFocused {
+//                    textFieldState = .active
+//                }
+//            }
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay {
-                if viewModel.textFieldState == .active {
+                if textFieldState == .active {
                     RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(viewModel.textFieldState.strokeColor, lineWidth: 1)
+                        .strokeBorder(textFieldState.strokeColor, lineWidth: 1)
                         .blur(radius: 3)
                         .shadow(color: Color.shadowBlue, radius: 2)
                 }
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(viewModel.textFieldState.strokeColor, lineWidth: 1)
-            }
-            .onSubmit {
-                viewModel.send(action: .submit(viewModel.searchSchoolText))
+                    .strokeBorder(textFieldState.strokeColor, lineWidth: 1)
             }
     }
 
@@ -106,50 +89,7 @@ extension SchoolSearchView {
         .padding(.top, 170)
     }
 
-    @ViewBuilder
-    private var searchedSchoolList: some View {
-        List(viewModel.schools.indices, id: \.self) { index in
-            let school = viewModel.schools[index]
-            SchoolListCell(schoolInfo: school, isLastCell: index == viewModel.schools.count - 1)
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-            .onTapGesture {
-                let schoolModel = school.school
-                selectedSchoolInfo = SchoolInfoModel(school: SchoolModel(schoolName: schoolModel.schoolName,
-                                                                         schoolRegion: regionMapping[schoolModel.schoolRegion]
-                                                                         ?? schoolModel.schoolRegion),
-                                                     schoolAddress: school.schoolAddress)
-                dismiss()
-            }
-        }
-        .listStyle(.plain)
-    }
-
-    private var searchDescriptionView: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("이렇게 검색해보세요")
-                    .font(.system(size: 16, weight: .semibold))
-                    .padding(.bottom, 20)
-                Text("학교명")
-                    .font(.system(size: 16, weight: .medium))
-                    .padding(.bottom, 5)
-                Text("예) 세원고, 세원고등학교")
-                    .font(.system(size: 14, weight: .light))
-                    .foregroundStyle(Color.subGray1)
-            }
-            Spacer()
-        }
-        .padding(.leading, 32)
-    }
-}
-
-fileprivate struct SchoolListCell: View {
-    let schoolInfo: SchoolInfoModel
-    let isLastCell: Bool
-
-    var body: some View {
+    private func schoolListCell(_ schoolInfo: SchoolInfoModel, isLastCell: Bool) -> some View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading, spacing: 0) {
@@ -195,11 +135,63 @@ fileprivate struct SchoolListCell: View {
             .font(.system(size: 13, weight: .medium))
             .foregroundStyle(Color.infoGray)
     }
-}
 
-#Preview {
-    SchoolSearchView(
-        selectedSchoolInfo: .constant(.schoolInfoStub),
-        viewModel: .init(userUseCase: StubUserUseCase())
-    )
+    private var searchDescriptionView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("이렇게 검색해보세요")
+                    .font(.system(size: 16, weight: .semibold))
+                    .padding(.bottom, 20)
+                Text("학교명")
+                    .font(.system(size: 16, weight: .medium))
+                    .padding(.bottom, 5)
+                Text("예) 세원고, 세원고등학교")
+                    .font(.system(size: 14, weight: .light))
+                    .foregroundStyle(Color.subGray1)
+            }
+            Spacer()
+        }
+        .padding(.leading, 32)
+    }
+
+    @ViewBuilder
+    private var searchedSchoolList: some View {
+        List(viewModel.schools.indices, id: \.self) { index in
+            let school = viewModel.schools[index]
+            schoolListCell(school, isLastCell: index == viewModel.schools.count - 1)
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+            .onTapGesture {
+                let schoolModel = school.school
+                selectedSchoolInfo = SchoolInfoModel(school: SchoolModel(schoolName: schoolModel.schoolName,
+                                                                         schoolRegion: regionMapping[schoolModel.schoolRegion]
+                                                                         ?? schoolModel.schoolRegion),
+                                                     schoolAddress: school.schoolAddress)
+                dismiss()
+            }
+        }
+        .listStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var schoolSearchResultView: some View {
+        if viewModel.isFetching {
+            ProgressView()
+                .padding(.top, 100)
+        } else {
+            switch textFieldState {
+            case .submitted:
+                if viewModel.schools.isEmpty {
+                    emptyResultView
+                } else {
+                    searchedSchoolList
+                        .padding(.top, 16)
+                }
+            default:
+                searchDescriptionView
+                    .padding(.top, 32)
+            }
+        }
+    }
 }

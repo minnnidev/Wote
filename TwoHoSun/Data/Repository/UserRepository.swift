@@ -24,41 +24,11 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
-
-    func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
-        Publishers.Zip(userDataSource.getHighSchoolData(query), userDataSource.getMiddleSchoolData(query))
-            .map { highSchoolObject, middleSchoolObject in
-                var schoolResult: [SchoolInfoModel] = .init()
-
-                schoolResult.append(contentsOf: highSchoolObject.dataSearch.content.map { $0.convertToSchoolInfoModel() })
-                schoolResult.append(contentsOf: middleSchoolObject.dataSearch.content.map { $0.convertToSchoolInfoModel() })
-
-                return schoolResult
-            }
-            .mapError { WoteError.error($0) }
-            .eraseToAnyPublisher()
-    }
-
-    func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
-        userDataSource.setProfile(profile.toObject())
-            .mapError { WoteError.error($0) }
-            .eraseToAnyPublisher()
-    }
 }
 
 final class StubUserRepository: UserRepositoryType {
     
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
-        Empty()
-            .eraseToAnyPublisher()
-    }
-
-    func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
-        Empty()
-            .eraseToAnyPublisher()
-    }
-
-    func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

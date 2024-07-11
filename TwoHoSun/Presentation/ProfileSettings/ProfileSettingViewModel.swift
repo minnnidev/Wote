@@ -17,20 +17,17 @@ final class ProfileSettingViewModel: ObservableObject {
     enum Action {
         case selectImage
         case checkDuplicatedNickname(_ nickname: String)
-        case completeProfileSetting
+        case selectSchool
     }
 
     @Published var nickname = ""
     @Published var selectedSchoolInfo: SchoolInfoModel?
+    @Published var selectedGrade: String?
     @Published var nicknameValidationType = NicknameValidationType.none
     @Published var selectedImageData: Data?
     @Published var isNicknameDuplicated = false
     @Published var isFormValid = true
-    @Published var profile: ProfileSettingModel?
-    @Published var isProfileSheetShowed: Bool = false
-    @Published var isLoading: Bool = false
-
-    @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
+    @Published var model: ProfileSetting?
 
     private let forbiddenWord = ["금지어1", "금지어2"]
     private var cancellables = Set<AnyCancellable>()
@@ -104,6 +101,23 @@ final class ProfileSettingViewModel: ObservableObject {
         return false
     }
     
+    func setProfile(_ isRestricted: Bool, _ isRegsiter: Bool) {
+        guard let school = selectedSchoolInfo?.school else { return }
+        if isRestricted {
+            model = ProfileSetting(imageFile: selectedImageData ?? Data(),
+                                   nickname: nickname,
+                                   school: nil)
+        } else {
+            model = ProfileSetting(imageFile: selectedImageData ?? Data(),
+                                   nickname: nickname,
+                                   school: school)
+        }
+    }
+    
+    func postNickname() {
+        // TODO: - 닉네임 중복 체크 API
+    }
+
     func send(_ action: Action) {
         switch action {
         case .selectImage:
@@ -122,24 +136,9 @@ final class ProfileSettingViewModel: ObservableObject {
                 }
                 .store(in: &cancellables)
 
-        case .completeProfileSetting:
-            isLoading = true
-
-            guard let school = selectedSchoolInfo?.school else { return }
-
-            let profile: ProfileSettingModel = .init(
-                imageFile: nil,
-                nickname: nickname,
-                school: school)
-
-            userUseCase.setProfile(profile)
-                .sink { [weak self] _ in
-                    self?.isLoading = false
-                } receiveValue: { [weak self] _  in
-                    self?.isLoading = false
-                    self?.isLoggedIn = true
-                }
-                .store(in: &cancellables)
+        case .selectSchool:
+            // TODO: - 학교 선택 로직
+            return
         }
     }
 }

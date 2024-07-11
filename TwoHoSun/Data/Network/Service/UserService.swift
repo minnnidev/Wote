@@ -12,7 +12,7 @@ import UIKit
 enum UserService {
     case postAuthorCode(authorization: String)
     case checkNicknameValid(nickname: String)
-    case postProfileSetting(profile: ProfileSettingModel)
+    case postProfileSetting(profile: ProfileSetting)
     case refreshToken
     case putConsumerType(consumertype: ConsumerType)
     case getProfile
