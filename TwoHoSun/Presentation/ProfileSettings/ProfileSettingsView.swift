@@ -105,6 +105,7 @@ extension ProfileSettingsView {
                     .font(.system(size: 32, weight: .medium))
                     .foregroundColor(Color.white)
             }
+
             VStack(alignment: .leading) {
                 Text("프로필")
                     .font(.system(size: 32, weight: .bold))
@@ -137,6 +138,7 @@ extension ProfileSettingsView {
                         .frame(width: 130, height: 130)
                 }
             }
+
             selectProfileButton
         }
         .onTapGesture {
@@ -178,6 +180,7 @@ extension ProfileSettingsView {
         VStack(alignment: .leading, spacing: 0) {
             Text("닉네임")
                 .modifier(TitleTextStyle())
+
             HStack(spacing: 10) {
                 TextField("",
                           text: $viewModel.nickname,
@@ -200,15 +203,6 @@ extension ProfileSettingsView {
                         }
                     }
                 }
-                .onAppear {
-//                    if let nickname = loginStateManager.serviceRoot.memberManager.profile?.nickname {
-//                        viewModel.nickname = nickname
-//                        viewModel.firstNickname = nickname
-//                    }
-                }
-//                .onChange(of: viewModel.nickname) { _, newValue in
-//                    viewModel.checkNicknameValidation(newValue)
-//                }
                 checkDuplicatedIdButton
             }
             nicknameValidationAlertMessage(for: viewModel.nicknameValidationType)
@@ -237,37 +231,20 @@ extension ProfileSettingsView {
 
     @ViewBuilder
     private var schoolInputView: some View {
-        if isRestricted {
+        NavigationLink {
+            SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo)
+        } label: {
             VStack(alignment: .leading, spacing: 0) {
                 Text("우리 학교")
                     .modifier(TitleTextStyle())
+                
                 roundedIconTextField(for: .school,
-                                     text:  viewModel.selectedSchoolInfo?.school.schoolName,
+                                     text: viewModel.selectedSchoolInfo?.school.schoolName,
                                      isFilled: viewModel.isSchoolFilled)
-                if isRestricted {
-                    HStack {
-                        Image(systemName: "light.beacon.max")
-                        Text("학교를 변경한지 아직 6개월이 안 지났어요!")
-                    }
-                    .foregroundStyle(Color.errorRed)
-                    .font(.system(size: 12))
-                    .padding(.top, 4)
-                }
-            }
-        } else {
-            NavigationLink {
-                SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo)
-            } label: {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("우리 학교")
-                        .modifier(TitleTextStyle())
-                    roundedIconTextField(for: .school,
-                                         text: viewModel.selectedSchoolInfo?.school.schoolName,
-                                         isFilled: viewModel.isSchoolFilled)
-                    if !viewModel.isFormValid && !viewModel.isSchoolFilled {
-                        schoolValidationAlertMessage
-                            .padding(.top, 6)
-                    }
+
+                if !viewModel.isFormValid && !viewModel.isSchoolFilled {
+                    schoolValidationAlertMessage
+                        .padding(.top, 6)
                 }
             }
         }
@@ -337,24 +314,6 @@ extension ProfileSettingsView {
                         .strokeBorder(!isFilled && !viewModel.isFormValid ? Color.errorRed : Color.grayStroke, lineWidth: 1)
                 }
             }
-        }
-    }
-
-    private var goToTypeTestButton: some View {
-        Button {
-            // TODO: 소비 성향 테스트하기
-        } label: {
-            HStack(spacing: 0) {
-                Text("소비 성향 테스트하러가기")
-                    .foregroundStyle(.white)
-                Text("(1회)")
-                    .foregroundStyle(Color.gray500)
-            }
-            .font(.system(size: 16, weight: .semibold))
-            .frame(height: 52)
-            .frame(maxWidth: .infinity)
-            .background(Color.lightBlue)
-            .clipShape(.rect(cornerRadius: 10))
         }
     }
 

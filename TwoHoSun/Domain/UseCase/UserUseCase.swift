@@ -29,7 +29,8 @@ final class UserUseCase: UserUseCaseType {
 final class StubUserUseCase: UserUseCaseType {
     
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
-        Empty()
+        Just(false)
+            .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }
 }

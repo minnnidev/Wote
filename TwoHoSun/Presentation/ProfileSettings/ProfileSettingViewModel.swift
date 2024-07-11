@@ -28,6 +28,7 @@ final class ProfileSettingViewModel: ObservableObject {
     @Published var isNicknameDuplicated = false
     @Published var isFormValid = true
     @Published var model: ProfileSetting?
+    @Published var isProfileSheetShowed: Bool = false
 
     private let forbiddenWord = ["금지어1", "금지어2"]
     private var cancellables = Set<AnyCancellable>()
