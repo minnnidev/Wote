@@ -106,5 +106,4 @@ extension LoginView {
 
 #Preview {
     LoginView(viewModel: .init(authUseCase: StubAuthUseCase()))
-        .environmentObject(NavigationRouter())
 }

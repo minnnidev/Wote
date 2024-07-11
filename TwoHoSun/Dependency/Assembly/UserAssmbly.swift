@@ -12,10 +12,6 @@ final class UserAssmbly: Assembly {
     
     func assemble(container: Container) {
 
-        container.register(SchoolSearchViewModel.self) { res in
-            SchoolSearchViewModel(userUseCase: res.resolve(UserUseCaseType.self)!)
-        }
-
         container.register(ProfileSettingViewModel.self) { res in
             ProfileSettingViewModel(userUseCase: res.resolve(UserUseCaseType.self)!)
         }

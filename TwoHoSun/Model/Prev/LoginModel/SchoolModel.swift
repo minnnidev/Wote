@@ -12,28 +12,10 @@ struct SchoolModel: Codable {
     let schoolRegion: String
 }
 
-extension SchoolModel {
-    func toObject() -> SchoolObject {
-        .init(schoolName: schoolName, schoolRegion: schoolRegion)
-    }
-}
-
 struct SchoolInfoModel: Identifiable {
     let id = UUID()
     var school: SchoolModel
     let schoolAddress: String?
-}
-
-extension SchoolModel {
-    static var schoolStub: SchoolModel {
-        .init(schoolName: "샘플고등학교", schoolRegion: "서울")
-    }
-}
-
-extension SchoolInfoModel {
-    static var schoolInfoStub: SchoolInfoModel {
-        .init(school: .schoolStub, schoolAddress: "서울시 샘플구")
-    }
 }
 
 enum SchoolDataType {

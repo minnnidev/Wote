@@ -19,7 +19,7 @@ struct ConsiderationView: View {
 
     @StateObject var viewModel = ConsiderationViewModel()
 
-    @EnvironmentObject var navigationRouter: NavigationRouter
+    @EnvironmentObject var navigationRouter: NavigationManager
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -93,7 +93,7 @@ extension ConsiderationView {
 
     private var createVoteButton: some View {
         Button {
-            
+            navigationRouter.navigate(.makeVoteView)
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")

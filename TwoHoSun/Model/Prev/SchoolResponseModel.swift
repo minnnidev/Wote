@@ -1,5 +1,5 @@
 //
-//  SchoolResponseObjectswift.swift
+//  SchoolResponseModel.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 10/17/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HighSchoolResponseObject: Codable {
+struct HighSchoolResponse: Codable {
     let dataSearch: HighSchoolData
 }
 
@@ -30,7 +30,7 @@ struct HighSchoolContent: Codable, Hashable {
     }
 }
 
-struct MiddleSchoolResponseObject: Codable {
+struct MiddleSchoolResponse: Codable {
     let dataSearch: MiddleSchoolData
 }
 
