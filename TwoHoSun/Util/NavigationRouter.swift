@@ -9,6 +9,10 @@ import SwiftUI
 
 // MARK: - 이전 Navigation
 
+enum ProfileSettingType: Decodable {
+    case setting, modfiy
+}
+
 enum AllNavigation: Decodable, Hashable {
     case considerationView
     case writeReiview
@@ -30,6 +34,8 @@ enum AllNavigation: Decodable, Hashable {
     case reviewWriteView
     case profileSettingView(type: ProfileSettingType)
 }
+
+// MARK: - 리팩토링 중인 NavigationStack
 
 enum VoteTabDestination {
 
