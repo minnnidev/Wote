@@ -8,12 +8,7 @@
 import PhotosUI
 import SwiftUI
 
-enum ProfileSettingType: Decodable {
-    case setting, modfiy
-}
-
 struct ProfileSettingsView: View {
-    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var appDependency: AppDependency
 
     @State private var selectedPhoto: PhotosPickerItem?
@@ -257,8 +252,6 @@ extension ProfileSettingsView {
             }
 
             viewModel.send(.completeProfileSetting)
-
-            dismiss()
         })
         .disabled(viewModel.isAllInputValid ? false : true)
     }
@@ -321,5 +314,6 @@ extension ProfileSettingsView {
 #Preview {
     NavigationStack {
         ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
+            .environmentObject(AppDependency())
     }
 }
