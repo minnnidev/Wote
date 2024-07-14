@@ -18,7 +18,6 @@ final class ProfileSettingViewModel: ObservableObject {
         case selectImage
         case checkDuplicatedNickname(_ nickname: String)
         case completeProfileSetting
-        case loggedIn
     }
 
     @Published var nickname = ""
@@ -141,9 +140,6 @@ final class ProfileSettingViewModel: ObservableObject {
                     self?.isLoggedIn = true
                 }
                 .store(in: &cancellables)
-
-        case .loggedIn:
-            isLoggedIn = true
         }
     }
 }

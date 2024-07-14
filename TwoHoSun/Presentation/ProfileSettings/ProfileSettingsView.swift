@@ -253,7 +253,7 @@ extension ProfileSettingsView {
                 .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
                 .cornerRadius(10)
         }
-        //        .disabled(viewModel.isAllInputValid ? false : true)
+        .disabled(viewModel.isAllInputValid ? false : true)
     }
     
     private func roundedIconTextField(for input: ProfileInputType, text: String?, isFilled: Bool) -> some View {
