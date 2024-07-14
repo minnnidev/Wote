@@ -14,14 +14,11 @@ struct TwoHoSunApp: App {
     @StateObject private var appState = AppLoginState()
     
     @StateObject private var appDependency = AppDependency()
-    @StateObject private var navigationRouter = NavigationRouter()
-    
 
     var body: some Scene {
         WindowGroup {
             OnboardingView()
                 .environmentObject(appDependency)
-                .environmentObject(navigationRouter)
         }
     }
 

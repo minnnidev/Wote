@@ -9,7 +9,7 @@ import SwiftUI
 import AuthenticationServices
 import Combine
 
-struct LoginView : View {
+struct LoginView: View {
     @EnvironmentObject private var appDependency: AppDependency
 
     @State private var goProfileView = false

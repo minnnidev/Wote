@@ -111,17 +111,17 @@ extension SchoolSearchView {
         List(viewModel.schools.indices, id: \.self) { index in
             let school = viewModel.schools[index]
             SchoolListCell(schoolInfo: school, isLastCell: index == viewModel.schools.count - 1)
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-            .onTapGesture {
-                let schoolModel = school.school
-                selectedSchoolInfo = SchoolInfoModel(school: SchoolModel(schoolName: schoolModel.schoolName,
-                                                                         schoolRegion: regionMapping[schoolModel.schoolRegion]
-                                                                         ?? schoolModel.schoolRegion),
-                                                     schoolAddress: school.schoolAddress)
-                dismiss()
-            }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .onTapGesture {
+                    let schoolModel = school.school
+                    selectedSchoolInfo = SchoolInfoModel(school: SchoolModel(schoolName: schoolModel.schoolName,
+                                                                             schoolRegion: regionMapping[schoolModel.schoolRegion]
+                                                                             ?? schoolModel.schoolRegion),
+                                                         schoolAddress: school.schoolAddress)
+                    dismiss()
+                }
         }
         .listStyle(.plain)
     }

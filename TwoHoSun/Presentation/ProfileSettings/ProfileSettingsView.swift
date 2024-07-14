@@ -10,73 +10,74 @@ import SwiftUI
 
 struct ProfileSettingsView: View {
     @EnvironmentObject private var appDependency: AppDependency
-
+    
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var isProfileSheetShowed = false
     @State private var retryProfileImage = false
     @State private var isRestricted = false
     @State private var originalImage: String?
-
+    
     @FocusState private var focusState: Bool
-
+    
     @StateObject var viewModel: ProfileSettingViewModel
-
+    
+    @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
+    
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.background
-                    .ignoresSafeArea()
-
-                VStack(spacing: 0) {
-                    titleLabel
-                        .padding(.top, 40)
-                    Spacer()
-
-                    profileImageView
-
-                    Spacer()
-
-                    nicknameInputView
-                        .padding(.bottom, 34)
-
-                    schoolInputView
-
-                    Spacer()
-
-                    nextButton
-                }
-                .padding(.bottom, 12)
-                .padding(.horizontal, 16)
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                titleLabel
+                    .padding(.top, 40)
+                Spacer()
+                
+                profileImageView
+                
+                Spacer()
+                
+                nicknameInputView
+                    .padding(.bottom, 34)
+                
+                schoolInputView
+                
+                Spacer()
+                
+                nextButton
             }
-            .onTapGesture {
-                endTextEditing()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbarBackground(Color.background, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
-            .overlay {
-                if viewModel.isLoading {
-                    LoadingView()
-                }
-            }
-    //        .onChange(of: selectedPhoto) { _, newValue in
-    //            PHPhotoLibrary.requestAuthorization { status in
-    //                guard status == .authorized else { return }
-    //                Task {
-    //                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
-    //                        viewModel.selectedImageData = data
-    //                    }
-    //                }
-    //            }
-    //        }
+            .padding(.bottom, 12)
+            .padding(.horizontal, 16)
         }
+        .onTapGesture {
+            endTextEditing()
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbarBackground(Color.background, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
+        .overlay {
+            if viewModel.isLoading {
+                LoadingView()
+            }
+        }
+        //        .onChange(of: selectedPhoto) { _, newValue in
+        //            PHPhotoLibrary.requestAuthorization { status in
+        //                guard status == .authorized else { return }
+        //                Task {
+        //                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
+        //                        viewModel.selectedImageData = data
+        //                    }
+        //                }
+        //            }
+        //        }
+        
     }
 }
 
 extension ProfileSettingsView {
-
+    
     private var titleLabel: some View {
         HStack(spacing: 7) {
             VStack(alignment: .leading, spacing: 9) {
@@ -87,7 +88,7 @@ extension ProfileSettingsView {
                     .font(.system(size: 32, weight: .medium))
                     .foregroundColor(Color.white)
             }
-
+            
             VStack(alignment: .leading) {
                 Text("프로필")
                     .font(.system(size: 32, weight: .bold))
@@ -102,7 +103,7 @@ extension ProfileSettingsView {
             Spacer()
         }
     }
-
+    
     private var profileImageView: some View {
         ZStack(alignment: .bottomTrailing) {
             if let selectedData = viewModel.selectedImageData, let uiImage = UIImage(data: selectedData) {
@@ -120,14 +121,14 @@ extension ProfileSettingsView {
                         .frame(width: 130, height: 130)
                 }
             }
-
+            
             selectProfileButton
         }
         .onTapGesture {
             isProfileSheetShowed = true
         }
     }
-
+    
     private var selectProfileButton: some View {
         ZStack {
             Circle()
@@ -138,32 +139,32 @@ extension ProfileSettingsView {
                 .foregroundStyle(.white)
         }
     }
-
-    // TODO: - Photo Picker 
+    
+    // TODO: - Photo Picker
     @ViewBuilder
     func photoPickerView<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         PhotosPicker(selection: $selectedPhoto,
                      matching: .images,
                      photoLibrary: .shared()) {
             content()
-//                .onChange(of: selectedPhoto) { _, newValue in
-//                    PHPhotoLibrary.requestAuthorization { status in
-//                        guard status == .authorized else { return }
-//                        Task {
-//                            if let data = try? await newValue?.loadTransferable(type: Data.self) {
-//                                viewModel.selectedImageData = data
-//                            }
-//                        }
-//                    }
-//                }
+            //                .onChange(of: selectedPhoto) { _, newValue in
+            //                    PHPhotoLibrary.requestAuthorization { status in
+            //                        guard status == .authorized else { return }
+            //                        Task {
+            //                            if let data = try? await newValue?.loadTransferable(type: Data.self) {
+            //                                viewModel.selectedImageData = data
+            //                            }
+            //                        }
+            //                    }
+            //                }
         }
     }
-
+    
     private var nicknameInputView: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("닉네임")
                 .modifier(TitleTextStyle())
-
+            
             HStack(spacing: 10) {
                 TextField("",
                           text: $viewModel.nickname,
@@ -192,11 +193,11 @@ extension ProfileSettingsView {
                 .padding(.top, 6)
         }
     }
-
+    
     private var checkDuplicatedIdButton: some View {
         Button {
             viewModel.send(.checkDuplicatedNickname(viewModel.nickname))
-
+            
             if viewModel.nicknameValidationType == .valid {
                 endTextEditing()
             }
@@ -211,12 +212,14 @@ extension ProfileSettingsView {
         }
         .disabled(viewModel.nicknameValidationType == .length)
     }
-
+    
     @ViewBuilder
     private var schoolInputView: some View {
         NavigationLink {
-            SchoolSearchView(selectedSchoolInfo: $viewModel.selectedSchoolInfo,
-                             viewModel: appDependency.container.resolve(SchoolSearchViewModel.self)!)
+            SchoolSearchView(
+                selectedSchoolInfo: $viewModel.selectedSchoolInfo,
+                viewModel: appDependency.container.resolve(SchoolSearchViewModel.self)!
+            )
         } label: {
             VStack(alignment: .leading, spacing: 0) {
                 Text("우리 학교")
@@ -225,7 +228,7 @@ extension ProfileSettingsView {
                 roundedIconTextField(for: .school,
                                      text: viewModel.selectedSchoolInfo?.school.schoolName,
                                      isFilled: viewModel.isSchoolFilled)
-
+                
                 if !viewModel.isFormValid && !viewModel.isSchoolFilled {
                     schoolValidationAlertMessage
                         .padding(.top, 6)
@@ -233,10 +236,15 @@ extension ProfileSettingsView {
             }
         }
     }
-
+    
     private var nextButton: some View {
-        NavigationLink {
-            WoteTabView()
+        Button {
+            guard viewModel.isAllInputValid else {
+                viewModel.setInvalidCondition()
+                return
+            }
+            
+            viewModel.send(.completeProfileSetting)
         } label: {
             Text("완료")
                 .font(.system(size: 20, weight: .semibold))
@@ -245,17 +253,9 @@ extension ProfileSettingsView {
                 .background(viewModel.isAllInputValid ? Color.lightBlue : Color.disableGray)
                 .cornerRadius(10)
         }
-        .simultaneousGesture(TapGesture().onEnded{
-            guard viewModel.isAllInputValid else {
-                viewModel.setInvalidCondition()
-                return
-            }
-
-            viewModel.send(.completeProfileSetting)
-        })
-        .disabled(viewModel.isAllInputValid ? false : true)
+        //        .disabled(viewModel.isAllInputValid ? false : true)
     }
-
+    
     private func roundedIconTextField(for input: ProfileInputType, text: String?, isFilled: Bool) -> some View {
         VStack(spacing: 10) {
             HStack(spacing: 0) {
@@ -264,9 +264,9 @@ extension ProfileSettingsView {
                     .foregroundColor(text != nil ? .white : Color.placeholderGray)
                     .frame(height: 45)
                     .padding(.leading, 17)
-
+                
                 Spacer()
-
+                
                 Image(systemName: input.iconName)
                     .font(.system(size: 16))
                     .foregroundStyle(Color.placeholderGray)
@@ -279,7 +279,7 @@ extension ProfileSettingsView {
             }
         }
     }
-
+    
     private func nicknameValidationAlertMessage(for input: NicknameValidationType) -> some View {
         HStack(spacing: 8) {
             Image(systemName: viewModel.nicknameValidationType == .valid ?
@@ -290,7 +290,7 @@ extension ProfileSettingsView {
         .font(.system(size: 12))
         .foregroundStyle(viewModel.nicknameValidationType.alertMessageColor)
     }
-
+    
     private var schoolValidationAlertMessage: some View {
         HStack(spacing: 8) {
             Image(systemName: "light.beacon.max")
@@ -300,7 +300,7 @@ extension ProfileSettingsView {
         .font(.system(size: 12))
         .foregroundStyle(Color.errorRed)
     }
-
+    
     struct TitleTextStyle: ViewModifier {
         func body(content: Content) -> some View {
             content
