@@ -38,7 +38,7 @@ enum AllNavigation: Decodable, Hashable {
 // MARK: - 리팩토링 중인 NavigationStack
 
 enum VoteTabDestination {
-
+    
 }
 
 enum ReviewTabDestination {
@@ -48,6 +48,10 @@ enum ReviewTabDestination {
 final class NavigationRouter: ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
 
+    func push<T: Hashable>(to view: T) {
+        path.append(view)
+    }
+
     func pop() {
         guard !path.isEmpty else { return }
 
@@ -56,5 +60,10 @@ final class NavigationRouter: ObservableObject {
 
     func popToRootView() {
         path = .init()
+    }
+
+    func setRoot<T: Hashable>(to view: T) {
+        path = .init()
+        path.append(view)
     }
 }

@@ -9,14 +9,16 @@ import SwiftUI
 
 struct OnboardingView: View {
     @EnvironmentObject private var appDependency: AppDependency
-    
+
     @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
 
     var body: some View {
-        if isLoggedIn {
-            WoteTabView()
-        } else {
-            LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
+        Group {
+            if isLoggedIn {
+                WoteTabView()
+            } else {
+                LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
+            }
         }
     }
 }

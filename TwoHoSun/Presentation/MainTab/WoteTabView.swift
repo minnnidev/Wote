@@ -13,8 +13,6 @@ struct WoteTabView: View {
     @State private var tabScrollHandler = WoteTabHandler()
     @State private var selectedTab = WoteTabType.consider
 
-    @EnvironmentObject private var navigationRouter: NavigationRouter
-
     var body: some View {
         ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
@@ -136,7 +134,7 @@ extension WoteTabView {
 
     private var settingButton: some View {
         Button {
-            
+
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
