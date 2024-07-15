@@ -16,6 +16,7 @@
 		AB03D73D2B0137DD000C927A /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D73C2B0137DD000C927A /* CommentService.swift */; };
 		AB03D7462B020EB2000C927A /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7452B020EB2000C927A /* ImageView.swift */; };
 		AB03D7482B0276F9000C927A /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7472B0276F9000C927A /* ProfileImageView.swift */; };
+		AB0CA9982C44E80500910C36 /* PhotoPickerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */; };
 		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
 		AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507032C3B0484009B0A3C /* AuthRepository.swift */; };
 		AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070E2C3B1178009B0A3C /* Constants.swift */; };
@@ -49,6 +50,7 @@
 		AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */; };
 		AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */; };
 		AB53CA6D2AF7AC4100FD850A /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */; };
+		AB57B8382C44E5BA00CB11C6 /* PhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB57B8372C44E5BA00CB11C6 /* PhotoUseCase.swift */; };
 		AB6845B02AFC143700C3F7C2 /* TypeTestIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6845AF2AFC143700C3F7C2 /* TypeTestIntroView.swift */; };
 		AB6845B22AFC145000C3F7C2 /* TypeTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6845B12AFC145000C3F7C2 /* TypeTestView.swift */; };
 		AB6845B42AFC146C00C3F7C2 /* TypeTestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6845B32AFC146C00C3F7C2 /* TypeTestResultView.swift */; };
@@ -171,6 +173,7 @@
 		AB03D73C2B0137DD000C927A /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		AB03D7452B020EB2000C927A /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AB03D7472B0276F9000C927A /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerError.swift; sourceTree = "<group>"; };
 		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
 		AB2507032C3B0484009B0A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		AB25070E2C3B1178009B0A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 		AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermAgreeType.swift; sourceTree = "<group>"; };
 		AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
+		AB57B8372C44E5BA00CB11C6 /* PhotoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUseCase.swift; sourceTree = "<group>"; };
 		AB6845AC2AFC13FF00C3F7C2 /* TypeTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTestModel.swift; sourceTree = "<group>"; };
 		AB6845AF2AFC143700C3F7C2 /* TypeTestIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTestIntroView.swift; sourceTree = "<group>"; };
 		AB6845B12AFC145000C3F7C2 /* TypeTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTestView.swift; sourceTree = "<group>"; };
@@ -516,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2507262C3C4616009B0A3C /* WoteError.swift */,
+				AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -534,6 +539,7 @@
 			children = (
 				AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */,
 				AB2507482C3E4441009B0A3C /* UserUseCase.swift */,
+				AB57B8372C44E5BA00CB11C6 /* PhotoUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1011,6 +1017,7 @@
 				AB38A10F2B07DF49004153B5 /* InfoButton.swift in Sources */,
 				FD76249E2AF954670079AEEF /* LinkView.swift in Sources */,
 				AB94B1952B0FFF7000CD5A49 /* DetailHeaderViewModel.swift in Sources */,
+				AB0CA9982C44E80500910C36 /* PhotoPickerError.swift in Sources */,
 				FDD5829F2AFC175F0004DFC6 /* VoteWriteView.swift in Sources */,
 				ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */,
 				AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */,
@@ -1048,6 +1055,7 @@
 				AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */,
 				AB7FE8902C3E4CF700EDED20 /* NicknameResponseObject.swift in Sources */,
 				AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */,
+				AB57B8382C44E5BA00CB11C6 /* PhotoUseCase.swift in Sources */,
 				C7A95F172B01FFE600F8595A /* NetworkLoggerPlugin.swift in Sources */,
 				C7A95F152B01FFDC00F8595A /* NetworkError.swift in Sources */,
 				AB2507492C3E4441009B0A3C /* UserUseCase.swift in Sources */,
@@ -1292,7 +1300,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.twohosun.TwoHoSun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.twohosun.wote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1334,7 +1342,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.twohosun.TwoHoSun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.twohosun.wote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

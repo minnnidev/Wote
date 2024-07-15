@@ -6,28 +6,39 @@
 //
 
 import Combine
-import Observation
 import SwiftUI
+import PhotosUI
 
-import Alamofire
-import Moya
 
 final class ProfileSettingViewModel: ObservableObject {
 
     enum Action {
-        case selectImage
+        case loadTransferable(_ item: PhotosPickerItem?)
+        case presentProfileModifySheet
         case checkDuplicatedNickname(_ nickname: String)
         case completeProfileSetting
+        case initImages
+        case presentPhotoPicker
     }
 
+    /// 유효성
     @Published var nickname = ""
     @Published var selectedSchoolInfo: SchoolInfoModel?
     @Published var nicknameValidationType = NicknameValidationType.none
-    @Published var selectedImageData: Data?
     @Published var isNicknameDuplicated = false
     @Published var isFormValid = true
-    @Published var profile: ProfileSettingModel?
+
+    /// 이미지
+    @Published var selectedImage: PhotosPickerItem? = nil {
+        didSet {
+            send(.loadTransferable(selectedImage))
+        }
+    }
+    @Published var selectedImageData: Data?
     @Published var isProfileSheetShowed: Bool = false
+    @Published var isPhotoPickerShowed: Bool = false
+
+    /// 로딩
     @Published var isLoading: Bool = false
 
     @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
@@ -39,18 +50,18 @@ final class ProfileSettingViewModel: ObservableObject {
     var firstSchool: SchoolInfoModel?
 
     private let userUseCase: UserUseCaseType
+    private let photoUseCase: PhotoUseCaseType
 
-    init(userUseCase: UserUseCaseType) {
+    init(userUseCase: UserUseCaseType, photoUseCase: PhotoUseCaseType) {
         self.userUseCase = userUseCase
+        self.photoUseCase = photoUseCase
     }
 
     var isSchoolFilled: Bool {
         return selectedSchoolInfo != nil
     }
     var isAllInputValid: Bool {
-        return (nicknameValidationType == .valid
-        && isSchoolFilled)
-        || (selectedImageData != nil && nickname == firstNickname && selectedSchoolInfo?.school.schoolName == firstSchool?.school.schoolName)
+        return nicknameValidationType == .valid && isSchoolFilled
     }
 
     private func isNicknameLengthValid(_ text: String) -> Bool {
@@ -88,30 +99,23 @@ final class ProfileSettingViewModel: ObservableObject {
         isFormValid = false
     }
     
-    func checkSchoolRegisterDate(_ date: String) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if let date = dateFormatter.date(from: date) {
-            if let datePlusSixMonths = Calendar.current.date(byAdding: .month, value: 6, to: date) {
-                if Date() > datePlusSixMonths {
-                    return false
-                } else {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
     func send(_ action: Action) {
         switch action {
-        case .selectImage:
-            // TODO: - 이미지 선택 로직
-            return
+        case let .loadTransferable(item):
+            photoUseCase.loadTransferable(item)
+                .receive(on: DispatchQueue.main)
+                .sink { _ in
+                } receiveValue: { [weak self] data in
+                    self?.selectedImageData = data
+                }
+                .store(in: &cancellables)
+
+        case .presentProfileModifySheet:
+            isProfileSheetShowed.toggle()
 
         case .checkDuplicatedNickname:
             userUseCase.checkNicknameDuplicated(nickname)
+                .receive(on: DispatchQueue.main)
                 .sink { _ in
                 } receiveValue: { [weak self] isExist in
                     if isExist {
@@ -128,11 +132,12 @@ final class ProfileSettingViewModel: ObservableObject {
             guard let school = selectedSchoolInfo?.school else { return }
 
             let profile: ProfileSettingModel = .init(
-                imageFile: nil,
+                imageFile: selectedImageData ?? nil,
                 nickname: nickname,
                 school: school)
 
             userUseCase.setProfile(profile)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     self?.isLoading = false
                 } receiveValue: { [weak self] _  in
@@ -140,6 +145,13 @@ final class ProfileSettingViewModel: ObservableObject {
                     self?.isLoggedIn = true
                 }
                 .store(in: &cancellables)
+
+        case .initImages:
+            selectedImage = nil
+            selectedImageData = nil
+
+        case .presentPhotoPicker:
+            isPhotoPickerShowed.toggle()
         }
     }
 }

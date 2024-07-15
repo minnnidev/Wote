@@ -20,6 +20,9 @@ struct OnboardingView: View {
                 LoginView(viewModel: appDependency.container.resolve(LoginViewModel.self)!)
             }
         }
+        .onAppear {
+            isLoggedIn = false
+        }
     }
 }
 

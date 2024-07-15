@@ -12,7 +12,6 @@ import Observation
 @main
 struct TwoHoSunApp: App {
     @StateObject private var appState = AppLoginState()
-    
     @StateObject private var appDependency = AppDependency()
 
     var body: some Scene {
