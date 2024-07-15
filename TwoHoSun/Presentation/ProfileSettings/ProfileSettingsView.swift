@@ -11,12 +11,6 @@ import SwiftUI
 struct ProfileSettingsView: View {
     @EnvironmentObject private var appDependency: AppDependency
     
-    @State private var selectedPhoto: PhotosPickerItem?
-    @State private var isProfileSheetShowed = false
-    @State private var retryProfileImage = false
-    @State private var isRestricted = false
-    @State private var originalImage: String?
-    
     @FocusState private var focusState: Bool
     
     @StateObject var viewModel: ProfileSettingViewModel
@@ -56,23 +50,25 @@ struct ProfileSettingsView: View {
         .navigationBarBackButtonHidden(true)
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .photosPicker(isPresented: $retryProfileImage, selection: $selectedPhoto)
         .overlay {
             if viewModel.isLoading {
                 LoadingView()
             }
         }
-        //        .onChange(of: selectedPhoto) { _, newValue in
-        //            PHPhotoLibrary.requestAuthorization { status in
-        //                guard status == .authorized else { return }
-        //                Task {
-        //                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
-        //                        viewModel.selectedImageData = data
-        //                    }
-        //                }
-        //            }
-        //        }
-        
+        .confirmationDialog("Profile Modify Sheet", isPresented: $viewModel.isProfileSheetShowed) { 
+            Button {
+                viewModel.send(.initImages)
+            } label: {
+                Text("프로필 삭제하기")
+            }
+
+            Button {
+                viewModel.send(.presentPhotoPicker)
+            } label: {
+                Text("프로필 수정하기")
+            }
+        }
+        .photosPicker(isPresented: $viewModel.isPhotoPickerShowed, selection: $viewModel.selectedImage)
     }
 }
 
@@ -106,26 +102,27 @@ extension ProfileSettingsView {
     
     private var profileImageView: some View {
         ZStack(alignment: .bottomTrailing) {
-            if let selectedData = viewModel.selectedImageData, let uiImage = UIImage(data: selectedData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .frame(width: 130, height: 130)
-                    .clipShape(Circle())
-            } else if let originalImage = originalImage {
-                ProfileImageView(imageURL: originalImage)
-                    .frame(width: 130, height: 130)
+            if let data = viewModel.selectedImageData,
+                let image = UIImage(data: data) {
+                Button {
+                    viewModel.send(.presentProfileModifySheet)
+                } label: {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: 130, height: 130)
+                        .clipShape(Circle())
+                }
             } else {
-                photoPickerView {
+                Button {
+                    viewModel.send(.presentPhotoPicker)
+                } label: {
                     Image("defaultProfile")
                         .resizable()
                         .frame(width: 130, height: 130)
                 }
             }
-            
+
             selectProfileButton
-        }
-        .onTapGesture {
-            isProfileSheetShowed = true
         }
     }
     
@@ -139,27 +136,7 @@ extension ProfileSettingsView {
                 .foregroundStyle(.white)
         }
     }
-    
-    // TODO: - Photo Picker
-    @ViewBuilder
-    func photoPickerView<Content: View>(@ViewBuilder content: () -> Content) -> some View {
-        PhotosPicker(selection: $selectedPhoto,
-                     matching: .images,
-                     photoLibrary: .shared()) {
-            content()
-            //                .onChange(of: selectedPhoto) { _, newValue in
-            //                    PHPhotoLibrary.requestAuthorization { status in
-            //                        guard status == .authorized else { return }
-            //                        Task {
-            //                            if let data = try? await newValue?.loadTransferable(type: Data.self) {
-            //                                viewModel.selectedImageData = data
-            //                            }
-            //                        }
-            //                    }
-            //                }
-        }
-    }
-    
+
     private var nicknameInputView: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("닉네임")
@@ -313,7 +290,10 @@ extension ProfileSettingsView {
 
 #Preview {
     NavigationStack {
-        ProfileSettingsView(viewModel: .init(userUseCase: StubUserUseCase()))
-            .environmentObject(AppDependency())
+        ProfileSettingsView(
+            viewModel: .init(userUseCase: StubUserUseCase(),
+                             photoUseCase: StubPhotoUseCase())
+        )
+        .environmentObject(AppDependency())
     }
 }
