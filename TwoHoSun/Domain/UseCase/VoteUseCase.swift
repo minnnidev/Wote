@@ -29,7 +29,8 @@ final class VoteUseCase: VoteUseCaseType {
 final class StubVoteUseCase: VoteUseCaseType {
 
     func loadVotes(page: Int, size: Int, scope: VisibilityScopeType) -> AnyPublisher<[VoteModel], WoteError> {
-        Empty()
+        Just([VoteModel.voteStub1, VoteModel.voteStub2])
+            .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }
 }

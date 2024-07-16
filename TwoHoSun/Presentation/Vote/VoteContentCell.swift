@@ -13,7 +13,7 @@ struct VoteContentCell: View {
     @State private var isButtonTapped = false
     @State private var isAlertShown = false
 
-    var data: PostModel
+    var data: VoteModel
     var index: Int
 
     var body: some View {

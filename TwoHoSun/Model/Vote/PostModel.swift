@@ -42,12 +42,40 @@ struct AuthorModel: Codable, Hashable {
     let isBlocked: Bool?
     let isBaned: Bool?
 }
+
+extension AuthorModel {
+
+    static var authorStub1: AuthorModel {
+        .init(
+            id: 1,
+            nickname: "글쓴이1",
+            profileImage: nil,
+            consumerType: "ADVENTURER",
+            isBlocked: false,
+            isBaned: false)
+    }
+}
+
 struct VoteInfoModel: Codable {
     let isAgree: Bool
     let consumerType: String
 }
 
+extension VoteInfoModel {
+
+    static var voteInfoStub1: [VoteInfoModel] {
+        [.init(isAgree: true, consumerType: "ADVENTURER")]
+    }
+}
+
 struct VoteCountsModel: Codable {
     let agreeCount: Int
     let disagreeCount: Int
+}
+
+extension VoteCountsModel {
+
+    static var voteCountsStub1: VoteCountsModel {
+        .init(agreeCount: 50, disagreeCount: 50)
+    }
 }

@@ -12,22 +12,13 @@ final class VoteListViewModel: ObservableObject {
 
     enum Action {
         case loadVotes
+        case loadMoreVotes
     }
 
-    @Published var isLoading = true
+    @Published var isLoading: Bool = true
+    @Published var currentVote: Int = 0
+    @Published var votes: [VoteModel] = []
     @Published var error: NetworkError?
-    @Published var currentVote = 0
-    @Published var posts = [PostModel.init(id: 0,
-                                  createDate: "",
-                                  modifiedDate: "",
-                                  postStatus: "CLOSED",
-                                  author: .init(id: 0,
-                                                nickname: "닉네임",
-                                                profileImage: nil,
-                                                consumerType: ConsumerType.ecoWarrior.rawValue,
-                                                isBlocked: nil,
-                                                isBaned: nil),
-                                  title: "테스트")]
 
     private var isLastPage = false
     private var page = 0
@@ -50,9 +41,13 @@ final class VoteListViewModel: ObservableObject {
                     self?.isLoading = false
                 } receiveValue: { [weak self] votes in
                     self?.isLoading = false
-                    print(votes)
+                    self?.votes = votes
                 }
                 .store(in: &cancellables)
+
+        case .loadMoreVotes:
+            // TODO: 투표 게시글 더 불러오기
+            return
         }
     }
 
@@ -61,21 +56,6 @@ final class VoteListViewModel: ObservableObject {
                     visibilityScope: VisibilityScopeType,
                     isFirstFetch: Bool = true,
                     isRefresh: Bool = false) {
-    }
-
-    func fetchMorePosts(_ visibilityScope: VisibilityScopeType) {
-
-    }
-
-    func votePost(postId: Int,
-                  choice: Bool,
-                  index: Int) {
-
-    }
-
-    func updatePost(index: Int,
-                    myChoice: Bool,
-                    voteCount: VoteCountsModel) {
     }
 
     func calculatVoteRatio(voteCounts: VoteCountsModel?) -> (agree: Double, disagree: Double) {

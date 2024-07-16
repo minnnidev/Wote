@@ -50,33 +50,27 @@ extension VoteListView {
     private var votePagingView: some View {
         GeometryReader { proxy in
             TabView(selection: $viewModel.currentVote) {
-                Group {
-//                    VoteContentCell(data: viewModel.posts[0],
-//                                    index: 0)
-                    nextVoteButton
-                        .padding(.top, 16)
+                ForEach(Array(zip(viewModel.votes.indices,
+                                  viewModel.votes)), id: \.0) { index, item in
+                    VStack(spacing: 0) {
+                        VoteContentCell(data: item, index: index)
+                        nextVoteButton
+                            .padding(.top, 16)
+                    }
+                    .tag(index)
+                    .onAppear {
+                        if (index == viewModel.votes.count - 2) {
+                            viewModel.send(action: .loadMoreVotes)
+                        }
+                    }
                 }
-                .tag(0)
-                .rotationEffect(.degrees(-90))
+                .rotationEffect(.degrees(-90)) 
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
             .frame(width: proxy.size.height, height: proxy.size.width)
             .rotationEffect(.degrees(90), anchor: .topLeading)
             .offset(x: proxy.size.width)
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        if viewModel.currentVote == 0 && value.translation.height > 0 && !isRefreshing {
-                            isRefreshing = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                viewModel.fetchPosts(visibilityScope: visibilityScope,
-                                                     isRefresh: true)
-                                isRefreshing = false
-                            }
-                        }
-                    }
-            )
         }
     }
 
@@ -112,13 +106,13 @@ extension VoteListView {
             Spacer()
             Button {
                 withAnimation {
-                    if viewModel.currentVote != viewModel.posts.count - 1 {
+                    if viewModel.currentVote != viewModel.votes.count - 1 {
                         viewModel.currentVote += 1
                     }
                 }
             } label: {
                 Image("icnCaretDown")
-                    .opacity(viewModel.currentVote != viewModel.posts.count - 1 ? 1 : 0)
+                    .opacity(viewModel.currentVote != viewModel.votes.count - 1 ? 1 : 0)
             }
             Spacer()
         }
@@ -127,7 +121,7 @@ extension VoteListView {
 
 #Preview {
     VoteListView(
-        visibilityScope:.constant(VisibilityScopeType.global),
+        visibilityScope: .constant(VisibilityScopeType.global),
         viewModel: .init(voteUseCase: StubVoteUseCase())
     )
 }
