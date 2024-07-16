@@ -93,6 +93,11 @@
 		ABBBC67C2AE49CC800B1E614 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */; };
 		ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */; };
 		ABBFB6322AE3EABD006CE8CA /* VoteCreateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */; };
+		ABC1CDC62C464C380054E74C /* VoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDC52C464C380054E74C /* VoteUseCase.swift */; };
+		ABC1CDC82C464C690054E74C /* VoteRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDC72C464C690054E74C /* VoteRepositoryType.swift */; };
+		ABC1CDCA2C464C810054E74C /* VoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDC92C464C810054E74C /* VoteRepository.swift */; };
+		ABC1CDCC2C464CC20054E74C /* VoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDCB2C464CC20054E74C /* VoteDataSource.swift */; };
+		ABC1CDCE2C464CE10054E74C /* VoteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDCD2C464CE10054E74C /* VoteAssembly.swift */; };
 		ABC981922C43EF1500B65F00 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC981912C43EF1500B65F00 /* UserRepository.swift */; };
 		ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6845AC2AFC13FF00C3F7C2 /* TypeTestModel.swift */; };
 		ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA7DA2AF9432800C9BEA0 /* ComplaintReasonView.swift */; };
@@ -250,6 +255,11 @@
 		ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateModel.swift; sourceTree = "<group>"; };
 		ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachViewModel.swift; sourceTree = "<group>"; };
 		ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCreateRequestModel.swift; sourceTree = "<group>"; };
+		ABC1CDC52C464C380054E74C /* VoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteUseCase.swift; sourceTree = "<group>"; };
+		ABC1CDC72C464C690054E74C /* VoteRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteRepositoryType.swift; sourceTree = "<group>"; };
+		ABC1CDC92C464C810054E74C /* VoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteRepository.swift; sourceTree = "<group>"; };
+		ABC1CDCB2C464CC20054E74C /* VoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDataSource.swift; sourceTree = "<group>"; };
+		ABC1CDCD2C464CE10054E74C /* VoteAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteAssembly.swift; sourceTree = "<group>"; };
 		ABC981912C43EF1500B65F00 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		ABE51ED02B054ED5009C6CA5 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		ABF064492B15177A00C45E73 /* WoteTabHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoteTabHandler.swift; sourceTree = "<group>"; };
@@ -442,6 +452,7 @@
 			children = (
 				AB25072B2C3C5382009B0A3C /* AuthDataSource.swift */,
 				AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */,
+				ABC1CDCB2C464CC20054E74C /* VoteDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -530,6 +541,7 @@
 			children = (
 				AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */,
 				AB7FE8862C3E46B700EDED20 /* UserAssmbly.swift */,
+				ABC1CDCD2C464CE10054E74C /* VoteAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -540,6 +552,7 @@
 				AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */,
 				AB2507482C3E4441009B0A3C /* UserUseCase.swift */,
 				AB57B8372C44E5BA00CB11C6 /* PhotoUseCase.swift */,
+				ABC1CDC52C464C380054E74C /* VoteUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -549,6 +562,7 @@
 			children = (
 				AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */,
 				AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */,
+				ABC1CDC72C464C690054E74C /* VoteRepositoryType.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -558,6 +572,7 @@
 			children = (
 				ABC981912C43EF1500B65F00 /* UserRepository.swift */,
 				AB2507032C3B0484009B0A3C /* AuthRepository.swift */,
+				ABC1CDC92C464C810054E74C /* VoteRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1050,6 +1065,7 @@
 				AB2507192C3BF95D009B0A3C /* AppleUserResponseObject.swift in Sources */,
 				AB7FE8972C3E790700EDED20 /* LoadingView.swift in Sources */,
 				FD50A0482B01EBE000CF7F59 /* SettingNotificationView.swift in Sources */,
+				ABC1CDCC2C464CC20054E74C /* VoteDataSource.swift in Sources */,
 				FD0E8B5A2B0DDCBB002CED68 /* SettingViewModel.swift in Sources */,
 				C7B5A8882B01641A00B73881 /* Authenticator.swift in Sources */,
 				AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */,
@@ -1058,6 +1074,7 @@
 				AB57B8382C44E5BA00CB11C6 /* PhotoUseCase.swift in Sources */,
 				C7A95F172B01FFE600F8595A /* NetworkLoggerPlugin.swift in Sources */,
 				C7A95F152B01FFDC00F8595A /* NetworkError.swift in Sources */,
+				ABC1CDCE2C464CE10054E74C /* VoteAssembly.swift in Sources */,
 				AB2507492C3E4441009B0A3C /* UserUseCase.swift in Sources */,
 				AB38A1CD2B0D5580004153B5 /* ReviewDetailModel.swift in Sources */,
 				FDF2D6D02AE5E62B0027EE8F /* ChartModel.swift in Sources */,
@@ -1086,10 +1103,12 @@
 				ABBFB6322AE3EABD006CE8CA /* VoteCreateRequestModel.swift in Sources */,
 				AB44D22A2C4015FF0011000F /* MultipartFormDataHelper.swift in Sources */,
 				AB45225A2ADDDC9E00B69F24 /* SchoolSearchViewModel.swift in Sources */,
+				ABC1CDC62C464C380054E74C /* VoteUseCase.swift in Sources */,
 				FD3205682ADD5C0D00B0D5F6 /* TwoHoSunApp.swift in Sources */,
 				AB25071F2C3BFD03009B0A3C /* Encodable+.swift in Sources */,
 				FD84A6962B0A859A00F6EBB7 /* ProfileModel.swift in Sources */,
 				C77113732AF2114800BAB128 /* CustomConfirmModifier.swift in Sources */,
+				ABC1CDC82C464C690054E74C /* VoteRepositoryType.swift in Sources */,
 				FDB4B1502AE68FC000720328 /* DetailView.swift in Sources */,
 				C7A95F132B01FFD600F8595A /* MoyaPublisher.swift in Sources */,
 				ABFEBD632C3795CA00367389 /* ReviewDetailView.swift in Sources */,
@@ -1112,6 +1131,7 @@
 				C7E30E2B2ADC40E4001AE89B /* LoginViewModel.swift in Sources */,
 				C7719FE62AF2861000A520CB /* ConsumerType.swift in Sources */,
 				C7A95F1B2B03EB7B00F8595A /* NavigationRouter.swift in Sources */,
+				ABC1CDCA2C464C810054E74C /* VoteRepository.swift in Sources */,
 				ABA1E8502AFEA3AF009051E0 /* SettingView.swift in Sources */,
 				C7DE44C22AE26109001639CB /* View+.swift in Sources */,
 				AB7FE88E2C3E4ADC00EDED20 /* NicknameRequestObject.swift in Sources */,

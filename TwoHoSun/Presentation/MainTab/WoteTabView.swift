@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WoteTabView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @State private var visibilityScope = VisibilityScopeType.global
     @State private var isVoteCategoryButtonDidTap = false
     @State private var tabScrollHandler = WoteTabHandler()
@@ -22,7 +23,10 @@ struct WoteTabView: View {
                         Group {
                             switch tab {
                             case .consider:
-                                VoteListView(visibilityScope: $visibilityScope)
+                                VoteListView(
+                                    visibilityScope: $visibilityScope,
+                                    viewModel: appDependency.container.resolve(VoteListViewModel.self)!
+                                )
                             case .review:
                                 ReviewView(visibilityScope: $visibilityScope)
                             case .myPage:

@@ -14,7 +14,7 @@ struct VoteListView: View {
 
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
-    @StateObject var viewModel = VoteListViewModel()
+    @StateObject var viewModel: VoteListViewModel
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -119,6 +119,7 @@ extension VoteListView {
 
 #Preview {
     VoteListView(
-        visibilityScope:.constant(VisibilityScopeType.global)
+        visibilityScope:.constant(VisibilityScopeType.global),
+        viewModel: .init(voteUseCase: StubVoteUseCase())
     )
 }

@@ -28,6 +28,12 @@ final class VoteListViewModel: ObservableObject {
     private var isLastPage = false
     private var page = 0
 
+    private let voteUseCase: VoteUseCaseType
+
+    init(voteUseCase: VoteUseCaseType) {
+        self.voteUseCase = voteUseCase
+    }
+
     func fetchPosts(page: Int = 0,
                     size: Int = 5,
                     visibilityScope: VisibilityScopeType,
