@@ -7,6 +7,10 @@
 
 import Foundation
 
+// TODO: - 연관된 모델 정리 후 Codable 삭제
+
+
+
 struct PostModel: Codable, Identifiable {
     var id: Int
     var createDate: String
@@ -28,14 +32,6 @@ struct PostModel: Codable, Identifiable {
     var isNotified: Bool?
     var isPurchased: Bool?
     var hasReview: Bool?
-
-    enum CodingKeys: String, CodingKey {
-        case id = "postId"
-        case createDate, modifiedDate, visibilityScope, 
-             postStatus, author, title, contents, image,
-             externalURL, voteCount, commentCount, price,
-             myChoice, voteCounts, isMine, isNotified, isPurchased, hasReview, voteInfoList
-    } 
 }
 
 struct AuthorModel: Codable, Hashable {
@@ -47,21 +43,39 @@ struct AuthorModel: Codable, Hashable {
     let isBaned: Bool?
 }
 
-extension AuthorModel: Equatable {
-    static func == (lhs: AuthorModel, rhs: AuthorModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.nickname == rhs.nickname &&
-               lhs.profileImage == rhs.profileImage &&
-               lhs.consumerType == rhs.consumerType
+extension AuthorModel {
+
+    static var authorStub1: AuthorModel {
+        .init(
+            id: 1,
+            nickname: "글쓴이1",
+            profileImage: nil,
+            consumerType: "ADVENTURER",
+            isBlocked: false,
+            isBaned: false)
     }
 }
 
-struct VoteInfoModel: Codable, Hashable {
+struct VoteInfoModel: Codable {
     let isAgree: Bool
     let consumerType: String
+}
+
+extension VoteInfoModel {
+
+    static var voteInfoStub1: [VoteInfoModel] {
+        [.init(isAgree: true, consumerType: "ADVENTURER")]
+    }
 }
 
 struct VoteCountsModel: Codable {
     let agreeCount: Int
     let disagreeCount: Int
+}
+
+extension VoteCountsModel {
+
+    static var voteCountsStub1: VoteCountsModel {
+        .init(agreeCount: 30, disagreeCount: 70)
+    }
 }

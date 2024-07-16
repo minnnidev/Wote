@@ -10,62 +10,61 @@ import SwiftUI
 import Kingfisher
 
 struct VoteContentCell: View {
-    @EnvironmentObject var navigationRouter: NavigationRouter
-
     @State private var isButtonTapped = false
     @State private var isAlertShown = false
 
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
+    var vote: VoteModel
+    var agreeRatio: Double
+    var disagreeRatio: Double
 
-    var viewModel: ConsiderationViewModel
-    var data: PostModel
-    var index: Int
+    var voteTapped: (Bool) -> ()
+    var detailTapped: () -> ()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 8) {
-                ProfileImageView(imageURL: data.author.profileImage)
+                ProfileImageView(imageURL: vote.author.profileImage)
                     .frame(width: 32, height: 32)
-                Text(data.author.nickname)
+                Text(vote.author.nickname)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundStyle(.white)
                 Spacer()
-                ConsumerTypeLabel(consumerType: ConsumerType(rawValue: data.author.consumerType) ?? .adventurer,
+                ConsumerTypeLabel(consumerType: ConsumerType(rawValue: vote.author.consumerType) ?? .adventurer,
                                   usage: .standard)
             }
             .padding(.bottom, 10)
             HStack(spacing: 4) {
-                if data.postStatus == PostStatus.closed.rawValue {
+                if vote.postStatus == PostStatus.closed.rawValue {
                     EndLabel()
                 }
-                Text(data.title)
+                Text(vote.title)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundStyle(.white)
             }
-            Text(data.contents ?? "")
+            Text(vote.contents ?? "")
                 .font(.system(size: 14))
                 .foregroundStyle(.white)
                 .padding(.bottom, 8)
             HStack(spacing: 0) {
-                if let price = data.price {
+                if let price = vote.price {
                     Text("가격: \(price)원")
                     Text(" · ")
                 }
-                Text(data.createDate.convertToStringDate() ?? "")
+                Text(vote.createDate.convertToStringDate() ?? "")
             }
             .font(.system(size: 14))
             .foregroundStyle(Color.gray100)
             .padding(.bottom, 10)
             HStack {
-                InfoButton(label: "\(data.voteCount ?? 0)명 투표", icon: "person.2.fill")
+                InfoButton(label: "\(vote.voteCount ?? 0)명 투표", icon: "person.2.fill")
                 Spacer()
-                voteInfoButton(label: "댓글 \(data.commentCount ?? 0)개", icon: "message.fill")
+                voteInfoButton(label: "댓글 \(vote.commentCount ?? 0)개", icon: "message.fill")
             }
             .padding(.bottom, 2)
-            if let imageURL = data.image {
+            if let imageURL = vote.image {
                 ImageView(imageURL: imageURL)
             } else {
-                Image("imgDummyVote\(data.id % 3 + 1)")
+                Image("imgDummyVote\(vote.id % 3 + 1)")
                     .resizable()
                     .frame(maxWidth: .infinity)
                     .aspectRatio(1.5, contentMode: .fit)
@@ -73,18 +72,17 @@ struct VoteContentCell: View {
             }
             VStack(spacing: 10) {
                 VStack {
-                    if data.postStatus == "CLOSED" || data.myChoice != nil {
-                        let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.voteCounts)
-                        VoteResultView(myChoice: data.myChoice,
+                    if vote.postStatus == "CLOSED" || vote.myChoice != nil {
+                        VoteResultView(myChoice: vote.myChoice,
                                        agreeRatio: agreeRatio,
                                        disagreeRatio: disagreeRatio)
 
                     } else {
                         IncompletedVoteButton(choice: .agree) {
-                            votePost(choice: true)
+                            voteTapped(true)
                         }
                         IncompletedVoteButton(choice: .disagree) {
-                            votePost(choice: false)
+                            voteTapped(false)
                         }
                     }
                 }
@@ -103,7 +101,7 @@ extension VoteContentCell {
 
     private func voteInfoButton(label: String, icon: String) -> some View {
         Button {
-            // TODO: detailView로 이동
+            detailTapped()
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: icon)
@@ -119,7 +117,7 @@ extension VoteContentCell {
 
     private var detailResultButton: some View {
         Button {
-        
+            detailTapped()
         } label: {
                 Text("상세보기")
                     .font(.system(size: 16, weight: .bold))
@@ -127,23 +125,6 @@ extension VoteContentCell {
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(Color.blue100, in: Capsule())
-        }
-    }
-
-    private func votePost(choice: Bool) {
-        guard haveConsumerType else {
-            // TODO: 소비 성향 테스트로 이동
-            return
-        }
-
-        if isButtonTapped {
-            isAlertShown = true
-        } else {
-            isButtonTapped = true
-            viewModel.votePost(postId: data.id,
-                               choice: choice,
-                               index: index)
-
         }
     }
 }
