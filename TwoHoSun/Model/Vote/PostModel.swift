@@ -76,6 +76,6 @@ struct VoteCountsModel: Codable {
 extension VoteCountsModel {
 
     static var voteCountsStub1: VoteCountsModel {
-        .init(agreeCount: 50, disagreeCount: 50)
+        .init(agreeCount: 30, disagreeCount: 70)
     }
 }

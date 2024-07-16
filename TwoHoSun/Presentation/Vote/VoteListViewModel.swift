@@ -13,15 +13,15 @@ final class VoteListViewModel: ObservableObject {
     enum Action {
         case loadVotes
         case loadMoreVotes
+        case calculateRatio(voteCount: Int, agreeCount: Int)
+        case vote(selection: Bool)
     }
 
     @Published var isLoading: Bool = true
     @Published var currentVote: Int = 0
     @Published var votes: [VoteModel] = []
-    @Published var error: NetworkError?
-
-    private var isLastPage = false
-    private var page = 0
+    @Published var agreeRatio: Double?
+    @Published var disagreeRatio: Double?
 
     private let voteUseCase: VoteUseCaseType
 
@@ -48,22 +48,20 @@ final class VoteListViewModel: ObservableObject {
         case .loadMoreVotes:
             // TODO: 투표 게시글 더 불러오기
             return
+
+        case let .calculateRatio(voteCounts, agreeCount):
+            (agreeRatio, disagreeRatio) = calculatVoteRatio(voteCounts: voteCounts, agreeCount: agreeCount)
+
+        case let .vote(selection):
+            // TODO: 투표하기 API 연동
+            return
         }
     }
 
-    func fetchPosts(page: Int = 0,
-                    size: Int = 5,
-                    visibilityScope: VisibilityScopeType,
-                    isFirstFetch: Bool = true,
-                    isRefresh: Bool = false) {
-    }
+    func calculatVoteRatio(voteCounts: Int, agreeCount: Int) -> (agree: Double, disagree: Double) {
+        guard voteCounts != 0 else { return (0, 0) }
 
-    func calculatVoteRatio(voteCounts: VoteCountsModel?) -> (agree: Double, disagree: Double) {
-        guard let voteCounts = voteCounts else { return (0.0, 0.0) }
-        let voteCount = voteCounts.agreeCount + voteCounts.disagreeCount
-        
-        guard voteCount != 0 else { return (0, 0) }
-        let agreeRatio = Double(voteCounts.agreeCount) / Double(voteCount) * 100
+        let agreeRatio = Double(agreeCount) / Double(voteCounts) * 100
         return (agreeRatio, 100 - agreeRatio)
     }
 }

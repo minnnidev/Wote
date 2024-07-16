@@ -39,9 +39,6 @@ struct VoteListView: View {
                 ProgressView()
             }
         }
-        .errorAlert(error: $viewModel.error) {
-            viewModel.fetchPosts(visibilityScope: visibilityScope)
-        }
     }
 }
 
@@ -53,9 +50,25 @@ extension VoteListView {
                 ForEach(Array(zip(viewModel.votes.indices,
                                   viewModel.votes)), id: \.0) { index, item in
                     VStack(spacing: 0) {
-                        VoteContentCell(data: item, index: index)
+                        VoteContentCell(
+                            vote: item,
+                            agreeRatio: viewModel.agreeRatio ?? 0,
+                            disagreeRatio: viewModel.disagreeRatio ?? 0,
+                            voteTapped: {
+                                viewModel.send(action: .vote(selection: $0))
+                            }, detailTapped: {
+                                // TODO: - detail View로 이동
+                            }
+                        )
+
                         nextVoteButton
                             .padding(.top, 16)
+                            .onAppear {
+                                viewModel.send(action: .calculateRatio(
+                                    voteCount: item.voteCount ?? 0,
+                                    agreeCount: item.voteCounts?.agreeCount ?? 0)
+                                )
+                            }
                     }
                     .tag(index)
                     .onAppear {
@@ -104,6 +117,7 @@ extension VoteListView {
     private var nextVoteButton: some View {
         HStack {
             Spacer()
+            
             Button {
                 withAnimation {
                     if viewModel.currentVote != viewModel.votes.count - 1 {
