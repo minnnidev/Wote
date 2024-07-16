@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: - 연관된 모델 정리 후 Codable 삭제
+
 struct PostModel: Codable, Identifiable {
     var id: Int
     var createDate: String
@@ -28,14 +30,6 @@ struct PostModel: Codable, Identifiable {
     var isNotified: Bool?
     var isPurchased: Bool?
     var hasReview: Bool?
-
-    enum CodingKeys: String, CodingKey {
-        case id = "postId"
-        case createDate, modifiedDate, visibilityScope, 
-             postStatus, author, title, contents, image,
-             externalURL, voteCount, commentCount, price,
-             myChoice, voteCounts, isMine, isNotified, isPurchased, hasReview, voteInfoList
-    } 
 }
 
 struct AuthorModel: Codable, Hashable {
@@ -46,17 +40,7 @@ struct AuthorModel: Codable, Hashable {
     let isBlocked: Bool?
     let isBaned: Bool?
 }
-
-extension AuthorModel: Equatable {
-    static func == (lhs: AuthorModel, rhs: AuthorModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.nickname == rhs.nickname &&
-               lhs.profileImage == rhs.profileImage &&
-               lhs.consumerType == rhs.consumerType
-    }
-}
-
-struct VoteInfoModel: Codable, Hashable {
+struct VoteInfoModel: Codable {
     let isAgree: Bool
     let consumerType: String
 }
