@@ -9,6 +9,8 @@ import Foundation
 
 // TODO: - 연관된 모델 정리 후 Codable 삭제
 
+
+
 struct PostModel: Codable, Identifiable {
     var id: Int
     var createDate: String

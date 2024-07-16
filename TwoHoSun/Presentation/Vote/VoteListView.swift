@@ -31,6 +31,14 @@ struct VoteListView: View {
                 .padding(.bottom, 21)
                 .padding(.trailing, 24)
         }
+        .onAppear {
+            viewModel.send(action: .loadVotes)
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
+        }
         .errorAlert(error: $viewModel.error) {
             viewModel.fetchPosts(visibilityScope: visibilityScope)
         }

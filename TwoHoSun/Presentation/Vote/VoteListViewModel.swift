@@ -9,6 +9,11 @@ import Combine
 import SwiftUI
 
 final class VoteListViewModel: ObservableObject {
+
+    enum Action {
+        case loadVotes
+    }
+
     @Published var isLoading = true
     @Published var error: NetworkError?
     @Published var currentVote = 0
@@ -24,14 +29,31 @@ final class VoteListViewModel: ObservableObject {
                                                 isBaned: nil),
                                   title: "테스트")]
 
-    private var cancellables: Set<AnyCancellable> = []
     private var isLastPage = false
     private var page = 0
 
     private let voteUseCase: VoteUseCaseType
 
+    private var cancellables: Set<AnyCancellable> = []
+
     init(voteUseCase: VoteUseCaseType) {
         self.voteUseCase = voteUseCase
+    }
+
+    func send(action: Action) {
+        switch action {
+        case .loadVotes:
+            isLoading = true
+
+            voteUseCase.loadVotes(page: 0, size: 5, scope: .global)
+                .sink { [weak self] completion in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] votes in
+                    self?.isLoading = false
+                    print(votes)
+                }
+                .store(in: &cancellables)
+        }
     }
 
     func fetchPosts(page: Int = 0,

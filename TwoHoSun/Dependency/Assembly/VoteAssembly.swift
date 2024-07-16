@@ -17,11 +17,11 @@ final class VoteAssembly: Assembly {
         }
 
         container.register(VoteUseCaseType.self) { res in
-            VoteUseCase(repository: res.resolve(VoteRepositoryType.self)!)
+            VoteUseCase(voteRepository: res.resolve(VoteRepositoryType.self)!)
         }
 
         container.register(VoteRepositoryType.self) { res in
-            VoteRepository(dataSource: res.resolve(VoteDataSourceType.self)!)
+            VoteRepository(voteDataSource: res.resolve(VoteDataSourceType.self)!)
         }
 
         container.register(VoteDataSourceType.self) { _ in VoteDataSource() }

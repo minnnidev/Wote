@@ -6,11 +6,24 @@
 //
 
 import Foundation
+import Combine
+import Moya
 
 protocol VoteDataSourceType {
-
+    func getVotes(_ object: VoteRequestObject) -> AnyPublisher<[PostResponseObject], APIError>
 }
 
 final class VoteDataSource: VoteDataSourceType {
     
+    private let provider = MoyaProvider<VoteAPI>()
+
+    func getVotes(_ object: VoteRequestObject) -> AnyPublisher<[PostResponseObject], APIError> {
+        provider.requestPublisher(.getVotes(object))
+            .tryMap {
+                try JSONDecoder().decode(GeneralResponse<[PostResponseObject]>.self, from: $0.data)
+            }
+            .compactMap { $0.data }
+            .mapError { APIError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
