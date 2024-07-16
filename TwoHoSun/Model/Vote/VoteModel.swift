@@ -30,6 +30,20 @@ struct VoteModel: Identifiable {
 
 extension VoteModel {
 
+    func getAgreeRatio() -> Double {
+        guard let voteCounts = voteCounts else { return 0 }
+        guard let voteCount = voteCount else { return 0 }
+
+        return Double(voteCounts.agreeCount / voteCount)
+    }
+
+    func getDisagreeRatio() -> Double {
+        guard let voteCounts = voteCounts else { return 0 }
+        guard let voteCount = voteCount else { return 0 }
+
+        return Double(voteCounts.disagreeCount / voteCount)
+    }
+
     static var voteStub1: VoteModel {
         .init(
             id: 1,

@@ -28,7 +28,45 @@ final class VoteUseCase: VoteUseCaseType {
 
     func loadVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError> {
         voteRepository.getVoteDetail(postId: postId)
+            .map { [weak self] (vote: VoteDetailModel) -> VoteDetailModel in
+                if let voteInfoList = vote.post.voteInfoList {
+                    let result = self?.filterSelectedResult(voteInfoList: voteInfoList)
+                    let agreeTopConsumerTypes = self?.getTopConsumerTypes(for: result?.agree ?? [])
+                    let disagreeTopConsumerTypes = self?.getTopConsumerTypes(for: result?.disagree ?? [])
+
+                    return .init(
+                        post: vote.post,
+                        commentCount: vote.commentCount,
+                        commentPreview: vote.commentPreview,
+                        commentPreviewImage: vote.commentPreviewImage,
+                        agreeTopConsumers: agreeTopConsumerTypes,
+                        disagreeTopConsumers: disagreeTopConsumerTypes
+                    )
+                } else {
+                    return .init(
+                        post: vote.post,
+                        commentCount: vote.commentCount,
+                        commentPreview: vote.commentPreview,
+                        commentPreviewImage: vote.commentPreviewImage
+                        )
+                }
+            }
             .eraseToAnyPublisher()
+    }
+}
+
+extension VoteUseCase {
+
+    private func filterSelectedResult(voteInfoList: [VoteInfoModel]) -> (agree: [VoteInfoModel], disagree: [VoteInfoModel]) {
+        return (voteInfoList.filter { $0.isAgree }, voteInfoList.filter { !$0.isAgree })
+    }
+
+    private func getTopConsumerTypes(for votes: [VoteInfoModel]) -> [ConsumerType] {
+        return Dictionary(grouping: votes, by: { $0.consumerType })
+            .sorted { $0.value.count > $1.value.count }
+            .prefix(2)
+            .map { ConsumerType(rawValue: $0.key) }
+            .compactMap { $0 }
     }
 }
 

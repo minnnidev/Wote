@@ -32,11 +32,11 @@ struct DetailView: View {
 
                         VStack {
                             if viewModel.isVoteResultShowed {
-                                // TODO: 살말 비율 VoteResultView
-
-//                                VoteResultView(myChoice: viewModel.pos,
-//                                               agreeRatio: agreeRatio,
-//                                               disagreeRatio: disagreeRatio)
+                                VoteResultView(
+                                    myChoice: viewModel.voteDetail?.post.myChoice,
+                                    agreeRatio: viewModel.agreeRatio ?? 0,
+                                    disagreeRatio: viewModel.disagreeRatio ?? 0
+                                )
 
                             } else {
                                 IncompletedVoteButton(choice: .agree) {

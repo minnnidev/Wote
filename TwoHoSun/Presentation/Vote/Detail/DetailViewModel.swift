@@ -24,6 +24,8 @@ final class DetailViewModel: ObservableObject {
     @Published var voteDetail: VoteDetailModel?
     @Published var isVoteResultShowed: Bool = false
     @Published var isVoteConsumerTypeResultShowed: Bool = false
+    @Published var agreeRatio: Double?
+    @Published var disagreeRatio: Double?
 
     private let postId: Int
     private let voteUseCase: VoteUseCaseType
@@ -42,6 +44,10 @@ final class DetailViewModel: ObservableObject {
                 .sink { completion in
                 } receiveValue: { [weak self] voteDetail in
                     self?.voteDetail = voteDetail
+                    self?.agreeRatio = voteDetail.post.getAgreeRatio()
+                    self?.disagreeRatio = voteDetail.post.getDisagreeRatio()
+                    self?.agreeTopConsumerTypes = voteDetail.agreeTopConsumers ?? []
+                    self?.disagreeTopConsumerTypes = voteDetail.disagreeTopConsumers ?? []
 
                     if voteDetail.post.postStatus == "CLOSED" || voteDetail.post.myChoice != nil {
                         self?.isVoteResultShowed = true
@@ -69,25 +75,5 @@ final class DetailViewModel: ObservableObject {
         guard voteCount != 0 else { return (0, 0) }
         let agreeRatio = Double(voteCounts.agreeCount) / Double(voteCount) * 100
         return (agreeRatio, 100 - agreeRatio)
-    }
-
-    private func setTopConsumerTypes() {
-        guard let voteInfoList = voteDetail?.post.voteInfoList else { return }
-        let (agreeVoteInfos, disagreeVoteInfos) = filterSelectedResult(voteInfoList: voteInfoList)
-        agreeTopConsumerTypes = getTopConsumerTypes(for: agreeVoteInfos)
-        disagreeTopConsumerTypes = getTopConsumerTypes(for: disagreeVoteInfos)
-    }
-
-    private func filterSelectedResult(voteInfoList: [VoteInfoModel]) -> (agree: [VoteInfoModel],
-                                                                disagree: [VoteInfoModel]) {
-        return (voteInfoList.filter { $0.isAgree }, voteInfoList.filter { !$0.isAgree })
-    }
-
-    private func getTopConsumerTypes(for votes: [VoteInfoModel]) -> [ConsumerType] {
-        return Dictionary(grouping: votes, by: { $0.consumerType })
-            .sorted { $0.value.count > $1.value.count }
-            .prefix(2)
-            .map { ConsumerType(rawValue: $0.key) }
-            .compactMap { $0 }
     }
 }
