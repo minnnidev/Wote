@@ -23,9 +23,10 @@ final class VoteListViewModel: ObservableObject {
     @Published var agreeRatio: Double?
     @Published var disagreeRatio: Double?
 
-    private let voteUseCase: VoteUseCaseType
-
     private var cancellables: Set<AnyCancellable> = []
+    private var page: Int = 0
+
+    private let voteUseCase: VoteUseCaseType
 
     init(voteUseCase: VoteUseCaseType) {
         self.voteUseCase = voteUseCase
@@ -46,8 +47,14 @@ final class VoteListViewModel: ObservableObject {
                 .store(in: &cancellables)
 
         case .loadMoreVotes:
-            // TODO: 투표 게시글 더 불러오기
-            return
+            page += 1
+
+            voteUseCase.loadVotes(page: page, size: 5, scope: .global)
+                .sink { _ in
+                } receiveValue: { [weak self] votes in
+                    self?.votes.append(contentsOf: votes)
+                }
+                .store(in: &cancellables)
 
         case let .calculateRatio(voteCounts, agreeCount):
             (agreeRatio, disagreeRatio) = calculatVoteRatio(voteCounts: voteCounts, agreeCount: agreeCount)
