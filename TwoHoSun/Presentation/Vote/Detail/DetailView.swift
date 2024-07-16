@@ -10,156 +10,84 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.dismiss) var dismiss
 
-    @State private var showconfirm = false
-    @State private var backgroundColor: Color = .background
-    @State private var showCustomAlert = false
-    @State private var applyComplaint = false
-    @State private var showAlert = false
-    @State private var currentAlert = AlertType.closeVote
-    @State private var isButtonTapped = false
-    @State private var isDuplicationAlertShown = false
-
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    var isShowingItems = true
-    @State var showDetailComments = false
-    var postId: Int
-    var directComments = false
-    let commentNotification = NotificationCenter.default.publisher(for: Notification.Name("showComment"))
-
-    @StateObject var viewModel = DetailViewModel()
+    @StateObject var viewModel: DetailViewModel
 
     var body: some View {
         ZStack {
-            backgroundColor
+            Color.background
                 .ignoresSafeArea()
-            
-            if let data = viewModel.postDetail {
-                ScrollView {
+
+            ScrollView {
+                if let voteDetail = viewModel.voteDetail {
                     VStack(spacing: 0) {
-                        if isShowingItems {
+                        DetailHeaderView(data: voteDetail)
+                            .padding(.top, 18)
 
-                            DetailHeaderView(data: data)
-                                .padding(.top, 18)
+                        Divider()
+                            .background(Color.disableGray)
+                            .padding(.horizontal, 12)
 
-                            Divider()
-                                .background(Color.disableGray)
-                                .padding(.horizontal, 12)
-                        }
-                        DetailContentView(postDetailData: data)
+                        DetailContentView(postDetailData: voteDetail)
                             .padding(.top, 27)
+
                         VStack {
-                            if data.post.postStatus == "CLOSED" || data.post.myChoice != nil {
-                                let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
-                                VoteResultView(myChoice: data.post.myChoice,
-                                               agreeRatio: agreeRatio,
-                                               disagreeRatio: disagreeRatio)
+                            if viewModel.vote?.postStatus == "CLOSED" || viewModel.vote?.myChoice != nil {
+                                //                            let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
+                                //                            VoteResultView(myChoice: data.post.myChoice,
+                                //                                           agreeRatio: agreeRatio,
+                                //                                           disagreeRatio: disagreeRatio)
+
+                                // TODO: - Vote View
 
                             } else {
                                 IncompletedVoteButton(choice: .agree) {
-                                    votePost(id: data.post.id, choice: true)
+                                    // TODO: 투표하기 API 연동
 
                                 }
                                 IncompletedVoteButton(choice: .disagree) {
-                                    votePost(id: data.post.id, choice: false)
+                                    // TODO: 투표하기 API 연동
                                 }
                             }
                         }
                         .padding(.horizontal, 24)
-
-                        commentPreview
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 48)
-
-                        if data.post.voteCount != 0 {
-                            if data.post.postStatus == "CLOSED" || data.post.myChoice != nil {
-                                let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
-                                consumerTypeLabels(.agree, topConsumerTypes: viewModel.agreeTopConsumerTypes)
-                                resultProgressView(.agree,
-                                                   ratio: agreeRatio,
-                                                   isHigher: agreeRatio >= disagreeRatio)
-                                consumerTypeLabels(.disagree,
-                                                   topConsumerTypes: viewModel.disagreeTopConsumerTypes)
-                                resultProgressView(.agree,
-                                                   ratio: disagreeRatio,
-                                                   isHigher: disagreeRatio >= agreeRatio)
-                            } else {
-                                hiddenResultView(for: .agree,
-                                                 topConsumerTypesCount: viewModel.agreeTopConsumerTypes.count)
-                                .padding(.bottom, 34)
-                                hiddenResultView(for: .disagree,
-                                                 topConsumerTypesCount: viewModel.disagreeTopConsumerTypes.count)
-                            }
-                        }
-                        Spacer()
-                            .frame(height: 20)
                     }
-                }
-                .scrollIndicators(.hidden)
-                .refreshable {
-                    viewModel.fetchPostDetail(postId: postId)
-                }
-            } else {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
-                    .scaleEffect(1.3, anchor: .center)
-            }
 
-            if showDetailComments {
-                Color.black.opacity(0.7)
-                    .ignoresSafeArea()
-            }
+                    commentPreview
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 48)
+                } else {
+                    ProgressView()
+                        .padding(.top, 100)
+                }
 
-            if showCustomAlert {
-                ZStack {
-                    Color.black.opacity(0.7)
-                        .ignoresSafeArea()
-                    CustomAlertModalView(alertType: currentAlert,
-                                         isPresented: $showCustomAlert) {
-                        switch currentAlert {
-                        case .closeVote:
-                            viewModel.closePost(postId: postId,
-                                                index: (viewModel.searchPostIndex(with: postId),
-                                                        viewModel.searchMyPostIndex(with: postId)))
-                            showCustomAlert.toggle()
-                        case .deleteVote:
-                            viewModel.deletePost(postId: postId)
-                            showCustomAlert.toggle()
-                            dismiss()
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
+                // TODO: - Vote Result
 
-            if applyComplaint {
-                Color.black.opacity(0.7)
-                    .ignoresSafeArea()
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.lightBlue)
-                        .frame(width: 283, height: 36)
+//                if data.post.voteCount != 0 {
+//                    if data.post.postStatus == "CLOSED" || data.post.myChoice != nil {
+//                        let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
+//                        consumerTypeLabels(.agree, topConsumerTypes: viewModel.agreeTopConsumerTypes)
+//                        resultProgressView(.agree,
+//                                           ratio: agreeRatio,
+//                                           isHigher: agreeRatio >= disagreeRatio)
+//                        consumerTypeLabels(.disagree,
+//                                           topConsumerTypes: viewModel.disagreeTopConsumerTypes)
+//                        resultProgressView(.agree,
+//                                           ratio: disagreeRatio,
+//                                           isHigher: disagreeRatio >= agreeRatio)
+//                    } else {
+//                        hiddenResultView(for: .agree,
+//                                         topConsumerTypesCount: viewModel.agreeTopConsumerTypes.count)
+//                        .padding(.bottom, 34)
+//                        hiddenResultView(for: .disagree,
+//                                         topConsumerTypesCount: viewModel.disagreeTopConsumerTypes.count)
+//                    }
+//                }
 
-                    Text("신고해주셔서 감사합니다.")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 16, weight: .semibold))
-                }
-                .onTapGesture {
-                    applyComplaint.toggle()
-                }
-            }
-            
-            if showAlert {
-                CustomAlertModalView(alertType: .ban(nickname: viewModel.postDetail?.post.author.nickname ?? ""), isPresented: $showAlert) {
-                    // TODO: block
-                    showAlert.toggle()
-                    dismiss()
-                }
+                Spacer()
+                    .frame(height: 20)
             }
         }
-        .onReceive(commentNotification) {_ in
-            self.showDetailComments.toggle()
-        }
+        .scrollIndicators(.hidden)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -167,89 +95,9 @@ struct DetailView: View {
                     .font(.system(size: 18, weight: .medium))
                     .foregroundStyle(Color.white)
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                if isShowingItems {
-                    Button {
-                        showconfirm.toggle()
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundStyle(Color.subGray1)
-                    }
-                }
-            }
         }
         .toolbarBackground(Color.background, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $showDetailComments) {
-            CommentsView(showComplaint: $showCustomAlert,
-                         applyComplaint: $applyComplaint)
-            .presentationDetents([.large,.fraction(0.9)])
-
-        }
-        .customConfirmDialog(isPresented: $showconfirm, isMine: $viewModel.isMine) { _ in
-            if viewModel.isMine {
-                VStack(spacing: 15) {
-                    if viewModel.postDetail?.post.postStatus != PostStatus.closed.rawValue {
-                        Button {
-                            currentAlert = .closeVote
-                            showCustomAlert.toggle()
-                            showconfirm.toggle()
-                        } label: {
-                            Text("투표 지금 종료하기")
-                                .frame(maxWidth: .infinity)
-                        }
-                        Divider()
-                            .background(Color.gray300)
-                    }
-                    Button {
-                        currentAlert = .deleteVote
-                        showCustomAlert.toggle()
-                        showconfirm.toggle()
-                    } label: {
-                        Text("삭제하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.vertical, 15)
-            } else {
-                VStack(spacing: 15) {
-                    Button {
-                        showconfirm.toggle()
-                    } label: {
-                        Text("신고하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                    Divider()
-                        .background(Color.gray300)
-                    Button {
-                        showAlert.toggle()
-                        showconfirm.toggle()
-                    } label: {
-                        Text("차단하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.vertical, 15)
-            }
-        }
-        .onAppear {
-            if directComments {
-                showDetailComments.toggle()
-            }
-            viewModel.postDetail = nil
-            viewModel.fetchPostDetail(postId: postId)
-        }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(commentNotification)
-            NotificationCenter.default.removeObserver(NSNotification.voteStateUpdated)
-        }
-        .alert(isPresented: $isDuplicationAlertShown) {
-            Alert(title: Text("투표는 1번만 가능합니다."))
-        }
-        .errorAlert(error: $viewModel.error) {
-            // TODO: navigatin pop
-            NotificationCenter.default.post(name: NSNotification.voteStateUpdated, object: nil)
-        }
+        .toolbarBackground(.hidden, for: .tabBar)
     }
 }
 
@@ -259,13 +107,10 @@ extension DetailView {
         CommentPreview(previewComment: viewModel.postDetail?.commentPreview,
                        commentCount: viewModel.postDetail?.commentCount,
                        commentPreviewImage: viewModel.postDetail?.commentPreviewImage)
-            .onTapGesture {
-                guard haveConsumerType else {
-                    // TODO: - 소비 성향 테스트 뷰로 이동
-                    return
-                }
-                showDetailComments.toggle()
-            }
+        .onTapGesture {
+            // TODO: 소비 성향 테스트 안 했을 시, 소비 성향 테스트로 이동
+            // TODO: 완료했을 시 댓글 보기
+        }
     }
 
     private func hiddenResultView(for type: VoteType, topConsumerTypesCount: Int) -> some View {
@@ -334,26 +179,10 @@ extension DetailView {
         .padding(.horizontal, 24)
         .padding(.bottom, 36)
     }
-
-    private func votePost(id: Int, choice: Bool) {
-        guard haveConsumerType else {
-            // TODO: - 소비 성향 테스트 뷰로 이동
-            return
-        }
-
-        if isButtonTapped {
-            isDuplicationAlertShown = true
-        } else {
-            isButtonTapped = true
-            viewModel.votePost(postId: id,
-                               choice: choice,
-                               index: viewModel.searchPostIndex(with: id))
-        }
-    }
 }
 
 struct DetailContentView: View {
-    var postDetailData: PostDetailModel
+    var postDetailData: VoteDetailModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -364,10 +193,13 @@ struct DetailContentView: View {
                     if postDetailData.post.postStatus == PostStatus.closed.rawValue {
                         EndLabel()
                     }
+
                     Text(postDetailData.post.title)
                         .foregroundStyle(Color.white)
                         .font(.system(size: 18, weight: .bold))
+
                 }
+
                 if let contents = postDetailData.post.contents {
                     Text(contents)
                         .font(.system(size: 16, weight: .medium))
@@ -376,6 +208,7 @@ struct DetailContentView: View {
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(Color.whiteGray)
                 }
+
                 HStack(spacing: 0) {
                     if let price = postDetailData.post.price {
                         Text("가격: \(price)원")
@@ -392,22 +225,12 @@ struct DetailContentView: View {
             HStack {
                 Label("\(postDetailData.post.voteCount ?? 333)명 투표",
                       systemImage: "person.2.fill")
-                    .font(.system(size: 14))
-                    .foregroundStyle(Color.white)
-                    .frame(width: 94, height: 29)
-                    .background(Color.darkGray2)
-                    .clipShape(RoundedRectangle(cornerRadius: 34))
+                .font(.system(size: 14))
+                .foregroundStyle(Color.white)
+                .frame(width: 94, height: 29)
+                .background(Color.darkGray2)
+                .clipShape(RoundedRectangle(cornerRadius: 34))
                 Spacer()
-//                Button {
-//                    print("이야 공유하자")
-//                } label: {
-//                    Label("공유", systemImage: "square.and.arrow.up")
-//                        .font(.system(size: 14))
-//                        .foregroundStyle(Color.white)
-//                        .frame(width: 63, height: 29)
-//                        .background(Color.lightBlue)
-//                        .clipShape(RoundedRectangle(cornerRadius: 34))
-//                }
             }
             .padding(.bottom, 4)
 
@@ -443,4 +266,8 @@ struct DetailContentView: View {
         .padding(.horizontal, 24)
         .padding(.bottom, 8)
     }
+}
+
+#Preview {
+    DetailView(viewModel: .init(postId: 1, voteUseCase: StubVoteUseCase()))
 }

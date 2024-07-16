@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct VoteListView: View {
+    @EnvironmentObject var appDependency: AppDependency
+    @EnvironmentObject var voteRouter: NavigationRouter
+
     @State private var isRefreshing = false
-
-    @Binding var visibilityScope: VisibilityScopeType
-
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     @StateObject var viewModel: VoteListViewModel
 
@@ -22,8 +21,16 @@ struct VoteListView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
+                WoteNavigationBar(
+                    selectedTab: .constant(.consider),
+                    visibilityScope: $viewModel.visibilityScope,
+                    router: voteRouter
+                )
+
                 Spacer()
+
                 votePagingView
+
                 Spacer()
             }
 
@@ -37,6 +44,12 @@ struct VoteListView: View {
         .overlay {
             if viewModel.isLoading {
                 ProgressView()
+            }
+        }
+        .navigationDestination(for: VoteTabDestination.self) { dest in
+            switch dest {
+            case let .voteDetail(postId):
+                DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
             }
         }
     }
@@ -57,7 +70,7 @@ extension VoteListView {
                             voteTapped: {
                                 viewModel.send(action: .vote(selection: $0))
                             }, detailTapped: {
-                                // TODO: - detail View로 이동
+                                voteRouter.push(to: VoteTabDestination.voteDetail(postId: item.id))
                             }
                         )
 
@@ -135,7 +148,8 @@ extension VoteListView {
 
 #Preview {
     VoteListView(
-        visibilityScope: .constant(VisibilityScopeType.global),
         viewModel: .init(voteUseCase: StubVoteUseCase())
     )
+    .environmentObject(AppDependency())
+    .environmentObject(NavigationRouter())
 }

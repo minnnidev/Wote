@@ -22,6 +22,7 @@ final class VoteListViewModel: ObservableObject {
     @Published var votes: [VoteModel] = []
     @Published var agreeRatio: Double?
     @Published var disagreeRatio: Double?
+    @Published var visibilityScope: VisibilityScopeType = .global
 
     private var cancellables: Set<AnyCancellable> = []
     private var page: Int = 0

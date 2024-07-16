@@ -24,6 +24,8 @@ struct VoteModel: Identifiable {
     var voteCounts: VoteCountsModel?
     var voteInfoList: [VoteInfoModel]?
     var myChoice: Bool?
+    var isMine: Bool?
+    var hasReview: Bool?
 }
 
 extension VoteModel {
@@ -42,7 +44,8 @@ extension VoteModel {
             price: 1000,
             voteCounts: VoteCountsModel.voteCountsStub1,
             voteInfoList: VoteInfoModel.voteInfoStub1,
-            myChoice: nil
+            myChoice: nil,
+            isMine: true
         )
     }
 
@@ -60,7 +63,8 @@ extension VoteModel {
             price: 1000,
             voteCounts: VoteCountsModel.voteCountsStub1,
             voteInfoList: VoteInfoModel.voteInfoStub1,
-            myChoice: nil
+            myChoice: nil,
+            isMine: false
         )
     }
 }

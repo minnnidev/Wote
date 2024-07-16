@@ -16,6 +16,20 @@ final class DetailViewModel: ObservableObject {
     @Published var agreeTopConsumerTypes = [ConsumerType]()
     @Published var disagreeTopConsumerTypes = [ConsumerType]()
 
+    @Published var vote: VoteModel?
+    @Published var comments: CommentsModel?
+    @Published var voteDetail: VoteDetailModel?
+
+    private let postId: Int
+    private let voteUseCase: VoteUseCaseType
+
+    init(postId: Int, voteUseCase: VoteUseCaseType) {
+        self.postId = postId
+        self.voteUseCase = voteUseCase
+
+        voteDetail = .init(post: .voteStub1, commentCount: 3, commentPreview: nil, commentPreviewImage: nil)
+    }
+
     private var cancellables: Set<AnyCancellable> = []
 
     func searchPostIndex(with postId: Int) -> Int? {

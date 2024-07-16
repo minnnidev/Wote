@@ -13,3 +13,10 @@ struct PostDetailModel: Codable {
     let commentPreview: String?
     let commentPreviewImage: String?
 }
+
+struct VoteDetailModel {
+    let post: VoteModel
+    let commentCount: Int?
+    let commentPreview: String?
+    let commentPreviewImage: String?
+}

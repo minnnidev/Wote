@@ -59,6 +59,7 @@
 		AB7317EC2AF90F40008B5E41 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4E75B52ADE9C20000C2277 /* ProfileSettingViewModel.swift */; };
 		AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317EE2AF9178C008B5E41 /* FilterButton.swift */; };
 		AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */; };
+		AB76E22A2C469A0A00204A22 /* WoteNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */; };
 		AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE87E2C3E455700EDED20 /* ProfileType.swift */; };
 		AB7FE8812C3E45B400EDED20 /* UserRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */; };
 		AB7FE8852C3E461C00EDED20 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */; };
@@ -228,6 +229,7 @@
 		AB6845B52AFC147D00C3F7C2 /* TypeTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTestViewModel.swift; sourceTree = "<group>"; };
 		AB7317EE2AF9178C008B5E41 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardCell.swift; sourceTree = "<group>"; };
+		AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoteNavigationBar.swift; sourceTree = "<group>"; };
 		AB7FE87E2C3E455700EDED20 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
 		AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryType.swift; sourceTree = "<group>"; };
 		AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
@@ -924,6 +926,7 @@
 				AB38A1142B08FDD1004153B5 /* EndLabel.swift */,
 				AB7FE8962C3E790700EDED20 /* LoadingView.swift */,
 				AB7FE89B2C3EB0E200EDED20 /* ErrorAlertView.swift */,
+				AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				ABFEBD652C3795CA00367389 /* ReviewTabViewModel.swift in Sources */,
 				ABFEBD662C3795CA00367389 /* ReviewView.swift in Sources */,
 				FDF2D6CE2AE5DAD90027EE8F /* VoteInfoModel.swift in Sources */,
+				AB76E22A2C469A0A00204A22 /* WoteNavigationBar.swift in Sources */,
 				FD70B1F62B01C3080097B727 /* SettingBlockView.swift in Sources */,
 				ABC1CDD62C464FE90054E74C /* VoteInfoResponseObject.swift in Sources */,
 				AB2507372C3D3E5C009B0A3C /* OnboardingView.swift in Sources */,
