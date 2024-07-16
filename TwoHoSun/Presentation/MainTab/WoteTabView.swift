@@ -22,7 +22,7 @@ struct WoteTabView: View {
                         Group {
                             switch tab {
                             case .consider:
-                                ConsiderationView(visibilityScope: $visibilityScope, scrollToTop: $tabScrollHandler.scrollToTop)
+                                VoteListView(visibilityScope: $visibilityScope)
                             case .review:
                                 ReviewView(visibilityScope: $visibilityScope)
                             case .myPage:

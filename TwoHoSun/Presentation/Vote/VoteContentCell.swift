@@ -10,14 +10,9 @@ import SwiftUI
 import Kingfisher
 
 struct VoteContentCell: View {
-    @EnvironmentObject var navigationRouter: NavigationRouter
-
     @State private var isButtonTapped = false
     @State private var isAlertShown = false
 
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-
-    var viewModel: ConsiderationViewModel
     var data: PostModel
     var index: Int
 
@@ -74,10 +69,11 @@ struct VoteContentCell: View {
             VStack(spacing: 10) {
                 VStack {
                     if data.postStatus == "CLOSED" || data.myChoice != nil {
-                        let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.voteCounts)
+//                        let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.voteCounts)
+                        // TODO: agreeRatio, disagreeRatio 연결
                         VoteResultView(myChoice: data.myChoice,
-                                       agreeRatio: agreeRatio,
-                                       disagreeRatio: disagreeRatio)
+                                       agreeRatio: 0.3,
+                                       disagreeRatio: 0.3)
 
                     } else {
                         IncompletedVoteButton(choice: .agree) {
@@ -131,18 +127,18 @@ extension VoteContentCell {
     }
 
     private func votePost(choice: Bool) {
-        guard haveConsumerType else {
-            // TODO: 소비 성향 테스트로 이동
-            return
-        }
+//        guard haveConsumerType else {
+//            // TODO: 소비 성향 테스트로 이동
+//            return
+//        }
 
         if isButtonTapped {
             isAlertShown = true
         } else {
             isButtonTapped = true
-            viewModel.votePost(postId: data.id,
-                               choice: choice,
-                               index: index)
+//            viewModel.votePost(postId: data.id,
+//                               choice: choice,
+//                               index: index)
 
         }
     }

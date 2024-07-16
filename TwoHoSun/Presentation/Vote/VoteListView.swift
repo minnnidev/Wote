@@ -1,5 +1,5 @@
 //
-//  MainVoteView.swift
+//  VoteListView.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 11/1/23.
@@ -7,56 +7,44 @@
 
 import SwiftUI
 
-struct ConsiderationView: View {
-    @State private var didFinishSetup = false
+struct VoteListView: View {
     @State private var isRefreshing = false
-    @State var isPostCreated = false
 
     @Binding var visibilityScope: VisibilityScopeType
-    @Binding var scrollToTop: Bool
 
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
-    @StateObject var viewModel = ConsiderationViewModel()
-
-    @EnvironmentObject var navigationRouter: NavigationRouter
+    @StateObject var viewModel = VoteListViewModel()
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Color.background
                 .ignoresSafeArea()
+
             VStack(spacing: 0) {
                 Spacer()
                 votePagingView
                 Spacer()
             }
+
             createVoteButton
                 .padding(.bottom, 21)
                 .padding(.trailing, 24)
         }
-//        .onChange(of: visibilityScope) { _, newScope in
-//            viewModel.fetchPosts(visibilityScope: newScope)
-//        }
-//        .onChange(of: scrollToTop) { _, _ in
-//            withAnimation {
-//                viewModel.currentVote = 0
-//            }
-//        }
         .errorAlert(error: $viewModel.error) {
             viewModel.fetchPosts(visibilityScope: visibilityScope)
         }
     }
 }
 
-extension ConsiderationView {
+extension VoteListView {
 
     private var votePagingView: some View {
         GeometryReader { proxy in
             TabView(selection: $viewModel.currentVote) {
                 Group {
-                    VoteContentCell(viewModel: viewModel,
-                                    data: viewModel.posts[0],
-                                    index: 0)
+//                    VoteContentCell(data: viewModel.posts[0],
+//                                    index: 0)
                     nextVoteButton
                         .padding(.top, 16)
                 }
@@ -81,19 +69,12 @@ extension ConsiderationView {
                         }
                     }
             )
-
-            if isRefreshing {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
-                    .scaleEffect(1.3, anchor: .center)
-                    .offset(x: UIScreen.main.bounds.width / 2, y: 30)
-            }
         }
     }
 
     private var createVoteButton: some View {
         Button {
-            
+            // TODO: - 등록 뷰로 이동
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")
@@ -118,7 +99,6 @@ extension ConsiderationView {
             .clipShape(RoundedRectangle(cornerRadius: 3))
     }
 
-    @ViewBuilder
     private var nextVoteButton: some View {
         HStack {
             Spacer()
@@ -135,4 +115,10 @@ extension ConsiderationView {
             Spacer()
         }
     }
+}
+
+#Preview {
+    VoteListView(
+        visibilityScope:.constant(VisibilityScopeType.global)
+    )
 }

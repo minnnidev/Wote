@@ -1,5 +1,5 @@
 //
-//  ConsiderationViewModel.swift
+//  VoteListViewModel.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 11/21/23.
@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-final class ConsiderationViewModel: ObservableObject {
+final class VoteListViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var error: NetworkError?
     @Published var currentVote = 0
