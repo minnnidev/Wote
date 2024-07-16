@@ -1,14 +1,14 @@
 //
-//  PostDetailModel.swift
+//  VoteDetailModel.swift
 //  TwoHoSun
 //
-//  Created by 김민 on 11/18/23.
+//  Created by 김민 on 7/16/24.
 //
 
 import Foundation
 
-struct PostDetailModel: Codable {
-    var post: PostModel
+struct VoteDetailModel {
+    let post: VoteModel
     let commentCount: Int?
     let commentPreview: String?
     let commentPreviewImage: String?

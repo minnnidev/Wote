@@ -10,4 +10,5 @@ import Combine
 
 protocol VoteRepositoryType {
     func getVotes(page: Int, size: Int, scope: VisibilityScopeType) -> AnyPublisher<[VoteModel], WoteError>
+    func getVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError>
 }

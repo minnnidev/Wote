@@ -10,15 +10,20 @@ import SwiftUI
 
 final class DetailViewModel: ObservableObject {
 
-    @Published var isMine = false
-    @Published var error: NetworkError? 
-    @Published var postDetail: PostDetailModel?
+    enum Action {
+        case loadDetail
+        case vote
+        case deleteVote
+        case closeVote
+    }
+
     @Published var agreeTopConsumerTypes = [ConsumerType]()
     @Published var disagreeTopConsumerTypes = [ConsumerType]()
 
-    @Published var vote: VoteModel?
     @Published var comments: CommentsModel?
     @Published var voteDetail: VoteDetailModel?
+    @Published var isVoteResultShowed: Bool = false
+    @Published var isVoteConsumerTypeResultShowed: Bool = false
 
     private let postId: Int
     private let voteUseCase: VoteUseCaseType
@@ -26,47 +31,36 @@ final class DetailViewModel: ObservableObject {
     init(postId: Int, voteUseCase: VoteUseCaseType) {
         self.postId = postId
         self.voteUseCase = voteUseCase
-
-        voteDetail = .init(post: .voteStub1, commentCount: 3, commentPreview: nil, commentPreviewImage: nil)
     }
 
     private var cancellables: Set<AnyCancellable> = []
 
-    func searchPostIndex(with postId: Int) -> Int? {
-        return nil
+    func send(action: Action) {
+        switch action {
+        case .loadDetail:
+            voteUseCase.loadVoteDetail(postId: postId)
+                .sink { completion in
+                } receiveValue: { [weak self] voteDetail in
+                    self?.voteDetail = voteDetail
+
+                    if voteDetail.post.postStatus == "CLOSED" || voteDetail.post.myChoice != nil {
+                        self?.isVoteResultShowed = true
+                    }
+
+                    if voteDetail.post.voteCount ?? 0 > 0 { self?.isVoteConsumerTypeResultShowed = true }
+                }
+                .store(in: &cancellables)
+
+        case .vote:
+            return
+
+        case .deleteVote:
+            return
+
+        case .closeVote:
+            return
+        }
     }
-
-    func searchMyPostIndex(with postId: Int) -> Int? {
-        return nil
-    }
-
-    func fetchPostDetail(postId: Int) {
-        // TODO: 디테일 투표 조회
-    }
-
-    func votePost(postId: Int,
-                  choice: Bool,
-                  index: Int?) {
-        // TODO: 투표하기
-    }
-
-    func updatePost(index: Int,
-                    myChoice: Bool,
-                    voteCount: VoteCountsModel) {
-
-    }
-
-    func updateMyPost(index: Int) {
-
-    }
-
-    func deletePost(postId: Int) {
-        // TODO: 투표 삭제
-     }
-
-     func closePost(postId: Int, index: (Int?, Int?)) {
-         // TODO: 투표 종료
-     }
 
     func calculatVoteRatio(voteCounts: VoteCountsModel?) -> (agree: Double, disagree: Double) {
         guard let voteCounts = voteCounts else { return (0.0, 0.0) }
@@ -78,7 +72,7 @@ final class DetailViewModel: ObservableObject {
     }
 
     private func setTopConsumerTypes() {
-        guard let voteInfoList = postDetail?.post.voteInfoList else { return }
+        guard let voteInfoList = voteDetail?.post.voteInfoList else { return }
         let (agreeVoteInfos, disagreeVoteInfos) = filterSelectedResult(voteInfoList: voteInfoList)
         agreeTopConsumerTypes = getTopConsumerTypes(for: agreeVoteInfos)
         disagreeTopConsumerTypes = getTopConsumerTypes(for: disagreeVoteInfos)

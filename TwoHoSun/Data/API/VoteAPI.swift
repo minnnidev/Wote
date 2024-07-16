@@ -10,6 +10,7 @@ import Moya
 
 enum VoteAPI {
     case getVotes(VoteRequestObject)
+    case getVoteDetail(Int)
 }
 
 extension VoteAPI: TargetType {
@@ -22,12 +23,14 @@ extension VoteAPI: TargetType {
         switch self {
         case .getVotes(_):
             return "api/posts"
+        case let .getVoteDetail(postId):
+            return "api/posts/\(postId)"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .getVotes(_):
+        default:
             return .get
         }
     }
@@ -37,6 +40,11 @@ extension VoteAPI: TargetType {
         case let .getVotes(requestObject):
             return .requestParameters(
                 parameters: requestObject.toDictionary(),
+                encoding: URLEncoding.queryString
+            )
+        case let .getVoteDetail(postId):
+            return .requestParameters(
+                parameters: postId.toDictionary(),
                 encoding: URLEncoding.queryString
             )
         }

@@ -31,13 +31,12 @@ struct DetailView: View {
                             .padding(.top, 27)
 
                         VStack {
-                            if viewModel.vote?.postStatus == "CLOSED" || viewModel.vote?.myChoice != nil {
-                                //                            let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
-                                //                            VoteResultView(myChoice: data.post.myChoice,
-                                //                                           agreeRatio: agreeRatio,
-                                //                                           disagreeRatio: disagreeRatio)
+                            if viewModel.isVoteResultShowed {
+                                // TODO: 살말 비율 VoteResultView
 
-                                // TODO: - Vote View
+//                                VoteResultView(myChoice: viewModel.pos,
+//                                               agreeRatio: agreeRatio,
+//                                               disagreeRatio: disagreeRatio)
 
                             } else {
                                 IncompletedVoteButton(choice: .agree) {
@@ -60,10 +59,10 @@ struct DetailView: View {
                         .padding(.top, 100)
                 }
 
-                // TODO: - Vote Result
+                // TODO: - Vote Consumer Result
 
-//                if data.post.voteCount != 0 {
-//                    if data.post.postStatus == "CLOSED" || data.post.myChoice != nil {
+                if viewModel.isVoteConsumerTypeResultShowed {
+                    if viewModel.isVoteResultShowed {
 //                        let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
 //                        consumerTypeLabels(.agree, topConsumerTypes: viewModel.agreeTopConsumerTypes)
 //                        resultProgressView(.agree,
@@ -74,14 +73,14 @@ struct DetailView: View {
 //                        resultProgressView(.agree,
 //                                           ratio: disagreeRatio,
 //                                           isHigher: disagreeRatio >= agreeRatio)
-//                    } else {
-//                        hiddenResultView(for: .agree,
-//                                         topConsumerTypesCount: viewModel.agreeTopConsumerTypes.count)
-//                        .padding(.bottom, 34)
-//                        hiddenResultView(for: .disagree,
-//                                         topConsumerTypesCount: viewModel.disagreeTopConsumerTypes.count)
-//                    }
-//                }
+                    } else {
+                        hiddenResultView(for: .agree,
+                                         topConsumerTypesCount: viewModel.agreeTopConsumerTypes.count)
+                            .padding(.bottom, 34)
+                        hiddenResultView(for: .disagree,
+                                         topConsumerTypesCount: viewModel.disagreeTopConsumerTypes.count)
+                    }
+                }
 
                 Spacer()
                     .frame(height: 20)
@@ -98,19 +97,22 @@ struct DetailView: View {
         }
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.hidden, for: .tabBar)
+        .onAppear {
+            viewModel.send(action: .loadDetail)
+        }
     }
 }
 
 extension DetailView {
 
     var commentPreview: some View {
-        CommentPreview(previewComment: viewModel.postDetail?.commentPreview,
-                       commentCount: viewModel.postDetail?.commentCount,
-                       commentPreviewImage: viewModel.postDetail?.commentPreviewImage)
-        .onTapGesture {
+        CommentPreview(previewComment: viewModel.voteDetail?.commentPreview,
+                       commentCount: viewModel.voteDetail?.commentCount,
+                       commentPreviewImage: viewModel.voteDetail?.commentPreviewImage)
+//        .onTapGesture {
             // TODO: 소비 성향 테스트 안 했을 시, 소비 성향 테스트로 이동
             // TODO: 완료했을 시 댓글 보기
-        }
+//        }
     }
 
     private func hiddenResultView(for type: VoteType, topConsumerTypesCount: Int) -> some View {

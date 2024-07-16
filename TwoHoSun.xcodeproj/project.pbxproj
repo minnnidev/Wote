@@ -60,6 +60,8 @@
 		AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317EE2AF9178C008B5E41 /* FilterButton.swift */; };
 		AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */; };
 		AB76E22A2C469A0A00204A22 /* WoteNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */; };
+		AB76E22C2C46A8D900204A22 /* VoteDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E22B2C46A8D900204A22 /* VoteDetailModel.swift */; };
+		AB76E22E2C46A8F100204A22 /* VoteDetailResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E22D2C46A8F100204A22 /* VoteDetailResponseObject.swift */; };
 		AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE87E2C3E455700EDED20 /* ProfileType.swift */; };
 		AB7FE8812C3E45B400EDED20 /* UserRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */; };
 		AB7FE8852C3E461C00EDED20 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */; };
@@ -230,6 +232,8 @@
 		AB7317EE2AF9178C008B5E41 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		AB7317F32AF94F31008B5E41 /* ReviewCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardCell.swift; sourceTree = "<group>"; };
 		AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoteNavigationBar.swift; sourceTree = "<group>"; };
+		AB76E22B2C46A8D900204A22 /* VoteDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailModel.swift; sourceTree = "<group>"; };
+		AB76E22D2C46A8F100204A22 /* VoteDetailResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailResponseObject.swift; sourceTree = "<group>"; };
 		AB7FE87E2C3E455700EDED20 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
 		AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryType.swift; sourceTree = "<group>"; };
 		AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
@@ -625,6 +629,7 @@
 			children = (
 				ABB71D6D2AE2754300BE0671 /* PostModel.swift */,
 				ABC1CDDF2C4655F90054E74C /* VoteModel.swift */,
+				AB76E22B2C46A8D900204A22 /* VoteDetailModel.swift */,
 			);
 			path = Vote;
 			sourceTree = "<group>";
@@ -637,6 +642,7 @@
 				ABC1CDD32C464FE00054E74C /* AuthorResponseObject.swift */,
 				ABC1CDD52C464FE90054E74C /* VoteInfoResponseObject.swift */,
 				ABC1CDD72C464FF20054E74C /* VoteCountsObject.swift */,
+				AB76E22D2C46A8F100204A22 /* VoteDetailResponseObject.swift */,
 			);
 			path = Vote;
 			sourceTree = "<group>";
@@ -1063,6 +1069,7 @@
 				ABF0644A2B15177A00C45E73 /* WoteTabHandler.swift in Sources */,
 				AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */,
 				AB25072C2C3C5382009B0A3C /* AuthDataSource.swift in Sources */,
+				AB76E22E2C46A8F100204A22 /* VoteDetailResponseObject.swift in Sources */,
 				ABC981922C43EF1500B65F00 /* UserRepository.swift in Sources */,
 				FD7624A02AF954980079AEEF /* GeneralResponse.swift in Sources */,
 				AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */,
@@ -1183,6 +1190,7 @@
 				C7DE44C22AE26109001639CB /* View+.swift in Sources */,
 				AB7FE88E2C3E4ADC00EDED20 /* NicknameRequestObject.swift in Sources */,
 				C7E459D12ADFF89000ECD008 /* WoteTabView.swift in Sources */,
+				AB76E22C2C46A8D900204A22 /* VoteDetailModel.swift in Sources */,
 				AB6845B42AFC146C00C3F7C2 /* TypeTestResultView.swift in Sources */,
 				AB7FE8872C3E46B700EDED20 /* UserAssmbly.swift in Sources */,
 				AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */,
