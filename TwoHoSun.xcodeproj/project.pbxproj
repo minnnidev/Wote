@@ -17,6 +17,7 @@
 		AB03D7462B020EB2000C927A /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7452B020EB2000C927A /* ImageView.swift */; };
 		AB03D7482B0276F9000C927A /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7472B0276F9000C927A /* ProfileImageView.swift */; };
 		AB0CA9982C44E80500910C36 /* PhotoPickerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */; };
+		AB0D8C6E2C47BC49003CE8E2 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */; };
 		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
 		AB2507042C3B0484009B0A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507032C3B0484009B0A3C /* AuthRepository.swift */; };
 		AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25070E2C3B1178009B0A3C /* Constants.swift */; };
@@ -95,7 +96,7 @@
 		ABA1E8542AFEA640009051E0 /* GoToTypeTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E8532AFEA640009051E0 /* GoToTypeTestButton.swift */; };
 		ABAFB6412AF978790070512F /* PurchaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAFB6402AF978790070512F /* PurchaseLabel.swift */; };
 		ABB71D6E2AE2754300BE0671 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71D6D2AE2754300BE0671 /* PostModel.swift */; };
-		ABBBC67C2AE49CC800B1E614 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */; };
+		ABBBC67C2AE49CC800B1E614 /* VoteCreateRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC67B2AE49CC800B1E614 /* VoteCreateRequestObject.swift */; };
 		ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */; };
 		ABBFB6322AE3EABD006CE8CA /* VoteCreateRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */; };
 		ABC1CDC62C464C380054E74C /* VoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDC52C464C380054E74C /* VoteUseCase.swift */; };
@@ -191,6 +192,7 @@
 		AB03D7452B020EB2000C927A /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AB03D7472B0276F9000C927A /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerError.swift; sourceTree = "<group>"; };
+		AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateModel.swift; sourceTree = "<group>"; };
 		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
 		AB2507032C3B0484009B0A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		AB25070E2C3B1178009B0A3C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -269,7 +271,7 @@
 		ABB71D6D2AE2754300BE0671 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		ABB71D792AE2A64300BE0671 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		ABBBC6772AE471B700B1E614 /* VoteWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteWriteViewModel.swift; sourceTree = "<group>"; };
-		ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateModel.swift; sourceTree = "<group>"; };
+		ABBBC67B2AE49CC800B1E614 /* VoteCreateRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCreateRequestObject.swift; sourceTree = "<group>"; };
 		ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachViewModel.swift; sourceTree = "<group>"; };
 		ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCreateRequestModel.swift; sourceTree = "<group>"; };
 		ABC1CDC52C464C380054E74C /* VoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteUseCase.swift; sourceTree = "<group>"; };
@@ -436,7 +438,6 @@
 				C73F8E842AE54F78001C6B07 /* LoginModel */,
 				C73F8E852AE55014001C6B07 /* FeedModel */,
 				C73F8E862AE550E4001C6B07 /* CommonModel */,
-				ABBBC67B2AE49CC800B1E614 /* PostCreateModel.swift */,
 				FD1B6D452B0BEBC50097F789 /* ReviewCreateModel.swift */,
 				AB6845AC2AFC13FF00C3F7C2 /* TypeTestModel.swift */,
 				C7719FE42AF2769E00A520CB /* EnumType */,
@@ -634,6 +635,7 @@
 				ABB71D6D2AE2754300BE0671 /* PostModel.swift */,
 				ABC1CDDF2C4655F90054E74C /* VoteModel.swift */,
 				AB76E22B2C46A8D900204A22 /* VoteDetailModel.swift */,
+				AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */,
 			);
 			path = Vote;
 			sourceTree = "<group>";
@@ -641,6 +643,7 @@
 		ABC1CDD02C464F910054E74C /* Vote */ = {
 			isa = PBXGroup;
 			children = (
+				ABBBC67B2AE49CC800B1E614 /* VoteCreateRequestObject.swift */,
 				ABC1CDDB2C46523B0054E74C /* VoteRequestObject.swift */,
 				ABC1CDD12C464F9A0054E74C /* PostResponseObject.swift */,
 				ABC1CDD32C464FE00054E74C /* AuthorResponseObject.swift */,
@@ -1122,6 +1125,7 @@
 				ABC1CDCC2C464CC20054E74C /* VoteDataSource.swift in Sources */,
 				FD0E8B5A2B0DDCBB002CED68 /* SettingViewModel.swift in Sources */,
 				C7B5A8882B01641A00B73881 /* Authenticator.swift in Sources */,
+				AB0D8C6E2C47BC49003CE8E2 /* PostCreateModel.swift in Sources */,
 				AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */,
 				AB7FE8902C3E4CF700EDED20 /* NicknameResponseObject.swift in Sources */,
 				AB7317EF2AF9178C008B5E41 /* FilterButton.swift in Sources */,
@@ -1176,7 +1180,7 @@
 				C7DE44BD2AE0DCE7001639CB /* CommentCell.swift in Sources */,
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
 				C768F1A32AE656570020F82C /* SchoolModel.swift in Sources */,
-				ABBBC67C2AE49CC800B1E614 /* PostCreateModel.swift in Sources */,
+				ABBBC67C2AE49CC800B1E614 /* VoteCreateRequestObject.swift in Sources */,
 				AB25071D2C3BFA86009B0A3C /* AuthAPI.swift in Sources */,
 				FD9DDB6C2B06F746006D738A /* SummaryPostModel.swift in Sources */,
 				AB6845B62AFC147D00C3F7C2 /* TypeTestViewModel.swift in Sources */,

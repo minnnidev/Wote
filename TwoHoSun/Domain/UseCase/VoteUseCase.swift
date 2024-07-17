@@ -12,6 +12,7 @@ protocol VoteUseCaseType {
     func loadVotes(page: Int, size: Int, scope: VisibilityScopeType) -> AnyPublisher<[VoteModel], WoteError>
     func loadVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError>
     func vote(postId: Int, myChoice: Bool) -> AnyPublisher<(Double, Double), WoteError>
+    func createVote(scope: VisibilityScopeType, title: String, price: Int?, contents: String?, externalURL: String?, image: Data?) -> AnyPublisher<Void, WoteError>
 }
 
 final class VoteUseCase: VoteUseCaseType {
@@ -50,6 +51,20 @@ final class VoteUseCase: VoteUseCaseType {
 
                 return (agreeRatio, disagreeRatio)
             }
+            .eraseToAnyPublisher()
+    }
+
+    func createVote(scope: VisibilityScopeType, title: String, price: Int?, contents: String?, externalURL: String?, image: Data?) -> AnyPublisher<Void, WoteError> {
+        let vote: VoteCreateModel = .init(
+            visibilityScope: scope,
+            title: title,
+            price: price,
+            contents: contents,
+            externalURL: externalURL,
+            image: image
+        )
+
+        return voteRepository.createVote(vote)
             .eraseToAnyPublisher()
     }
 }
@@ -123,6 +138,11 @@ final class StubVoteUseCase: VoteUseCaseType {
     }
 
     func vote(postId: Int, myChoice: Bool) -> AnyPublisher<(Double, Double), WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func createVote(scope: VisibilityScopeType, title: String, price: Int?, contents: String?, externalURL: String?, image: Data?) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

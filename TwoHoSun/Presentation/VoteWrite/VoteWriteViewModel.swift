@@ -33,8 +33,6 @@ final class VoteWriteViewModel: ObservableObject {
 
     @Published var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
 
-    @Published var postCreateModel: PostCreateModel?
-
     private var cancellables = Set<AnyCancellable>()
 
     private let photoUseCase: PhotoUseCaseType
@@ -68,8 +66,18 @@ final class VoteWriteViewModel: ObservableObject {
             selectedData = nil
 
         case .createVote:
-            // TODO: - 투표 등록
-            return
+            voteUseCase.createVote(
+                scope: .global,
+                title: title,
+                price: Int(price) ?? nil,
+                contents: content,
+                externalURL: externalURL,
+                image: selectedData
+            )
+            .sink { _ in
+            } receiveValue: { _ in
+            }
+            .store(in: &cancellables)
         }
     }
 }
