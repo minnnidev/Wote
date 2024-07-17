@@ -38,9 +38,11 @@ final class VoteWriteViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     private let photoUseCase: PhotoUseCaseType
+    private let voteUseCase: VoteUseCaseType
 
-    init(photoUseCase: PhotoUseCaseType) {
+    init(photoUseCase: PhotoUseCaseType, voteUseCase: VoteUseCaseType) {
         self.photoUseCase = photoUseCase
+        self.voteUseCase = voteUseCase
     }
 
     var isTitleValid: Bool {

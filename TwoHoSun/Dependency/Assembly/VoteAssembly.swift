@@ -22,7 +22,10 @@ final class VoteAssembly: Assembly {
         }
 
         container.register(VoteWriteViewModel.self) { res in
-            VoteWriteViewModel(photoUseCase: res.resolve(PhotoUseCaseType.self)!)
+            VoteWriteViewModel(
+                photoUseCase: res.resolve(PhotoUseCaseType.self)!,
+                voteUseCase: res.resolve(VoteUseCaseType.self)!
+            )
         }
 
         // MARK: UseCases

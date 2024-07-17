@@ -315,5 +315,8 @@ extension VoteWriteView {
 }
 
 #Preview {
-    VoteWriteView(viewModel: .init(photoUseCase: StubPhotoUseCase()))
+    VoteWriteView(
+        viewModel: .init(photoUseCase: StubPhotoUseCase(),
+                         voteUseCase: StubVoteUseCase())
+    )
 }
