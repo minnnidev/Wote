@@ -14,8 +14,6 @@ struct VoteContentCell: View {
     @State private var isAlertShown = false
 
     var vote: VoteModel
-    var agreeRatio: Double
-    var disagreeRatio: Double
 
     var voteTapped: (Bool) -> ()
     var detailTapped: () -> ()
@@ -33,10 +31,12 @@ struct VoteContentCell: View {
                                   usage: .standard)
             }
             .padding(.bottom, 10)
+
             HStack(spacing: 4) {
                 if vote.postStatus == PostStatus.closed.rawValue {
                     EndLabel()
                 }
+
                 Text(vote.title)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundStyle(.white)
@@ -45,6 +45,7 @@ struct VoteContentCell: View {
                 .font(.system(size: 14))
                 .foregroundStyle(.white)
                 .padding(.bottom, 8)
+
             HStack(spacing: 0) {
                 if let price = vote.price {
                     Text("가격: \(price)원")
@@ -52,14 +53,17 @@ struct VoteContentCell: View {
                 }
                 Text(vote.createDate.convertToStringDate() ?? "")
             }
+
             .font(.system(size: 14))
             .foregroundStyle(Color.gray100)
             .padding(.bottom, 10)
+
             HStack {
                 InfoButton(label: "\(vote.voteCount ?? 0)명 투표", icon: "person.2.fill")
                 Spacer()
                 voteInfoButton(label: "댓글 \(vote.commentCount ?? 0)개", icon: "message.fill")
             }
+
             .padding(.bottom, 2)
             if let imageURL = vote.image {
                 ImageView(imageURL: imageURL)
@@ -74,8 +78,8 @@ struct VoteContentCell: View {
                 VStack {
                     if vote.postStatus == "CLOSED" || vote.myChoice != nil {
                         VoteResultView(myChoice: vote.myChoice,
-                                       agreeRatio: agreeRatio,
-                                       disagreeRatio: disagreeRatio)
+                                       agreeRatio: vote.agreeRatio ?? 0,
+                                       disagreeRatio: vote.disagreeRatio ?? 0)
 
                     } else {
                         IncompletedVoteButton(choice: .agree) {

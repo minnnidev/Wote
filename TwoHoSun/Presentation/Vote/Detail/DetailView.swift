@@ -40,11 +40,11 @@ struct DetailView: View {
 
                             } else {
                                 IncompletedVoteButton(choice: .agree) {
-                                    // TODO: 투표하기 API 연동
+                                    viewModel.send(action: .vote(true))
 
                                 }
                                 IncompletedVoteButton(choice: .disagree) {
-                                    // TODO: 투표하기 API 연동
+                                    viewModel.send(action: .vote(false))
                                 }
                             }
                         }

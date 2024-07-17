@@ -65,8 +65,6 @@ extension VoteListView {
                     VStack(spacing: 0) {
                         VoteContentCell(
                             vote: item,
-                            agreeRatio: item.agreeRatio ?? 0,
-                            disagreeRatio: item.disagreeRatio ?? 0,
                             voteTapped: {
                                 viewModel.send(action: .vote(selection: $0))
                             }, detailTapped: {

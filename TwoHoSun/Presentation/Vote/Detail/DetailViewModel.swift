@@ -12,7 +12,7 @@ final class DetailViewModel: ObservableObject {
 
     enum Action {
         case loadDetail
-        case vote
+        case vote(_ myChoice: Bool)
         case deleteVote
         case closeVote
     }
@@ -58,8 +58,13 @@ final class DetailViewModel: ObservableObject {
                 }
                 .store(in: &cancellables)
 
-        case .vote:
-            return
+        case let .vote(myChoice):
+            voteUseCase.vote(postId: postId, myChoice: myChoice)
+                .sink { completion in
+                } receiveValue: { [weak self] _ in
+                    self?.send(action: .loadDetail)
+                }
+                .store(in: &cancellables)
 
         case .deleteVote:
             return
