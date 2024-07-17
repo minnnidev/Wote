@@ -50,6 +50,10 @@ struct VoteListView: View {
             switch dest {
             case let .voteDetail(postId):
                 DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
+                    .environmentObject(voteRouter)
+            case .voteWrite:
+                VoteWriteView(viewModel: appDependency.container.resolve(VoteWriteViewModel.self)!)
+                    .environmentObject(voteRouter)
             }
         }
     }
@@ -94,7 +98,7 @@ extension VoteListView {
 
     private var createVoteButton: some View {
         Button {
-            // TODO: - 등록 뷰로 이동
+            voteRouter.push(to: VoteTabDestination.voteWrite)
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")

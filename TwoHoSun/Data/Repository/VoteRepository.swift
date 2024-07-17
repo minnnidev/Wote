@@ -39,8 +39,16 @@ final class VoteRepository: VoteRepositoryType {
     func vote(postId: Int, myChoice: Bool) -> AnyPublisher<VoteCountsModel, WoteError> {
         let requestObject: ChooseRequestObject = .init(myChoice: myChoice)
 
-        return voteDataSource.votePost(postId, requestObject)
+        return voteDataSource.postVote(postId, requestObject)
             .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func createVote(_ createdVote: VoteCreateModel) -> AnyPublisher<Void, WoteError> {
+        let requestObject: VoteCreateRequestObject = createdVote.toObject()
+
+        return voteDataSource.registerVote(requestObject)
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }

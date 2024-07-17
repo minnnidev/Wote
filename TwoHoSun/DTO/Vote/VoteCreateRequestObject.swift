@@ -1,5 +1,5 @@
 //
-//  PostCreateModel.swift
+//  PostCreateRequestObject.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 10/22/23.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct PostCreateModel: Codable {
+struct VoteCreateRequestObject: Codable {
     let visibilityScope: VisibilityScopeType
     let title: String
     let price: Int?

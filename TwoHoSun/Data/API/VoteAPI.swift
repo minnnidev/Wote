@@ -12,6 +12,7 @@ enum VoteAPI {
     case getVotes(VoteRequestObject)
     case getVoteDetail(Int)
     case postVote(postId: Int, requestObject: ChooseRequestObject)
+    case registerVote(VoteCreateRequestObject)
 }
 
 extension VoteAPI: TargetType {
@@ -28,12 +29,16 @@ extension VoteAPI: TargetType {
             return "/posts/\(postId)"
         case let .postVote(postId, _):
             return "/posts/\(postId)/votes"
+        case .registerVote(_):
+            return "/posts"
         }
     }
 
     var method: Moya.Method {
         switch self {
         case .postVote(_, _):
+            return .post
+        case .registerVote(_):
             return .post
         default:
             return .get
@@ -58,6 +63,9 @@ extension VoteAPI: TargetType {
                 bodyEncoding: JSONEncoding.default,
                 urlParameters: postId.toDictionary()
             )
+        case let .registerVote(requestobject):
+            let formData = MultipartFormDataHelper.createMultipartFormData(from: requestobject)
+            return .uploadMultipart(formData)
         }
     }
 

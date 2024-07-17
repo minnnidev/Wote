@@ -11,7 +11,7 @@ import Moya
 
 enum PostService {
     case getPosts(page: Int, size: Int, visibilityScope: String)
-    case createPost(post: PostCreateModel)
+    case createPost(post: VoteCreateRequestObject)
     case getPostDetail(postId: Int)
     case deletePost(postId: Int)
     case getReviewDetailWithReviewId(reviewId: Int)

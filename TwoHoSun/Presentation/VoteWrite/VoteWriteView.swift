@@ -9,27 +9,17 @@ import PhotosUI
 import SwiftUI
 
 struct VoteWriteView: View {
+    @EnvironmentObject var voteRouter: NavigationRouter
+
     @FocusState private var isTitleFocused: Bool
     @FocusState private var isPriceFocused: Bool
     @FocusState private var isLinkFocused: Bool
     @FocusState private var isContentFocused: Bool
 
-    @State private var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
-    @State private var isRegisterButtonDidTap = false
-    @State private var croppedImage: UIImage?
-    @State private var showPicker: Bool = false
-    @State private var isTagTextFieldShowed = false
+    @State private var isRegisterButtonDidTap: Bool = false
     @State private var isEditing: Bool = false
-    @State private var showCropView: Bool = false
-    @State private var isMine: Bool = false
 
-    @Binding var tabselection: WoteTabType
-
-    @StateObject var viewModel = VoteWriteViewModel()
-
-    init(tabselection: Binding<WoteTabType> = Binding.constant(.consider)) {
-        self._tabselection = tabselection
-    }
+    @StateObject var viewModel: VoteWriteViewModel
 
     var body: some View {
         ZStack {
@@ -40,10 +30,15 @@ struct VoteWriteView: View {
                 ScrollView {
                     VStack(spacing: 48) {
                         titleView
+
                         priceView
+
                         imageView
+
                         linkView
+
                         contentView
+
                         Spacer()
                     }
                     .padding(.top, 16)
@@ -53,12 +48,11 @@ struct VoteWriteView: View {
             .padding(.horizontal, 16)
             .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("투표만들기")
             .toolbarBackground(Color.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("투표만들기")
+                    Text("투표 만들기")
                         .foregroundStyle(.white)
                         .font(.system(size: 18, weight: .medium))
                 }
@@ -66,42 +60,21 @@ struct VoteWriteView: View {
             .onTapGesture {
                 dismissKeyboard()
             }
-            .customConfirmDialog(isPresented: $isEditing, isMine: $isMine) { _ in
+            .photosPicker(isPresented: $viewModel.isPhotoPickerShowed, selection: $viewModel.selectedItem)
+            .confirmationDialog("imageAlert", isPresented: $viewModel.isImageSheetShowed) {
                 Button {
-                    showCropView.toggle()
-                    isEditing = false
+                    viewModel.send(action: .presentPhotoPicker)
                 } label: {
                     Text("수정하기")
-                        .frame(maxWidth: .infinity)
                 }
-                .frame(height: 52)
-                Divider()
-                    .foregroundStyle(Color.gray300)
+
                 Button {
-                    showPicker.toggle()
-                    isEditing = false
-                } label: {
-                    Text("다른 상품사진 선택하기")
-                        .frame(maxWidth: .infinity)
-                }
-                .frame(height: 52)
-                Divider()
-                    .foregroundStyle(Color.gray300)
-                Button {
-                    croppedImage = nil
-                    isEditing = false
+                    viewModel.send(action: .removeImage)
                 } label: {
                     Text("삭제하기")
-                        .frame(maxWidth: .infinity)
                 }
-                .frame(height: 52)
             }
         }
-//        .onChange(of: viewModel.isPostCreated) { _, isPostCreated in
-//            if isPostCreated {
-//                tabselection = .consider
-//            }
-//        }
         .onDisappear {
             NotificationCenter.default.removeObserver(NSNotification.voteStateUpdated)
         }
@@ -109,10 +82,12 @@ struct VoteWriteView: View {
 }
 
 extension VoteWriteView {
+
     private var titleView: some View {
         VStack(alignment: .leading, spacing: 4) {
             headerLabel("제목을 입력해주세요. ", essential: true)
                 .padding(.bottom, 4)
+
             HStack(spacing: 6) {
                 TextField("",
                           text: $viewModel.title,
@@ -124,7 +99,7 @@ extension VoteWriteView {
                 .font(.system(size: 14))
                 .focused($isTitleFocused)
                 .foregroundStyle(.white)
-                .frame(height: 44)
+                .frame(height: 44) 
                 .padding(.horizontal, 16)
                 .background(
                     ZStack {
@@ -138,6 +113,7 @@ extension VoteWriteView {
                     }
                 )
             }
+
             if !viewModel.isTitleValid && isRegisterButtonDidTap {
                 HStack(spacing: 8) {
                     Image(systemName: "light.beacon.max")
@@ -185,23 +161,22 @@ extension VoteWriteView {
     private var imageView: some View {
         VStack(alignment: .leading) {
             headerLabel("고민하는 상품의 사진을 등록해 주세요. ", essential: false)
-            if let croppedImage {
-                Image(uiImage: croppedImage)
+
+            if let data = viewModel.selectedData,
+               let image = UIImage(data: data) {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
+                    .frame(height: 240)
                     .clipShape(.rect(cornerRadius: 16))
                     .onTapGesture {
                         isEditing.toggle()
-                    }
-                    .onAppear {
-                        if let imageData = croppedImage.jpegData(compressionQuality: 1.0) {
-                            viewModel.image = imageData
-                        }
+                        viewModel.isImageSheetShowed.toggle()
                     }
             } else {
                 Button {
-                    showPicker.toggle()
+                    viewModel.send(action: .presentPhotoPicker)
                 } label: {
                     HStack(spacing: 7) {
                         Image(systemName: "plus")
@@ -219,9 +194,6 @@ extension VoteWriteView {
                 }
             }
         }
-        .cropImagePicker(show: $showPicker,
-                         showCropView: $showCropView,
-                         croppedImage: $croppedImage)
     } 
     
     private var linkView: some View {
@@ -262,15 +234,17 @@ extension VoteWriteView {
     private var textEditorView: some View {
         ZStack(alignment: .bottomTrailing) {
             if viewModel.content.isEmpty {
-                TextEditor(text: $placeholderText)
+                TextEditor(text: $viewModel.placeholderText)
                     .foregroundStyle(Color.placeholderGray)
                     .scrollContentBackground(.hidden)
             }
+
             TextEditor(text: $viewModel.content)
                 .foregroundStyle(.white)
                 .scrollContentBackground(.hidden)
                 .padding(.bottom, 24)
                 .focused($isContentFocused)
+
             contentTextCountView
                 .padding(.bottom, 4)
                 .padding(.trailing, 4)
@@ -307,8 +281,10 @@ extension VoteWriteView {
     private var voteRegisterButton: some View {
         Button {
             isRegisterButtonDidTap = true
+
             if viewModel.isTitleValid {
-                viewModel.createPost()
+                viewModel.send(action: .createVote)
+                voteRouter.pop()
             }
         } label: {
             Text("등록하기")
@@ -339,5 +315,8 @@ extension VoteWriteView {
 }
 
 #Preview {
-    VoteWriteView(tabselection: .constant(.consider))
+    VoteWriteView(
+        viewModel: .init(photoUseCase: StubPhotoUseCase(),
+                         voteUseCase: StubVoteUseCase())
+    )
 }

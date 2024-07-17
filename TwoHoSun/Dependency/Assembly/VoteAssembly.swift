@@ -21,6 +21,13 @@ final class VoteAssembly: Assembly {
             DetailViewModel(postId:postId, voteUseCase: res.resolve(VoteUseCaseType.self)!)
         }
 
+        container.register(VoteWriteViewModel.self) { res in
+            VoteWriteViewModel(
+                photoUseCase: res.resolve(PhotoUseCaseType.self)!,
+                voteUseCase: res.resolve(VoteUseCaseType.self)!
+            )
+        }
+
         // MARK: UseCases
 
         container.register(VoteUseCaseType.self) { res in
