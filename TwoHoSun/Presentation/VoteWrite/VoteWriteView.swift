@@ -19,7 +19,7 @@ struct VoteWriteView: View {
     @State private var isRegisterButtonDidTap: Bool = false
     @State private var isEditing: Bool = false
 
-    @StateObject var viewModel = VoteWriteViewModel()
+    @StateObject var viewModel: VoteWriteViewModel
 
     var body: some View {
         ZStack {
@@ -315,5 +315,5 @@ extension VoteWriteView {
 }
 
 #Preview {
-    VoteWriteView()
+    VoteWriteView(viewModel: .init(photoUseCase: StubPhotoUseCase()))
 }

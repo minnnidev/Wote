@@ -37,7 +37,11 @@ final class VoteWriteViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    private let photoUseCase = PhotoUseCase()
+    private let photoUseCase: PhotoUseCaseType
+
+    init(photoUseCase: PhotoUseCaseType) {
+        self.photoUseCase = photoUseCase
+    }
 
     var isTitleValid: Bool {
         guard !title.isEmpty else { return false }

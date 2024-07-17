@@ -52,7 +52,7 @@ struct VoteListView: View {
                 DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
                     .environmentObject(voteRouter)
             case .voteWrite:
-                VoteWriteView()
+                VoteWriteView(viewModel: appDependency.container.resolve(VoteWriteViewModel.self)!)
                     .environmentObject(voteRouter)
             }
         }
