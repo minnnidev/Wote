@@ -109,10 +109,12 @@ struct VoteWriteView: View {
 }
 
 extension VoteWriteView {
+
     private var titleView: some View {
         VStack(alignment: .leading, spacing: 4) {
             headerLabel("제목을 입력해주세요. ", essential: true)
                 .padding(.bottom, 4)
+
             HStack(spacing: 6) {
                 TextField("",
                           text: $viewModel.title,
@@ -124,7 +126,7 @@ extension VoteWriteView {
                 .font(.system(size: 14))
                 .focused($isTitleFocused)
                 .foregroundStyle(.white)
-                .frame(height: 44)
+                .frame(height: 44) 
                 .padding(.horizontal, 16)
                 .background(
                     ZStack {
@@ -138,6 +140,7 @@ extension VoteWriteView {
                     }
                 )
             }
+
             if !viewModel.isTitleValid && isRegisterButtonDidTap {
                 HStack(spacing: 8) {
                     Image(systemName: "light.beacon.max")
@@ -219,9 +222,6 @@ extension VoteWriteView {
                 }
             }
         }
-        .cropImagePicker(show: $showPicker,
-                         showCropView: $showCropView,
-                         croppedImage: $croppedImage)
     } 
     
     private var linkView: some View {

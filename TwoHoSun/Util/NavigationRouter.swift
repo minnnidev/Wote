@@ -39,6 +39,7 @@ enum AllNavigation: Decodable, Hashable {
 
 enum VoteTabDestination: Hashable {
     case voteDetail(postId: Int)
+    case voteWrite
 }
 
 enum ReviewTabDestination {
