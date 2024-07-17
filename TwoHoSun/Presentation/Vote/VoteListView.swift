@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct VoteListView: View {
+    @EnvironmentObject var appDependency: AppDependency
+    @EnvironmentObject var voteRouter: NavigationRouter
+
     @State private var isRefreshing = false
-
-    @Binding var visibilityScope: VisibilityScopeType
-
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     @StateObject var viewModel: VoteListViewModel
 
@@ -22,8 +21,16 @@ struct VoteListView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
+                WoteNavigationBar(
+                    selectedTab: .constant(.consider),
+                    visibilityScope: $viewModel.visibilityScope,
+                    router: voteRouter
+                )
+
                 Spacer()
+
                 votePagingView
+
                 Spacer()
             }
 
@@ -39,6 +46,12 @@ struct VoteListView: View {
                 ProgressView()
             }
         }
+        .navigationDestination(for: VoteTabDestination.self) { dest in
+            switch dest {
+            case let .voteDetail(postId):
+                DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
+            }
+        }
     }
 }
 
@@ -52,23 +65,17 @@ extension VoteListView {
                     VStack(spacing: 0) {
                         VoteContentCell(
                             vote: item,
-                            agreeRatio: viewModel.agreeRatio ?? 0,
-                            disagreeRatio: viewModel.disagreeRatio ?? 0,
+                            agreeRatio: item.agreeRatio ?? 0,
+                            disagreeRatio: item.disagreeRatio ?? 0,
                             voteTapped: {
                                 viewModel.send(action: .vote(selection: $0))
                             }, detailTapped: {
-                                // TODO: - detail View로 이동
+                                voteRouter.push(to: VoteTabDestination.voteDetail(postId: item.id))
                             }
                         )
 
                         nextVoteButton
                             .padding(.top, 16)
-                            .onAppear {
-                                viewModel.send(action: .calculateRatio(
-                                    voteCount: item.voteCount ?? 0,
-                                    agreeCount: item.voteCounts?.agreeCount ?? 0)
-                                )
-                            }
                     }
                     .tag(index)
                     .onAppear {
@@ -135,7 +142,8 @@ extension VoteListView {
 
 #Preview {
     VoteListView(
-        visibilityScope: .constant(VisibilityScopeType.global),
         viewModel: .init(voteUseCase: StubVoteUseCase())
     )
+    .environmentObject(AppDependency())
+    .environmentObject(NavigationRouter())
 }

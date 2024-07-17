@@ -59,9 +59,7 @@ struct DetailHeaderView: View {
 
     @State var alertOn = false
 
-    var data: PostDetailModel
-
-    @StateObject var viewModel = DetailHeaderViewModel()
+    var data: VoteDetailModel
 
     var body: some View {
         switch PostStatus(rawValue: data.post.postStatus) {
@@ -71,6 +69,7 @@ struct DetailHeaderView: View {
             if let isMine = data.post.isMine,
                 let hasReview = data.post.hasReview {
                 let closedPostState = ClosedPostStatus(isMine: isMine, hasReview: hasReview)!
+
                 closedVoteHeaderView(author: data.post.author,
                                      closedState: closedPostState,
                                      post: data)
@@ -90,6 +89,7 @@ struct DetailHeaderView: View {
             Text(author.nickname)
                 .font(.system(size: 15, weight: .medium))
                 .foregroundStyle(Color.whiteGray)
+
             if let isMine = isMine {
                 if isMine {
                     Text("님의 소비 고민")
@@ -112,7 +112,7 @@ struct DetailHeaderView: View {
 
     private func closedVoteHeaderView(author: AuthorModel,
                                       closedState: ClosedPostStatus,
-                                      post: PostDetailModel) -> some View {
+                                      post: VoteDetailModel) -> some View {
         HStack(spacing: 3) {
             ProfileImageView(imageURL: author.profileImage)
                 .frame(width: 32, height: 32)
@@ -160,7 +160,7 @@ struct DetailHeaderView: View {
         return voteResult.rawValue
     }
 
-    private func destinationForHeaderButton(_ closedPostState: ClosedPostStatus, post: PostDetailModel) {
+    private func destinationForHeaderButton(_ closedPostState: ClosedPostStatus, post: VoteDetailModel) {
         switch closedPostState {
         case .myPostWithoutReview:
             let data = post.post

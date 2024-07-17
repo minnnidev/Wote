@@ -28,4 +28,11 @@ final class VoteRepository: VoteRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError> {
+        voteDataSource.getVoteDetail(postId)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

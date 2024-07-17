@@ -64,7 +64,10 @@ struct VoteInfoModel: Codable {
 extension VoteInfoModel {
 
     static var voteInfoStub1: [VoteInfoModel] {
-        [.init(isAgree: true, consumerType: "ADVENTURER")]
+        [
+            .init(isAgree: true, consumerType: "ADVENTURER"),
+            .init(isAgree: false, consumerType: "ADVENTURER"),
+        ]
     }
 }
 

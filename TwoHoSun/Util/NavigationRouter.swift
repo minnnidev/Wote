@@ -37,8 +37,8 @@ enum AllNavigation: Decodable, Hashable {
 
 // MARK: - 리팩토링 중인 NavigationStack
 
-enum VoteTabDestination {
-    
+enum VoteTabDestination: Hashable {
+    case voteDetail(postId: Int)
 }
 
 enum ReviewTabDestination {
