@@ -65,8 +65,8 @@ extension VoteListView {
                     VStack(spacing: 0) {
                         VoteContentCell(
                             vote: item,
-                            agreeRatio: viewModel.agreeRatio ?? 0,
-                            disagreeRatio: viewModel.disagreeRatio ?? 0,
+                            agreeRatio: item.agreeRatio ?? 0,
+                            disagreeRatio: item.disagreeRatio ?? 0,
                             voteTapped: {
                                 viewModel.send(action: .vote(selection: $0))
                             }, detailTapped: {
@@ -76,12 +76,6 @@ extension VoteListView {
 
                         nextVoteButton
                             .padding(.top, 16)
-                            .onAppear {
-                                viewModel.send(action: .calculateRatio(
-                                    voteCount: item.voteCount ?? 0,
-                                    agreeCount: item.voteCounts?.agreeCount ?? 0)
-                                )
-                            }
                     }
                     .tag(index)
                     .onAppear {

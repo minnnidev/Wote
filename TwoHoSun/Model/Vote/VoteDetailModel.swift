@@ -12,16 +12,16 @@ struct VoteDetailModel {
     let commentCount: Int?
     let commentPreview: String?
     let commentPreviewImage: String?
-    var agreeTopConsumers: [ConsumerType]?
-    var disagreeTopConsumers: [ConsumerType]?
+    let agreeTopConsumers: [ConsumerType]?
+    let disagreeTopConsumers: [ConsumerType]?
 
     init(
         post: VoteModel, 
-         commentCount: Int?,
-         commentPreview: String?,
-         commentPreviewImage: String?,
-         agreeTopConsumers: [ConsumerType]? = nil,
-         disagreeTopConsumers: [ConsumerType]? = nil
+        commentCount: Int?,
+        commentPreview: String?,
+        commentPreviewImage: String?,
+        agreeTopConsumers: [ConsumerType]? = nil,
+        disagreeTopConsumers: [ConsumerType]? = nil
     ) {
         self.post = post
         self.commentCount = commentCount
@@ -29,5 +29,17 @@ struct VoteDetailModel {
         self.commentPreviewImage = commentPreviewImage
         self.agreeTopConsumers = agreeTopConsumers
         self.disagreeTopConsumers = disagreeTopConsumers
+    }
+}
+
+extension VoteDetailModel {
+
+    static var voteDetailStub: VoteDetailModel {
+        .init(
+            post: .voteStub1,
+            commentCount: 10,
+            commentPreview: "미리보기",
+            commentPreviewImage: nil
+        )
     }
 }

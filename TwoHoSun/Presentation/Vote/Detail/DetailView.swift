@@ -59,26 +59,26 @@ struct DetailView: View {
                         .padding(.top, 100)
                 }
 
-                // TODO: - Vote Consumer Result
-
                 if viewModel.isVoteConsumerTypeResultShowed {
                     if viewModel.isVoteResultShowed {
-//                        let (agreeRatio, disagreeRatio) = viewModel.calculatVoteRatio(voteCounts: data.post.voteCounts)
-//                        consumerTypeLabels(.agree, topConsumerTypes: viewModel.agreeTopConsumerTypes)
-//                        resultProgressView(.agree,
-//                                           ratio: agreeRatio,
-//                                           isHigher: agreeRatio >= disagreeRatio)
-//                        consumerTypeLabels(.disagree,
-//                                           topConsumerTypes: viewModel.disagreeTopConsumerTypes)
-//                        resultProgressView(.agree,
-//                                           ratio: disagreeRatio,
-//                                           isHigher: disagreeRatio >= agreeRatio)
+                        consumerTypeLabels(.agree, topConsumerTypes: viewModel.agreeTopConsumerTypes ?? [])
+
+                        resultProgressView(.agree,
+                                           ratio: viewModel.agreeRatio ?? 0,
+                                           isHigher: viewModel.agreeRatio ?? 0 >= viewModel.disagreeRatio ?? 0)
+
+                        consumerTypeLabels(.disagree, topConsumerTypes: viewModel.disagreeTopConsumerTypes ?? [])
+
+                        resultProgressView(.agree,
+                                           ratio: viewModel.disagreeRatio ?? 0,
+                                           isHigher: viewModel.disagreeRatio ?? 0 >= viewModel.agreeRatio ?? 0)
                     } else {
                         hiddenResultView(for: .agree,
-                                         topConsumerTypesCount: viewModel.agreeTopConsumerTypes.count)
+                                         topConsumerTypesCount: viewModel.agreeTopConsumerTypes?.count ?? 0)
                             .padding(.bottom, 34)
+
                         hiddenResultView(for: .disagree,
-                                         topConsumerTypesCount: viewModel.disagreeTopConsumerTypes.count)
+                                         topConsumerTypesCount: viewModel.disagreeTopConsumerTypes?.count ?? 0)
                     }
                 }
 
@@ -172,6 +172,7 @@ extension DetailView {
                      + "%의 친구들이 \(type.subtitle) 것을 추천했어요!")
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(Color.white)
+                
                 ProgressView(value: ratio, total: 100.0)
                     .progressViewStyle(CustomProgressStyle(foregroundColor: isHigher ? Color.lightBlue : Color.gray200,
                                                            height: 8))

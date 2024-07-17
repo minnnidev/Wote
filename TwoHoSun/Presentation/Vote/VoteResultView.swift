@@ -69,9 +69,12 @@ struct VoteResultView: View {
 
             HStack(spacing: 4) {
                 Image(systemName: type.isAgree ? "circle" : "xmark")
+
                 Text(type.isAgree ? "산다": "안 산다")
                     .fontWeight(.bold)
+
                 Spacer()
+
                 Text(String(format: ratio.getFirstDecimalNum == 0 ? "%.0f" : "%.1f", ratio) + "%")
             }
             .foregroundStyle(.white)

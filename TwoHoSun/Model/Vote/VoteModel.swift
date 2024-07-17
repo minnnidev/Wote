@@ -26,22 +26,33 @@ struct VoteModel: Identifiable {
     var myChoice: Bool?
     var isMine: Bool?
     var hasReview: Bool?
+    var agreeRatio: Double?
+    var disagreeRatio: Double?
 }
 
 extension VoteModel {
 
-    func getAgreeRatio() -> Double {
-        guard let voteCounts = voteCounts else { return 0 }
-        guard let voteCount = voteCount else { return 0 }
-
-        return Double(voteCounts.agreeCount / voteCount)
-    }
-
-    func getDisagreeRatio() -> Double {
-        guard let voteCounts = voteCounts else { return 0 }
-        guard let voteCount = voteCount else { return 0 }
-
-        return Double(voteCounts.disagreeCount / voteCount)
+    init(post: VoteModel, agreeRatio: Double?, disagreeRatio: Double?) {
+        self.id = post.id
+        self.createDate = post.createDate
+        self.modifiedDate = post.modifiedDate
+        self.visibilityScope = post.visibilityScope
+        self.postStatus = post.postStatus
+        self.author = post.author
+        self.title = post.title
+        self.contents = post.contents
+        self.image = post.image
+        self.externalURL = post.externalURL
+        self.voteCount = post.voteCount
+        self.commentCount = post.commentCount
+        self.price = post.price
+        self.voteCounts = post.voteCounts
+        self.voteInfoList = post.voteInfoList
+        self.myChoice = post.myChoice
+        self.isMine = post.isMine
+        self.hasReview = post.hasReview
+        self.agreeRatio = agreeRatio
+        self.disagreeRatio = disagreeRatio
     }
 
     static var voteStub1: VoteModel {
@@ -59,7 +70,9 @@ extension VoteModel {
             voteCounts: VoteCountsModel.voteCountsStub1,
             voteInfoList: VoteInfoModel.voteInfoStub1,
             myChoice: nil,
-            isMine: true
+            isMine: true,
+            agreeRatio: 0.3,
+            disagreeRatio: 0.7
         )
     }
 
@@ -78,7 +91,9 @@ extension VoteModel {
             voteCounts: VoteCountsModel.voteCountsStub1,
             voteInfoList: VoteInfoModel.voteInfoStub1,
             myChoice: nil,
-            isMine: false
+            isMine: false,
+            agreeRatio: 0.5,
+            disagreeRatio: 0.5
         )
     }
 }

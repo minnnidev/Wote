@@ -17,8 +17,8 @@ final class DetailViewModel: ObservableObject {
         case closeVote
     }
 
-    @Published var agreeTopConsumerTypes = [ConsumerType]()
-    @Published var disagreeTopConsumerTypes = [ConsumerType]()
+    @Published var agreeTopConsumerTypes: [ConsumerType]?
+    @Published var disagreeTopConsumerTypes: [ConsumerType]?
 
     @Published var comments: CommentsModel?
     @Published var voteDetail: VoteDetailModel?
@@ -44,10 +44,11 @@ final class DetailViewModel: ObservableObject {
                 .sink { completion in
                 } receiveValue: { [weak self] voteDetail in
                     self?.voteDetail = voteDetail
-                    self?.agreeRatio = voteDetail.post.getAgreeRatio()
-                    self?.disagreeRatio = voteDetail.post.getDisagreeRatio()
-                    self?.agreeTopConsumerTypes = voteDetail.agreeTopConsumers ?? []
-                    self?.disagreeTopConsumerTypes = voteDetail.disagreeTopConsumers ?? []
+                    self?.agreeRatio = voteDetail.post.agreeRatio
+                    self?.disagreeRatio = voteDetail.post.disagreeRatio
+
+                    self?.agreeTopConsumerTypes = voteDetail.agreeTopConsumers
+                    self?.disagreeTopConsumerTypes = voteDetail.disagreeTopConsumers
 
                     if voteDetail.post.postStatus == "CLOSED" || voteDetail.post.myChoice != nil {
                         self?.isVoteResultShowed = true
@@ -66,14 +67,5 @@ final class DetailViewModel: ObservableObject {
         case .closeVote:
             return
         }
-    }
-
-    func calculatVoteRatio(voteCounts: VoteCountsModel?) -> (agree: Double, disagree: Double) {
-        guard let voteCounts = voteCounts else { return (0.0, 0.0) }
-        let voteCount = voteCounts.agreeCount + voteCounts.disagreeCount
-
-        guard voteCount != 0 else { return (0, 0) }
-        let agreeRatio = Double(voteCounts.agreeCount) / Double(voteCount) * 100
-        return (agreeRatio, 100 - agreeRatio)
     }
 }
