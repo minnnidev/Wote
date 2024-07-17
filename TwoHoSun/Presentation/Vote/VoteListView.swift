@@ -50,8 +50,10 @@ struct VoteListView: View {
             switch dest {
             case let .voteDetail(postId):
                 DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
+                    .environmentObject(voteRouter)
             case .voteWrite:
                 VoteWriteView()
+                    .environmentObject(voteRouter)
             }
         }
     }
