@@ -12,11 +12,12 @@ import Moya
 protocol VoteDataSourceType {
     func getVotes(_ object: VoteRequestObject) -> AnyPublisher<[PostResponseObject], APIError>
     func getVoteDetail(_ postId: Int) -> AnyPublisher<VoteDetailResponseObject, APIError>
+    func votePost(_ postId: Int, _ object: ChooseRequestObject) -> AnyPublisher<VoteCountsResponseObject, APIError>
 }
 
 final class VoteDataSource: VoteDataSourceType {
     
-    private let provider = MoyaProvider<VoteAPI>()
+    private let provider = MoyaProvider<VoteAPI>(session: Session(interceptor: AuthInterceptor()))
 
     func getVotes(_ object: VoteRequestObject) -> AnyPublisher<[PostResponseObject], APIError> {
         provider.requestPublisher(.getVotes(object))
@@ -32,6 +33,16 @@ final class VoteDataSource: VoteDataSourceType {
         provider.requestPublisher(.getVoteDetail(postId))
             .tryMap {
                 try JSONDecoder().decode(GeneralResponse<VoteDetailResponseObject>.self, from: $0.data)
+            }
+            .compactMap { $0.data }
+            .mapError { APIError.error($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func votePost(_ postId: Int, _ object: ChooseRequestObject) -> AnyPublisher<VoteCountsResponseObject, APIError> {
+        provider.requestPublisher(.postVote(postId: postId, requestObject: object))
+            .tryMap {
+                try JSONDecoder().decode(GeneralResponse<VoteCountsResponseObject>.self, from: $0.data)
             }
             .compactMap { $0.data }
             .mapError { APIError.error($0) }

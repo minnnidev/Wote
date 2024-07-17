@@ -11,6 +11,7 @@ import Combine
 protocol VoteUseCaseType {
     func loadVotes(page: Int, size: Int, scope: VisibilityScopeType) -> AnyPublisher<[VoteModel], WoteError>
     func loadVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError>
+    func vote(postId: Int, myChoice: Bool) -> AnyPublisher<(Double, Double), WoteError>
 }
 
 final class VoteUseCase: VoteUseCaseType {
@@ -36,6 +37,18 @@ final class VoteUseCase: VoteUseCaseType {
             .map { [weak self] vote in
                 guard let self = self else { return vote }
                 return self.mapVoteDetailModelWithResult(from: vote)
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func vote(postId: Int, myChoice: Bool) -> AnyPublisher<(Double, Double), WoteError> {
+        voteRepository.vote(postId: postId, myChoice: myChoice)
+            .map{ voteCounts in
+                let total = voteCounts.agreeCount + voteCounts.disagreeCount
+                let agreeRatio = self.calculateRatio(for: voteCounts.agreeCount, totalCount: total)
+                let disagreeRatio = self.calculateRatio(for: voteCounts.disagreeCount, totalCount: total)
+
+                return (agreeRatio, disagreeRatio)
             }
             .eraseToAnyPublisher()
     }
@@ -106,6 +119,11 @@ final class StubVoteUseCase: VoteUseCaseType {
     func loadVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError> {
         Just(VoteDetailModel.voteDetailStub)
             .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func vote(postId: Int, myChoice: Bool) -> AnyPublisher<(Double, Double), WoteError> {
+        Empty()
             .eraseToAnyPublisher()
     }
 }

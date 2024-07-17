@@ -35,4 +35,13 @@ final class VoteRepository: VoteRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func vote(postId: Int, myChoice: Bool) -> AnyPublisher<VoteCountsModel, WoteError> {
+        let requestObject: ChooseRequestObject = .init(myChoice: myChoice)
+
+        return voteDataSource.votePost(postId, requestObject)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

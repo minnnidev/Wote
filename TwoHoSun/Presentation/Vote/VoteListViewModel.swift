@@ -55,8 +55,22 @@ final class VoteListViewModel: ObservableObject {
                 .store(in: &cancellables)
 
         case let .vote(selection):
-            // TODO: 투표하기 API 연동
-            return
+            let postId = votes[currentVote].id
+            let voteCount = votes[currentVote].voteCount ?? 0
+
+            voteUseCase.vote(postId: postId, myChoice: selection)
+                .sink { _ in
+                    // TODO: - 투표하기 실패 alert
+                } receiveValue: { [weak self] (agreeRatio, disagreeRatio) in
+                    guard let self = self else { return }
+
+                    votes[currentVote].agreeRatio = agreeRatio
+                    votes[currentVote].disagreeRatio = disagreeRatio
+                    
+                    votes[currentVote].myChoice = selection
+                    votes[currentVote].voteCount = voteCount + 1
+                }
+                .store(in: &cancellables)
         }
     }
 }

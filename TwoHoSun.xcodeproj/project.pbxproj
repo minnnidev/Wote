@@ -62,6 +62,8 @@
 		AB76E22A2C469A0A00204A22 /* WoteNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */; };
 		AB76E22C2C46A8D900204A22 /* VoteDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E22B2C46A8D900204A22 /* VoteDetailModel.swift */; };
 		AB76E22E2C46A8F100204A22 /* VoteDetailResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E22D2C46A8F100204A22 /* VoteDetailResponseObject.swift */; };
+		AB76E2322C4793DA00204A22 /* ChooseRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E2312C4793DA00204A22 /* ChooseRequestObject.swift */; };
+		AB76E2342C4793EE00204A22 /* ChooseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E2332C4793EE00204A22 /* ChooseResponseObject.swift */; };
 		AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE87E2C3E455700EDED20 /* ProfileType.swift */; };
 		AB7FE8812C3E45B400EDED20 /* UserRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */; };
 		AB7FE8852C3E461C00EDED20 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */; };
@@ -234,6 +236,8 @@
 		AB76E2292C469A0A00204A22 /* WoteNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoteNavigationBar.swift; sourceTree = "<group>"; };
 		AB76E22B2C46A8D900204A22 /* VoteDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailModel.swift; sourceTree = "<group>"; };
 		AB76E22D2C46A8F100204A22 /* VoteDetailResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDetailResponseObject.swift; sourceTree = "<group>"; };
+		AB76E2312C4793DA00204A22 /* ChooseRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRequestObject.swift; sourceTree = "<group>"; };
+		AB76E2332C4793EE00204A22 /* ChooseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseResponseObject.swift; sourceTree = "<group>"; };
 		AB7FE87E2C3E455700EDED20 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
 		AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryType.swift; sourceTree = "<group>"; };
 		AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
@@ -643,6 +647,8 @@
 				ABC1CDD52C464FE90054E74C /* VoteInfoResponseObject.swift */,
 				ABC1CDD72C464FF20054E74C /* VoteCountsObject.swift */,
 				AB76E22D2C46A8F100204A22 /* VoteDetailResponseObject.swift */,
+				AB76E2312C4793DA00204A22 /* ChooseRequestObject.swift */,
+				AB76E2332C4793EE00204A22 /* ChooseResponseObject.swift */,
 			);
 			path = Vote;
 			sourceTree = "<group>";
@@ -1060,6 +1066,7 @@
 				ABDED8852B00B17F00D78BEA /* VoteWriteViewModel.swift in Sources */,
 				ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */,
 				ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */,
+				AB76E2322C4793DA00204A22 /* ChooseRequestObject.swift in Sources */,
 				C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */,
 				AB2507152C3BF830009B0A3C /* Tokens.swift in Sources */,
 				ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */,
@@ -1158,6 +1165,7 @@
 				ABC1CDC62C464C380054E74C /* VoteUseCase.swift in Sources */,
 				FD3205682ADD5C0D00B0D5F6 /* TwoHoSunApp.swift in Sources */,
 				AB25071F2C3BFD03009B0A3C /* Encodable+.swift in Sources */,
+				AB76E2342C4793EE00204A22 /* ChooseResponseObject.swift in Sources */,
 				FD84A6962B0A859A00F6EBB7 /* ProfileModel.swift in Sources */,
 				C77113732AF2114800BAB128 /* CustomConfirmModifier.swift in Sources */,
 				ABC1CDC82C464C690054E74C /* VoteRepositoryType.swift in Sources */,

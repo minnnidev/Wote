@@ -43,6 +43,7 @@ struct VoteResultView: View {
             voteBar(for: .agree, 
                     ratio: agreeRatio,
                     isHighlighted: agreeRatio >= disagreeRatio)
+
             voteBar(for: .disagree,
                     ratio: disagreeRatio,
                     isHighlighted: disagreeRatio >= agreeRatio)
@@ -55,6 +56,7 @@ struct VoteResultView: View {
                 .foregroundStyle(Color.black100)
                 .overlay(alignment: .leading) {
                     let voteButtonWidth = UIScreen.main.bounds.width - 48
+
                     Rectangle()
                         .frame(width: voteButtonWidth * ratio * 0.01)
                         .foregroundStyle(isHighlighted ? Color.lightBlue : Color.gray200)
