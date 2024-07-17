@@ -11,7 +11,6 @@ import Observation
 
 @main
 struct TwoHoSunApp: App {
-    @StateObject private var appState = AppLoginState()
     @StateObject private var appDependency = AppDependency()
 
     var body: some Scene {
@@ -20,47 +19,5 @@ struct TwoHoSunApp: App {
                 .environmentObject(appDependency)
         }
     }
-
 }
 
-class ServiceRoot {
-    var auth = Authenticator()
-    lazy var apimanager: NewApiManager = {
-        let manager = NewApiManager(authenticator: auth)
-        return manager
-    }()
-    var navigationManager = NavigationRouter()
-    lazy var memberManager = MemberManager(authenticator: auth)
-}
-
-
-class AppData: ObservableObject {
-
-}
-
-class AppLoginState: ObservableObject {
-    var serviceRoot: ServiceRoot
-    var appData: AppData
-
-    init() {
-        appData = AppData()
-        serviceRoot = ServiceRoot()
-        checkTokenValidity()
-        serviceRoot.auth.relogin = relogin
-        serviceRoot.memberManager.fetchProfile()
-    }
-
-    private func relogin() {
-        DispatchQueue.main.async {
-            self.serviceRoot.auth.authState = .none
-        }
-    }
-
-    private func checkTokenValidity() {
-        if serviceRoot.apimanager.authenticator.accessToken != nil {
-            serviceRoot.auth.authState = .loggedIn
-        } else {
-            serviceRoot.auth.authState = .none
-        }
-    }
-}
