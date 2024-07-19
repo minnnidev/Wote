@@ -112,6 +112,7 @@
 		ABC1CDDC2C46523B0054E74C /* VoteRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDDB2C46523B0054E74C /* VoteRequestObject.swift */; };
 		ABC1CDE02C4655F90054E74C /* VoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1CDDF2C4655F90054E74C /* VoteModel.swift */; };
 		ABC981922C43EF1500B65F00 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC981912C43EF1500B65F00 /* UserRepository.swift */; };
+		ABCA52522C4A18D800A4D5AD /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA52512C4A18D800A4D5AD /* Provider.swift */; };
 		ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6845AC2AFC13FF00C3F7C2 /* TypeTestModel.swift */; };
 		ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA7DA2AF9432800C9BEA0 /* ComplaintReasonView.swift */; };
 		ABDED8852B00B17F00D78BEA /* VoteWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC6772AE471B700B1E614 /* VoteWriteViewModel.swift */; };
@@ -287,6 +288,7 @@
 		ABC1CDDB2C46523B0054E74C /* VoteRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteRequestObject.swift; sourceTree = "<group>"; };
 		ABC1CDDF2C4655F90054E74C /* VoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteModel.swift; sourceTree = "<group>"; };
 		ABC981912C43EF1500B65F00 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		ABCA52512C4A18D800A4D5AD /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		ABE51ED02B054ED5009C6CA5 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		ABF064492B15177A00C45E73 /* WoteTabHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoteTabHandler.swift; sourceTree = "<group>"; };
 		ABFEBD5E2C3795CA00367389 /* ReviewDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
@@ -675,6 +677,7 @@
 				FD1DEBAC2ADC219D00588CE6 /* Network */,
 				AB2507382C3D536B009B0A3C /* AuthInterceptor.swift */,
 				AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */,
+				ABCA52512C4A18D800A4D5AD /* Provider.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1212,6 +1215,7 @@
 				AB7317F42AF94F31008B5E41 /* ReviewCardCell.swift in Sources */,
 				FD8D9F812ADC5FAD0072F4BA /* KeychainManager.swift in Sources */,
 				AB6845B22AFC145000C3F7C2 /* TypeTestView.swift in Sources */,
+				ABCA52522C4A18D800A4D5AD /* Provider.swift in Sources */,
 				AB38A1C72B0BE1BE004153B5 /* DetailViewModel.swift in Sources */,
 				AB2507172C3BF94E009B0A3C /* AppleUserRequestObject.swift in Sources */,
 				AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */,

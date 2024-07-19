@@ -16,47 +16,30 @@ protocol VoteDataSourceType {
     func registerVote(_ object: VoteCreateRequestObject) -> AnyPublisher<Void, APIError>
 }
 
+
 final class VoteDataSource: VoteDataSourceType {
     
-    private let provider = MoyaProvider<VoteAPI>(session: Session(interceptor: AuthInterceptor()))
+    private let provider: ProviderType
+
+    init(provider: ProviderType = Provider.shared) {
+        self.provider = provider
+    }
 
     func getVotes(_ object: VoteRequestObject) -> AnyPublisher<[PostResponseObject], APIError> {
-        provider.requestPublisher(.getVotes(object))
-            .tryMap {
-                try JSONDecoder().decode(GeneralResponse<[PostResponseObject]>.self, from: $0.data)
-            }
-            .compactMap { $0.data }
-            .mapError { APIError.error($0) }
-            .eraseToAnyPublisher()
+        provider.requestPublisher(VoteAPI.getVotes(object), [PostResponseObject].self)
     }
 
     func getVoteDetail(_ postId: Int) -> AnyPublisher<VoteDetailResponseObject, APIError> {
-        provider.requestPublisher(.getVoteDetail(postId))
-            .tryMap {
-                try JSONDecoder().decode(GeneralResponse<VoteDetailResponseObject>.self, from: $0.data)
-            }
-            .compactMap { $0.data }
-            .mapError { APIError.error($0) }
-            .eraseToAnyPublisher()
+        provider.requestPublisher(VoteAPI.getVoteDetail(postId), VoteDetailResponseObject.self)
     }
 
     func postVote(_ postId: Int, _ object: ChooseRequestObject) -> AnyPublisher<VoteCountsResponseObject, APIError> {
-        provider.requestPublisher(.postVote(postId: postId, requestObject: object))
-            .tryMap {
-                try JSONDecoder().decode(GeneralResponse<VoteCountsResponseObject>.self, from: $0.data)
-            }
-            .compactMap { $0.data }
-            .mapError { APIError.error($0) }
-            .eraseToAnyPublisher()
+        provider.requestPublisher(VoteAPI.postVote(postId: postId, requestObject: object), VoteCountsResponseObject.self)
     }
 
     func registerVote(_ object: VoteCreateRequestObject) -> AnyPublisher<Void, APIError> {
-        provider.requestPublisher(.registerVote(object))
-            .tryMap {
-                try JSONDecoder().decode(GeneralResponse<NoData>.self, from: $0.data)
-            }
+        provider.requestPublisher(VoteAPI.registerVote(object), NoData.self)
             .map { _ in }
-            .mapError { APIError.error($0) }
             .eraseToAnyPublisher()
     }
 }

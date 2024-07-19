@@ -19,7 +19,7 @@ protocol UserDataSourceType {
 
 final class UserDataSource: UserDataSourceType {
 
-    private let provider = MoyaProvider<UserAPI>(session: Session(interceptor: AuthInterceptor()))
+    private let provider = MoyaProvider<UserAPI>(session: Session(interceptor: AuthInterceptor.shared))
 
     func checkNicknameDuplicated(_ object: NicknameRequestObject) -> AnyPublisher<NicknameResponseObject, APIError> {
         provider.requestPublisher(.checkNicknameDuplicate(object))
