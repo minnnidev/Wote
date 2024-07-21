@@ -7,12 +7,14 @@
 
 import Foundation
 import Swinject
+import Moya
 
 final class VoteAssembly: Assembly {
     
     func assemble(container: Container) {
 
         // MARK: ViewModels
+        
         container.register(VoteListViewModel.self) { res in
             VoteListViewModel(voteUseCase: res.resolve(VoteUseCaseType.self)!)
         }
@@ -42,6 +44,8 @@ final class VoteAssembly: Assembly {
 
         // MARK: DataSource
 
-        container.register(VoteDataSourceType.self) { _ in VoteDataSource() }
+        container.register(VoteDataSourceType.self) { res in
+            VoteDataSource(provider: NetworkProvider.shared)
+        }
     }
 }

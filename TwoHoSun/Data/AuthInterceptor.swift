@@ -10,6 +10,10 @@ import Alamofire
 
 class AuthInterceptor: RequestInterceptor {
 
+    static let shared = AuthInterceptor()
+
+    private init() { }
+
     func retry(_ request: Request,
                for session: Session,
                dueTo error: Error,

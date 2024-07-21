@@ -15,32 +15,15 @@ protocol AuthDataSourceType {
 
 final class AuthDataSource: AuthDataSourceType {
 
-    private let provider = MoyaProvider<AuthAPI>()
+    typealias Target = AuthAPI
+
+    private let provider: NetworkProviderType
+
+    init(provider: NetworkProviderType) {
+        self.provider = provider
+    }
 
     func loginWithApple(_ object: AppleUserRequestObject) -> AnyPublisher<AppleUserResponseObject, APIError> {
-
-        provider.requestPublisher(.loginWithApple(object))
-            .tryMap { response in
-                let decodedResponse = try JSONDecoder().decode(GeneralResponse<AppleUserResponseObject>.self, from: response.data)
-
-                if let divisionCode = decodedResponse.divisionCode,
-                   let tokens = decodedResponse.data?.jwtToken,
-                   divisionCode == "E009" {
-                    let tokens: TokenObject = tokens
-                    
-                    throw APIError.notCompletedSignUp(token: tokens)
-                }
-
-                return decodedResponse
-            }
-            .compactMap { $0.data }
-            .mapError { error in
-                if let apiError = error as? APIError {
-                    apiError
-                } else {
-                    APIError.error(error)
-                }
-            }
-            .eraseToAnyPublisher()
+        provider.requestLoginPublisher(Target.loginWithApple(object))
     }
 }

@@ -9,7 +9,9 @@ import Foundation
 
 enum APIError: Error {
     case error(Error)
+    case moyaError(Error)
     case notCompletedSignUp(token: TokenObject)
+    case decodingError
     case unknownError
 
     init(divisionCode: String, tokenObject: TokenObject? = nil) {

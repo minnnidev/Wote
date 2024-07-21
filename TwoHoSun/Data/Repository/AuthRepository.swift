@@ -25,7 +25,8 @@ final class AuthRepository: AuthRepositoryType {
             .map { object in
                 let user: User = .init(
                     authenticationState: .authenticated,
-                    tokens: object.jwtToken.toToken())
+                    tokens: object.jwtToken.toToken()
+                )
 
                 return user
             }
@@ -43,7 +44,8 @@ final class AuthRepository: AuthRepositoryType {
                 case let .notCompletedSignUp(tokens):
                     let user: User = .init(
                         authenticationState: .notCompletedSetting,
-                        tokens: tokens)
+                        tokens: tokens
+                    )
 
                     return Just(user)
                         .setFailureType(to: WoteError.self)
