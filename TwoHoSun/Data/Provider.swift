@@ -9,19 +9,26 @@ import Foundation
 import Combine
 import Moya
 
-protocol ProviderType {
-    var provider: MoyaProvider<MultiTarget> { get }
+protocol NetworkProviderType: AnyObject {
+    associatedtype Target: TargetType
 
-    func requestPublisher<T: TargetType, U: Decodable>(
-        _ target: T,
+    func requestPublisher<U: Decodable>(
+        _ target: Target,
         _ responseType: U.Type
     ) -> AnyPublisher<U, APIError>
 }
 
-extension ProviderType {
+class NetworkProvider<Target: TargetType>: NetworkProviderType {
 
-    func requestPublisher<T: TargetType, U: Decodable>(_ target: T, _ responseType: U.Type) -> AnyPublisher<U, APIError> {
-        provider.requestPublisher(MultiTarget(target))
+    private let provider: MoyaProvider<Target>
+
+    init() {
+        let session = Session(interceptor: AuthInterceptor.shared)
+        self.provider = MoyaProvider<Target>(session: session)
+    }
+
+    func requestPublisher<U>(_ target: Target, _ responseType: U.Type) -> AnyPublisher<U, APIError> where U : Decodable {
+        provider.requestPublisher(target)
             .tryMap { response in
                 let decodedResponse = try JSONDecoder().decode(GeneralResponse<U>.self, from: response.data)
                 guard let data = decodedResponse.data else {
@@ -39,18 +46,6 @@ extension ProviderType {
                 }
             }
             .eraseToAnyPublisher()
-    }
-}
-
-
-class Provider: ProviderType {
-
-    static let shared = Provider()
-
-    var provider: MoyaProvider<MultiTarget>
-
-    private init(provider: MoyaProvider<MultiTarget> = MoyaProvider<MultiTarget>(session: Session(interceptor: AuthInterceptor.shared))) {
-        self.provider = provider
     }
 }
 

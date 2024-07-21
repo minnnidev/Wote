@@ -7,6 +7,7 @@
 
 import Foundation
 import Swinject
+import Moya
 
 final class VoteAssembly: Assembly {
     
@@ -43,5 +44,9 @@ final class VoteAssembly: Assembly {
         // MARK: DataSource
 
         container.register(VoteDataSourceType.self) { _ in VoteDataSource() }
+
+        container.register(NetworkProvider<VoteAPI>.self) { _ in
+            NetworkProvider<VoteAPI>()
+        }
     }
 }
