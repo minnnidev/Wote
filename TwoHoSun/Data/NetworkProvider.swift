@@ -43,7 +43,7 @@ class NetworkProvider: NetworkProviderType {
             }
             .mapError { error in
                 if let moyaError = error as? MoyaError {
-                    return APIError.error(moyaError)
+                    return APIError.moyaError(moyaError)
                 } else if let apiError = error as? APIError {
                     return apiError
                 } else {
@@ -77,7 +77,9 @@ class NetworkProvider: NetworkProviderType {
             }
             .compactMap { $0.data }
             .mapError { error in
-                if let apiError = error as? APIError {
+                if let moyaError = error as? MoyaError {
+                    return APIError.moyaError(moyaError)
+                } else if let apiError = error as? APIError {
                     return apiError
                 } else {
                     return APIError.error(error)

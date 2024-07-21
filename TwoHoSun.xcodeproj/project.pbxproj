@@ -597,8 +597,8 @@
 		AB8D1E1A2C3B00C200D333AC /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				ABC981912C43EF1500B65F00 /* UserRepository.swift */,
 				AB2507032C3B0484009B0A3C /* AuthRepository.swift */,
+				ABC981912C43EF1500B65F00 /* UserRepository.swift */,
 				ABC1CDC92C464C810054E74C /* VoteRepository.swift */,
 			);
 			path = Repository;
