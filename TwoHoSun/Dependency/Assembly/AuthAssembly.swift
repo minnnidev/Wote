@@ -23,6 +23,8 @@ final class AuthAssembly: Assembly {
             AuthRepository(authDataSource: res.resolve(AuthDataSourceType.self)!)
         }
 
-        container.register(AuthDataSourceType.self) { _ in AuthDataSource() }
+        container.register(AuthDataSourceType.self) { _ in
+            AuthDataSource(provider: NetworkProvider.shared)
+        }
     }
 }

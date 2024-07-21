@@ -41,6 +41,8 @@ final class UserAssmbly: Assembly {
 
         // MARK: DataSources
 
-        container.register(UserDataSourceType.self) { _ in UserDataSource() }
+        container.register(UserDataSourceType.self) { _ in
+            UserDataSource(provider: NetworkProvider.shared)
+        }
     }
 }
