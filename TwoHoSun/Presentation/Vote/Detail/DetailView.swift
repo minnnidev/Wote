@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var voteRouter: NavigationRouter
 
     @StateObject var viewModel: DetailViewModel
 
@@ -134,6 +134,9 @@ struct DetailView: View {
             } label: {
                 Text("차단하기")
             }
+        }
+        .onChange(of: viewModel.isVoteManageSucceed) { _ in
+            voteRouter.pop()
         }
     }
 }

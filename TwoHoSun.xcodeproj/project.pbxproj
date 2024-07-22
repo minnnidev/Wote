@@ -85,7 +85,7 @@
 		AB8D1E142C3AFD4200D333AC /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E132C3AFD4200D333AC /* AppDependency.swift */; };
 		AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */; };
 		AB8D1E1C2C3B010200D333AC /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */; };
-		AB94B1952B0FFF7000CD5A49 /* DetailHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB94B1942B0FFF7000CD5A49 /* DetailHeaderViewModel.swift */; };
+		AB933C662C4E200B000FD042 /* NotificationCenter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB933C652C4E200B000FD042 /* NotificationCenter+.swift */; };
 		ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E82C2AFD0CD5009051E0 /* VoteContentCell.swift */; };
 		ABA1E83E2AFD57A4009051E0 /* VoteCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E83D2AFD57A4009051E0 /* VoteCardCell.swift */; };
 		ABA1E8402AFD5841009051E0 /* VoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1E83F2AFD5841009051E0 /* VoteListView.swift */; };
@@ -259,7 +259,7 @@
 		AB8D1E132C3AFD4200D333AC /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		AB8D1E1B2C3B010200D333AC /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
-		AB94B1942B0FFF7000CD5A49 /* DetailHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderViewModel.swift; sourceTree = "<group>"; };
+		AB933C652C4E200B000FD042 /* NotificationCenter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+.swift"; sourceTree = "<group>"; };
 		ABA1E82C2AFD0CD5009051E0 /* VoteContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteContentCell.swift; sourceTree = "<group>"; };
 		ABA1E83D2AFD57A4009051E0 /* VoteCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteCardCell.swift; sourceTree = "<group>"; };
 		ABA1E83F2AFD5841009051E0 /* VoteListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListView.swift; sourceTree = "<group>"; };
@@ -783,7 +783,6 @@
 				FDB4B14F2AE68FC000720328 /* DetailView.swift */,
 				ABE51ED02B054ED5009C6CA5 /* DetailHeaderView.swift */,
 				AB38A1C62B0BE1BD004153B5 /* DetailViewModel.swift */,
-				AB94B1942B0FFF7000CD5A49 /* DetailHeaderViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -801,6 +800,7 @@
 				AB38A1D02B0F4946004153B5 /* NSNotification+.swift */,
 				C743044C2B16317D0046367E /* UserDefaults.swift */,
 				AB25071E2C3BFD03009B0A3C /* Encodable+.swift */,
+				AB933C652C4E200B000FD042 /* NotificationCenter+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1091,13 +1091,13 @@
 				AB2507472C3D6D25009B0A3C /* RefreshTokenRequestObject.swift in Sources */,
 				AB38A10F2B07DF49004153B5 /* InfoButton.swift in Sources */,
 				FD76249E2AF954670079AEEF /* LinkView.swift in Sources */,
-				AB94B1952B0FFF7000CD5A49 /* DetailHeaderViewModel.swift in Sources */,
 				AB0CA9982C44E80500910C36 /* PhotoPickerError.swift in Sources */,
 				FDD5829F2AFC175F0004DFC6 /* VoteWriteView.swift in Sources */,
 				ABBEEAF52AE64F7900F6D918 /* SeachViewModel.swift in Sources */,
 				AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */,
 				ABA1E83E2AFD57A4009051E0 /* VoteCardCell.swift in Sources */,
 				AB8D1E1C2C3B010200D333AC /* AuthUseCase.swift in Sources */,
+				AB933C662C4E200B000FD042 /* NotificationCenter+.swift in Sources */,
 				AB03D73D2B0137DD000C927A /* CommentService.swift in Sources */,
 				AB03D7462B020EB2000C927A /* ImageView.swift in Sources */,
 				ABB71D6E2AE2754300BE0671 /* PostModel.swift in Sources */,

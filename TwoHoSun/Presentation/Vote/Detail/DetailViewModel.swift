@@ -29,6 +29,7 @@ final class DetailViewModel: ObservableObject {
     @Published var disagreeRatio: Double?
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
+    @Published var isVoteManageSucceed: Bool = false
 
     private let postId: Int
     private let voteUseCase: VoteUseCaseType
@@ -66,6 +67,7 @@ final class DetailViewModel: ObservableObject {
                 .sink { _ in
                 } receiveValue: { [weak self] _ in
                     self?.send(action: .loadDetail)
+                    self?.isVoteManageSucceed.toggle()
                 }
                 .store(in: &cancellables)
 
@@ -81,8 +83,9 @@ final class DetailViewModel: ObservableObject {
         case .deleteVote:
             voteUseCase.deleteVote(postId: postId)
                 .sink { _ in
-                } receiveValue: { _ in
-                    // TODO: 삭제한 뒤에 처리?
+                } receiveValue: { [weak self] _ in
+                    NotificationCenter.default.post(name: .voteDeleted, object: nil)
+                    self?.isVoteManageSucceed.toggle()
                 }
                 .store(in: &cancellables)
 
