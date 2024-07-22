@@ -100,9 +100,6 @@ struct ReviewWriteView: View {
                 .frame(height: 52)
             }
         }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(NSNotification.reviewStateUpdated)
-        }
     }
 }
 

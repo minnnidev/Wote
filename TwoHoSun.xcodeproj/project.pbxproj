@@ -42,7 +42,6 @@
 		AB38A1C52B0BACC7004153B5 /* VoteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1C42B0BACC7004153B5 /* VoteListViewModel.swift */; };
 		AB38A1C72B0BE1BE004153B5 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1C62B0BE1BD004153B5 /* DetailViewModel.swift */; };
 		AB38A1CD2B0D5580004153B5 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */; };
-		AB38A1D12B0F4946004153B5 /* NSNotification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1D02B0F4946004153B5 /* NSNotification+.swift */; };
 		AB3BACFD2AF7A5FC00E792BE /* SearchTextFieldState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3BACFC2AF7A5FC00E792BE /* SearchTextFieldState.swift */; };
 		AB44D22A2C4015FF0011000F /* MultipartFormDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */; };
 		AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */; };
@@ -219,7 +218,6 @@
 		AB38A1C42B0BACC7004153B5 /* VoteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListViewModel.swift; sourceTree = "<group>"; };
 		AB38A1C62B0BE1BD004153B5 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
-		AB38A1D02B0F4946004153B5 /* NSNotification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+.swift"; sourceTree = "<group>"; };
 		AB3BACFC2AF7A5FC00E792BE /* SearchTextFieldState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldState.swift; sourceTree = "<group>"; };
 		AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataHelper.swift; sourceTree = "<group>"; };
 		AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchView.swift; sourceTree = "<group>"; };
@@ -797,7 +795,6 @@
 				C77113702AF0E7D500BAB128 /* Color+.swift */,
 				AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */,
 				AB38A1022B0646F1004153B5 /* Double+.swift */,
-				AB38A1D02B0F4946004153B5 /* NSNotification+.swift */,
 				C743044C2B16317D0046367E /* UserDefaults.swift */,
 				AB25071E2C3BFD03009B0A3C /* Encodable+.swift */,
 				AB933C652C4E200B000FD042 /* NotificationCenter+.swift */,
@@ -1220,7 +1217,6 @@
 				AB2507172C3BF94E009B0A3C /* AppleUserRequestObject.swift in Sources */,
 				AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */,
 				ABA1E8542AFEA640009051E0 /* GoToTypeTestButton.swift in Sources */,
-				AB38A1D12B0F4946004153B5 /* NSNotification+.swift in Sources */,
 				FD0113C92B10097100CCAEE7 /* MemberManager.swift in Sources */,
 				C77113712AF0E7D500BAB128 /* Color+.swift in Sources */,
 				AB6845B02AFC143700C3F7C2 /* TypeTestIntroView.swift in Sources */,
