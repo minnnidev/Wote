@@ -152,4 +152,9 @@ final class StubVoteUseCase: VoteUseCaseType {
         Empty()
             .eraseToAnyPublisher()
     }
+
+    func deleteVote(postId: Int) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
 }
