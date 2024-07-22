@@ -14,6 +14,7 @@ protocol VoteDataSourceType {
     func getVoteDetail(_ postId: Int) -> AnyPublisher<VoteDetailResponseObject, APIError>
     func postVote(_ postId: Int, _ object: ChooseRequestObject) -> AnyPublisher<VoteCountsResponseObject, APIError>
     func registerVote(_ object: VoteCreateRequestObject) -> AnyPublisher<Void, APIError>
+    func deleteVote(_ postId: Int) -> AnyPublisher<Void, APIError>
 }
 
 final class VoteDataSource: VoteDataSourceType {
@@ -40,5 +41,9 @@ final class VoteDataSource: VoteDataSourceType {
 
     func registerVote(_ object: VoteCreateRequestObject) -> AnyPublisher<Void, APIError> {
         provider.requestVoidPublisher(Target.registerVote(object))
+    }
+
+    func deleteVote(_ postId: Int) -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.deleteVote(postId))
     }
 }

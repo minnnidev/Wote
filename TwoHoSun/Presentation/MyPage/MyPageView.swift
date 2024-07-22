@@ -122,12 +122,6 @@ struct MyPageView: View {
         .refreshable {
             viewModel.fetchPosts()
         }
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.voteStateUpdated)) { _ in
-            viewModel.fetchPosts()
-        }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(NSNotification.voteStateUpdated)
-        }
     }
 }
 

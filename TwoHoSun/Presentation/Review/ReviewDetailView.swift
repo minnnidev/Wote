@@ -95,9 +95,6 @@ struct ReviewDetailView: View {
                 viewModel.fetchReviewDetail(postId: postId)
             }
         }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(NSNotification.reviewStateUpdated)
-        }
         .customConfirmDialog(isPresented: $showConfirm, isMine: $viewModel.isMine) { _ in
             if viewModel.isMine {
                 Button {
@@ -131,7 +128,6 @@ struct ReviewDetailView: View {
         }
         .errorAlert(error: $viewModel.error) {
             // TODO: navigation back
-            NotificationCenter.default.post(name: NSNotification.reviewStateUpdated, object: nil)
         }
     }
 }

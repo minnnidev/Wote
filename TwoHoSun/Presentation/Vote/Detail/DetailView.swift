@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var voteRouter: NavigationRouter
 
     @StateObject var viewModel: DetailViewModel
 
@@ -94,11 +94,49 @@ struct DetailView: View {
                     .font(.system(size: 18, weight: .medium))
                     .foregroundStyle(Color.white)
             }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    viewModel.send(action: .presentSheet)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(Color.subGray1)
+                }
+            }
         }
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.hidden, for: .tabBar)
         .onAppear {
             viewModel.send(action: .loadDetail)
+        }
+        .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
+            Button {
+                viewModel.send(action: .closeVote)
+            } label: {
+                Text("투표 지금 종료하기")
+            }
+
+            Button {
+                viewModel.send(action: .deleteVote)
+            } label: {
+                Text("투표 삭제하기")
+            }
+        }
+        .confirmationDialog("OtherSheet", isPresented: $viewModel.isOtherSheetShowed) {
+            Button {
+                // TODO: - 신고 action
+            } label: {
+                Text("신고하기")
+            }
+
+            Button {
+                // TODO: - 차단 action
+            } label: {
+                Text("차단하기")
+            }
+        }
+        .onChange(of: viewModel.isVoteManageSucceed) { _ in
+            voteRouter.pop()
         }
     }
 }
@@ -272,5 +310,7 @@ struct DetailContentView: View {
 }
 
 #Preview {
-    DetailView(viewModel: .init(postId: 1, voteUseCase: StubVoteUseCase()))
+    NavigationStack {
+        DetailView(viewModel: .init(postId: 1, voteUseCase: StubVoteUseCase()))
+    }
 }

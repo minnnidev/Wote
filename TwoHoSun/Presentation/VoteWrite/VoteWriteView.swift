@@ -75,9 +75,6 @@ struct VoteWriteView: View {
                 }
             }
         }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(NSNotification.voteStateUpdated)
-        }
     }
 }
 

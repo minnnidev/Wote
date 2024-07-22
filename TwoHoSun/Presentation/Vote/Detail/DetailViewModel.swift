@@ -13,6 +13,7 @@ final class DetailViewModel: ObservableObject {
     enum Action {
         case loadDetail
         case vote(_ myChoice: Bool)
+        case presentSheet
         case deleteVote
         case closeVote
     }
@@ -26,6 +27,9 @@ final class DetailViewModel: ObservableObject {
     @Published var isVoteConsumerTypeResultShowed: Bool = false
     @Published var agreeRatio: Double?
     @Published var disagreeRatio: Double?
+    @Published var isMySheetShowed: Bool = false
+    @Published var isOtherSheetShowed: Bool = false
+    @Published var isVoteManageSucceed: Bool = false
 
     private let postId: Int
     private let voteUseCase: VoteUseCaseType
@@ -60,14 +64,30 @@ final class DetailViewModel: ObservableObject {
 
         case let .vote(myChoice):
             voteUseCase.vote(postId: postId, myChoice: myChoice)
-                .sink { completion in
+                .sink { _ in
                 } receiveValue: { [weak self] _ in
                     self?.send(action: .loadDetail)
+                    self?.isVoteManageSucceed.toggle()
                 }
                 .store(in: &cancellables)
 
+        case .presentSheet:
+            let isMine = voteDetail?.post.isMine ?? false
+
+            if isMine {
+                isMySheetShowed.toggle()
+            } else {
+                isOtherSheetShowed.toggle()
+            }
+
         case .deleteVote:
-            return
+            voteUseCase.deleteVote(postId: postId)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    NotificationCenter.default.post(name: .voteDeleted, object: nil)
+                    self?.isVoteManageSucceed.toggle()
+                }
+                .store(in: &cancellables)
 
         case .closeVote:
             return

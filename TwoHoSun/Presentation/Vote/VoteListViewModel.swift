@@ -28,6 +28,8 @@ final class VoteListViewModel: ObservableObject {
 
     init(voteUseCase: VoteUseCaseType) {
         self.voteUseCase = voteUseCase
+
+        bind()
     }
 
     func send(action: Action) {
@@ -73,4 +75,14 @@ final class VoteListViewModel: ObservableObject {
                 .store(in: &cancellables)
         }
     }
+
+    private func bind() {
+        NotificationCenter.default.publisher(for: .voteDeleted)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.send(action: .loadVotes)
+            }
+            .store(in: &cancellables)
+    }
 }
+ 

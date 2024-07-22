@@ -52,4 +52,10 @@ final class VoteRepository: VoteRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func deleteVote(postId: Int) -> AnyPublisher<Void, WoteError> {
+        voteDataSource.deleteVote(postId)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

@@ -13,6 +13,7 @@ protocol VoteUseCaseType {
     func loadVoteDetail(postId: Int) -> AnyPublisher<VoteDetailModel, WoteError>
     func vote(postId: Int, myChoice: Bool) -> AnyPublisher<(Double, Double), WoteError>
     func createVote(scope: VisibilityScopeType, title: String, price: Int?, contents: String?, externalURL: String?, image: Data?) -> AnyPublisher<Void, WoteError>
+    func deleteVote(postId: Int) -> AnyPublisher<Void, WoteError>
 }
 
 final class VoteUseCase: VoteUseCaseType {
@@ -65,6 +66,11 @@ final class VoteUseCase: VoteUseCaseType {
         )
 
         return voteRepository.createVote(vote)
+            .eraseToAnyPublisher()
+    }
+
+    func deleteVote(postId: Int) -> AnyPublisher<Void, WoteError> {
+        voteRepository.deleteVote(postId: postId)
             .eraseToAnyPublisher()
     }
 }
@@ -143,6 +149,11 @@ final class StubVoteUseCase: VoteUseCaseType {
     }
 
     func createVote(scope: VisibilityScopeType, title: String, price: Int?, contents: String?, externalURL: String?, image: Data?) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func deleteVote(postId: Int) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

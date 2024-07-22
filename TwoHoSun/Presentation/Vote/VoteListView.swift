@@ -11,8 +11,6 @@ struct VoteListView: View {
     @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var voteRouter: NavigationRouter
 
-    @State private var isRefreshing = false
-
     @StateObject var viewModel: VoteListViewModel
 
     var body: some View {
