@@ -10,4 +10,5 @@ import Foundation
 extension Notification.Name {
 
     static let voteDeleted = Notification.Name(rawValue: "VoteDeleted")
+    static let voteClosed = Notification.Name(rawValue: "VoteClosed")
 }

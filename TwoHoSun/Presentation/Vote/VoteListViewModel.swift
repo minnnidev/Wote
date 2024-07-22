@@ -80,7 +80,16 @@ final class VoteListViewModel: ObservableObject {
         NotificationCenter.default.publisher(for: .voteDeleted)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.send(action: .loadVotes)
+                guard let self = self else { return }
+                self.votes.remove(at: self.currentVote)
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .voteClosed)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.votes[self.currentVote].postStatus = "CLOSED"
             }
             .store(in: &cancellables)
     }

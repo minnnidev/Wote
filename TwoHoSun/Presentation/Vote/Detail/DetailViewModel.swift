@@ -92,6 +92,7 @@ final class DetailViewModel: ObservableObject {
             voteUseCase.closeVote(postId: postId)
                 .sink { _ in
                 } receiveValue: { [weak self] _ in
+                    NotificationCenter.default.post(name: .voteClosed, object: nil)
                     self?.send(action: .loadDetail)
                 }
                 .store(in: &cancellables)
