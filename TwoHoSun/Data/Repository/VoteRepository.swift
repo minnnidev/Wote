@@ -58,4 +58,10 @@ final class VoteRepository: VoteRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func closeVote(postId: Int) -> AnyPublisher<Void, WoteError> {
+        voteDataSource.closeVote(postId)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

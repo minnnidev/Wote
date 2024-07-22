@@ -14,4 +14,5 @@ protocol VoteRepositoryType {
     func vote(postId: Int, myChoice: Bool) -> AnyPublisher<VoteCountsModel, WoteError> 
     func createVote(_ createdVote: VoteCreateModel) -> AnyPublisher<Void, WoteError>
     func deleteVote(postId: Int) -> AnyPublisher<Void, WoteError>
+    func closeVote(postId: Int) -> AnyPublisher<Void, WoteError>
 }

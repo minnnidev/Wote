@@ -67,7 +67,6 @@ final class DetailViewModel: ObservableObject {
                 .sink { _ in
                 } receiveValue: { [weak self] _ in
                     self?.send(action: .loadDetail)
-                    self?.isVoteManageSucceed.toggle()
                 }
                 .store(in: &cancellables)
 
@@ -90,7 +89,12 @@ final class DetailViewModel: ObservableObject {
                 .store(in: &cancellables)
 
         case .closeVote:
-            return
+            voteUseCase.closeVote(postId: postId)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.send(action: .loadDetail)
+                }
+                .store(in: &cancellables)
         }
     }
 }
