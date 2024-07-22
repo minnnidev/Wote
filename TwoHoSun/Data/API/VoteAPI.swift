@@ -82,4 +82,8 @@ extension VoteAPI: TargetType {
             APIConstants.headerWithAuthorization
         }
     }
+
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }
