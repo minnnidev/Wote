@@ -13,6 +13,7 @@ enum VoteAPI {
     case getVoteDetail(Int)
     case postVote(postId: Int, requestObject: ChooseRequestObject)
     case registerVote(VoteCreateRequestObject)
+    case deleteVote(Int)
 }
 
 extension VoteAPI: TargetType {
@@ -31,6 +32,8 @@ extension VoteAPI: TargetType {
             return "/posts/\(postId)/votes"
         case .registerVote(_):
             return "/posts"
+        case let .deleteVote(postId):
+            return "/posts/\(postId)"
         }
     }
 
@@ -40,6 +43,8 @@ extension VoteAPI: TargetType {
             return .post
         case .registerVote(_):
             return .post
+        case .deleteVote(_):
+            return .delete
         default:
             return .get
         }
@@ -66,6 +71,8 @@ extension VoteAPI: TargetType {
         case let .registerVote(requestobject):
             let formData = MultipartFormDataHelper.createMultipartFormData(from: requestobject)
             return .uploadMultipart(formData)
+        case let .deleteVote(postId):
+            return .requestParameters(parameters: postId.toDictionary(), encoding: URLEncoding.queryString)
         }
     }
 
