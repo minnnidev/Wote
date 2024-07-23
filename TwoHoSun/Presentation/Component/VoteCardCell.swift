@@ -46,18 +46,18 @@ struct VoteCardCell: View {
 
     var cellType: VoteCardCellType
     var progressType: PostStatus
-    var voteResultType: VoteResultType? {
-        if let voteresult = data.voteResult {
-            if voteresult == "DRAW" {
-                return .draw
-            } else if voteresult == "NOT_BUY" {
-                return .notBuy
-            } else {
-                return .buy
-            }
-        }
-        return nil
-    }
+//    var voteResultType: VoteResultType? {
+//        if let voteresult = data.voteResult {
+//            if voteresult == "DRAW" {
+//                return .draw
+//            } else if voteresult == "NOT_BUY" {
+//                return .notBuy
+//            } else {
+//                return .buy
+//            }
+//        }
+//        return nil
+//    }
     var data: SummaryPostModel
 
     var body: some View {
@@ -119,42 +119,42 @@ struct VoteCardCell: View {
                         .opacity(data.postStatus == PostStatus.closed.rawValue
                                  ? 0.5 : 1.0)
                     if data.postStatus == PostStatus.closed.rawValue {
-                        Group {
-                            if let voteResult = data.voteResult {
-                                switch VoteResultType(voteResult: voteResult) {
-                                case .buy:
-                                    Image("imgBuy")
-                                case .draw:
-                                    Image("imgDraw")
-                                case .notBuy:
-                                    Image("imgNotBuy")
-                                }
-                            }
-                        }
-                        .offset(x: -10, y: 10)
+//                        Group {
+//                            if let voteResult = data.voteResult {
+//                                switch VoteResultType(voteResult: voteResult) {
+//                                case .buy:
+//                                    Image("imgBuy")
+//                                case .draw:
+//                                    Image("imgDraw")
+//                                case .notBuy:
+//                                    Image("imgNotBuy")
+//                                }
+//                            }
+//                        }
+//                        .offset(x: -10, y: 10)
                     }
                 }
             }
 
-            if progressType == .closed && cellType == .myVote && data.hasReview == false {
 //            if progressType == .closed && cellType == .myVote && data.hasReview == false {
-                Button {
-                    
-                } label: {
-                    Text("후기 작성하기")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(Color.lightBlue)
-                        .frame(height: 52)
-                        .frame(maxWidth: .infinity)
-                        .clipShape(.rect(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(Color.lightBlue, lineWidth: 1)
-                        )
-                        .padding(.top, 6)
-                        .padding(.bottom, -6)
-                }
-            }
+////            if progressType == .closed && cellType == .myVote && data.hasReview == false {
+//                Button {
+//                    
+//                } label: {
+//                    Text("후기 작성하기")
+//                        .font(.system(size: 16, weight: .semibold))
+//                        .foregroundStyle(Color.lightBlue)
+//                        .frame(height: 52)
+//                        .frame(maxWidth: .infinity)
+//                        .clipShape(.rect(cornerRadius: 10))
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .strokeBorder(Color.lightBlue, lineWidth: 1)
+//                        )
+//                        .padding(.top, 6)
+//                        .padding(.bottom, -6)
+//                }
+//            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 24)

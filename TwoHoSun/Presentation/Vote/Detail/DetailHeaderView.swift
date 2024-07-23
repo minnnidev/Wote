@@ -169,7 +169,7 @@ struct DetailHeaderView: View {
                                                createDate: data.createDate,
                                                modifiedDate: data.modifiedDate,
                                                postStatus: data.postStatus,
-                                               voteResult: calculateVoteResult(voteCounts),
+//                                               voteResult: calculateVoteResult(voteCounts),
                                                title: data.title,
                                                image: data.image,
                                                contents: data.contents,

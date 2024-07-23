@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class ReviewRepository: ReviewRepositoryType {
 
@@ -13,5 +14,12 @@ final class ReviewRepository: ReviewRepositoryType {
 
     init(reviewDataSource: ReviewDataSourceType) {
         self.reviewDataSource = reviewDataSource
+    }
+
+    func getReviews(visibilityScope: VisibilityScopeType) -> AnyPublisher<ReviewTabModel, WoteError> {
+        reviewDataSource.getReviews(visibilityScope.rawValue)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ReviewTabModel.swift
+//  ReviewTabResponseObject.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 11/19/23.
@@ -13,6 +13,18 @@ struct ReviewTabResponseObject: Codable {
     var allReviews: [SummaryPostResponseObject]
     var purchasedReviews: [SummaryPostResponseObject]
     var notPurchasedReviews: [SummaryPostResponseObject]
+}
+
+extension ReviewTabResponseObject {
+
+    func toModel() -> ReviewTabModel {
+        .init(
+            recentReviews: recentReviews?.map { $0.toSimpleModel() },
+            allReviews: allReviews.map { $0.toModel() },
+            purchasedReviews: purchasedReviews.map { $0.toModel() },
+            notPurchasedReviews: notPurchasedReviews.map { $0.toModel() }
+        )
+    }
 }
 
 enum ReviewType: String, CaseIterable {

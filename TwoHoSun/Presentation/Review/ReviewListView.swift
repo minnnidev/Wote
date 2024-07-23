@@ -33,7 +33,7 @@ struct ReviewListView: View {
                     ScrollViewReader { proxy in
                         LazyVStack(pinnedViews: .sectionHeaders) {
                             Section {
-                                reviewListView(for: viewModel.reviewType)
+                                reviewListView
                                     .padding(.leading, 16)
                                     .padding(.trailing, 8)
                             } header: {
@@ -51,10 +51,15 @@ struct ReviewListView: View {
         .toolbarBackground(Color.background, for: .tabBar)
         .scrollIndicators(.hidden)
         .refreshable {
-            // TODO:
+            viewModel.send(action: .loadReviews)
         }
         .onAppear {
-            // TODO:
+            viewModel.send(action: .loadReviews)
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
         }
     }
 }
@@ -72,6 +77,7 @@ extension ReviewListView {
                     .foregroundStyle(.white)
                 Spacer()
             }
+
             ScrollView(.horizontal) {
                 HStack(spacing: 10) {
                     ForEach(viewModel.recentReviews, id: \.id) { review in
@@ -105,29 +111,21 @@ extension ReviewListView {
     }
 
     @ViewBuilder
-    private func reviewListView(for filter: ReviewType) -> some View {
-        let datas: [SummaryPostModel] = []
-
-        if datas.isEmpty {
+    private var reviewListView: some View {
+        if viewModel.showingReviews.isEmpty {
             NoReviewView()
-                .padding(.top, 70)
+                .padding(.top, 100)
         } else {
-            ForEach(Array(zip(datas.indices, datas)), id: \.0) { index, data in
+            ForEach(viewModel.showingReviews) { data in
                 Button {
                     // TODO: Review deail
                 } label: {
                     VStack(spacing: 6) {
                         Divider()
                             .background(Color.dividerGray)
-                        
+
                         ReviewCardCell(cellType: .otherReview,
                                        data: data)
-                    }
-                    .onAppear {
-                        if index == datas.count - 2 {
-                            viewModel.fetchMoreReviews(for: .global,
-                                                       filter: filter)
-                        }
                     }
                 }
             }

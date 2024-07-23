@@ -11,7 +11,7 @@ struct SummaryPostResponseObject: Codable, Identifiable {
     var id: Int
     var createDate: String
     var modifiedDate: String
-    var author: AuthorModel?
+    var author: AuthorResponseObject?
     var postStatus: String
     var viewCount: Int?
     var voteCount: Int?
@@ -29,5 +29,32 @@ struct SummaryPostResponseObject: Codable, Identifiable {
         case createDate, modifiedDate, author, postStatus, viewCount, 
              voteCount, commentCount, voteResult, title, image, contents,
              price, isPurchased, hasReview
+    }
+}
+
+extension SummaryPostResponseObject {
+
+    func toSimpleModel() -> SimpleReviewModel {
+        .init(
+            id: id,
+            isPurchased: isPurchased ?? false,
+            title: title,
+            content: contents ?? ""
+        )
+    }
+
+    func toModel() -> SummaryPostModel {
+        .init(
+            id: id,
+            createDate: createDate,
+            modifiedDate: modifiedDate,
+            author: author?.toModel(),
+            postStatus: postStatus,
+            title: title,
+            image: image,
+            contents: contents,
+            price: price,
+            isPurchased: isPurchased
+        )
     }
 }

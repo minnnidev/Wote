@@ -21,15 +21,24 @@ class PaginationState {
 final class ReviewListViewModel: ObservableObject {
 
     enum Action {
-        case loadRecentReviews
         case loadReviews
         case loadMoreReviews
     }
 
     @Published var consumerType: ConsumerType?
-    @Published var reviewType: ReviewType = ReviewType.all
     @Published var visibilityScope: VisibilityScopeType = .global
+    @Published var reviewType: ReviewType = .all {
+        didSet {
+            updateShowingReviews()
+        }
+    }
+
     @Published var recentReviews: [SimpleReviewModel] = []
+    @Published var allReviews: [SummaryPostModel] = []
+    @Published var purchasedReviews: [SummaryPostModel] = []
+    @Published var notPurchasedReviews: [SummaryPostModel] = []
+    @Published var showingReviews: [SummaryPostModel] = []
+    @Published var isLoading: Bool = false
 
     private var cancellables: Set<AnyCancellable> = []
     
@@ -46,14 +55,37 @@ final class ReviewListViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
 
-        case .loadRecentReviews:
-            return
-
         case .loadReviews:
-            return
+            isLoading = true
+
+            reviewUseCase.loadReviews(visibilityScope: visibilityScope)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] reviewTabModel in
+                    self?.recentReviews = reviewTabModel.recentReviews ?? []
+                    
+                    self?.showingReviews = reviewTabModel.allReviews
+                    self?.allReviews = reviewTabModel.allReviews
+                    self?.purchasedReviews = reviewTabModel.purchasedReviews
+                    self?.notPurchasedReviews = reviewTabModel.notPurchasedReviews
+
+                    self?.isLoading = true
+                }
+                .store(in: &cancellables)
 
         case .loadMoreReviews:
             return
+        }
+    }
+
+    private func updateShowingReviews() {
+        switch reviewType {
+        case .all:
+            showingReviews = allReviews
+        case .purchased:
+            showingReviews = purchasedReviews
+        case .notPurchased:
+            showingReviews = notPurchasedReviews
         }
     }
 

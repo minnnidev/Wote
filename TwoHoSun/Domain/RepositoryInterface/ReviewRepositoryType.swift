@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 protocol ReviewRepositoryType {
-    
+    func getReviews(visibilityScope: VisibilityScopeType) -> AnyPublisher<ReviewTabModel, WoteError>
 }

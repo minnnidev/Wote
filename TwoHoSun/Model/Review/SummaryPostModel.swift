@@ -13,21 +13,32 @@ struct SummaryPostModel: Identifiable {
     var modifiedDate: String
     var author: AuthorModel?
     var postStatus: String
-    var viewCount: Int?
-    var voteCount: Int?
-    var commentCount: Int?
-    var voteResult: String?
     var title: String
     var image: String?
     var contents: String?
     var price: Int?
     var isPurchased: Bool?
-    var hasReview: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id = "postId"
-        case createDate, modifiedDate, author, postStatus, viewCount,
-             voteCount, commentCount, voteResult, title, image, contents,
-             price, isPurchased, hasReview
+        case createDate, modifiedDate, author, postStatus, title, image, contents,
+             price, isPurchased
+    }
+}
+
+extension SummaryPostModel {
+
+    static var summaryStub1: SummaryPostModel {
+        .init(
+            id: 1,
+            createDate: "",
+            modifiedDate: "",
+            author: .authorStub1,
+            postStatus: "REVIEW",
+            title: "제목",
+            image: nil,
+            contents: nil,
+            price: 3000,
+            isPurchased: true)
     }
 }
