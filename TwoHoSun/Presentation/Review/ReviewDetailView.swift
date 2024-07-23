@@ -8,21 +8,10 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
-    @Environment(\.dismiss) var dismiss
 
-    @State private var isDetailCommentShown = false
-    @State private var showCustomAlert = false
-    @State private var showConfirm = false
-    @State private var applyComplaint = false
-    @State private var showAlert = false
-
-    @StateObject var viewModel = ReviewDetailViewModel()
+    @StateObject var viewModel: ReviewDetailViewModel
 
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    var isShowingItems = true
-    var postId: Int?
-    var reviewId: Int?
-    var directComments = false
 
     var body: some View {
         ZStack {
@@ -32,34 +21,26 @@ struct ReviewDetailView: View {
             if let data = viewModel.reviewData {
                 ScrollView {
                     VStack(spacing: 0) {
-                        if isShowingItems {
-                            detailHeaderView(data.originalPost)
-                                .padding(.top, 24)
-                                .padding(.horizontal, 24)
-                            Divider()
-                                .background(Color.disableGray)
-                                .padding(.horizontal, 12)
-                                .padding(.top, 12)
-                        }
+                        detailHeaderView(data.originalPost)
+                            .padding(.top, 24)
+                            .padding(.horizontal, 24)
+                        Divider()
+                            .background(Color.disableGray)
+                            .padding(.horizontal, 12)
+                            .padding(.top, 12)
+
                         detailReviewCell(data.reviewPost)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 30)
                     }
                 }
                 .refreshable {
-                    viewModel.fetchReviewDetail(postId: viewModel.postId)
+
                 }
             } else {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
                     .scaleEffect(1.3, anchor: .center)
-            }
-
-            if showCustomAlert {
-                ZStack {
-                    Color.black.opacity(0.7)
-                        .ignoresSafeArea()
-                }
             }
         }
         .toolbar {
@@ -76,59 +57,6 @@ struct ReviewDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isDetailCommentShown) {
-            CommentsView(showComplaint: $showCustomAlert,
-                         applyComplaint: $applyComplaint,
-                         viewModel: CommentsViewModel(postId: viewModel.reviewId))
-            .presentationDetents([.large,.fraction(0.9)])
-//            .presentationContentInteraction(.scrolls)
-        }
-        .onAppear {
-            if directComments {
-                isDetailCommentShown.toggle()
-            }
-            if let reviewId = reviewId {
-                viewModel.fetchReviewDetail(reviewId: reviewId)
-            }
-
-            if let postId = postId {
-                viewModel.fetchReviewDetail(postId: postId)
-            }
-        }
-        .customConfirmDialog(isPresented: $showConfirm, isMine: $viewModel.isMine) { _ in
-            if viewModel.isMine {
-                Button {
-                    showCustomAlert.toggle()
-                    showConfirm.toggle()
-                } label: {
-                    Text("삭제하기")
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                }
-            } else {
-                VStack(spacing: 15) {
-                    Button {
-                        showConfirm.toggle()
-                    } label: {
-                        Text("신고하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                    Divider()
-                        .background(Color.gray300)
-                    Button {
-                        showAlert.toggle()
-                        showConfirm.toggle()
-                    } label: {
-                        Text("차단하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.vertical, 15)
-            }
-        }
-        .errorAlert(error: $viewModel.error) {
-            // TODO: navigation back
-        }
     }
 }
 
@@ -136,13 +64,11 @@ extension ReviewDetailView {
 
     @ViewBuilder
     private var menuButton: some View {
-        if isShowingItems {
-            Button {
-                showConfirm.toggle()
-            } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundStyle(Color.subGray1)
-            }
+        Button {
+
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundStyle(Color.subGray1)
         }
     }
 
@@ -170,6 +96,7 @@ extension ReviewDetailView {
                     .foregroundStyle(Color.accentBlue)
                 }
             }
+
             Button {
                 // TODO: 투표 게시글 상세 조회로 이동
             } label: {
@@ -215,6 +142,7 @@ extension ReviewDetailView {
                 ImageView(imageURL: image)
                     .padding(.bottom, 28)
             }
+
             CommentPreview(previewComment: viewModel.reviewData?.commentPreview, commentCount: viewModel.reviewData?.commentCount,
                            commentPreviewImage: viewModel.reviewData?.commentPreviewImage)
                 .onTapGesture {
@@ -222,7 +150,6 @@ extension ReviewDetailView {
                         // TODO: 소비 성향 테스트로 이동
                         return
                     }
-                    isDetailCommentShown.toggle()
                 }
         }
     }
@@ -243,4 +170,10 @@ extension ReviewDetailView {
             }
         }
     }
+}
+
+#Preview {
+    ReviewDetailView(
+        viewModel: .init(id: 1, reviewUseCase: StubReviewUseCase())
+    )
 }

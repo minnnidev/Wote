@@ -9,24 +9,30 @@ import Combine
 import SwiftUI
 
 final class ReviewDetailViewModel: ObservableObject {
+
+    enum Action {
+        case loadDetail
+        case deleteReview
+    }
+
     @Published var reviewData: ReviewDetailModel?
-    @Published var postId = 0
-    @Published var isMine = false
-    @Published var reviewId = 0
-    @Published var error: NetworkError?
 
-    private var cancellable = Set<AnyCancellable>()
-    private var reviewPostId = 0
+    private let id: Int
+    private let reviewUseCase: ReviewUseCaseType
 
-    func fetchReviewDetail(reviewId: Int) {
-        // TODO: 리뷰 디테일 조회
+    init(id: Int, reviewUseCase: ReviewUseCaseType) {
+        self.id = id
+        self.reviewUseCase = reviewUseCase
     }
 
-    func fetchReviewDetail(postId: Int) {
-        // TODO: 투표 디테일 조회
-    }
+    func send(_ action: Action) {
+        switch action {
 
-    func deleteReview(postId: Int) {
-        // TODO: 리뷰 삭제
+        case .loadDetail:
+            return
+
+        case .deleteReview:
+            return
+        }
     }
 }

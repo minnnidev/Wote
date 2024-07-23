@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReviewListView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var reviewRouter: NavigationRouter
 
     @StateObject var viewModel: ReviewListViewModel
@@ -64,8 +65,9 @@ struct ReviewListView: View {
         .navigationDestination(for: ReviewTabDestination.self) { dest in
             switch dest {
             case let .reviewDetail(postId):
-                // TODO: - postId 활용
-                ReviewDetailView()
+                ReviewDetailView(
+                    viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
+                )
             }
         }
     }
