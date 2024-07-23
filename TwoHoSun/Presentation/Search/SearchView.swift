@@ -43,7 +43,12 @@ struct SearchView: View {
                                 Spacer()
                             }
 
-                            Spacer()
+                            switch viewModel.selectedFilterType {
+                            case .review:
+                                reviewSearchedResult
+                            default:
+                                voteSearchedResult
+                            }
                         }
                     }
                     .padding(.top, 24)
@@ -140,7 +145,7 @@ extension SearchView {
                 .foregroundStyle(Color.darkGray)
                 .padding(15)
                 .onTapGesture {
-                    viewModel.removeRecentSearch(at: index)
+//                    viewModel.removeRecentSearch(at: index)
                 }
         }
     }
@@ -173,17 +178,17 @@ extension SearchView {
         ScrollView {
             ScrollViewReader { proxy in
                 LazyVStack {
-                    ForEach(Array(viewModel.searchedDatas.enumerated()), id: \.offset) { index, data in
+                    ForEach(Array(viewModel.reviewResults.enumerated()), id: \.offset) { index, data in
                         Button {
                             // TODO: Review Detail로 이동
                         } label: {
-//                            VoteCardCell(cellType: .standard,
-//                                         progressType: .closed,
-//                                         data: data)
+                            // TODO: Review Cell
+                            Text("\(index)")
+                                .foregroundStyle(Color.white)
                         }
                         .onAppear {
-                            if index == viewModel.searchedDatas.count - 4 {
-
+                            if index == viewModel.reviewResults.count - 4 {
+//                                viewModel.send(action: .loadMoereResults(viewModel.searchText))
                             }
                         }
                     }
@@ -198,17 +203,17 @@ extension SearchView {
         ScrollView {
             ScrollViewReader { proxy in
                 LazyVStack {
-                    ForEach(Array(viewModel.searchedDatas.enumerated()), id: \.offset) { index, data in
+                    ForEach(Array(viewModel.voteResults.enumerated()), id: \.offset) { index, data in
                         Button {
                             // TODO: Vote Detail로 이동
                         } label: {
-//                            VoteCardCell(cellType: .standard,
-//                                         progressType: .closed,
-//                                         data: data)
+                            // TODO: Vote Cell
+                            Text("\(index)")
+                                .foregroundStyle(Color.white)
                         }
                         .onAppear {
-                            if index == viewModel.searchedDatas.count - 4 {
-                               
+                            if index == viewModel.voteResults.count - 4 {
+                                viewModel.send(action: .loadMoereResults(viewModel.searchText))
                             }
                         }
                     }
