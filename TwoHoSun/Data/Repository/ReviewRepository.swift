@@ -40,4 +40,11 @@ final class ReviewRepository: ReviewRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getReviewDetail(reviewId: Int) -> AnyPublisher<ReviewDetailModel, WoteError> {
+        reviewDataSource.getReviewDetail(reviewId)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

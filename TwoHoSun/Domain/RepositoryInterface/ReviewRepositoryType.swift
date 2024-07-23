@@ -11,4 +11,5 @@ import Combine
 protocol ReviewRepositoryType {
     func getReviews(visibilityScope: VisibilityScopeType) -> AnyPublisher<ReviewTabModel, WoteError>
     func getMoreReviews(visibilityScope: VisibilityScopeType, page: Int, size: Int, reviewType: ReviewType) -> AnyPublisher<[ReviewModel], WoteError>
+    func getReviewDetail(reviewId: Int) -> AnyPublisher<ReviewDetailModel, WoteError>
 }

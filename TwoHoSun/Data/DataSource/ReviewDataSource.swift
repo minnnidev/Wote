@@ -11,6 +11,7 @@ import Combine
 protocol ReviewDataSourceType {
     func getReviews(_ visibilityScope: String) -> AnyPublisher<ReviewTabResponseObject, APIError>
     func getMoreReviews(_ object: MoreReviewRequestObject) -> AnyPublisher<[ReviewResponseObject], APIError>
+    func getReviewDetail(_ reviewId: Int) -> AnyPublisher<ReviewDetailResponseObject, APIError>
 }
 
 final class ReviewDataSource: ReviewDataSourceType {
@@ -29,5 +30,9 @@ final class ReviewDataSource: ReviewDataSourceType {
 
     func getMoreReviews(_ object: MoreReviewRequestObject) -> AnyPublisher<[ReviewResponseObject], APIError> {
         provider.requestPublisher(Target.getMoreReviews(object), [ReviewResponseObject].self)
+    }
+
+    func getReviewDetail(_ reviewId: Int) -> AnyPublisher<ReviewDetailResponseObject, APIError> {
+        provider.requestPublisher(Target.getReviewDetail(reviewId: reviewId), ReviewDetailResponseObject.self)
     }
 }
