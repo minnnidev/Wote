@@ -8,7 +8,7 @@
 import Foundation
 
 struct ReviewDetailModel {
-    let originalPost: SummaryPostModel
+    let originalPost: ReviewModel
     let reviewPost: PostModel
     let isMine: Bool
     let commentCount: Int?
@@ -17,7 +17,7 @@ struct ReviewDetailModel {
 }
 
 struct ReviewDetailResponseObject: Codable {
-    let originalPost: SummaryPostResponseObject
+    let originalPost: ReviewResponseObject
     let reviewPost: PostResponseObject
     let isMine: Bool
     let commentCount: Int?

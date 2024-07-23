@@ -22,4 +22,22 @@ final class ReviewRepository: ReviewRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getMoreReviews(
+        visibilityScope: VisibilityScopeType,
+        page: Int,
+        size: Int,
+        reviewType: ReviewType
+    ) -> AnyPublisher<[ReviewModel], WoteError> {
+        let requestObject: MoreReviewRequestObject = .init(
+            visibilityScope: visibilityScope.rawValue,
+            page: page,
+            size: size,
+            reviewType: reviewType.rawValue)
+
+        return reviewDataSource.getMoreReviews(requestObject)
+            .map { $0.map { $0.toModel()} }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

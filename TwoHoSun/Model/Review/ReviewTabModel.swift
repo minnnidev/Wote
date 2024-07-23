@@ -9,9 +9,9 @@ import Foundation
 
 struct ReviewTabModel {
     var recentReviews: [SimpleReviewModel]?
-    var allReviews: [SummaryPostModel]
-    var purchasedReviews: [SummaryPostModel]
-    var notPurchasedReviews: [SummaryPostModel]
+    var allReviews: [ReviewModel]
+    var purchasedReviews: [ReviewModel]
+    var notPurchasedReviews: [ReviewModel]
 }
 
 extension ReviewTabModel {

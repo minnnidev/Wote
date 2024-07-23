@@ -9,7 +9,7 @@ import Foundation
 
 final class SearchViewModel: ObservableObject {
     @Published var searchHistory = [String]()
-    @Published var searchedDatas: [SummaryPostModel] = []
+    @Published var searchedDatas: [ReviewModel] = []
     @Published var selectedFilterType = PostStatus.active
     @Published var page = 0
     @Published var showEmptyView = false

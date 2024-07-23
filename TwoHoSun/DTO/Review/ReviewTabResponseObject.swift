@@ -9,10 +9,10 @@ import Foundation
 
 struct ReviewTabResponseObject: Codable {
     let myConsumerType: String?
-    var recentReviews: [SummaryPostResponseObject]?
-    var allReviews: [SummaryPostResponseObject]
-    var purchasedReviews: [SummaryPostResponseObject]
-    var notPurchasedReviews: [SummaryPostResponseObject]
+    var recentReviews: [ReviewResponseObject]?
+    var allReviews: [ReviewResponseObject]
+    var purchasedReviews: [ReviewResponseObject]
+    var notPurchasedReviews: [ReviewResponseObject]
 }
 
 extension ReviewTabResponseObject {

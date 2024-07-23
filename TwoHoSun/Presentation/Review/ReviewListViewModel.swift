@@ -8,16 +8,6 @@
 import Combine
 import SwiftUI
 
-class PaginationState {
-    var currentPage = 1
-    var isLastPage = false
-
-    func resetPagination() {
-        currentPage = 1
-        isLastPage = false
-    }
-}
-
 final class ReviewListViewModel: ObservableObject {
 
     enum Action {
@@ -34,17 +24,18 @@ final class ReviewListViewModel: ObservableObject {
     }
 
     @Published var recentReviews: [SimpleReviewModel] = []
-    @Published var allReviews: [SummaryPostModel] = []
-    @Published var purchasedReviews: [SummaryPostModel] = []
-    @Published var notPurchasedReviews: [SummaryPostModel] = []
-    @Published var showingReviews: [SummaryPostModel] = []
+    @Published var allReviews: [ReviewModel] = []
+    @Published var purchasedReviews: [ReviewModel] = []
+    @Published var notPurchasedReviews: [ReviewModel] = []
+    @Published var showingReviews: [ReviewModel] = []
     @Published var isLoading: Bool = false
 
+    private var allpage: Int = 0
+    private var purchasedPage: Int = 0
+    private var notPurchasedPage: Int = 0
+    private var page: Int = 0
+
     private var cancellables: Set<AnyCancellable> = []
-    
-    private var allTypePagination = PaginationState()
-    private var purchasedTypePagination = PaginationState()
-    private var notPurchasedTypePagination = PaginationState()
 
     private let reviewUseCase: ReviewUseCaseType
 
@@ -70,11 +61,36 @@ final class ReviewListViewModel: ObservableObject {
                     self?.notPurchasedReviews = reviewTabModel.notPurchasedReviews
 
                     self?.isLoading = true
+
+                    self?.allpage = 1
+                    self?.purchasedPage = 1
+                    self?.notPurchasedPage = 1
                 }
                 .store(in: &cancellables)
 
         case .loadMoreReviews:
-            return
+            reviewUseCase.loadMoreReviews(
+                visibilityScope: visibilityScope,
+                page: page,
+                size: 10,
+                reviewType: reviewType
+            )
+            .sink { _ in
+            } receiveValue: { [weak self] newReviews in
+                guard let self = self else { return }
+                switch reviewType {
+                case .all:
+                    allReviews.append(contentsOf: newReviews)
+                    allpage += 1
+                case .purchased:
+                    purchasedReviews.append(contentsOf: newReviews)
+                    purchasedPage += 1
+                case .notPurchased:
+                    notPurchasedReviews.append(contentsOf: newReviews)
+                    notPurchasedPage += 1
+                }
+            }
+            .store(in: &cancellables)
         }
     }
 
@@ -82,29 +98,13 @@ final class ReviewListViewModel: ObservableObject {
         switch reviewType {
         case .all:
             showingReviews = allReviews
+            page = allpage
         case .purchased:
             showingReviews = purchasedReviews
+            page = purchasedPage
         case .notPurchased:
             showingReviews = notPurchasedReviews
-        }
-    }
-
-    func fetchMoreReviews(for visibilityScope: VisibilityScopeType,
-                          filter reviewType: ReviewType) {
-
-        var state: PaginationState
-
-        switch reviewType {
-        case .all:
-            state = allTypePagination
-        case .purchased:
-            state = purchasedTypePagination
-        case .notPurchased:
-            state = notPurchasedTypePagination
-        }
-
-        guard !state.isLastPage else {
-            return
+            page = notPurchasedPage
         }
     }
 }

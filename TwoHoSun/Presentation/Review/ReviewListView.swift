@@ -116,16 +116,20 @@ extension ReviewListView {
             NoReviewView()
                 .padding(.top, 100)
         } else {
-            ForEach(viewModel.showingReviews) { data in
+            ForEach(Array(viewModel.showingReviews.enumerated()), id: \.element.id) { index, data in
                 Button {
-                    // TODO: Review deail
+                    // TODO: Review detail
                 } label: {
                     VStack(spacing: 6) {
                         Divider()
                             .background(Color.dividerGray)
 
-                        ReviewCardCell(cellType: .otherReview,
-                                       data: data)
+                        ReviewCardCell(cellType: .otherReview, data: data)
+                    }
+                }
+                .onAppear {
+                    if index == viewModel.showingReviews.count - 2 {
+                        viewModel.send(action: .loadMoreReviews)
                     }
                 }
             }

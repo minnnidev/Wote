@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SummaryPostResponseObject: Codable, Identifiable {
+struct ReviewResponseObject: Codable, Identifiable {
     var id: Int
     var createDate: String
     var modifiedDate: String
@@ -32,7 +32,7 @@ struct SummaryPostResponseObject: Codable, Identifiable {
     }
 }
 
-extension SummaryPostResponseObject {
+extension ReviewResponseObject {
 
     func toSimpleModel() -> SimpleReviewModel {
         .init(
@@ -43,7 +43,7 @@ extension SummaryPostResponseObject {
         )
     }
 
-    func toModel() -> SummaryPostModel {
+    func toModel() -> ReviewModel {
         .init(
             id: id,
             createDate: createDate,

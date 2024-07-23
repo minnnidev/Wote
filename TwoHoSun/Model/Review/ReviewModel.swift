@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SummaryPostModel: Identifiable {
+struct ReviewModel: Identifiable {
     var id: Int
     var createDate: String
     var modifiedDate: String
@@ -26,9 +26,9 @@ struct SummaryPostModel: Identifiable {
     }
 }
 
-extension SummaryPostModel {
+extension ReviewModel {
 
-    static var summaryStub1: SummaryPostModel {
+    static var summaryStub1: ReviewModel {
         .init(
             id: 1,
             createDate: "",

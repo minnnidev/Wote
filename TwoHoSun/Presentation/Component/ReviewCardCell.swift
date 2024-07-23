@@ -15,7 +15,7 @@ enum ReviewCardCellType {
 
 struct ReviewCardCell: View {
     var cellType: ReviewCardCellType
-    var data: SummaryPostModel
+    var data: ReviewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

@@ -58,7 +58,7 @@ struct VoteCardCell: View {
 //        }
 //        return nil
 //    }
-    var data: SummaryPostModel
+    var data: ReviewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {

@@ -146,7 +146,7 @@ extension ReviewDetailView {
         }
     }
 
-    private func detailHeaderView(_ data: SummaryPostModel) -> some View {
+    private func detailHeaderView(_ data: ReviewModel) -> some View {
         VStack(spacing: 11) {
             HStack(spacing: 3) {
                 ProfileImageView(imageURL: data.author?.profileImage)
