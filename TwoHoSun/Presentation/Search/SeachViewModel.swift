@@ -8,21 +8,55 @@ import Combine
 import Foundation
 
 final class SearchViewModel: ObservableObject {
+
+    enum Action {
+        case searchWithQuery(String)
+        case clearSearchText
+    }
+
     @Published var searchHistory = [String]()
     @Published var searchedDatas: [ReviewModel] = []
     @Published var page = 0
-    @Published var showEmptyView = false
 
     @Published var searchText: String = ""
     @Published var selectedFilterType = PostStatus.active
 
     var isFetching = false
 
-    private var bag = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable> = []
 
     init() {
-        fetchRecentSearch()
+        bind()
     }
+
+    private func bind() {
+        $searchText
+            .removeDuplicates()
+            .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
+            .sink { text in
+                if text.isEmpty {
+                    // TODO:
+                } else {
+                    // TODO:
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    func send(action: Action) {
+
+        switch action {
+
+        case let .searchWithQuery(query):
+            // TODO:
+            return
+
+        case .clearSearchText:
+            searchText.removeAll()
+        }
+    }
+
+    // TODO: 최근 검색어 로직 UseCase로 이동
 
     func fetchRecentSearch() {
         guard let recentSearch = UserDefaults.standard.array(forKey: "RecentSearch") as? [String] else { return }

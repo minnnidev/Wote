@@ -79,11 +79,14 @@ extension SearchView {
             .tint(Color.placeholderGray)
             .frame(height: 32)
             .padding(.leading, 16)
+            .onSubmit {
+                viewModel.send(action: .searchWithQuery(viewModel.searchText))
+            }
 
             Spacer()
 
             Button {
-
+                viewModel.send(action: .clearSearchText)
             } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 12))
