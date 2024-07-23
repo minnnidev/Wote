@@ -57,6 +57,11 @@ struct SearchView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
+        }
     }
 }
 

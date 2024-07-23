@@ -23,6 +23,7 @@ final class SearchViewModel: ObservableObject {
     @Published var visibilityScope: VisibilityScopeType = .global
     @Published var voteResults: [VoteModel] = []
     @Published var reviewResults: [ReviewModel] = []
+    @Published var isLoading: Bool = false
 
     private var page = 0
 
@@ -52,6 +53,8 @@ final class SearchViewModel: ObservableObject {
     }
 
     private func loadResults(at page: Int, of size: Int, query: String, isFirstLoad: Bool) {
+        if isFirstLoad { isLoading = true }
+
         switch selectedFilterType {
 
         case .review:
@@ -66,6 +69,7 @@ final class SearchViewModel: ObservableObject {
                 guard let self = self else { return }
 
                 if isFirstLoad {
+                    isLoading = false
                     reviewResults = reviews
                 } else {
                     reviewResults.append(contentsOf: reviews)
@@ -86,6 +90,7 @@ final class SearchViewModel: ObservableObject {
                 guard let self = self else { return }
 
                 if isFirstLoad {
+                    isLoading = false
                     voteResults = votes
                 } else {
                     voteResults.append(contentsOf: votes)
