@@ -163,6 +163,7 @@ extension SearchView {
                 FilterButton(title: filter.filterTitle,
                              isSelected: viewModel.selectedFilterType == filter) {
                     viewModel.selectedFilterType = filter
+                    viewModel.send(action: .searchWithQuery(viewModel.searchText))
                 }
             }
         }

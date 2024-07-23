@@ -23,6 +23,7 @@ struct VoteModel: Identifiable {
     var price: Int?
     var voteCounts: VoteCountsModel?
     var voteInfoList: [VoteInfoModel]?
+    var voteResult: String?
     var myChoice: Bool?
     var isMine: Bool?
     var hasReview: Bool?
@@ -48,6 +49,7 @@ extension VoteModel {
         self.price = post.price
         self.voteCounts = post.voteCounts
         self.voteInfoList = post.voteInfoList
+        self.voteResult = post.voteResult
         self.myChoice = post.myChoice
         self.isMine = post.isMine
         self.hasReview = post.hasReview
@@ -90,6 +92,7 @@ extension VoteModel {
             price: 1000,
             voteCounts: VoteCountsModel.voteCountsStub1,
             voteInfoList: VoteInfoModel.voteInfoStub1,
+            voteResult: "BUY",
             myChoice: nil,
             isMine: false,
             agreeRatio: 0.5,

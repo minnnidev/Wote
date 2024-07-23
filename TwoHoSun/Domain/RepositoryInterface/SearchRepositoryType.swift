@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Combine
 
 protocol SearchRepositoryType {
-    
+    func getVoteResults(scope: VisibilityScopeType, postStatus: PostStatus, page: Int, size: Int, keyword: String) -> AnyPublisher<[VoteModel], WoteError>
+    func getReviewResults(scope: VisibilityScopeType, page: Int, size: Int, keyword: String) -> AnyPublisher<[ReviewModel], WoteError>
 }

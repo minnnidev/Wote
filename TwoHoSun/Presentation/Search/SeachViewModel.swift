@@ -21,6 +21,8 @@ final class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var selectedFilterType = PostStatus.active
 
+    @Published var visibilityScope: VisibilityScopeType = .global
+
     var isFetching = false
 
     private var cancellables: Set<AnyCancellable> = []
@@ -28,22 +30,6 @@ final class SearchViewModel: ObservableObject {
 
     init(searchUseCase: SearchUseCaseType) {
         self.searchUseCase = searchUseCase
-        
-        bind()
-    }
-
-    private func bind() {
-        $searchText
-            .removeDuplicates()
-            .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
-            .sink { text in
-                if text.isEmpty {
-                    // TODO:
-                } else {
-                    // TODO:
-                }
-            }
-            .store(in: &cancellables)
     }
 
     func send(action: Action) {
@@ -51,8 +37,49 @@ final class SearchViewModel: ObservableObject {
         switch action {
 
         case let .searchWithQuery(query):
-            // TODO:
-            return
+            switch selectedFilterType {
+
+            case .active:
+                searchUseCase.searchVoteResult(
+                    voteStatus: .active,
+                    scope: visibilityScope,
+                    page: 0,
+                    size: 10,
+                    keyword: query
+                )
+                .sink { _ in
+                } receiveValue: { activeVotes in
+      
+                }
+                .store(in: &cancellables)
+
+            case .closed:
+                searchUseCase.searchVoteResult(
+                    voteStatus: .closed,
+                    scope: visibilityScope,
+                    page: 0,
+                    size: 10,
+                    keyword: query
+                )
+                .sink { _ in
+                } receiveValue: { closedVotes in
+
+                }
+                .store(in: &cancellables)
+
+            case .review:
+                searchUseCase.searchReviewResult(
+                    scope: visibilityScope,
+                    page: 0,
+                    size: 10,
+                    keyword: query
+                )
+                .sink { _ in
+                } receiveValue: { reviews in
+
+                }
+                .store(in: &cancellables)
+            }
 
         case .clearSearchText:
             searchText.removeAll()

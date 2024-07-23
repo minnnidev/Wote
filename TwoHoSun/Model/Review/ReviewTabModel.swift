@@ -19,9 +19,9 @@ extension ReviewTabModel {
     static var reviewTabStub1: ReviewTabModel {
         .init(
             recentReviews: [.stub1],
-            allReviews: [.summaryStub1],
-            purchasedReviews: [.summaryStub1],
-            notPurchasedReviews: [.summaryStub1]
+            allReviews: [.reviewStub1],
+            purchasedReviews: [.reviewStub1],
+            notPurchasedReviews: [.reviewStub1]
         )
     }
 }

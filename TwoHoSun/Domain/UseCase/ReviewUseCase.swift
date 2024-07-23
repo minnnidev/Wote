@@ -59,7 +59,7 @@ final class StubReviewUseCase: ReviewUseCaseType {
         size: Int,
         reviewType: ReviewType
     ) -> AnyPublisher<[ReviewModel], WoteError> {
-        Just([ReviewModel.summaryStub1])
+        Just([ReviewModel.reviewStub1])
             .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }
