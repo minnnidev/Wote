@@ -146,7 +146,7 @@ extension ReviewDetailView {
         }
     }
 
-    private func detailHeaderView(_ data: SummaryPostModel) -> some View {
+    private func detailHeaderView(_ data: ReviewModel) -> some View {
         VStack(spacing: 11) {
             HStack(spacing: 3) {
                 ProfileImageView(imageURL: data.author?.profileImage)
@@ -173,9 +173,9 @@ extension ReviewDetailView {
             Button {
                 // TODO: 투표 게시글 상세 조회로 이동
             } label: {
-                VoteCardCell(cellType: .simple,
-                             progressType: .closed,
-                             data: data)
+//                VoteCardCell(cellType: .simple,
+//                             progressType: .closed,
+//                             data: data)
             }
         }
     }

@@ -236,7 +236,7 @@ extension MyPageView {
     private var myPageListTypeView: some View {
         switch viewModel.selectedMyPageListType {
         case .myVote:
-            let myPosts: [SummaryPostModel] = [.init(id: 1,
+            let myPosts: [ReviewModel] = [.init(id: 1,
                                                      createDate: "",
                                                      modifiedDate: "",
                                                      postStatus: "CLOSED",
@@ -263,7 +263,7 @@ extension MyPageView {
             .padding(.horizontal, 8)
 
         case .myReview:
-            let myReviews: [SummaryPostModel] = [.init(id: 2,
+            let myReviews: [ReviewModel] = [.init(id: 2,
                                                        createDate: "",
                                                        modifiedDate: "",
                                                        postStatus: "CLOSED",

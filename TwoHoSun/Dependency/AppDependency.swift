@@ -21,7 +21,8 @@ class AppDependency: ObservableObject {
         let assemblies: [Assembly] = [
             AuthAssembly(),
             UserAssmbly(),
-            VoteAssembly() 
+            VoteAssembly(),
+            ReviewAssembly()
         ]
 
         assemblies.forEach { $0.assemble(container: container) }

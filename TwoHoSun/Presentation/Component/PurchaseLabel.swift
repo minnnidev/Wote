@@ -14,8 +14,8 @@ struct PurchaseLabel: View {
         Text(isPurchased ? "샀다" : "안샀다")
             .font(.system(size: 12, weight: .medium))
             .foregroundStyle(.white)
-            .padding(.vertical, 4)
-            .padding(.horizontal, 5)
+            .padding(.vertical, 2)
+            .padding(.horizontal, 3)
             .background(Color.lightBlue)
             .clipShape(RoundedRectangle(cornerRadius: 3))
     }

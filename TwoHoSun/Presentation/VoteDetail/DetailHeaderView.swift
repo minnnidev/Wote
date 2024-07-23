@@ -165,11 +165,11 @@ struct DetailHeaderView: View {
         case .myPostWithoutReview:
             let data = post.post
             guard let voteCounts = data.voteCounts else { return }
-            let summaryPost = SummaryPostModel(id: data.id,
+            let summaryPost = ReviewModel(id: data.id,
                                                createDate: data.createDate,
                                                modifiedDate: data.modifiedDate,
                                                postStatus: data.postStatus,
-                                               voteResult: calculateVoteResult(voteCounts),
+//                                               voteResult: calculateVoteResult(voteCounts),
                                                title: data.title,
                                                image: data.image,
                                                contents: data.contents,
