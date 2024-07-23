@@ -10,9 +10,11 @@ import Foundation
 final class SearchViewModel: ObservableObject {
     @Published var searchHistory = [String]()
     @Published var searchedDatas: [ReviewModel] = []
-    @Published var selectedFilterType = PostStatus.active
     @Published var page = 0
     @Published var showEmptyView = false
+
+    @Published var searchText: String = ""
+    @Published var selectedFilterType = PostStatus.active
 
     var isFetching = false
 
