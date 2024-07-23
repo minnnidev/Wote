@@ -137,7 +137,7 @@ extension ReviewListView {
 
 #Preview {
     ReviewListView(
-        viewModel: .init()
+        viewModel: .init(reviewUseCase: StubReviewUseCase())
     )
     .environmentObject(NavigationRouter())
 }

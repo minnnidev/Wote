@@ -50,6 +50,10 @@
 		AB481C5C2C4F64100030C614 /* ReviewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C5B2C4F64100030C614 /* ReviewAssembly.swift */; };
 		AB481C5E2C4F66A50030C614 /* SimpleReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C5D2C4F66A50030C614 /* SimpleReviewCell.swift */; };
 		AB481C612C4F6AB30030C614 /* SimpleReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C602C4F6AB30030C614 /* SimpleReviewModel.swift */; };
+		AB481C632C4F6FB90030C614 /* ReviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C622C4F6FB90030C614 /* ReviewDataSource.swift */; };
+		AB481C652C4F6FDE0030C614 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C642C4F6FDE0030C614 /* ReviewRepository.swift */; };
+		AB481C672C4F6FEB0030C614 /* ReviewRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C662C4F6FEB0030C614 /* ReviewRepositoryType.swift */; };
+		AB481C692C4F70160030C614 /* ReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C682C4F70160030C614 /* ReviewUseCase.swift */; };
 		AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */; };
 		AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */; };
 		AB53CA6D2AF7AC4100FD850A /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */; };
@@ -229,6 +233,10 @@
 		AB481C5B2C4F64100030C614 /* ReviewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAssembly.swift; sourceTree = "<group>"; };
 		AB481C5D2C4F66A50030C614 /* SimpleReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewCell.swift; sourceTree = "<group>"; };
 		AB481C602C4F6AB30030C614 /* SimpleReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewModel.swift; sourceTree = "<group>"; };
+		AB481C622C4F6FB90030C614 /* ReviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDataSource.swift; sourceTree = "<group>"; };
+		AB481C642C4F6FDE0030C614 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
+		AB481C662C4F6FEB0030C614 /* ReviewRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepositoryType.swift; sourceTree = "<group>"; };
+		AB481C682C4F70160030C614 /* ReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUseCase.swift; sourceTree = "<group>"; };
 		AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermAgreeType.swift; sourceTree = "<group>"; };
 		AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -484,6 +492,7 @@
 				AB25072B2C3C5382009B0A3C /* AuthDataSource.swift */,
 				AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */,
 				ABC1CDCB2C464CC20054E74C /* VoteDataSource.swift */,
+				AB481C622C4F6FB90030C614 /* ReviewDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -593,6 +602,7 @@
 				AB2507482C3E4441009B0A3C /* UserUseCase.swift */,
 				AB57B8372C44E5BA00CB11C6 /* PhotoUseCase.swift */,
 				ABC1CDC52C464C380054E74C /* VoteUseCase.swift */,
+				AB481C682C4F70160030C614 /* ReviewUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -603,6 +613,7 @@
 				AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */,
 				AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */,
 				ABC1CDC72C464C690054E74C /* VoteRepositoryType.swift */,
+				AB481C662C4F6FEB0030C614 /* ReviewRepositoryType.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -613,6 +624,7 @@
 				AB2507032C3B0484009B0A3C /* AuthRepository.swift */,
 				ABC981912C43EF1500B65F00 /* UserRepository.swift */,
 				ABC1CDC92C464C810054E74C /* VoteRepository.swift */,
+				AB481C642C4F6FDE0030C614 /* ReviewRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1086,6 +1098,7 @@
 				ABDED8852B00B17F00D78BEA /* VoteWriteViewModel.swift in Sources */,
 				ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */,
 				ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */,
+				AB481C672C4F6FEB0030C614 /* ReviewRepositoryType.swift in Sources */,
 				AB76E2322C4793DA00204A22 /* ChooseRequestObject.swift in Sources */,
 				C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */,
 				AB2507152C3BF830009B0A3C /* Tokens.swift in Sources */,
@@ -1099,6 +1112,7 @@
 				ABF0644A2B15177A00C45E73 /* WoteTabHandler.swift in Sources */,
 				AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */,
 				AB25072C2C3C5382009B0A3C /* AuthDataSource.swift in Sources */,
+				AB481C632C4F6FB90030C614 /* ReviewDataSource.swift in Sources */,
 				AB76E22E2C46A8F100204A22 /* VoteDetailResponseObject.swift in Sources */,
 				ABC981922C43EF1500B65F00 /* UserRepository.swift in Sources */,
 				FD7624A02AF954980079AEEF /* GeneralResponse.swift in Sources */,
@@ -1155,6 +1169,7 @@
 				ABC1CDCE2C464CE10054E74C /* VoteAssembly.swift in Sources */,
 				AB2507492C3E4441009B0A3C /* UserUseCase.swift in Sources */,
 				AB38A1CD2B0D5580004153B5 /* ReviewDetailModel.swift in Sources */,
+				AB481C652C4F6FDE0030C614 /* ReviewRepository.swift in Sources */,
 				ABC1CDD22C464F9A0054E74C /* PostResponseObject.swift in Sources */,
 				FDF2D6D02AE5E62B0027EE8F /* ChartModel.swift in Sources */,
 				C7A95F112B01FFBA00F8595A /* NewApiManager.swift in Sources */,
@@ -1200,6 +1215,7 @@
 				C7DE44BD2AE0DCE7001639CB /* CommentCell.swift in Sources */,
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
 				C768F1A32AE656570020F82C /* SchoolModel.swift in Sources */,
+				AB481C692C4F70160030C614 /* ReviewUseCase.swift in Sources */,
 				ABBBC67C2AE49CC800B1E614 /* VoteCreateRequestObject.swift in Sources */,
 				AB25071D2C3BFA86009B0A3C /* AuthAPI.swift in Sources */,
 				FD9DDB6C2B06F746006D738A /* SummaryPostModel.swift in Sources */,

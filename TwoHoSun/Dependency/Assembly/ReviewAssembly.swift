@@ -14,16 +14,28 @@ final class ReviewAssembly: Assembly {
     func assemble(container: Container) {
 
         // MARK: ViewModels
-        container.register(ReviewListViewModel.self) { _ in
-            ReviewListViewModel()
+        
+        container.register(ReviewListViewModel.self) { res in
+            ReviewListViewModel(reviewUseCase: res.resolve(ReviewUseCaseType.self)!)
         }
 
         // MARK: UseCases
 
+        container.register(ReviewUseCaseType.self) { res in
+            ReviewUseCase(reviewRepository: res.resolve(ReviewRepositoryType.self)!)
+        }
+
         // MARK: Repositories
 
-        // MARK: DataSource
+        container.register(ReviewRepositoryType.self) { res in
+            ReviewRepository(reviewDataSource: res.resolve(ReviewDataSourceType.self)!)
+        }
 
+        // MARK: DataSource
+        
+        container.register(ReviewDataSourceType.self) { res in
+            ReviewDataSource(provider: NetworkProvider.shared)
+        }
     }
 }
 

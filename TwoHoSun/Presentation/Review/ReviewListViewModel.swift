@@ -37,6 +37,12 @@ final class ReviewListViewModel: ObservableObject {
     private var purchasedTypePagination = PaginationState()
     private var notPurchasedTypePagination = PaginationState()
 
+    private let reviewUseCase: ReviewUseCaseType
+
+    init(reviewUseCase: ReviewUseCaseType) {
+        self.reviewUseCase = reviewUseCase
+    }
+
     func send(action: Action) {
         switch action {
 
