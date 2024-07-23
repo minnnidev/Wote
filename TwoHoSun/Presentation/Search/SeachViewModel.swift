@@ -77,7 +77,7 @@ final class SearchViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
-        default:
+        case .active, .closed:
             searchUseCase.searchVoteResult(
                 voteStatus: selectedFilterType,
                 scope: visibilityScope,

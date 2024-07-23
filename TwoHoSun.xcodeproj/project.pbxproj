@@ -65,6 +65,8 @@
 		AB4AA95F2C4FD7D2008825CB /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA95E2C4FD7D2008825CB /* SearchAPI.swift */; };
 		AB4AA9622C4FD8AE008825CB /* SearchRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA9612C4FD8AE008825CB /* SearchRequestObject.swift */; };
 		AB4AA9642C4FD8F9008825CB /* SearchResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA9632C4FD8F9008825CB /* SearchResponseObject.swift */; };
+		AB4AA9662C4FFEC5008825CB /* VoteSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA9652C4FFEC5008825CB /* VoteSearchResultCell.swift */; };
+		AB4AA9682C500151008825CB /* ReviewSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA9672C500151008825CB /* ReviewSearchResultCell.swift */; };
 		AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */; };
 		AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */; };
 		AB53CA6D2AF7AC4100FD850A /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */; };
@@ -262,6 +264,8 @@
 		AB4AA95E2C4FD7D2008825CB /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		AB4AA9612C4FD8AE008825CB /* SearchRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequestObject.swift; sourceTree = "<group>"; };
 		AB4AA9632C4FD8F9008825CB /* SearchResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseObject.swift; sourceTree = "<group>"; };
+		AB4AA9652C4FFEC5008825CB /* VoteSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteSearchResultCell.swift; sourceTree = "<group>"; };
+		AB4AA9672C500151008825CB /* ReviewSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchResultCell.swift; sourceTree = "<group>"; };
 		AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermAgreeType.swift; sourceTree = "<group>"; };
 		AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -617,6 +621,8 @@
 			children = (
 				FDDEC15A2AE3EABA004509EA /* SearchView.swift */,
 				ABBEEAF42AE64F7900F6D918 /* SeachViewModel.swift */,
+				AB4AA9652C4FFEC5008825CB /* VoteSearchResultCell.swift */,
+				AB4AA9672C500151008825CB /* ReviewSearchResultCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1215,6 +1221,7 @@
 				AB7FE89C2C3EB0E200EDED20 /* ErrorAlertView.swift in Sources */,
 				C73F8E902AE562FE001C6B07 /* Date+.swift in Sources */,
 				FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */,
+				AB4AA9682C500151008825CB /* ReviewSearchResultCell.swift in Sources */,
 				AB38A10B2B077DEE004153B5 /* VoteResultView.swift in Sources */,
 				AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */,
 				ABA1E8402AFD5841009051E0 /* VoteListView.swift in Sources */,
@@ -1299,6 +1306,7 @@
 				AB25071D2C3BFA86009B0A3C /* AuthAPI.swift in Sources */,
 				FD9DDB6C2B06F746006D738A /* ReviewResponseObject.swift in Sources */,
 				AB6845B62AFC147D00C3F7C2 /* TypeTestViewModel.swift in Sources */,
+				AB4AA9662C4FFEC5008825CB /* VoteSearchResultCell.swift in Sources */,
 				5E5099732AFBE3AF0053E529 /* ParticleView.swift in Sources */,
 				AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */,
 				AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */,

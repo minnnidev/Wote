@@ -187,13 +187,11 @@ extension SearchView {
                         Button {
                             // TODO: Review Detail로 이동
                         } label: {
-                            // TODO: Review Cell
-                            Text("\(index)")
-                                .foregroundStyle(Color.white)
+                            ReviewSearchResultCell(review: data)
                         }
                         .onAppear {
                             if index == viewModel.reviewResults.count - 4 {
-//                                viewModel.send(action: .loadMoereResults(viewModel.searchText))
+                                viewModel.send(action: .loadMoereResults(viewModel.searchText))
                             }
                         }
                     }
@@ -212,9 +210,7 @@ extension SearchView {
                         Button {
                             // TODO: Vote Detail로 이동
                         } label: {
-                            // TODO: Vote Cell
-                            Text("\(index)")
-                                .foregroundStyle(Color.white)
+                            VoteSearchResultCell(vote: data)
                         }
                         .onAppear {
                             if index == viewModel.voteResults.count - 4 {
