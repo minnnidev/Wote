@@ -12,7 +12,7 @@ struct SearchView: View {
 
     @FocusState private var isFocused: Bool
 
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject var viewModel: SearchViewModel
 
     var body: some View {
         ZStack {
@@ -229,5 +229,5 @@ extension SearchView {
 }
 
 #Preview {
-    SearchView()
+    SearchView(viewModel: .init(searchUseCase: StubSearchUseCase()))
 }

@@ -24,8 +24,11 @@ final class SearchViewModel: ObservableObject {
     var isFetching = false
 
     private var cancellables: Set<AnyCancellable> = []
+    private let searchUseCase: SearchUseCaseType
 
-    init() {
+    init(searchUseCase: SearchUseCaseType) {
+        self.searchUseCase = searchUseCase
+        
         bind()
     }
 

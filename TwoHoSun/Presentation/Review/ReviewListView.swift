@@ -22,7 +22,9 @@ struct ReviewListView: View {
                 WoteNavigationBar(
                     selectedTab: .constant(.review),
                     visibilityScope: $viewModel.visibilityScope,
-                    router: reviewRouter
+                    tapSearchButton: {
+                        reviewRouter.push(to: ReviewTabDestination.search)
+                    }
                 )
 
                 ScrollView {
@@ -68,6 +70,10 @@ struct ReviewListView: View {
                 ReviewDetailView(
                     viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
                 )
+
+            case .search:
+                SearchView(viewModel: appDependency.container.resolve(SearchViewModel.self)!)
+                    .environmentObject(reviewRouter)
             }
         }
     }

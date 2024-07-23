@@ -40,10 +40,12 @@ enum AllNavigation: Decodable, Hashable {
 enum VoteTabDestination: Hashable {
     case voteDetail(postId: Int)
     case voteWrite
+    case search
 }
 
 enum ReviewTabDestination: Hashable {
     case reviewDetail(postId: Int)
+    case search
 }
 
 final class NavigationRouter: ObservableObject {
