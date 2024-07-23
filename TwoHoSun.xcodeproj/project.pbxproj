@@ -827,7 +827,7 @@
 			path = EnumType;
 			sourceTree = "<group>";
 		};
-		C7DE44B92AE0BB4E001639CB /* Detail */ = {
+		C7DE44B92AE0BB4E001639CB /* VoteDetail */ = {
 			isa = PBXGroup;
 			children = (
 				ABB71D792AE2A64300BE0671 /* LinkView.swift */,
@@ -835,7 +835,7 @@
 				ABE51ED02B054ED5009C6CA5 /* DetailHeaderView.swift */,
 				AB38A1C62B0BE1BD004153B5 /* DetailViewModel.swift */,
 			);
-			path = Detail;
+			path = VoteDetail;
 			sourceTree = "<group>";
 		};
 		C7DE44C02AE260F8001639CB /* Extension */ = {
@@ -858,7 +858,6 @@
 		C7E459D42AE01FE300ECD008 /* Vote */ = {
 			isa = PBXGroup;
 			children = (
-				C7DE44B92AE0BB4E001639CB /* Detail */,
 				ABA1E83F2AFD5841009051E0 /* VoteListView.swift */,
 				AB38A10A2B077DEE004153B5 /* VoteResultView.swift */,
 				ABA1E82C2AFD0CD5009051E0 /* VoteContentCell.swift */,
@@ -960,6 +959,7 @@
 				ABFEBD3C2C378C8D00367389 /* MainTab */,
 				AB6845AE2AFC142600C3F7C2 /* TypeTest */,
 				C7E459D42AE01FE300ECD008 /* Vote */,
+				C7DE44B92AE0BB4E001639CB /* VoteDetail */,
 				ABBFB6332AE43561006CE8CA /* VoteWrite */,
 				ABFEBD622C3795CA00367389 /* Review */,
 				ABA1E8442AFD5C0B009051E0 /* ReviewWrite */,
