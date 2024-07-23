@@ -47,6 +47,9 @@
 		AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */; };
 		AB4522562ADDDBC400B69F24 /* SchoolResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522552ADDDBC400B69F24 /* SchoolResponseObject.swift */; };
 		AB45225A2ADDDC9E00B69F24 /* SchoolSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522592ADDDC9E00B69F24 /* SchoolSearchViewModel.swift */; };
+		AB481C5C2C4F64100030C614 /* ReviewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C5B2C4F64100030C614 /* ReviewAssembly.swift */; };
+		AB481C5E2C4F66A50030C614 /* SimpleReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C5D2C4F66A50030C614 /* SimpleReviewCell.swift */; };
+		AB481C612C4F6AB30030C614 /* SimpleReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C602C4F6AB30030C614 /* SimpleReviewModel.swift */; };
 		AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */; };
 		AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */; };
 		AB53CA6D2AF7AC4100FD850A /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */; };
@@ -223,6 +226,9 @@
 		AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchView.swift; sourceTree = "<group>"; };
 		AB4522552ADDDBC400B69F24 /* SchoolResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolResponseObject.swift; sourceTree = "<group>"; };
 		AB4522592ADDDC9E00B69F24 /* SchoolSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchViewModel.swift; sourceTree = "<group>"; };
+		AB481C5B2C4F64100030C614 /* ReviewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAssembly.swift; sourceTree = "<group>"; };
+		AB481C5D2C4F66A50030C614 /* SimpleReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewCell.swift; sourceTree = "<group>"; };
+		AB481C602C4F6AB30030C614 /* SimpleReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewModel.swift; sourceTree = "<group>"; };
 		AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermAgreeType.swift; sourceTree = "<group>"; };
 		AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -519,6 +525,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		AB481C5F2C4F6AA60030C614 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				AB481C602C4F6AB30030C614 /* SimpleReviewModel.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		AB4D82662ADD7F3700F35CCB /* ProfileSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,6 +581,7 @@
 				AB8D1E162C3AFEC500D333AC /* AuthAssembly.swift */,
 				AB7FE8862C3E46B700EDED20 /* UserAssmbly.swift */,
 				ABC1CDCD2C464CE10054E74C /* VoteAssembly.swift */,
+				AB481C5B2C4F64100030C614 /* ReviewAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -725,6 +740,7 @@
 				ABFEBD5F2C3795CA00367389 /* ReviewDetailViewModel.swift */,
 				ABFEBD602C3795CA00367389 /* ReviewListViewModel.swift */,
 				ABFEBD612C3795CA00367389 /* ReviewListView.swift */,
+				AB481C5D2C4F66A50030C614 /* SimpleReviewCell.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -892,6 +908,7 @@
 				AB25071A2C3BFA64009B0A3C /* Auth */,
 				AB44D2252C3FDDE80011000F /* Profile */,
 				ABC1CDCF2C464F6F0054E74C /* Vote */,
+				AB481C5F2C4F6AA60030C614 /* Review */,
 				AB2507132C3BF7A7009B0A3C /* Prev */,
 			);
 			path = Model;
@@ -1075,7 +1092,10 @@
 				ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */,
 				C7EFA7D92AF9279200C9BEA0 /* ComplaintView.swift in Sources */,
 				AB7317EC2AF90F40008B5E41 /* ProfileSettingViewModel.swift in Sources */,
+				AB481C612C4F6AB30030C614 /* SimpleReviewModel.swift in Sources */,
 				AB7317EA2AF90F00008B5E41 /* UIColor+.swift in Sources */,
+				AB481C5C2C4F64100030C614 /* ReviewAssembly.swift in Sources */,
+				AB481C5E2C4F66A50030C614 /* SimpleReviewCell.swift in Sources */,
 				ABF0644A2B15177A00C45E73 /* WoteTabHandler.swift in Sources */,
 				AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */,
 				AB25072C2C3C5382009B0A3C /* AuthDataSource.swift in Sources */,

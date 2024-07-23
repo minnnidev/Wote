@@ -21,12 +21,15 @@ class PaginationState {
 final class ReviewListViewModel: ObservableObject {
 
     enum Action {
+        case loadRecentReviews
         case loadReviews
         case loadMoreReviews
     }
 
     @Published var consumerType: ConsumerType?
     @Published var reviewType: ReviewType = ReviewType.all
+    @Published var visibilityScope: VisibilityScopeType = .global
+    @Published var recentReviews: [SimpleReviewModel] = []
 
     private var cancellables: Set<AnyCancellable> = []
     
@@ -37,8 +40,11 @@ final class ReviewListViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
 
+        case .loadRecentReviews:
+            return
+
         case .loadReviews:
-            return 
+            return
 
         case .loadMoreReviews:
             return

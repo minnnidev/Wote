@@ -8,36 +8,42 @@
 import SwiftUI
 
 struct ReviewListView: View {
-    @State private var didFinishSetup = false
+    @EnvironmentObject var reviewRouter: NavigationRouter
 
-    @Binding var visibilityScope: VisibilityScopeType
-
-    @StateObject var viewModel = ReviewListViewModel()
+    @StateObject var viewModel: ReviewListViewModel
 
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
 
-            ScrollView {
-                sameSpendTypeReviewView()
-                    .padding(.top, 24)
-                    .padding(.bottom, 20)
-                    .padding(.leading, 24)
+            VStack(spacing: 0) {
+                WoteNavigationBar(
+                    selectedTab: .constant(.review),
+                    visibilityScope: $viewModel.visibilityScope,
+                    router: reviewRouter
+                )
 
-                ScrollViewReader { proxy in
-                    LazyVStack(pinnedViews: .sectionHeaders) {
-                        Section {
-                            reviewListView(for: viewModel.reviewType)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 8)
-                        } header: {
-                            reviewFilterView
+                ScrollView {
+                    sameSpendTypeReviewView()
+                        .padding(.top, 24)
+                        .padding(.bottom, 20)
+                        .padding(.leading, 24)
+
+                    ScrollViewReader { proxy in
+                        LazyVStack(pinnedViews: .sectionHeaders) {
+                            Section {
+                                reviewListView(for: viewModel.reviewType)
+                                    .padding(.leading, 16)
+                                    .padding(.trailing, 8)
+                            } header: {
+                                reviewFilterView
+                            }
+                            .id("reviewTypeSection")
                         }
-                        .id("reviewTypeSection")
-                    }
-                    .onChange(of: viewModel.reviewType) { _ in
-                        proxy.scrollTo("reviewTypeSection", anchor: .top)
+                        .onChange(of: viewModel.reviewType) { _ in
+                            proxy.scrollTo("reviewTypeSection", anchor: .top)
+                        }
                     }
                 }
             }
@@ -68,42 +74,17 @@ extension ReviewListView {
             }
             ScrollView(.horizontal) {
                 HStack(spacing: 10) {
-                    Button {
-
-                    } label: {
-                        // TODO: Simple Review Cells
+                    ForEach(viewModel.recentReviews, id: \.id) { review in
+                        Button {
+                            // TODO: Detail View로 이동
+                        } label: {
+                            SimpleReviewCell(data: review)
+                        }
                     }
                 }
             }
         }
         .scrollIndicators(.hidden)
-    }
-
-    private func simpleReviewCell(title: String,
-                                  content: String?,
-                                  isPurchased: Bool?) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 4) {
-                PurchaseLabel(isPurchased: isPurchased ?? false)
-
-                Text(title)
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundStyle(.white)
-                    .lineLimit(1)
-                Spacer()
-            }
-            .padding(.horizontal, 20)
-
-            Text(content ?? "")
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(.white)
-                .lineLimit(1)
-                .padding(.horizontal, 20)
-        }
-        .frame(width: 268)
-        .padding(.vertical, 20)
-        .background(Color.disableGray)
-        .clipShape(.rect(cornerRadius: 12))
     }
 
     private var reviewFilterView: some View {
@@ -144,7 +125,7 @@ extension ReviewListView {
                     }
                     .onAppear {
                         if index == datas.count - 2 {
-                            viewModel.fetchMoreReviews(for: visibilityScope,
+                            viewModel.fetchMoreReviews(for: .global,
                                                        filter: filter)
                         }
                     }
@@ -155,5 +136,8 @@ extension ReviewListView {
 }
 
 #Preview {
-    ReviewListView(visibilityScope: .constant(.global))
+    ReviewListView(
+        viewModel: .init()
+    )
+    .environmentObject(NavigationRouter())
 }
