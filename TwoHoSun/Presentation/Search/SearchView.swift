@@ -220,9 +220,9 @@ extension SearchView {
                         Button {
                             // TODO: Review Detail로 이동
                         } label: {
-                            VoteCardCell(cellType: .standard,
-                                         progressType: .closed,
-                                         data: data)
+//                            VoteCardCell(cellType: .standard,
+//                                         progressType: .closed,
+//                                         data: data)
                         }
                         .onAppear {
                             if index == viewModel.searchedDatas.count - 4 {
@@ -249,9 +249,9 @@ extension SearchView {
                         Button {
                             // TODO: Vote Detail로 이동
                         } label: {
-                            VoteCardCell(cellType: .standard,
-                                         progressType: .closed,
-                                         data: data)
+//                            VoteCardCell(cellType: .standard,
+//                                         progressType: .closed,
+//                                         data: data)
                         }
                         .onAppear {
                             if index == viewModel.searchedDatas.count - 4 {
