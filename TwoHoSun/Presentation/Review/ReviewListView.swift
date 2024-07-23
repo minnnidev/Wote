@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ReviewListView: View {
     @State private var didFinishSetup = false
-    @State private var reviewType = ReviewType.all
 
     @Binding var visibilityScope: VisibilityScopeType
 
@@ -25,10 +24,11 @@ struct ReviewListView: View {
                     .padding(.top, 24)
                     .padding(.bottom, 20)
                     .padding(.leading, 24)
+
                 ScrollViewReader { proxy in
                     LazyVStack(pinnedViews: .sectionHeaders) {
                         Section {
-                            reviewListView(for: reviewType)
+                            reviewListView(for: viewModel.reviewType)
                                 .padding(.leading, 16)
                                 .padding(.trailing, 8)
                         } header: {
@@ -36,26 +36,19 @@ struct ReviewListView: View {
                         }
                         .id("reviewTypeSection")
                     }
-//                    .onChange(of: reviewType) { _, _ in
-//                        proxy.scrollTo("reviewTypeSection", anchor: .top)
-//                    }
+                    .onChange(of: viewModel.reviewType) { _ in
+                        proxy.scrollTo("reviewTypeSection", anchor: .top)
+                    }
                 }
             }
         }
         .toolbarBackground(Color.background, for: .tabBar)
         .scrollIndicators(.hidden)
         .refreshable {
-            viewModel.fetchReviews(for: visibilityScope)
+            // TODO:
         }
-//        .onChange(of: visibilityScope) { _, newScope in
-//            viewModel.fetchReviews(for: newScope)
-//            reviewType = .all
-//        }
         .onAppear {
-            if !didFinishSetup {
-                viewModel.fetchReviews(for: .global)
-                didFinishSetup = true
-            }
+            // TODO:
         }
     }
 }
@@ -92,6 +85,7 @@ extension ReviewListView {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 4) {
                 PurchaseLabel(isPurchased: isPurchased ?? false)
+
                 Text(title)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundStyle(.white)
@@ -99,6 +93,7 @@ extension ReviewListView {
                 Spacer()
             }
             .padding(.horizontal, 20)
+
             Text(content ?? "")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(.white)
@@ -115,10 +110,10 @@ extension ReviewListView {
         HStack(spacing: 8) {
             ForEach(ReviewType.allCases, id: \.self) { reviewType in
                 FilterButton(title: reviewType.title,
-                             isSelected: self.reviewType == reviewType,
+                             isSelected: viewModel.reviewType == reviewType,
                              selectedBackgroundColor: Color.white,
                              selectedForegroundColor: Color.black) {
-                    self.reviewType = reviewType
+                    viewModel.reviewType = reviewType
                 }
             }
             Spacer()
@@ -143,6 +138,7 @@ extension ReviewListView {
                     VStack(spacing: 6) {
                         Divider()
                             .background(Color.dividerGray)
+                        
                         ReviewCardCell(cellType: .otherReview,
                                        data: data)
                     }
@@ -156,4 +152,8 @@ extension ReviewListView {
             }
         }
     }
+}
+
+#Preview {
+    ReviewListView(visibilityScope: .constant(.global))
 }

@@ -19,22 +19,30 @@ class PaginationState {
 }
 
 final class ReviewListViewModel: ObservableObject {
-    
+
+    enum Action {
+        case loadReviews
+        case loadMoreReviews
+    }
+
     @Published var consumerType: ConsumerType?
-    @Published var isFetching = true
+    @Published var reviewType: ReviewType = ReviewType.all
+
+    private var cancellables: Set<AnyCancellable> = []
     
-    private var cancellable = Set<AnyCancellable>()
     private var allTypePagination = PaginationState()
     private var purchasedTypePagination = PaginationState()
     private var notPurchasedTypePagination = PaginationState()
 
-    func resetReviews() {
+    func send(action: Action) {
+        switch action {
 
-    }
+        case .loadReviews:
+            return 
 
-    func fetchReviews(for visibilityScope: VisibilityScopeType) {
-        isFetching = true
-        resetReviews()
+        case .loadMoreReviews:
+            return
+        }
     }
 
     func fetchMoreReviews(for visibilityScope: VisibilityScopeType,
