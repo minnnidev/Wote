@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct ReviewTabModel: Codable {
+struct ReviewTabResponseObject: Codable {
     let myConsumerType: String?
-    var recentReviews: [SummaryPostModel]?
-    var allReviews: [SummaryPostModel]
-    var purchasedReviews: [SummaryPostModel]
-    var notPurchasedReviews: [SummaryPostModel]
+    var recentReviews: [SummaryPostResponseObject]?
+    var allReviews: [SummaryPostResponseObject]
+    var purchasedReviews: [SummaryPostResponseObject]
+    var notPurchasedReviews: [SummaryPostResponseObject]
 }
 
 enum ReviewType: String, CaseIterable {

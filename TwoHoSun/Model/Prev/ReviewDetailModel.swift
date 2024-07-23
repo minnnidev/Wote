@@ -7,9 +7,18 @@
 
 import Foundation
 
-struct ReviewDetailModel: Codable {
+struct ReviewDetailModel {
     let originalPost: SummaryPostModel
     let reviewPost: PostModel
+    let isMine: Bool
+    let commentCount: Int?
+    let commentPreview: String?
+    let commentPreviewImage: String?
+}
+
+struct ReviewDetailResponseObject: Codable {
+    let originalPost: SummaryPostResponseObject
+    let reviewPost: PostResponseObject
     let isMine: Bool
     let commentCount: Int?
     let commentPreview: String?

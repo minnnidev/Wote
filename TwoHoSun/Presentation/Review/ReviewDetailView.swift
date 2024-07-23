@@ -173,9 +173,9 @@ extension ReviewDetailView {
             Button {
                 // TODO: 투표 게시글 상세 조회로 이동
             } label: {
-                VoteCardCell(cellType: .simple,
-                             progressType: .closed,
-                             data: data)
+//                VoteCardCell(cellType: .simple,
+//                             progressType: .closed,
+//                             data: data)
             }
         }
     }
