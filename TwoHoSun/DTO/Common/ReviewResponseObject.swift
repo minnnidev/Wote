@@ -13,22 +13,16 @@ struct ReviewResponseObject: Codable, Identifiable {
     var modifiedDate: String
     var author: AuthorResponseObject?
     var postStatus: String
-    var viewCount: Int?
-    var voteCount: Int?
-    var commentCount: Int?
-    var voteResult: String?
     var title: String
     var image: String?
     var contents: String?
     var price: Int?
     var isPurchased: Bool?
-    var hasReview: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id = "postId"
-        case createDate, modifiedDate, author, postStatus, viewCount, 
-             voteCount, commentCount, voteResult, title, image, contents,
-             price, isPurchased, hasReview
+        case createDate, modifiedDate, author, postStatus, title, image, contents,
+             price, isPurchased
     }
 }
 

@@ -21,17 +21,17 @@ struct ReviewDetailView: View {
             if let data = viewModel.reviewData {
                 ScrollView {
                     VStack(spacing: 0) {
-                        detailHeaderView(data.originalPost)
-                            .padding(.top, 24)
-                            .padding(.horizontal, 24)
+//                        detailHeaderView(data.originalPost)
+//                            .padding(.top, 24)
+//                            .padding(.horizontal, 24)
                         Divider()
                             .background(Color.disableGray)
                             .padding(.horizontal, 12)
                             .padding(.top, 12)
 
-                        detailReviewCell(data.reviewPost)
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 30)
+//                        detailReviewCell(data.reviewPost)
+//                            .padding(.horizontal, 24)
+//                            .padding(.vertical, 30)
                     }
                 }
                 .refreshable {
