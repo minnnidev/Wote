@@ -60,7 +60,10 @@ class AuthInterceptor: RequestInterceptor {
                 do {
                     let result = try JSONDecoder().decode(GeneralResponse<TokenObject>.self, from: data)
 
-                    guard let tokens = result.data?.toToken() else { return }
+                    guard let tokens = result.data?.toToken() else { 
+                        completion(false)
+                        return 
+                    }
 
                     KeychainManager.shared.save(key: TokenType.accessToken, token: tokens.accessToken)
                     KeychainManager.shared.save(key: TokenType.refreshToken, token: tokens.refreshToken)
