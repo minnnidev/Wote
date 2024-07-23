@@ -27,7 +27,7 @@ struct WoteTabView: View {
                             VoteListView(viewModel: appDependency.container.resolve(VoteListViewModel.self)!)
                                 .environmentObject(router)
                         case .review:
-                            ReviewView(visibilityScope: $visibilityScope)
+                            ReviewListView(visibilityScope: $visibilityScope)
                         case .myPage:
                             MyPageView(selectedVisibilityScope: $visibilityScope)
                         }

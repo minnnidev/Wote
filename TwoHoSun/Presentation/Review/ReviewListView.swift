@@ -1,5 +1,5 @@
 //
-//  ConsumptionReviewView.swift
+//  ReviewListView.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 11/6/23.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ReviewView: View {
+struct ReviewListView: View {
     @State private var didFinishSetup = false
     @State private var reviewType = ReviewType.all
 
     @Binding var visibilityScope: VisibilityScopeType
 
-    @StateObject var viewModel = ReviewTabViewModel()
+    @StateObject var viewModel = ReviewListViewModel()
 
     var body: some View {
         ZStack {
@@ -60,7 +60,7 @@ struct ReviewView: View {
     }
 }
 
-extension ReviewView {
+extension ReviewListView {
 
     @ViewBuilder
     private func sameSpendTypeReviewView() -> some View {

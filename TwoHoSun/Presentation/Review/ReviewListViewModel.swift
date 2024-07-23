@@ -18,7 +18,7 @@ class PaginationState {
     }
 }
 
-final class ReviewTabViewModel: ObservableObject {
+final class ReviewListViewModel: ObservableObject {
     
     @Published var consumerType: ConsumerType?
     @Published var isFetching = true
