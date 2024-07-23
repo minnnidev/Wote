@@ -11,6 +11,7 @@ import Moya
 enum ReviewAPI {
     case getReviews(visibilityScope: String)
     case getMoreReviews(MoreReviewRequestObject)
+    case getReviewDetail(reviewId: Int)
 }
 
 extension ReviewAPI: TargetType {
@@ -26,6 +27,9 @@ extension ReviewAPI: TargetType {
 
         case let .getMoreReviews(requestObject):
             return "reviews/\(requestObject.reviewType)"
+
+        case let .getReviewDetail(reviewId):
+            return "/reviews/\(reviewId)/detail"
         }
     }
 
@@ -40,8 +44,13 @@ extension ReviewAPI: TargetType {
         switch self {
         case let .getReviews(visibilityScope):
             return .requestParameters(parameters: visibilityScope.toDictionary(), encoding: URLEncoding.queryString)
+
         case let .getMoreReviews(requestObject):
             return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
+
+        case let .getReviewDetail(reviewId):
+            return .requestParameters(parameters: reviewId.toDictionary(),
+                                      encoding: URLEncoding.queryString)
         }
     }
 

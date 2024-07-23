@@ -55,6 +55,8 @@
 		AB481C672C4F6FEB0030C614 /* ReviewRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C662C4F6FEB0030C614 /* ReviewRepositoryType.swift */; };
 		AB481C692C4F70160030C614 /* ReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C682C4F70160030C614 /* ReviewUseCase.swift */; };
 		AB481C6E2C4F73350030C614 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB481C6D2C4F73350030C614 /* ReviewModel.swift */; };
+		AB4AA9512C4F9AB0008825CB /* ReviewDetailResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA9502C4F9AB0008825CB /* ReviewDetailResponseObject.swift */; };
+		AB4AA9532C4FA205008825CB /* VoteCardCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4AA9522C4FA205008825CB /* VoteCardCellType.swift */; };
 		AB4D0F622B1626E100784AD4 /* TermAgreeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */; };
 		AB4D82692ADD7F4D00F35CCB /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */; };
 		AB53CA6D2AF7AC4100FD850A /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */; };
@@ -242,6 +244,8 @@
 		AB481C662C4F6FEB0030C614 /* ReviewRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepositoryType.swift; sourceTree = "<group>"; };
 		AB481C682C4F70160030C614 /* ReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUseCase.swift; sourceTree = "<group>"; };
 		AB481C6D2C4F73350030C614 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		AB4AA9502C4F9AB0008825CB /* ReviewDetailResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailResponseObject.swift; sourceTree = "<group>"; };
+		AB4AA9522C4FA205008825CB /* VoteCardCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCardCellType.swift; sourceTree = "<group>"; };
 		AB4D0F612B1626E000784AD4 /* TermAgreeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermAgreeType.swift; sourceTree = "<group>"; };
 		AB4D82682ADD7F4D00F35CCB /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		AB53CA6C2AF7AC4100FD850A /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
@@ -453,7 +457,6 @@
 				FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */,
 				FDF2D6CF2AE5E62B0027EE8F /* ChartModel.swift */,
 				ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */,
-				AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */,
 				AB38A10C2B07D914004153B5 /* PostDetailModel.swift */,
 				FD84A6952B0A859A00F6EBB7 /* ProfileModel.swift */,
 				C73F8E842AE54F78001C6B07 /* LoginModel */,
@@ -547,6 +550,7 @@
 				AB481C602C4F6AB30030C614 /* SimpleReviewModel.swift */,
 				AB481C6D2C4F73350030C614 /* ReviewModel.swift */,
 				ABAC51652C4F789B009133D3 /* ReviewTabModel.swift */,
+				AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -556,6 +560,7 @@
 			children = (
 				AB38A1162B0919C9004153B5 /* ReviewTabResponseObject.swift */,
 				ABAC51672C4F85B3009133D3 /* MoreReviewRequestObject.swift */,
+				AB4AA9502C4F9AB0008825CB /* ReviewDetailResponseObject.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -989,6 +994,7 @@
 				FD2C7D8B2B0705DA00B5B494 /* CardImageView.swift */,
 				C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */,
 				ABA1E83D2AFD57A4009051E0 /* VoteCardCell.swift */,
+				AB4AA9522C4FA205008825CB /* VoteCardCellType.swift */,
 				FD9C277D2AFA27E900702ACD /* ImageCropView.swift */,
 				ABA1E8532AFEA640009051E0 /* GoToTypeTestButton.swift */,
 				AB03D7452B020EB2000C927A /* ImageView.swift */,
@@ -1237,8 +1243,10 @@
 				AB25071F2C3BFD03009B0A3C /* Encodable+.swift in Sources */,
 				AB76E2342C4793EE00204A22 /* ChooseResponseObject.swift in Sources */,
 				FD84A6962B0A859A00F6EBB7 /* ProfileModel.swift in Sources */,
+				AB4AA9512C4F9AB0008825CB /* ReviewDetailResponseObject.swift in Sources */,
 				C77113732AF2114800BAB128 /* CustomConfirmModifier.swift in Sources */,
 				ABC1CDC82C464C690054E74C /* VoteRepositoryType.swift in Sources */,
+				AB4AA9532C4FA205008825CB /* VoteCardCellType.swift in Sources */,
 				FDB4B1502AE68FC000720328 /* DetailView.swift in Sources */,
 				AB481C6E2C4F73350030C614 /* ReviewModel.swift in Sources */,
 				C7A95F132B01FFD600F8595A /* MoyaPublisher.swift in Sources */,

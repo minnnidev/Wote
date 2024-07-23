@@ -33,13 +33,16 @@ struct ReviewWriteView: View {
                 ScrollView {
                     VStack(spacing: 48) {
                         VStack(spacing: 12) {
-                            VoteCardCell(cellType: .simple, 
-                                         progressType: .closed,
-                                         data: .init(id: 1,
-                                                     createDate: "",
-                                                     modifiedDate: "",
-                                                     postStatus: "CLOSED",
-                                                     title: ""))
+//                            VoteCardCell(cellType: .standard,
+//                                         progressType: .closed,
+//                                         data: .init(id: 1,
+//                                                     createDate: "",
+//                                                     modifiedDate: "",
+//                                                     postStatus: "CLOSED",
+//                                                     author: .authorStub1, 
+//                                                     title: ""
+//                                                    )
+//                            )
                             buySelection
                         }
                         titleView

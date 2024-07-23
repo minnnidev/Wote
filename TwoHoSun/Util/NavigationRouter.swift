@@ -42,8 +42,8 @@ enum VoteTabDestination: Hashable {
     case voteWrite
 }
 
-enum ReviewTabDestination {
-
+enum ReviewTabDestination: Hashable {
+    case reviewDetail(postId: Int)
 }
 
 final class NavigationRouter: ObservableObject {

@@ -8,58 +8,37 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
-    @Environment(\.dismiss) var dismiss
 
-    @State private var isDetailCommentShown = false
-    @State private var showCustomAlert = false
-    @State private var showConfirm = false
-    @State private var applyComplaint = false
-    @State private var showAlert = false
-
-    @StateObject var viewModel = ReviewDetailViewModel()
+    @StateObject var viewModel: ReviewDetailViewModel
 
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
-    var isShowingItems = true
-    var postId: Int?
-    var reviewId: Int?
-    var directComments = false
 
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
 
-            if let data = viewModel.reviewData {
+            if let data = viewModel.reviewDetailData {
                 ScrollView {
                     VStack(spacing: 0) {
-                        if isShowingItems {
-                            detailHeaderView(data.originalPost)
-                                .padding(.top, 24)
-                                .padding(.horizontal, 24)
-                            Divider()
-                                .background(Color.disableGray)
-                                .padding(.horizontal, 12)
-                                .padding(.top, 12)
-                        }
+                        detailHeaderView(data.originalPost)
+                            .padding(.top, 24)
+                            .padding(.horizontal, 24)
+
+                        Divider()
+                            .background(Color.disableGray)
+                            .padding(.horizontal, 12)
+                            .padding(.top, 12)
+
                         detailReviewCell(data.reviewPost)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 30)
                     }
                 }
-                .refreshable {
-                    viewModel.fetchReviewDetail(postId: viewModel.postId)
-                }
             } else {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.gray100))
                     .scaleEffect(1.3, anchor: .center)
-            }
-
-            if showCustomAlert {
-                ZStack {
-                    Color.black.opacity(0.7)
-                        .ignoresSafeArea()
-                }
             }
         }
         .toolbar {
@@ -76,58 +55,16 @@ struct ReviewDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isDetailCommentShown) {
-            CommentsView(showComplaint: $showCustomAlert,
-                         applyComplaint: $applyComplaint,
-                         viewModel: CommentsViewModel(postId: viewModel.reviewId))
-            .presentationDetents([.large,.fraction(0.9)])
-//            .presentationContentInteraction(.scrolls)
+        .refreshable {
+            viewModel.send(.loadDetail)
         }
         .onAppear {
-            if directComments {
-                isDetailCommentShown.toggle()
-            }
-            if let reviewId = reviewId {
-                viewModel.fetchReviewDetail(reviewId: reviewId)
-            }
-
-            if let postId = postId {
-                viewModel.fetchReviewDetail(postId: postId)
-            }
+            viewModel.send(.loadDetail)
         }
-        .customConfirmDialog(isPresented: $showConfirm, isMine: $viewModel.isMine) { _ in
-            if viewModel.isMine {
-                Button {
-                    showCustomAlert.toggle()
-                    showConfirm.toggle()
-                } label: {
-                    Text("삭제하기")
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                }
-            } else {
-                VStack(spacing: 15) {
-                    Button {
-                        showConfirm.toggle()
-                    } label: {
-                        Text("신고하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                    Divider()
-                        .background(Color.gray300)
-                    Button {
-                        showAlert.toggle()
-                        showConfirm.toggle()
-                    } label: {
-                        Text("차단하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.vertical, 15)
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
             }
-        }
-        .errorAlert(error: $viewModel.error) {
-            // TODO: navigation back
         }
     }
 }
@@ -136,29 +73,29 @@ extension ReviewDetailView {
 
     @ViewBuilder
     private var menuButton: some View {
-        if isShowingItems {
-            Button {
-                showConfirm.toggle()
-            } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundStyle(Color.subGray1)
-            }
+        Button {
+
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundStyle(Color.subGray1)
         }
     }
 
-    private func detailHeaderView(_ data: ReviewModel) -> some View {
+    private func detailHeaderView(_ data: VoteModel) -> some View {
         VStack(spacing: 11) {
             HStack(spacing: 3) {
-                ProfileImageView(imageURL: data.author?.profileImage)
+                ProfileImageView(imageURL: data.author.profileImage)
                     .frame(width: 32, height: 32)
                     .padding(.trailing, 7)
-                Text(data.author?.nickname ?? "")
+                Text(data.author.nickname)
                     .font(.system(size: 15, weight: .medium))
                     .foregroundStyle(Color.woteWhite)
                 Text("님의 소비 고민")
                     .font(.system(size: 13))
                     .foregroundStyle(Color.woteWhite)
+
                 Spacer()
+
                 Button {
                     // TODO: 투표 게시글 상세 조회로 이동
                 } label: {
@@ -170,21 +107,21 @@ extension ReviewDetailView {
                     .foregroundStyle(Color.accentBlue)
                 }
             }
+
             Button {
                 // TODO: 투표 게시글 상세 조회로 이동
             } label: {
-//                VoteCardCell(cellType: .simple,
-//                             progressType: .closed,
-//                             data: data)
+                VoteCardCell(cellType: .standard, data: data)
             }
         }
     }
 
-    private func detailReviewCell(_ data: PostModel) -> some View {
+    private func detailReviewCell(_ data: ReviewModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            ConsumerTypeLabel(consumerType: ConsumerType(rawValue: data.author.consumerType) ?? .adventurer,
+            ConsumerTypeLabel(consumerType: ConsumerType(rawValue: data.author!.consumerType) ?? .adventurer,
                               usage: .cell)
                 .padding(.bottom, 12)
+
             HStack(spacing: 4) {
                 if let isPurchased = data.isPurchased {
                     PurchaseLabel(isPurchased: isPurchased)
@@ -194,12 +131,14 @@ extension ReviewDetailView {
                     .foregroundStyle(Color.white)
             }
             .padding(.bottom, 5)
+
             Text(data.contents ?? "")
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(Color.whiteGray)
                 .padding(.bottom, 8)
+
             HStack(spacing: 0) {
                 if let price = data.price {
                     Text("가격: \(price)원")
@@ -215,14 +154,14 @@ extension ReviewDetailView {
                 ImageView(imageURL: image)
                     .padding(.bottom, 28)
             }
-            CommentPreview(previewComment: viewModel.reviewData?.commentPreview, commentCount: viewModel.reviewData?.commentCount,
-                           commentPreviewImage: viewModel.reviewData?.commentPreviewImage)
+
+            CommentPreview(previewComment: viewModel.reviewDetailData?.commentPreview, commentCount: viewModel.reviewDetailData?.commentCount,
+                           commentPreviewImage: viewModel.reviewDetailData?.commentPreviewImage)
                 .onTapGesture {
                     guard haveConsumerType else {
                         // TODO: 소비 성향 테스트로 이동
                         return
                     }
-                    isDetailCommentShown.toggle()
                 }
         }
     }
@@ -242,5 +181,13 @@ extension ReviewDetailView {
                     .clipShape(RoundedRectangle(cornerRadius: 34))
             }
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        ReviewDetailView(
+            viewModel: .init(id: 1, reviewUseCase: StubReviewUseCase())
+        )
     }
 }

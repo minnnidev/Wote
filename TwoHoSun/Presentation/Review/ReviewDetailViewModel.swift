@@ -9,24 +9,42 @@ import Combine
 import SwiftUI
 
 final class ReviewDetailViewModel: ObservableObject {
-    @Published var reviewData: ReviewDetailModel?
-    @Published var postId = 0
-    @Published var isMine = false
-    @Published var reviewId = 0
-    @Published var error: NetworkError?
 
-    private var cancellable = Set<AnyCancellable>()
-    private var reviewPostId = 0
-
-    func fetchReviewDetail(reviewId: Int) {
-        // TODO: 리뷰 디테일 조회
+    enum Action {
+        case loadDetail
+        case deleteReview
     }
 
-    func fetchReviewDetail(postId: Int) {
-        // TODO: 투표 디테일 조회
+    @Published var reviewDetailData: ReviewDetailModel?
+    @Published var isLoading: Bool = false
+
+    private var cancellables: Set<AnyCancellable> = []
+
+    private let id: Int
+    private let reviewUseCase: ReviewUseCaseType
+
+    init(id: Int, reviewUseCase: ReviewUseCaseType) {
+        self.id = id
+        self.reviewUseCase = reviewUseCase
     }
 
-    func deleteReview(postId: Int) {
-        // TODO: 리뷰 삭제
+    func send(_ action: Action) {
+        switch action {
+
+        case .loadDetail:
+            isLoading = true
+
+            reviewUseCase.loadReviewDetail(reviewId: id)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] detail in
+                    self?.reviewDetailData = detail
+                    self?.isLoading = false
+                }
+                .store(in: &cancellables)
+
+        case .deleteReview:
+            return
+        }
     }
 }

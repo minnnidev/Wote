@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReviewListView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var reviewRouter: NavigationRouter
 
     @StateObject var viewModel: ReviewListViewModel
@@ -61,6 +62,14 @@ struct ReviewListView: View {
                 ProgressView()
             }
         }
+        .navigationDestination(for: ReviewTabDestination.self) { dest in
+            switch dest {
+            case let .reviewDetail(postId):
+                ReviewDetailView(
+                    viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
+                )
+            }
+        }
     }
 }
 
@@ -82,7 +91,7 @@ extension ReviewListView {
                 HStack(spacing: 10) {
                     ForEach(viewModel.recentReviews, id: \.id) { review in
                         Button {
-                            // TODO: Detail View로 이동
+                            reviewRouter.push(to: ReviewTabDestination.reviewDetail(postId: review.id))
                         } label: {
                             SimpleReviewCell(data: review)
                         }
@@ -118,7 +127,7 @@ extension ReviewListView {
         } else {
             ForEach(Array(viewModel.showingReviews.enumerated()), id: \.element.id) { index, data in
                 Button {
-                    // TODO: Review detail
+                    reviewRouter.push(to: ReviewTabDestination.reviewDetail(postId: data.id))
                 } label: {
                     VStack(spacing: 6) {
                         Divider()

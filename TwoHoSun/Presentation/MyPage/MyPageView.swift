@@ -241,26 +241,26 @@ extension MyPageView {
                                                      modifiedDate: "",
                                                      postStatus: "CLOSED",
                                                      title: "투표 테스트")]
-            ForEach(Array(zip(myPosts.indices, myPosts)), id: \.0) { index, post in
-                Button {
-
-                } label: {
-                    VStack(spacing: 0) {
-                        VoteCardCell(cellType: .myVote,
-                                      progressType: PostStatus(rawValue: post.postStatus) ?? .closed,
-                                      data: post)
-                        Divider()
-                            .background(Color.dividerGray)
-                            .padding(.horizontal, 8)
-                    }
-                }
-                .onAppear {
-                    if index == myPosts.count - 4 {
-                        viewModel.fetchMorePosts()
-                    }
-                }
-            }
-            .padding(.horizontal, 8)
+//            ForEach(Array(zip(myPosts.indices, myPosts)), id: \.0) { index, post in
+//                Button {
+//
+//                } label: {
+//                    VStack(spacing: 0) {
+//                        VoteCardCell(cellType: .myVote,
+//                                      progressType: PostStatus(rawValue: post.postStatus) ?? .closed,
+//                                      data: post)
+//                        Divider()
+//                            .background(Color.dividerGray)
+//                            .padding(.horizontal, 8)
+//                    }
+//                }
+//                .onAppear {
+//                    if index == myPosts.count - 4 {
+//                        viewModel.fetchMorePosts()
+//                    }
+//                }
+//            }
+//            .padding(.horizontal, 8)
 
         case .myReview:
             let myReviews: [ReviewModel] = [.init(id: 2,

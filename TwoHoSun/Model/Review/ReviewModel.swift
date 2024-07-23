@@ -37,7 +37,7 @@ extension ReviewModel {
             postStatus: "REVIEW",
             title: "제목",
             image: nil,
-            contents: nil,
+            contents: "내용업듬",
             price: 3000,
             isPurchased: true)
     }
