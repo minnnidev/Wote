@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var appDependency: AppDependency
+    @EnvironmentObject var router: NavigationRouter
 
     @FocusState private var isFocused: Bool
 
@@ -70,7 +71,7 @@ extension SearchView {
 
     private var backButton: some View {
         Button {
-            dismiss()
+            router.pop()
         } label: {
             Image(systemName: "chevron.left")
                 .font(.system(size: 20, weight: .medium))
@@ -190,7 +191,7 @@ extension SearchView {
                 LazyVStack {
                     ForEach(Array(viewModel.reviewResults.enumerated()), id: \.offset) { index, data in
                         Button {
-                            // TODO: Review Detail로 이동
+                            router.push(to: WoteDestination.reviewDetail(postId: data.id))
                         } label: {
                             ReviewSearchResultCell(review: data)
                         }
@@ -218,7 +219,7 @@ extension SearchView {
                 LazyVStack {
                     ForEach(Array(viewModel.voteResults.enumerated()), id: \.offset) { index, data in
                         Button {
-                            // TODO: Vote Detail로 이동
+                            router.push(to: WoteDestination.voteDetail(postId: data.id))
                         } label: {
                             VoteSearchResultCell(vote: data)
                         }
@@ -252,4 +253,6 @@ extension SearchView {
 
 #Preview {
     SearchView(viewModel: .init(searchUseCase: StubSearchUseCase()))
+        .environmentObject(AppDependency())
+        .environmentObject(NavigationRouter())
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VoteListView: View {
     @EnvironmentObject var appDependency: AppDependency
-    @EnvironmentObject var voteRouter: NavigationRouter
+    @EnvironmentObject var router: NavigationRouter
 
     @StateObject var viewModel: VoteListViewModel
 
@@ -23,7 +23,7 @@ struct VoteListView: View {
                     selectedTab: .constant(.consider),
                     visibilityScope: $viewModel.visibilityScope,
                     tapSearchButton: {
-                        voteRouter.push(to: VoteTabDestination.search)
+                        router.push(to: WoteDestination.search)
                     }
                 )
 
@@ -48,15 +48,11 @@ struct VoteListView: View {
         }
         .navigationDestination(for: VoteTabDestination.self) { dest in
             switch dest {
-            case let .voteDetail(postId):
-                DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
-                    .environmentObject(voteRouter)
+                
             case .voteWrite:
                 VoteWriteView(viewModel: appDependency.container.resolve(VoteWriteViewModel.self)!)
-                    .environmentObject(voteRouter)
-            case .search:
-                SearchView(viewModel: appDependency.container.resolve(SearchViewModel.self)!)
-                    .environmentObject(voteRouter)
+                    .environmentObject(router)
+
             }
         }
     }
@@ -75,7 +71,7 @@ extension VoteListView {
                             voteTapped: {
                                 viewModel.send(action: .vote(selection: $0))
                             }, detailTapped: {
-                                voteRouter.push(to: VoteTabDestination.voteDetail(postId: item.id))
+                                router.push(to: WoteDestination.voteDetail(postId: item.id))
                             }
                         )
 
@@ -101,7 +97,7 @@ extension VoteListView {
 
     private var createVoteButton: some View {
         Button {
-            voteRouter.push(to: VoteTabDestination.voteWrite)
+            router.push(to: VoteTabDestination.voteWrite)
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")

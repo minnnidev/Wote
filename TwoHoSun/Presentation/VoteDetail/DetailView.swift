@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    @EnvironmentObject var voteRouter: NavigationRouter
+    @EnvironmentObject var router: NavigationRouter
 
     @StateObject var viewModel: DetailViewModel
 
@@ -136,7 +136,7 @@ struct DetailView: View {
             }
         }
         .onChange(of: viewModel.isVoteManageSucceed) { _ in
-            voteRouter.pop()
+            router.pop()
         }
     }
 }
