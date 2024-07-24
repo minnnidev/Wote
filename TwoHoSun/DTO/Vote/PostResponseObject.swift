@@ -58,7 +58,8 @@ extension PostResponseObject {
             voteCounts: voteCounts?.toModel(),
             voteInfoList: voteInfoList.map { $0.map { $0.toModel() }},
             myChoice: myChoice, 
-            isMine: isMine
+            isMine: isMine,
+            hasReview: hasReview
         )
     }
 }

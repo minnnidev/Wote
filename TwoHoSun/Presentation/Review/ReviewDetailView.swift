@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
+    @EnvironmentObject var router: NavigationRouter
 
     @StateObject var viewModel: ReviewDetailViewModel
 
@@ -97,7 +98,7 @@ extension ReviewDetailView {
                 Spacer()
 
                 Button {
-                    // TODO: 투표 게시글 상세 조회로 이동
+                    router.push(to: WoteDestination.voteDetail(postId: data.id))
                 } label: {
                     HStack(spacing: 2) {
                         Text("바로가기")
@@ -109,7 +110,7 @@ extension ReviewDetailView {
             }
 
             Button {
-                // TODO: 투표 게시글 상세 조회로 이동
+                router.push(to: WoteDestination.voteDetail(postId: data.id))
             } label: {
                 VoteCardCell(cellType: .standard, data: data)
             }

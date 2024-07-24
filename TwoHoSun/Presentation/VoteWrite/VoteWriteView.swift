@@ -9,7 +9,7 @@ import PhotosUI
 import SwiftUI
 
 struct VoteWriteView: View {
-    @EnvironmentObject var voteRouter: NavigationRouter
+    @EnvironmentObject var router: NavigationRouter
 
     @FocusState private var isTitleFocused: Bool
     @FocusState private var isPriceFocused: Bool
@@ -281,7 +281,7 @@ extension VoteWriteView {
 
             if viewModel.isTitleValid {
                 viewModel.send(action: .createVote)
-                voteRouter.pop()
+                router.pop()
             }
         } label: {
             Text("등록하기")

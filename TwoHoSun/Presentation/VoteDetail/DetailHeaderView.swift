@@ -7,55 +7,8 @@
 
 import SwiftUI
 
-enum ClosedPostStatus: Codable {
-    case myPostWithReview
-    case myPostWithoutReview
-    case othersPostWithReview
-    case othersPostWithoutReview
-
-    init?(isMine: Bool?, hasReview: Bool?) {
-        switch (isMine, hasReview) {
-        case (true, true):
-            self = .myPostWithReview
-        case (true, false):
-            self = .myPostWithoutReview
-        case (false, true):
-            self = .othersPostWithReview
-        case (false, false):
-            self = .othersPostWithoutReview
-        case (_, _):
-            return nil
-        }
-    }
-
-    var description: String {
-        switch self {
-        case .myPostWithReview:
-            return "님의 소비 후기"
-        case .myPostWithoutReview:
-            return "님! 상품에 대한 후기를 들려주세요!"
-        case .othersPostWithReview:
-            return "님의 소비후기 보러가기"
-        case .othersPostWithoutReview:
-            return "님이 아직 소비후기를 작성하기 전이에요!"
-        }
-    }
-
-    @ViewBuilder
-    var buttonView: some View {
-        switch self {
-        case .myPostWithoutReview:
-            Image(systemName: "pencil.line")
-                .font(.system(size: 20))
-        case .othersPostWithoutReview:
-            EmptyView()
-        default:
-            Image("icnReview")
-        }
-    }
-}
-
 struct DetailHeaderView: View {
+    @EnvironmentObject var router: NavigationRouter
 
     @State var alertOn = false
 
@@ -63,8 +16,10 @@ struct DetailHeaderView: View {
 
     var body: some View {
         switch PostStatus(rawValue: data.post.postStatus) {
+
         case .active:
             activeVoteHeaderView(author: data.post.author, isMine: data.post.isMine)
+
         case .closed:
             if let isMine = data.post.isMine,
                 let hasReview = data.post.hasReview {
@@ -76,6 +31,7 @@ struct DetailHeaderView: View {
             } else {
                 EmptyView()
             }
+
         default:
             EmptyView()
         }
@@ -100,7 +56,9 @@ struct DetailHeaderView: View {
                     Text("님의 구매후기 받기")
                         .font(.system(size: 13))
                         .foregroundStyle(Color.whiteGray)
+
                     Spacer()
+
                     Toggle("", isOn: $alertOn)
                         .toggleStyle(AlertCustomToggle())
                 }
@@ -117,13 +75,17 @@ struct DetailHeaderView: View {
             ProfileImageView(imageURL: author.profileImage)
                 .frame(width: 32, height: 32)
                 .padding(.trailing, 7)
+
             Text(author.nickname)
                 .font(.system(size: 15, weight: .medium))
                 .foregroundStyle(Color.whiteGray)
+
             Text(closedState.description)
                 .font(.system(size: 13))
                 .foregroundStyle(Color.whiteGray)
+
             Spacer()
+
             Button {
                 destinationForHeaderButton(closedState, post: post)
             } label: {
@@ -142,6 +104,7 @@ struct DetailHeaderView: View {
                 .frame(width: 50, height: 42)
                 .foregroundStyle(Color.gray200)
                 .clipShape(.rect(cornerRadius: 6))
+
             buttonView
                 .foregroundStyle(Color.lightBlue500)
         }
@@ -149,6 +112,7 @@ struct DetailHeaderView: View {
 
     private func calculateVoteResult(_ voteCounts: VoteCountsModel) -> String {
         var voteResult = VoteResultType.buy
+
         if voteCounts.agreeCount == voteCounts.disagreeCount {
             voteResult = .draw
         } else if voteCounts.agreeCount > voteCounts.disagreeCount {
@@ -162,23 +126,17 @@ struct DetailHeaderView: View {
 
     private func destinationForHeaderButton(_ closedPostState: ClosedPostStatus, post: VoteDetailModel) {
         switch closedPostState {
+
         case .myPostWithoutReview:
-            let data = post.post
-            guard let voteCounts = data.voteCounts else { return }
-            let summaryPost = ReviewModel(id: data.id,
-                                               createDate: data.createDate,
-                                               modifiedDate: data.modifiedDate,
-                                               postStatus: data.postStatus,
-//                                               voteResult: calculateVoteResult(voteCounts),
-                                               title: data.title,
-                                               image: data.image,
-                                               contents: data.contents,
-                                               price: data.price)
+            // TODO: 후기 작성으로 이동
+            return
+
         case .othersPostWithoutReview:
             // TODO: 후기 작성으로 이동
             return
-        default:
-            // TODO: 후기 작성으로 이동
+
+        case .myPostWithReview, .othersPostWithReview:
+            // TODO: 후기 뷰로 이동 (투표 id로 접근하는 로직)
             return
         }
     }

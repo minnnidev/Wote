@@ -23,7 +23,7 @@ struct ReviewListView: View {
                     selectedTab: .constant(.review),
                     visibilityScope: $viewModel.visibilityScope,
                     tapSearchButton: {
-                        reviewRouter.push(to: ReviewTabDestination.search)
+                        reviewRouter.push(to: WoteDestination.search)
                     }
                 )
 
@@ -64,18 +64,6 @@ struct ReviewListView: View {
                 ProgressView()
             }
         }
-        .navigationDestination(for: ReviewTabDestination.self) { dest in
-            switch dest {
-            case let .reviewDetail(postId):
-                ReviewDetailView(
-                    viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
-                )
-
-            case .search:
-                SearchView(viewModel: appDependency.container.resolve(SearchViewModel.self)!)
-                    .environmentObject(reviewRouter)
-            }
-        }
     }
 }
 
@@ -97,7 +85,7 @@ extension ReviewListView {
                 HStack(spacing: 10) {
                     ForEach(viewModel.recentReviews, id: \.id) { review in
                         Button {
-                            reviewRouter.push(to: ReviewTabDestination.reviewDetail(postId: review.id))
+                            reviewRouter.push(to: WoteDestination.reviewDetail(postId: review.id))
                         } label: {
                             SimpleReviewCell(data: review)
                         }
@@ -133,7 +121,7 @@ extension ReviewListView {
         } else {
             ForEach(Array(viewModel.showingReviews.enumerated()), id: \.element.id) { index, data in
                 Button {
-                    reviewRouter.push(to: ReviewTabDestination.reviewDetail(postId: data.id))
+                    reviewRouter.push(to: WoteDestination.reviewDetail(postId: data.id))
                 } label: {
                     VStack(spacing: 6) {
                         Divider()

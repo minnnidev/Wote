@@ -37,15 +37,14 @@ enum AllNavigation: Decodable, Hashable {
 
 // MARK: - 리팩토링 중인 NavigationStack
 
-enum VoteTabDestination: Hashable {
-    case voteDetail(postId: Int)
-    case voteWrite
+enum WoteDestination: Hashable {
     case search
+    case voteDetail(postId: Int)
+    case reviewDetail(postId: Int)
 }
 
-enum ReviewTabDestination: Hashable {
-    case reviewDetail(postId: Int)
-    case search
+enum VoteDestination: Hashable {
+    case voteWrite
 }
 
 final class NavigationRouter: ObservableObject {

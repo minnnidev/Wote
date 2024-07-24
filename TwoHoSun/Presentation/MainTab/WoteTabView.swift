@@ -51,6 +51,29 @@ struct WoteTabView: View {
             .navigationTitle(tabScrollHandler.selectedTab.tabTitle)
             .toolbar(.hidden, for: .navigationBar)
             .tint(Color.accentBlue)
+            .navigationDestination(for: WoteDestination.self) { dest in
+                switch dest {
+
+                case .search:
+                    SearchView(viewModel: appDependency.container.resolve(SearchViewModel.self)!)
+                        .environmentObject(router)
+
+                case let .voteDetail(postId):
+                    DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
+                        .environmentObject(router)
+
+                case let .reviewDetail(postId):
+                    ReviewDetailView(
+                        viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
+                    )
+                    .environmentObject(router)
+                }
+            }
         }
     }
+}
+
+#Preview {
+    WoteTabView()
+        .environmentObject(AppDependency())
 }
