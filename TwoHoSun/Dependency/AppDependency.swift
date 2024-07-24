@@ -22,7 +22,8 @@ class AppDependency: ObservableObject {
             AuthAssembly(),
             UserAssmbly(),
             VoteAssembly(),
-            ReviewAssembly()
+            ReviewAssembly(),
+            SearchAssembly(),
         ]
 
         assemblies.forEach { $0.assemble(container: container) }

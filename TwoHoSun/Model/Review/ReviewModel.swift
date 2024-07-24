@@ -28,7 +28,7 @@ struct ReviewModel: Identifiable {
 
 extension ReviewModel {
 
-    static var summaryStub1: ReviewModel {
+    static var reviewStub1: ReviewModel {
         .init(
             id: 1,
             createDate: "",

@@ -9,6 +9,7 @@ import Foundation
 
 typealias TokenType = Constants.TokenType
 typealias AppStorageKey = Constants.AppStorageKey
+typealias UserDefaultsKey = Constants.UserDefaultsKey
 typealias APIKey = Constants.APIKeyConst
 typealias URLConst = Constants.URLConst
 
@@ -23,6 +24,10 @@ extension Constants {
 
     struct AppStorageKey {
         static let loginState = "loginState"
+    }
+
+    struct UserDefaultsKey {
+        static let recentSearch = "RecentSearch"
     }
 }
 

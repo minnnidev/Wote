@@ -22,7 +22,9 @@ struct VoteListView: View {
                 WoteNavigationBar(
                     selectedTab: .constant(.consider),
                     visibilityScope: $viewModel.visibilityScope,
-                    router: voteRouter
+                    tapSearchButton: {
+                        voteRouter.push(to: VoteTabDestination.search)
+                    }
                 )
 
                 Spacer()
@@ -51,6 +53,9 @@ struct VoteListView: View {
                     .environmentObject(voteRouter)
             case .voteWrite:
                 VoteWriteView(viewModel: appDependency.container.resolve(VoteWriteViewModel.self)!)
+                    .environmentObject(voteRouter)
+            case .search:
+                SearchView(viewModel: appDependency.container.resolve(SearchViewModel.self)!)
                     .environmentObject(voteRouter)
             }
         }

@@ -10,52 +10,46 @@ import SwiftUI
 struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @State private var searchText = ""
-    @State private var hasResult: Bool = false
-    @State private var isSearchResultViewShown = false
-    @State private var selectedFilterType = PostStatus.active
-    @State private var searchTextFieldState = SearchTextFieldState.inactive
-    @State private var isOpen = true
-
     @FocusState private var isFocused: Bool
 
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject var viewModel: SearchViewModel
 
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
-            if viewModel.isFetching {
-                ProgressView()
-            }
-            if viewModel.showEmptyView {
-                emptyResultView
-            }
+
             ZStack(alignment: .top) {
-                VStack( spacing: 0) {
+                VStack(spacing: 0) {
                     HStack(spacing: 8) {
                         backButton
                         searchField
                             .padding(.horizontal, 8)
                     }
                     .padding(.horizontal, 8)
+
                     VStack(alignment: .leading) {
-                        if isFocused {
+                        if viewModel.isSubmitted {
                             HStack {
-                                recentSearchLabel
+                                searchFilterView
+                                    .padding(.bottom, 24)
                                 Spacer()
-                                deleteAllButton
                             }
-                            recentSearchView
-                        } else {
-                            searchFilterView
-                                .padding(.bottom, 24)
-                            switch selectedFilterType {
+
+                            switch viewModel.selectedFilterType {
                             case .review:
                                 reviewSearchedResult
                             default:
                                 voteSearchedResult
                             }
+                        } else  {
+                            HStack {
+                                recentSearchLabel
+                                Spacer()
+                                deleteAllButton
+                            }
+
+                            recentSearchView
                         }
                     }
                     .padding(.top, 24)
@@ -63,13 +57,12 @@ struct SearchView: View {
                 }
             }
         }
-        .onAppear {
-            isFocused = isOpen
-        }
-        .onDisappear {
-            isOpen = false
-        }
         .toolbar(.hidden, for: .navigationBar)
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
+        }
     }
 }
 
@@ -88,32 +81,24 @@ extension SearchView {
     private var searchField: some View {
         HStack {
             TextField("search",
-                      text: $searchText,
+                      text: $viewModel.searchText,
                       prompt: Text("원하는 소비항목을 검색해보세요.")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(Color.placeholderGray))
             .focused($isFocused)
             .font(.system(size: 14, weight: .medium))
-            .foregroundColor(searchTextFieldState.foregroundColor)
             .tint(Color.placeholderGray)
             .frame(height: 32)
             .padding(.leading, 16)
-//            .onChange(of: isFocused) { _, isFocused in
-//                if isFocused {
-//                    searchTextFieldState = .active
-//                    viewModel.showEmptyView = false
-//                }
-//            }
             .onSubmit {
-                searchTextFieldState = .submitted
-                viewModel.fetchSearchedData(keyword: searchText, reset: true, save: searchText.isEmpty ? false : true)
-                isSearchResultViewShown = true
+                viewModel.isSubmitted = true
+                viewModel.send(action: .addRecentSearch(viewModel.searchText))
             }
+
             Spacer()
+
             Button {
-                searchText.removeAll()
-                searchTextFieldState = .active
-                isFocused = true
+                viewModel.send(action: .clearSearchText)
             } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 12))
@@ -121,20 +106,7 @@ extension SearchView {
                     .padding(.trailing, 16)
             }
         }
-        .background(searchTextFieldState.backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .overlay {
-            if searchTextFieldState == .active {
-                RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(searchTextFieldState.strokeColor, lineWidth: 1)
-                    .blur(radius: 3)
-                    .shadow(color: Color.shadowBlue, radius: 2)
-            }
-        }
-        .overlay {
-            RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(searchTextFieldState.strokeColor, lineWidth: 1)
-        }
         .frame(height: 32)
     }
 
@@ -146,7 +118,7 @@ extension SearchView {
 
     private var deleteAllButton: some View {
         Button {
-            viewModel.removeAllRecentSearch()
+            viewModel.send(action: .removeAllRecentSearch)
         } label: {
             Text("전체 삭제")
                 .font(.system(size: 14, weight: .medium))
@@ -162,6 +134,7 @@ extension SearchView {
                         .strokeBorder(Color.purpleStroke, lineWidth: 1)
                         .frame(width: 28, height: 28)
                         .foregroundStyle(.clear)
+
                     Image(systemName: "clock.arrow.circlepath")
                         .font(.system(size: 18, weight: .light))
                         .foregroundStyle(Color.darkGray)
@@ -171,28 +144,26 @@ extension SearchView {
                     .foregroundStyle(Color.woteWhite)
                     .padding(.leading, 16)
                     .multilineTextAlignment(.leading)
+
                 Spacer()
             }
             .background(Color.background.opacity(0.01))
-            .onTapGesture {
-                searchText = word
-                viewModel.fetchSearchedData(keyword: word)
-                isFocused.toggle()
+
+            Button {
+                viewModel.send(action: .removeRecentSearch(index))
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 14))
+                    .foregroundStyle(Color.darkGray)
+                    .padding(15)
             }
-            Image(systemName: "xmark")
-                .font(.system(size: 14))
-                .foregroundStyle(Color.darkGray)
-                .padding(15)
-                .onTapGesture {
-                    viewModel.removeRecentSearch(at: index)
-                }
         }
     }
 
     private var recentSearchView: some View {
         List {
-            ForEach(viewModel.searchHistory.indices, id: \.self) { index in
-                recentSearchCell(word: viewModel.searchHistory[index], index: index)
+            ForEach(viewModel.recentSearches.indices, id: \.self) { index in
+                recentSearchCell(word: viewModel.recentSearches[index], index: index)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
@@ -207,6 +178,7 @@ extension SearchView {
                 FilterButton(title: filter.filterTitle,
                              isSelected: viewModel.selectedFilterType == filter) {
                     viewModel.selectedFilterType = filter
+                    viewModel.send(action: .searchWithQuery(viewModel.searchText))
                 }
             }
         }
@@ -216,26 +188,25 @@ extension SearchView {
         ScrollView {
             ScrollViewReader { proxy in
                 LazyVStack {
-                    ForEach(Array(viewModel.searchedDatas.enumerated()), id: \.offset) { index, data in
+                    ForEach(Array(viewModel.reviewResults.enumerated()), id: \.offset) { index, data in
                         Button {
                             // TODO: Review Detail로 이동
                         } label: {
-//                            VoteCardCell(cellType: .standard,
-//                                         progressType: .closed,
-//                                         data: data)
+                            ReviewSearchResultCell(review: data)
                         }
                         .onAppear {
-                            if index == viewModel.searchedDatas.count - 4 {
-                                viewModel.fetchSearchedData(keyword: searchText)
+                            if index == viewModel.reviewResults.count - 4 {
+                                viewModel.send(action: .loadMoreResults(viewModel.searchText))
                             }
                         }
                     }
                     .id("searchResult")
-//                    .onChange(of: viewModel.selectedFilterType) { _, _ in
-//                        viewModel.fetchSearchedData(keyword: searchText, reset: true)
-//                        proxy.scrollTo("searchResult", anchor: .top)
-//                    }
                 }
+            }
+        }
+        .overlay {
+            if viewModel.reviewResults.isEmpty {
+                emptyResultView
             }
         }
         .scrollIndicators(.hidden)
@@ -245,29 +216,28 @@ extension SearchView {
         ScrollView {
             ScrollViewReader { proxy in
                 LazyVStack {
-                    ForEach(Array(viewModel.searchedDatas.enumerated()), id: \.offset) { index, data in
+                    ForEach(Array(viewModel.voteResults.enumerated()), id: \.offset) { index, data in
                         Button {
                             // TODO: Vote Detail로 이동
                         } label: {
-//                            VoteCardCell(cellType: .standard,
-//                                         progressType: .closed,
-//                                         data: data)
+                            VoteSearchResultCell(vote: data)
                         }
                         .onAppear {
-                            if index == viewModel.searchedDatas.count - 4 {
-                                viewModel.fetchSearchedData(keyword: searchText)
+                            if index == viewModel.voteResults.count - 4 {
+                                viewModel.send(action: .loadMoreResults(viewModel.searchText))
                             }
                         }
                     }
                     .id("searchResult")
-//                    .onChange(of: viewModel.selectedFilterType) { _, _ in
-//                        viewModel.fetchSearchedData(keyword: searchText, reset: true)
-//                        proxy.scrollTo("searchResult", anchor: .top)
-//                    }
                 }
             }
         }
         .scrollIndicators(.hidden)
+        .overlay {
+            if viewModel.voteResults.isEmpty {
+                emptyResultView
+            }
+        }
     }
     
     private var emptyResultView: some View {
@@ -278,4 +248,8 @@ extension SearchView {
                 .foregroundStyle(Color.subGray1)
         }
     }
+}
+
+#Preview {
+    SearchView(viewModel: .init(searchUseCase: StubSearchUseCase()))
 }

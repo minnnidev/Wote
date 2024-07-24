@@ -21,7 +21,7 @@ extension ReviewDetailModel {
     static var reviewStub1: ReviewDetailModel {
         .init(
             originalPost: .voteStub1,
-            reviewPost: .summaryStub1,
+            reviewPost: .reviewStub1,
             isMine: false,
             commentCount: 3,
             commentPreview: nil,

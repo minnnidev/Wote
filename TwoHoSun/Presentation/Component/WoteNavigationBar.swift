@@ -11,7 +11,7 @@ struct WoteNavigationBar: View {
     @Binding var selectedTab: WoteTabType
     @Binding var visibilityScope: VisibilityScopeType
 
-    @ObservedObject var router: NavigationRouter
+    var tapSearchButton: () -> ()
 
     var body: some View {
         switch selectedTab {
@@ -61,7 +61,7 @@ extension WoteNavigationBar {
 
     private var searchButton: some View {
         Button {
-
+            tapSearchButton()
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
@@ -143,7 +143,9 @@ extension WoteNavigationBar {
     WoteNavigationBar(
         selectedTab: .constant(.consider),
         visibilityScope: .constant(.global),
-        router: NavigationRouter()
+        tapSearchButton: {
+            
+        }
     )
 }
 
