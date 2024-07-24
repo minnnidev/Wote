@@ -208,6 +208,11 @@ extension SearchView {
                 }
             }
         }
+        .overlay {
+            if viewModel.reviewResults.isEmpty {
+                emptyResultView
+            }
+        }
         .scrollIndicators(.hidden)
     }
 
@@ -232,6 +237,11 @@ extension SearchView {
             }
         }
         .scrollIndicators(.hidden)
+        .overlay {
+            if viewModel.voteResults.isEmpty {
+                emptyResultView
+            }
+        }
     }
     
     private var emptyResultView: some View {
