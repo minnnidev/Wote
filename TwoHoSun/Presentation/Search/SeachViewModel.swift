@@ -21,13 +21,14 @@ final class SearchViewModel: ObservableObject {
         case addRecentSearch(String)
     }
 
-    @Published var recentSearches: [String] = []
+    @Published var recentSearches: [String] = [] 
     @Published var searchText: String = ""
     @Published var selectedFilterType = PostStatus.active
     @Published var visibilityScope: VisibilityScopeType = .global
     @Published var voteResults: [VoteModel] = []
     @Published var reviewResults: [ReviewModel] = []
     @Published var isLoading: Bool = false
+    @Published var isSubmitted: Bool = false
 
     private var page = 0
     private var cancellables: Set<AnyCancellable> = []
@@ -36,6 +37,21 @@ final class SearchViewModel: ObservableObject {
 
     init(searchUseCase: SearchUseCaseType) {
         self.searchUseCase = searchUseCase
+
+        bind()
+    }
+
+    private func bind() {
+        $searchText
+            .removeDuplicates()
+            .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
+            .sink { [weak self] text in
+                if text.isEmpty {
+                    self?.isSubmitted = false
+                    self?.send(action: .loadRecentSearch)
+                } 
+            }
+            .store(in: &cancellables)
     }
 
     func send(action: Action) {
@@ -45,7 +61,6 @@ final class SearchViewModel: ObservableObject {
         case let .searchWithQuery(query):
             page = 0
             loadResults(at: page, of: 10, query: query, isFirstLoad: true)
-            send(action: .addRecentSearch(query))
 
         case let .loadMoreResults(query):
             page += 1
@@ -55,19 +70,23 @@ final class SearchViewModel: ObservableObject {
             searchText.removeAll()
 
         case .loadRecentSearch:
-            recentSearches = searchUseCase.loadRecentSearches()
+            loadRecentSearches()
 
         case let .removeRecentSearch(index):
             searchUseCase.removeRecentSearch(recentSearches, at: index)
-            send(action: .loadRecentSearch)
+            loadRecentSearches()
 
         case .removeAllRecentSearch:
             searchUseCase.removeAllRecentSearches()
-            send(action: .loadRecentSearch)
+            loadRecentSearches()
 
         case let .addRecentSearch(word):
             searchUseCase.addRecentSearches(recentSearches: recentSearches, word: word)
         }
+    }
+
+    private func loadRecentSearches() {
+        recentSearches = searchUseCase.loadRecentSearches()
     }
 
     private func loadResults(at page: Int, of size: Int, query: String, isFirstLoad: Bool) {
@@ -82,7 +101,8 @@ final class SearchViewModel: ObservableObject {
                 size: size,
                 keyword: query
             )
-            .sink { _ in
+            .sink { [weak self] _ in
+                self?.isLoading = false
             } receiveValue: { [weak self] reviews in
                 guard let self = self else { return }
 

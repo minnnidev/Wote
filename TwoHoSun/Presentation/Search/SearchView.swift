@@ -29,15 +29,7 @@ struct SearchView: View {
                     .padding(.horizontal, 8)
 
                     VStack(alignment: .leading) {
-                        if isFocused {
-                            HStack {
-                                recentSearchLabel
-                                Spacer()
-                                deleteAllButton
-                            }
-
-                            recentSearchView
-                        } else {
+                        if viewModel.isSubmitted {
                             HStack {
                                 searchFilterView
                                     .padding(.bottom, 24)
@@ -50,6 +42,14 @@ struct SearchView: View {
                             default:
                                 voteSearchedResult
                             }
+                        } else  {
+                            HStack {
+                                recentSearchLabel
+                                Spacer()
+                                deleteAllButton
+                            }
+
+                            recentSearchView
                         }
                     }
                     .padding(.top, 24)
@@ -61,11 +61,6 @@ struct SearchView: View {
         .overlay {
             if viewModel.isLoading {
                 ProgressView()
-            }
-        }
-        .onChange(of: isFocused) { _ in
-            if isFocused {
-                viewModel.send(action: .loadRecentSearch)
             }
         }
     }
@@ -96,7 +91,8 @@ extension SearchView {
             .frame(height: 32)
             .padding(.leading, 16)
             .onSubmit {
-                viewModel.send(action: .searchWithQuery(viewModel.searchText))
+                viewModel.isSubmitted = true
+                viewModel.send(action: .addRecentSearch(viewModel.searchText))
             }
 
             Spacer()
