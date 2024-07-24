@@ -1,9 +1,11 @@
+
 //
 //  SeachViewModel.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 10/23/23.
 //
+
 import Combine
 import Foundation
 
@@ -11,13 +13,15 @@ final class SearchViewModel: ObservableObject {
 
     enum Action {
         case searchWithQuery(String)
-        case loadMoereResults(String)
+        case loadMoreResults(String)
         case clearSearchText
+        case loadRecentSearch
+        case removeRecentSearch(Int)
+        case removeAllRecentSearch
+        case addRecentSearch(String)
     }
 
-    @Published var searchHistory = [String]()
-    @Published var searchedDatas: [ReviewModel] = []
-
+    @Published var recentSearches: [String] = []
     @Published var searchText: String = ""
     @Published var selectedFilterType = PostStatus.active
     @Published var visibilityScope: VisibilityScopeType = .global
@@ -26,8 +30,8 @@ final class SearchViewModel: ObservableObject {
     @Published var isLoading: Bool = false
 
     private var page = 0
-
     private var cancellables: Set<AnyCancellable> = []
+
     private let searchUseCase: SearchUseCaseType
 
     init(searchUseCase: SearchUseCaseType) {
@@ -41,14 +45,28 @@ final class SearchViewModel: ObservableObject {
         case let .searchWithQuery(query):
             page = 0
             loadResults(at: page, of: 10, query: query, isFirstLoad: true)
+            send(action: .addRecentSearch(query))
 
-        case let .loadMoereResults(query):
+        case let .loadMoreResults(query):
             page += 1
-
             loadResults(at: page, of: 10, query: query, isFirstLoad: false)
 
         case .clearSearchText:
             searchText.removeAll()
+
+        case .loadRecentSearch:
+            recentSearches = searchUseCase.loadRecentSearches()
+
+        case let .removeRecentSearch(index):
+            searchUseCase.removeRecentSearch(recentSearches, at: index)
+            send(action: .loadRecentSearch)
+
+        case .removeAllRecentSearch:
+            searchUseCase.removeAllRecentSearches()
+            send(action: .loadRecentSearch)
+
+        case let .addRecentSearch(word):
+            searchUseCase.addRecentSearches(recentSearches: recentSearches, word: word)
         }
     }
 
@@ -98,34 +116,5 @@ final class SearchViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         }
-    }
-
-    // TODO: 최근 검색어 로직 UseCase로 이동
-
-    func fetchRecentSearch() {
-        guard let recentSearch = UserDefaults.standard.array(forKey: "RecentSearch") as? [String] else { return }
-        searchHistory = recentSearch
-    }
-
-    func addRecentSearch(searchWord: String) {
-        searchHistory.insert(searchWord, at: 0)
-        if searchHistory.count > 12 {
-            searchHistory.removeLast()
-        }
-        setRecentSearch()
-    }
-
-    func removeRecentSearch(at index: Int) {
-        searchHistory.remove(at: index)
-        setRecentSearch()
-    }
-
-    func removeAllRecentSearch() {
-        searchHistory.removeAll()
-        setRecentSearch()
-    }
-
-    func setRecentSearch() {
-        UserDefaults.standard.set(searchHistory, forKey: "RecentSearch")
     }
 }

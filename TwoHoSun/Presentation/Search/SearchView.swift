@@ -35,6 +35,7 @@ struct SearchView: View {
                                 Spacer()
                                 deleteAllButton
                             }
+
                             recentSearchView
                         } else {
                             HStack {
@@ -60,6 +61,11 @@ struct SearchView: View {
         .overlay {
             if viewModel.isLoading {
                 ProgressView()
+            }
+        }
+        .onChange(of: isFocused) { _ in
+            if isFocused {
+                viewModel.send(action: .loadRecentSearch)
             }
         }
     }
@@ -116,7 +122,7 @@ extension SearchView {
 
     private var deleteAllButton: some View {
         Button {
-            
+            viewModel.send(action: .removeAllRecentSearch)
         } label: {
             Text("전체 삭제")
                 .font(.system(size: 14, weight: .medium))
@@ -132,6 +138,7 @@ extension SearchView {
                         .strokeBorder(Color.purpleStroke, lineWidth: 1)
                         .frame(width: 28, height: 28)
                         .foregroundStyle(.clear)
+
                     Image(systemName: "clock.arrow.circlepath")
                         .font(.system(size: 18, weight: .light))
                         .foregroundStyle(Color.darkGray)
@@ -141,24 +148,26 @@ extension SearchView {
                     .foregroundStyle(Color.woteWhite)
                     .padding(.leading, 16)
                     .multilineTextAlignment(.leading)
+
                 Spacer()
             }
             .background(Color.background.opacity(0.01))
 
-            Image(systemName: "xmark")
-                .font(.system(size: 14))
-                .foregroundStyle(Color.darkGray)
-                .padding(15)
-                .onTapGesture {
-//                    viewModel.removeRecentSearch(at: index)
-                }
+            Button {
+                viewModel.send(action: .removeRecentSearch(index))
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 14))
+                    .foregroundStyle(Color.darkGray)
+                    .padding(15)
+            }
         }
     }
 
     private var recentSearchView: some View {
         List {
-            ForEach(viewModel.searchHistory.indices, id: \.self) { index in
-                recentSearchCell(word: viewModel.searchHistory[index], index: index)
+            ForEach(viewModel.recentSearches.indices, id: \.self) { index in
+                recentSearchCell(word: viewModel.recentSearches[index], index: index)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
@@ -191,7 +200,7 @@ extension SearchView {
                         }
                         .onAppear {
                             if index == viewModel.reviewResults.count - 4 {
-                                viewModel.send(action: .loadMoereResults(viewModel.searchText))
+                                viewModel.send(action: .loadMoreResults(viewModel.searchText))
                             }
                         }
                     }
@@ -214,7 +223,7 @@ extension SearchView {
                         }
                         .onAppear {
                             if index == viewModel.voteResults.count - 4 {
-                                viewModel.send(action: .loadMoereResults(viewModel.searchText))
+                                viewModel.send(action: .loadMoreResults(viewModel.searchText))
                             }
                         }
                     }
