@@ -46,7 +46,7 @@ struct VoteListView: View {
                 ProgressView()
             }
         }
-        .navigationDestination(for: VoteTabDestination.self) { dest in
+        .navigationDestination(for: VoteDestination.self) { dest in
             switch dest {
                 
             case .voteWrite:
@@ -97,7 +97,7 @@ extension VoteListView {
 
     private var createVoteButton: some View {
         Button {
-            router.push(to: VoteTabDestination.voteWrite)
+            router.push(to: VoteDestination.voteWrite)
         } label: {
             HStack(spacing: 2) {
                 Image(systemName: "plus")
