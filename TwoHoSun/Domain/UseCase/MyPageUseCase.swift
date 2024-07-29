@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 protocol MyPageUseCaseType {
-
+    func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError>
 }
 
 final class MyPageUseCase: MyPageUseCaseType {
@@ -18,8 +19,17 @@ final class MyPageUseCase: MyPageUseCaseType {
     init(userRepository: UserRepositoryType) {
         self.userRepository = userRepository
     }
+
+    func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError> {
+        userRepository.getMyVotes(page: page, size: size)
+    }
 }
 
 final class StubMyPageUseCase: MyPageUseCaseType {
 
+    func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError> {
+        Just(MyVotesModel(total: 0, votes: []))
+            .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
 }

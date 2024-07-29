@@ -44,6 +44,15 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError> {
+        let requestObject: MyVotesRequestObject = .init(page: page, size: size)
+
+        return userDataSource.getMyVotes(requestObject)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
 
 final class StubUserRepository: UserRepositoryType {
@@ -59,6 +68,11 @@ final class StubUserRepository: UserRepositoryType {
     }
 
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }
