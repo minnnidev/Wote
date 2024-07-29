@@ -13,6 +13,7 @@ enum UserAPI {
     case getSchoolData(String, SchoolDataType)
     case postProfile(ProfileRequestObject)
     case getMyVotes(MyVotesRequestObject)
+    case getMyReviews(MyReviewsRequestObject)
 }
 
 extension UserAPI: TargetType {
@@ -34,9 +35,10 @@ extension UserAPI: TargetType {
             return ""
         case .postProfile(_):
             return "/profiles"
-
         case .getMyVotes(_):
-            return "mypage/posts"
+            return "/mypage/posts"
+        case .getMyReviews(_):
+            return "/mypage/reviews"
         }
     }
     
@@ -49,7 +51,9 @@ extension UserAPI: TargetType {
         case .postProfile(_):
             return .post
         case .getMyVotes(_):
-            return  .get
+            return .get
+        case .getMyReviews(_):
+            return .get
         }
     }
     
@@ -75,6 +79,9 @@ extension UserAPI: TargetType {
             return .uploadMultipart(formData)
 
         case let .getMyVotes(requestObject):
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
+
+        case let .getMyReviews(requestObject):
             return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
         }
     }

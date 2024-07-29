@@ -14,6 +14,7 @@ final class MyPageViewModel: ObservableObject {
         case loadMyVotes
         case loadMoreVotes
         case loadMyReviews
+        case loadMoreReviews
         case changeSelectedType(_ type: MyPageListType)
     }
 
@@ -28,11 +29,13 @@ final class MyPageViewModel: ObservableObject {
     }
     @Published var isLoading: Bool = false
     @Published var myVotes: [MyVoteModel] = .init()
+    @Published var myReviews: [ReviewModel] = .init()
     @Published var total: Int = 0
 
     var profile: ProfileModel?
 
     private var votePage: Int = 0
+    private var reviewpage: Int = 0
     private var cacellabels: Set<AnyCancellable> = []
 
     private let myPageUseCase: MyPageUseCaseType
@@ -47,7 +50,7 @@ final class MyPageViewModel: ObservableObject {
             isLoading = true
             votePage = 0
 
-            myPageUseCase.getMyVotes(page: 0, size: 10)
+            myPageUseCase.getMyVotes(page: votePage, size: 10)
                 .sink { [weak self] _ in
                     self?.isLoading = false
                 } receiveValue: { [weak self] myVoteModel in
@@ -69,8 +72,29 @@ final class MyPageViewModel: ObservableObject {
                 .store(in: &cacellabels)
 
         case .loadMyReviews:
-            // TODO:
-            return
+            isLoading = true
+            reviewpage = 0
+
+            myPageUseCase.getMyReviews(page: reviewpage, size: 10, visibilityScope: .global)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] myReviewModel in
+                    self?.isLoading = false
+                    self?.total = myReviewModel.total
+                    self?.myReviews = myReviewModel.myReviews
+                }
+                .store(in: &cacellabels)
+
+        case .loadMoreReviews:
+            reviewpage += 1
+
+            myPageUseCase.getMyReviews(page: reviewpage, size: 10, visibilityScope: .global)
+                .sink { _ in
+                } receiveValue: { [weak self] myReviewModel in
+                    self?.total = myReviewModel.total
+                    self?.myReviews.append(contentsOf: myReviewModel.myReviews)
+                }
+                .store(in: &cacellabels)
 
         case let .changeSelectedType(type):
             selectedMyPageListType = type

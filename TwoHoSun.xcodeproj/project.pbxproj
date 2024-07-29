@@ -15,6 +15,10 @@
 		AB0168172C5768B90041B956 /* MyVotesResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168162C5768B90041B956 /* MyVotesResponseObject.swift */; };
 		AB01681A2C5768EC0041B956 /* MyVotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168192C5768EC0041B956 /* MyVotesModel.swift */; };
 		AB01681C2C5771CF0041B956 /* MyPageVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */; };
+		AB01681E2C577B3B0041B956 /* MyPageReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01681D2C577B3B0041B956 /* MyPageReviewCell.swift */; };
+		AB0168202C577B920041B956 /* MyReviewsRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01681F2C577B920041B956 /* MyReviewsRequestObject.swift */; };
+		AB0168222C577BC90041B956 /* MyReviewsReponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168212C577BC90041B956 /* MyReviewsReponseObject.swift */; };
+		AB0168242C577C070041B956 /* MyReviewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168232C577C070041B956 /* MyReviewsModel.swift */; };
 		AB03D7372B01378E000C927A /* CommonAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7362B01378E000C927A /* CommonAPIService.swift */; };
 		AB03D7392B0137CC000C927A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7382B0137CC000C927A /* UserService.swift */; };
 		AB03D73B2B0137D5000C927A /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D73A2B0137D5000C927A /* PostService.swift */; };
@@ -219,6 +223,10 @@
 		AB0168162C5768B90041B956 /* MyVotesResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVotesResponseObject.swift; sourceTree = "<group>"; };
 		AB0168192C5768EC0041B956 /* MyVotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVotesModel.swift; sourceTree = "<group>"; };
 		AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVoteCell.swift; sourceTree = "<group>"; };
+		AB01681D2C577B3B0041B956 /* MyPageReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageReviewCell.swift; sourceTree = "<group>"; };
+		AB01681F2C577B920041B956 /* MyReviewsRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewsRequestObject.swift; sourceTree = "<group>"; };
+		AB0168212C577BC90041B956 /* MyReviewsReponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewsReponseObject.swift; sourceTree = "<group>"; };
+		AB0168232C577C070041B956 /* MyReviewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewsModel.swift; sourceTree = "<group>"; };
 		AB03D7362B01378E000C927A /* CommonAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAPIService.swift; sourceTree = "<group>"; };
 		AB03D7382B0137CC000C927A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AB03D73A2B0137D5000C927A /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
@@ -444,6 +452,8 @@
 				AB44D2262C3FDE270011000F /* Profile */,
 				AB0168142C5763F20041B956 /* MyVotesRequestObject.swift */,
 				AB0168162C5768B90041B956 /* MyVotesResponseObject.swift */,
+				AB01681F2C577B920041B956 /* MyReviewsRequestObject.swift */,
+				AB0168212C577BC90041B956 /* MyReviewsReponseObject.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -453,6 +463,7 @@
 			children = (
 				AB44D2252C3FDDE80011000F /* Profile */,
 				AB0168192C5768EC0041B956 /* MyVotesModel.swift */,
+				AB0168232C577C070041B956 /* MyReviewsModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -744,6 +755,7 @@
 				ABA1E84D2AFE9F9A009051E0 /* MyPageView.swift */,
 				FD9DDB6D2B06F76D006D738A /* MyPageViewModel.swift */,
 				AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */,
+				AB01681D2C577B3B0041B956 /* MyPageReviewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1204,11 +1216,13 @@
 				ABDED8852B00B17F00D78BEA /* VoteWriteViewModel.swift in Sources */,
 				ABDED8832B00B0FE00D78BEA /* ComplaintReasonView.swift in Sources */,
 				ABDED8802B00B07300D78BEA /* TypeTestModel.swift in Sources */,
+				AB0168222C577BC90041B956 /* MyReviewsReponseObject.swift in Sources */,
 				AB481C672C4F6FEB0030C614 /* ReviewRepositoryType.swift in Sources */,
 				AB76E2322C4793DA00204A22 /* ChooseRequestObject.swift in Sources */,
 				C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */,
 				AB2507152C3BF830009B0A3C /* Tokens.swift in Sources */,
 				ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */,
+				AB01681E2C577B3B0041B956 /* MyPageReviewCell.swift in Sources */,
 				AB4AA95F2C4FD7D2008825CB /* SearchAPI.swift in Sources */,
 				C7EFA7D92AF9279200C9BEA0 /* ComplaintView.swift in Sources */,
 				AB7317EC2AF90F40008B5E41 /* ProfileSettingViewModel.swift in Sources */,
@@ -1216,6 +1230,7 @@
 				AB7317EA2AF90F00008B5E41 /* UIColor+.swift in Sources */,
 				AB481C5C2C4F64100030C614 /* ReviewAssembly.swift in Sources */,
 				AB481C5E2C4F66A50030C614 /* SimpleReviewCell.swift in Sources */,
+				AB0168202C577B920041B956 /* MyReviewsRequestObject.swift in Sources */,
 				ABF0644A2B15177A00C45E73 /* WoteTabHandler.swift in Sources */,
 				AB38A1052B06757C004153B5 /* CustomProgressStyle.swift in Sources */,
 				AB25072C2C3C5382009B0A3C /* AuthDataSource.swift in Sources */,
@@ -1318,6 +1333,7 @@
 				AB8770F62AFF8A5E00B272F2 /* NoReviewView.swift in Sources */,
 				AB4AA9622C4FD8AE008825CB /* SearchRequestObject.swift in Sources */,
 				C73F8E8C2AE5527B001C6B07 /* CommonModel.swift in Sources */,
+				AB0168242C577C070041B956 /* MyReviewsModel.swift in Sources */,
 				ABBFB6322AE3EABD006CE8CA /* VoteCreateRequestModel.swift in Sources */,
 				AB44D22A2C4015FF0011000F /* MultipartFormDataHelper.swift in Sources */,
 				AB45225A2ADDDC9E00B69F24 /* SchoolSearchViewModel.swift in Sources */,

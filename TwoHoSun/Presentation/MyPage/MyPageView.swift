@@ -200,7 +200,7 @@ extension MyPageView {
                     }
                     .onAppear {
                         if index == myReviews.count - 4 {
-                            // TODO: fetch more
+                            viewModel.send(action: .loadMoreVotes)
                         }
                     }
                 }

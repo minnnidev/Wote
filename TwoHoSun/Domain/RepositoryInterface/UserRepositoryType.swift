@@ -13,4 +13,5 @@ protocol UserRepositoryType {
     func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError>
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError>
     func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError>
+    func getMyReviews(page: Int, size: Int, visibilityScope: VisibilityScopeType) -> AnyPublisher<MyReviewsModel, WoteError>
 }
