@@ -30,7 +30,7 @@ struct WoteTabView: View {
                             ReviewListView(viewModel:appDependency.container.resolve(ReviewListViewModel.self)!)
                                 .environmentObject(router)
                         case .myPage:
-                            MyPageView(selectedVisibilityScope: $visibilityScope)
+                            MyPageView()
                         }
                     }
                     .tabItem {
