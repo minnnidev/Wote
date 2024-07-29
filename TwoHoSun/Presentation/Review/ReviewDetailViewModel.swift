@@ -44,7 +44,13 @@ final class ReviewDetailViewModel: ObservableObject {
                 .store(in: &cancellables)
 
         case .deleteReview:
-            return
+            reviewUseCase.deleteReview(postId: id)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    NotificationCenter.default.post(name: .reviewDeleted, object: nil)
+                    // TODO: navigation stack pop
+                }
+                .store(in: &cancellables)
         }
     }
 }

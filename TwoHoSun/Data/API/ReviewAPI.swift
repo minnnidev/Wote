@@ -12,6 +12,7 @@ enum ReviewAPI {
     case getReviews(visibilityScope: String)
     case getMoreReviews(MoreReviewRequestObject)
     case getReviewDetail(reviewId: Int)
+    case deleteReview(postId: Int)
 }
 
 extension ReviewAPI: TargetType {
@@ -30,11 +31,16 @@ extension ReviewAPI: TargetType {
 
         case let .getReviewDetail(reviewId):
             return "/reviews/\(reviewId)/detail"
+
+        case let .deleteReview(postId):
+            return "/posts/\(postId)/reviews"
         }
     }
 
     var method: Moya.Method {
         switch self {
+        case .deleteReview(_):
+            return .delete
         default:
             return .get
         }
@@ -51,6 +57,10 @@ extension ReviewAPI: TargetType {
         case let .getReviewDetail(reviewId):
             return .requestParameters(parameters: reviewId.toDictionary(),
                                       encoding: URLEncoding.queryString)
+
+        case let .deleteReview(postId):
+            return .requestParameters(parameters: postId.toDictionary(),
+                                      encoding: URLEncoding.queryString)
         }
     }
 
@@ -60,5 +70,4 @@ extension ReviewAPI: TargetType {
             APIConstants.headerWithAuthorization
         }
     }
-
 }

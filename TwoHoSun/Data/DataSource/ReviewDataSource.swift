@@ -12,6 +12,7 @@ protocol ReviewDataSourceType {
     func getReviews(_ visibilityScope: String) -> AnyPublisher<ReviewTabResponseObject, APIError>
     func getMoreReviews(_ object: MoreReviewRequestObject) -> AnyPublisher<[ReviewResponseObject], APIError>
     func getReviewDetail(_ reviewId: Int) -> AnyPublisher<ReviewDetailResponseObject, APIError>
+    func deleteReview(_ postId: Int) -> AnyPublisher<Void, APIError>
 }
 
 final class ReviewDataSource: ReviewDataSourceType {
@@ -34,5 +35,9 @@ final class ReviewDataSource: ReviewDataSourceType {
 
     func getReviewDetail(_ reviewId: Int) -> AnyPublisher<ReviewDetailResponseObject, APIError> {
         provider.requestPublisher(Target.getReviewDetail(reviewId: reviewId), ReviewDetailResponseObject.self)
+    }
+
+    func deleteReview(_ postId: Int) -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.deleteReview(postId: postId))
     }
 }
