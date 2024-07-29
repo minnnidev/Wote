@@ -48,12 +48,6 @@ final class MyPageViewModel: ObservableObject {
         switch action {
         case .loadProfile:
             return
-//            myPageUseCase.loadProfile()
-//                .sink { _ in
-//                } receiveValue: { [weak self] profile in
-//                    self?.myProfile = profile
-//                }
-//                .store(in: &cacellabels)
 
         case .loadMyVotes:
             isLoading = true
