@@ -9,4 +9,9 @@ import Foundation
 
 final class ProfileModifyViewModel: ObservableObject {
     
+    private let userUseCase: UserUseCaseType
+
+    init(userUseCase: UserUseCaseType) {
+        self.userUseCase = userUseCase
+    }
 }

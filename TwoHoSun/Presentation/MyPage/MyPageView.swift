@@ -21,6 +21,7 @@ enum MyPageListType {
 }
 
 struct MyPageView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var router: NavigationRouter
     
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
@@ -75,7 +76,7 @@ struct MyPageView: View {
         .navigationDestination(for: MyPageDestination.self) { dest in
             switch dest {
             case .modifyProfile:
-                ProfileModifyView()
+                ProfileModifyView(viewModel: appDependency.container.resolve(ProfileModifyViewModel.self)!)
             }
         }
     }
