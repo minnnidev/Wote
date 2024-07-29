@@ -21,11 +21,9 @@ enum MyPageListType {
 }
 
 struct MyPageView: View {
-    @State private var didFinishSetup = false
-
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
-    @StateObject var viewModel = MyPageViewModel()
+    @StateObject var viewModel: MyPageViewModel
 
     var body: some View {
         ScrollView {
@@ -203,5 +201,5 @@ extension MyPageView {
 }
 
 #Preview {
-    MyPageView()
+    MyPageView(viewModel: .init(myPageUseCase: StubMyPageUseCase()))
 }

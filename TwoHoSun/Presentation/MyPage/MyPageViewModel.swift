@@ -17,6 +17,12 @@ final class MyPageViewModel: ObservableObject {
 
     private var cacellabels: Set<AnyCancellable> = []
 
+    private let myPageUseCase: MyPageUseCaseType
+
+    init(myPageUseCase: MyPageUseCaseType) {
+        self.myPageUseCase = myPageUseCase
+    }
+
     func requestPosts(postType: PostService) {
 
     }
