@@ -14,6 +14,7 @@
 		AB0168152C5763F20041B956 /* MyVotesRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168142C5763F20041B956 /* MyVotesRequestObject.swift */; };
 		AB0168172C5768B90041B956 /* MyVotesResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168162C5768B90041B956 /* MyVotesResponseObject.swift */; };
 		AB01681A2C5768EC0041B956 /* MyVotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168192C5768EC0041B956 /* MyVotesModel.swift */; };
+		AB01681C2C5771CF0041B956 /* MyPageVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */; };
 		AB03D7372B01378E000C927A /* CommonAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7362B01378E000C927A /* CommonAPIService.swift */; };
 		AB03D7392B0137CC000C927A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7382B0137CC000C927A /* UserService.swift */; };
 		AB03D73B2B0137D5000C927A /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D73A2B0137D5000C927A /* PostService.swift */; };
@@ -217,6 +218,7 @@
 		AB0168142C5763F20041B956 /* MyVotesRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVotesRequestObject.swift; sourceTree = "<group>"; };
 		AB0168162C5768B90041B956 /* MyVotesResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVotesResponseObject.swift; sourceTree = "<group>"; };
 		AB0168192C5768EC0041B956 /* MyVotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVotesModel.swift; sourceTree = "<group>"; };
+		AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVoteCell.swift; sourceTree = "<group>"; };
 		AB03D7362B01378E000C927A /* CommonAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAPIService.swift; sourceTree = "<group>"; };
 		AB03D7382B0137CC000C927A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AB03D73A2B0137D5000C927A /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 			children = (
 				ABA1E84D2AFE9F9A009051E0 /* MyPageView.swift */,
 				FD9DDB6D2B06F76D006D738A /* MyPageViewModel.swift */,
+				AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1346,6 +1349,7 @@
 				AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */,
 				AB8770F42AFF897100B272F2 /* NoVoteView.swift in Sources */,
 				AB38A1032B0646F1004153B5 /* Double+.swift in Sources */,
+				AB01681C2C5771CF0041B956 /* MyPageVoteCell.swift in Sources */,
 				C78E7D012AF6AF4C00C2E220 /* CommentsView.swift in Sources */,
 				AB38A1172B0919C9004153B5 /* ReviewTabResponseObject.swift in Sources */,
 				ABC1CDE02C4655F90054E74C /* VoteModel.swift in Sources */,

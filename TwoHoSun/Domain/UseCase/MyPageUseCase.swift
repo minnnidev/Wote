@@ -28,7 +28,7 @@ final class MyPageUseCase: MyPageUseCaseType {
 final class StubMyPageUseCase: MyPageUseCaseType {
 
     func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError> {
-        Just(MyVotesModel(total: 0, votes: []))
+        Just(MyVotesModel(total: 1, votes: [.myVoteStub]))
             .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }

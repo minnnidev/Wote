@@ -26,26 +26,35 @@ struct MyPageView: View {
     @StateObject var viewModel: MyPageViewModel
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                profileHeaderView
-                    .padding(.top, 24)
-                    .padding(.bottom, haveConsumerType ? 24 : 0)
-
-                if !haveConsumerType {
-                    GoToTypeTestButton()
-                        .padding(.horizontal, 24)
-                        .padding(.top, 24)
+        VStack {
+            WoteNavigationBar(
+                selectedTab: .constant(.myPage),
+                visibilityScope: .constant(.global),
+                tapSearchButton: {
+                    // TODO: refactor navigation bar
                 }
+            )
+            ScrollView {
+                VStack(spacing: 0) {
+                    profileHeaderView
+                        .padding(.top, 24)
+                        .padding(.bottom, haveConsumerType ? 24 : 0)
 
-                ScrollViewReader { proxy in
-                    LazyVStack(pinnedViews: .sectionHeaders) {
-                        Section {
-                            myPageListTypeView
-                        } header: {
-                            sectionHeaderView
+                    if !haveConsumerType {
+                        GoToTypeTestButton()
+                            .padding(.horizontal, 24)
+                            .padding(.top, 24)
+                    }
+
+                    ScrollViewReader { proxy in
+                        LazyVStack(pinnedViews: .sectionHeaders) {
+                            Section {
+                                myPageListTypeView
+                            } header: {
+                                sectionHeaderView
+                            }
+                            .id("myPageList")
                         }
-                        .id("myPageList")
                     }
                 }
             }
@@ -57,7 +66,8 @@ struct MyPageView: View {
             viewModel.send(action: .loadMyVotes)
         }
         .refreshable {
-            // TODO:
+            viewModel.send(action: .changeSelectedType(.myVote))
+            viewModel.send(action: .loadMyVotes)
         }
     }
 }
@@ -151,31 +161,24 @@ extension MyPageView {
     private var myPageListTypeView: some View {
         switch viewModel.selectedMyPageListType {
         case .myVote:
-            let myPosts: [ReviewModel] = [.init(id: 1,
-                                                     createDate: "",
-                                                     modifiedDate: "",
-                                                     postStatus: "CLOSED",
-                                                     title: "투표 테스트")]
-//            ForEach(Array(zip(myPosts.indices, myPosts)), id: \.0) { index, post in
-//                Button {
-//
-//                } label: {
-//                    VStack(spacing: 0) {
-//                        VoteCardCell(cellType: .myVote,
-//                                      progressType: PostStatus(rawValue: post.postStatus) ?? .closed,
-//                                      data: post)
-//                        Divider()
-//                            .background(Color.dividerGray)
-//                            .padding(.horizontal, 8)
-//                    }
-//                }
-//                .onAppear {
-//                    if index == myPosts.count - 4 {
-//                        viewModel.fetchMorePosts()
-//                    }
-//                }
-//            }
-//            .padding(.horizontal, 8)
+            ForEach(Array(zip(viewModel.myVotes.indices, viewModel.myVotes)), id: \.0) { index, post in
+                Button {
+
+                } label: {
+                    VStack(spacing: 0) {
+                        MyPageVoteCell(myVote: post)
+                        Divider()
+                            .background(Color.dividerGray)
+                            .padding(.horizontal, 8)
+                    }
+                }
+                .onAppear {
+                    if index == viewModel.myVotes.count - 4 {
+                        viewModel.send(action: .loadMoreVotes)
+                    }
+                }
+            }
+            .padding(.horizontal, 8)
 
         case .myReview:
             let myReviews: [ReviewModel] = [.init(id: 2,

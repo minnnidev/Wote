@@ -12,19 +12,27 @@ final class MyPageViewModel: ObservableObject {
 
     enum Action {
         case loadMyVotes
+        case loadMoreVotes
         case loadMyReviews
         case changeSelectedType(_ type: MyPageListType)
     }
 
-    @Published var selectedMyPageListType: MyPageListType = .myVote
+    @Published var selectedMyPageListType: MyPageListType = .myVote {
+        didSet {
+            if selectedMyPageListType == .myVote {
+                send(action: .loadMyVotes)
+            } else {
+                send(action: .loadMyReviews)
+            }
+        }
+    }
     @Published var isLoading: Bool = false
     @Published var myVotes: [MyVoteModel] = .init()
-    @Published var totalVotes: Int = 0
-
+    @Published var total: Int = 0
 
     var profile: ProfileModel?
-    var total = 0
 
+    private var votePage: Int = 0
     private var cacellabels: Set<AnyCancellable> = []
 
     private let myPageUseCase: MyPageUseCaseType
@@ -37,14 +45,26 @@ final class MyPageViewModel: ObservableObject {
         switch action {
         case .loadMyVotes:
             isLoading = true
+            votePage = 0
 
             myPageUseCase.getMyVotes(page: 0, size: 10)
                 .sink { [weak self] _ in
                     self?.isLoading = false
-                } receiveValue: { [weak self] votes in
-                    self?.myVotes = votes.votes
-                    self?.totalVotes = votes.total
+                } receiveValue: { [weak self] myVoteModel in
+                    self?.myVotes = myVoteModel.votes
+                    self?.total = myVoteModel.total
                     self?.isLoading = false
+                }
+                .store(in: &cacellabels)
+
+        case .loadMoreVotes:
+            votePage += 1
+
+            myPageUseCase.getMyVotes(page: votePage, size: 10)
+                .sink { _ in
+                } receiveValue: { [weak self] myVoteModel in
+                    self?.myVotes.append(contentsOf: myVoteModel.votes)
+                    self?.total = myVoteModel.total
                 }
                 .store(in: &cacellabels)
 

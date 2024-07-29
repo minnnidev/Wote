@@ -30,3 +30,22 @@ struct MyVoteModel {
         case createDate, modifiedDate, visibilityScope, postStatus, title, contents, image, price, voteResult, hasReview
     }
 }
+
+extension MyVoteModel {
+
+    static var myVoteStub: MyVoteModel {
+        .init(
+            id: 1,
+            createDate: "2024-07-25T01:58:07.347461",
+            modifiedDate: "2024-07-25T01:58:07.347461",
+            visibilityScope: "GLOBAL",
+            postStatus: "CLOSED",
+            title: "테스트",
+            contents: "content 테스트입니다 테스트입니다",
+            image: "https://www.wote.social/images/posts/78ec4f86-5676-4c70-ae16-0334c452ec72.jpg",
+            price: 3000,
+            voteResult: "BUY",
+            hasReview: false
+        )
+    }
+}
