@@ -21,6 +21,9 @@ enum MyPageListType {
 }
 
 struct MyPageView: View {
+    @EnvironmentObject var appDependency: AppDependency
+    @EnvironmentObject var router: NavigationRouter
+    
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     @StateObject var viewModel: MyPageViewModel
@@ -59,6 +62,13 @@ struct MyPageView: View {
                 }
             }
         }
+        .navigationDestination(for: MyPageDestination.self) { dest in
+            switch dest {
+            case .modifyProfile:
+                ProfileModifyView(viewModel: appDependency.container.resolve(ProfileModifyViewModel.self)!)
+                    .environmentObject(router)
+            }
+        }
         .toolbarBackground(Color.background, for: .tabBar)
         .scrollIndicators(.hidden)
         .background(Color.background)
@@ -77,7 +87,7 @@ extension MyPageView {
 
     private var profileHeaderView: some View {
         Button {
-            // TODO: 화면 전환
+            router.push(to: MyPageDestination.modifyProfile)
         } label: {
             HStack(spacing: 14) {
                 ProfileImageView(imageURL: viewModel.myProfile?.profileImage)
@@ -186,13 +196,7 @@ extension MyPageView {
             .padding(.horizontal, 8)
 
         case .myReview:
-            let myReviews: [ReviewModel] = [.init(id: 2,
-                                                       createDate: "",
-                                                       modifiedDate: "",
-                                                       postStatus: "CLOSED",
-                                                       title: "후기 테스트")]
-
-            ForEach(Array(zip(myReviews.indices, myReviews)), id: \.0) { index, data in
+            ForEach(Array(zip(viewModel.myReviews.indices, viewModel.myReviews)), id: \.0) { index, data in
                 Button {
 
                 } label: {
@@ -204,7 +208,7 @@ extension MyPageView {
                             .padding(.horizontal, 8)
                     }
                     .onAppear {
-                        if index == myReviews.count - 4 {
+                        if index == viewModel.myReviews.count - 4 {
                             viewModel.send(action: .loadMoreVotes)
                         }
                     }

@@ -31,6 +31,7 @@ struct WoteTabView: View {
                                 .environmentObject(router)
                         case .myPage:
                             MyPageView(viewModel: appDependency.container.resolve(MyPageViewModel.self)!)
+                                .environmentObject(router)
                         }
                     }
                     .tabItem {

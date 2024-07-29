@@ -31,6 +31,13 @@ final class UserAssmbly: Assembly {
             )
         }
 
+        container.register(ProfileModifyViewModel.self) { res in
+            ProfileModifyViewModel(
+                userUseCase: res.resolve(UserUseCaseType.self)!,
+                photoUseCase: res.resolve(PhotoUseCaseType.self)!
+            )
+        }
+
         // MARK: UseCases
 
         container.register(UserUseCaseType.self) { res in

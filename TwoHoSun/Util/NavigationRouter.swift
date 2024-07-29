@@ -47,6 +47,10 @@ enum VoteDestination: Hashable {
     case voteWrite
 }
 
+enum MyPageDestination: Hashable {
+    case modifyProfile
+}
+
 final class NavigationRouter: ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
 
