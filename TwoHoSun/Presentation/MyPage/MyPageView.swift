@@ -54,10 +54,10 @@ struct MyPageView: View {
         .scrollIndicators(.hidden)
         .background(Color.background)
         .onAppear {
-            // TODO: API
+            viewModel.send(action: .loadMyVotes)
         }
         .refreshable {
-            viewModel.fetchPosts()
+            // TODO:
         }
     }
 }
@@ -101,8 +101,15 @@ extension MyPageView {
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 16) {
                 HStack(spacing: 19) {
-                    myPageListTypeButton(for: .myVote)
-                    myPageListTypeButton(for: .myReview)
+                    myPageListButton(
+                        isSelected: viewModel.selectedMyPageListType == .myVote,
+                        type: .myVote
+                    )
+                    myPageListButton(
+                        isSelected: viewModel.selectedMyPageListType == .myReview,
+                        type: .myReview
+                    )
+
                     Spacer()
                 }
                 .padding(.bottom, 9)
@@ -125,21 +132,21 @@ extension MyPageView {
         }
     }
 
-    private func myPageListTypeButton(for type: MyPageListType) -> some View {
+    private func myPageListButton(isSelected: Bool, type: MyPageListType) -> some View {
         VStack(spacing: 10) {
             Text(type.title)
                 .font(.system(size: 18, weight: .medium))
-                .foregroundStyle(type == viewModel.selectedMyPageListType ? Color.lightBlue : Color.fontGray)
-            
+                .foregroundStyle(isSelected ? Color.lightBlue : Color.fontGray)
+
             Rectangle()
                 .frame(width: 66, height: 2)
-                .foregroundStyle(type == viewModel.selectedMyPageListType ? Color.lightBlue : Color.clear)
+                .foregroundStyle(isSelected ? Color.lightBlue : Color.clear)
         }
         .onTapGesture {
-            viewModel.selectedMyPageListType = type
+            viewModel.send(action: .changeSelectedType(type))
         }
     }
-    
+
     @ViewBuilder
     private var myPageListTypeView: some View {
         switch viewModel.selectedMyPageListType {
@@ -190,7 +197,7 @@ extension MyPageView {
                     }
                     .onAppear {
                         if index == myReviews.count - 4 {
-                            viewModel.fetchMorePosts()
+                            // TODO: fetch more
                         }
                     }
                 }

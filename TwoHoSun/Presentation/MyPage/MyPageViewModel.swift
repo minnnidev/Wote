@@ -9,8 +9,14 @@ import Combine
 import SwiftUI
 
 final class MyPageViewModel: ObservableObject {
-    
-    var selectedMyPageListType = MyPageListType.myVote
+
+    enum Action {
+        case loadMyVotes
+        case loadMyReviews
+        case changeSelectedType(_ type: MyPageListType)
+    }
+
+    @Published var selectedMyPageListType = MyPageListType.myVote
 
     var profile: ProfileModel?
     var total = 0
@@ -23,15 +29,18 @@ final class MyPageViewModel: ObservableObject {
         self.myPageUseCase = myPageUseCase
     }
 
-    func requestPosts(postType: PostService) {
+    func send(action: Action) {
+        switch action {
+        case .loadMyVotes:
+            // TODO:
+            return
 
-    }
+        case .loadMyReviews:
+            // TODO:
+            return
 
-    func fetchPosts(isFirstFetch: Bool = true) {
-
-    }
-
-    func fetchMorePosts() {
-
+        case let .changeSelectedType(type):
+            selectedMyPageListType = type
+        }
     }
 }
