@@ -9,6 +9,12 @@ import Combine
 import Foundation
 
 final class ReviewWriteViewModel: ObservableObject {
+
+    enum Action {
+        case selectReviewType(isPurchased: Bool)
+        case registerReview
+    }
+
     @Published var isPurchased: Bool = true
     @Published var title: String = ""
     @Published var price: String = ""
@@ -18,6 +24,17 @@ final class ReviewWriteViewModel: ObservableObject {
     @Published var isCreatingReview = false
     @Published var review: ReviewCreateModel?
     @Published var isCompleted = false
+
+    private let reviewUseCase: ReviewUseCaseType
+    private let voteId: Int
+
+    init(
+        voteId: Int,
+        reviewUseCase: ReviewUseCaseType
+    ) {
+        self.voteId = voteId
+        self.reviewUseCase = reviewUseCase
+    }
 
     private var cancellable = Set<AnyCancellable>()
 
@@ -37,27 +54,14 @@ final class ReviewWriteViewModel: ObservableObject {
         }
     }
 
-    func setReview() {
-        review = ReviewCreateModel(title: title,
-                                   contents: content.isEmpty ? nil : content,
-                                   price: price.isEmpty ? nil : Int(price),
-                                   isPurchased: isPurchased,
-                                   image: image)
-    }
-    
-    func createReview() {
-        isCreatingReview.toggle()
-        setReview()
-        guard let review = review else { return isCreatingReview.toggle()}
+    func send(action: Action) {
+        switch action {
+        case let .selectReviewType(isPurchased):
+            self.isPurchased = isPurchased
 
-        // TODO: 리뷰 등록 API
-    }
-    
-    func clearData(_ state: Bool) {
-        isPurchased = state
-        title = ""
-        price = ""
-        content = ""
-        image = nil
+        case .registerReview:
+             // TODO: API 연결
+            return
+        }
     }
 }

@@ -26,6 +26,13 @@ final class ReviewAssembly: Assembly {
             )
         }
 
+        container.register(ReviewWriteViewModel.self) { res, postId in
+            ReviewWriteViewModel(
+                voteId: postId,
+                reviewUseCase: res.resolve(ReviewUseCaseType.self)!
+            )
+        }
+
         // MARK: UseCases
 
         container.register(ReviewUseCaseType.self) { res in

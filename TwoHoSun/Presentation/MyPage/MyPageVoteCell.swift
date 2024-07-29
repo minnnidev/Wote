@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MyPageVoteCell: View {
+    @EnvironmentObject var router: NavigationRouter
+
     let myVote: MyVoteModel
 
     var body: some View {
@@ -62,9 +64,8 @@ struct MyPageVoteCell: View {
             }
 
             if !(myVote.hasReview ?? true) {
-
                 Button {
-                    // TODO: 후기 작성
+                    router.push(to: WoteDestination.reviewWrite(postId: myVote.id))
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -87,4 +88,5 @@ struct MyPageVoteCell: View {
 
 #Preview {
     MyPageVoteCell(myVote: .myVoteStub)
+        .environmentObject(NavigationRouter())
 }

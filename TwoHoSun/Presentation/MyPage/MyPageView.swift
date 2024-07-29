@@ -182,6 +182,8 @@ extension MyPageView {
                 } label: {
                     VStack(spacing: 0) {
                         MyPageVoteCell(myVote: post)
+                            .environmentObject(router)
+                        
                         Divider()
                             .background(Color.dividerGray)
                             .padding(.horizontal, 8)

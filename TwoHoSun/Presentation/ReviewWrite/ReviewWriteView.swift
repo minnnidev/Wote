@@ -23,7 +23,7 @@ struct ReviewWriteView: View {
     @State private var showCropView: Bool = false
     @State private var isMine: Bool = false
 
-    @StateObject var viewModel = ReviewWriteViewModel() 
+    @StateObject var viewModel: ReviewWriteViewModel
 
     var body: some View {
         ZStack {
@@ -32,24 +32,15 @@ struct ReviewWriteView: View {
             VStack {
                 ScrollView {
                     VStack(spacing: 48) {
-                        VStack(spacing: 12) {
-//                            VoteCardCell(cellType: .standard,
-//                                         progressType: .closed,
-//                                         data: .init(id: 1,
-//                                                     createDate: "",
-//                                                     modifiedDate: "",
-//                                                     postStatus: "CLOSED",
-//                                                     author: .authorStub1, 
-//                                                     title: ""
-//                                                    )
-//                            )
-                            buySelection
-                        }
+                        buySelection
+
                         titleView
+
                         if viewModel.isPurchased {
                             priceView
                             imageView
                         }
+
                         contentView
                         Spacer()
                     }
@@ -115,7 +106,7 @@ extension ReviewWriteView {
                 HStack(spacing: 0) {
                     Button {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            viewModel.clearData(true)
+                            viewModel.send(action: .selectReviewType(isPurchased: true))
                             croppedImage = nil
                             isRegisterButtonDidTap = false
                         }
@@ -130,9 +121,10 @@ extension ReviewWriteView {
                     }
                     .frame(height: 44)
                     .contentShape(Rectangle())
+
                     Button {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            viewModel.clearData(false)
+                            viewModel.send(action: .selectReviewType(isPurchased: false))
                             croppedImage = nil
                             isRegisterButtonDidTap = false
                         }
@@ -266,14 +258,6 @@ extension ReviewWriteView {
                 }
             }
         }
-        .cropImagePicker(show: $showPicker, showCropView: $showCropView, croppedImage: $croppedImage)
-//        .onChange(of: croppedImage ) { _, newValue in
-//            if let newValue = newValue {
-//                if let imageData = newValue.jpegData(compressionQuality: 1.0) {
-//                    viewModel.image = imageData
-//                }
-//            }
-//        }
     }
     
     private var contentView: some View {
@@ -332,7 +316,7 @@ extension ReviewWriteView {
         Button {
             isRegisterButtonDidTap = true
             if viewModel.isValid {
-                viewModel.createReview()
+                viewModel.send(action: .registerReview)
             }
         } label: {
             Text("등록하기")
@@ -358,4 +342,10 @@ extension ReviewWriteView {
     private func dismissKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+}
+
+#Preview {
+    ReviewWriteView(
+        viewModel: .init(voteId: 1, reviewUseCase: StubReviewUseCase())
+    )
 }
