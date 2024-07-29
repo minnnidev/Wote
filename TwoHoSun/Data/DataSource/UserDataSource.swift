@@ -17,6 +17,7 @@ protocol UserDataSourceType {
     func setProfile(_ object: ProfileRequestObject) -> AnyPublisher<Void, APIError>
     func getMyVotes(_ object: MyVotesRequestObject) -> AnyPublisher<MyVotesResponseObject, APIError>
     func getMyReviews(_ object: MyReviewsRequestObject) -> AnyPublisher<MyReviewsReponseObject, APIError>
+    func getProfile() -> AnyPublisher<ProfileResponseObject, APIError>
 }
 
 final class UserDataSource: UserDataSourceType {
@@ -51,5 +52,9 @@ final class UserDataSource: UserDataSourceType {
 
     func getMyReviews(_ object: MyReviewsRequestObject) -> AnyPublisher<MyReviewsReponseObject, APIError> {
         provider.requestPublisher(Target.getMyReviews(object), MyReviewsReponseObject.self)
+    }
+
+    func getProfile() -> AnyPublisher<ProfileResponseObject, APIError> {
+        provider.requestPublisher(Target.getProfile, ProfileResponseObject.self)
     }
 }

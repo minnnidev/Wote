@@ -14,6 +14,7 @@ enum UserAPI {
     case postProfile(ProfileRequestObject)
     case getMyVotes(MyVotesRequestObject)
     case getMyReviews(MyReviewsRequestObject)
+    case getProfile
 }
 
 extension UserAPI: TargetType {
@@ -39,6 +40,8 @@ extension UserAPI: TargetType {
             return "/mypage/posts"
         case .getMyReviews(_):
             return "/mypage/reviews"
+        case .getProfile:
+            return "/profiles"
         }
     }
     
@@ -53,6 +56,8 @@ extension UserAPI: TargetType {
         case .getMyVotes(_):
             return .get
         case .getMyReviews(_):
+            return .get
+        case .getProfile:
             return .get
         }
     }
@@ -83,6 +88,9 @@ extension UserAPI: TargetType {
 
         case let .getMyReviews(requestObject):
             return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
+
+        case .getProfile:
+            return .requestPlain
         }
     }
     

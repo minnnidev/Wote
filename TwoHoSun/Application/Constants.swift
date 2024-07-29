@@ -28,6 +28,7 @@ extension Constants {
 
     struct UserDefaultsKey {
         static let recentSearch = "RecentSearch"
+        static let myProfile = "MyProfile"
     }
 }
 
