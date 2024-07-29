@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum ReviewCardCellType {
-    case search
     case myReview
     case otherReview
 }
@@ -65,7 +64,7 @@ struct ReviewCardCell: View {
             .padding(.bottom, 24)
         }
         .padding(.horizontal, 16)
-        .background(cellType == .search ? Color.disableGray : Color.clear)
+        .background(Color.clear)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }

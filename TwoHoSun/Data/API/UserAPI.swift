@@ -12,6 +12,8 @@ enum UserAPI {
     case checkNicknameDuplicate(NicknameRequestObject)
     case getSchoolData(String, SchoolDataType)
     case postProfile(ProfileRequestObject)
+    case getMyVotes(MyVotesRequestObject)
+    case getMyReviews(MyReviewsRequestObject)
 }
 
 extension UserAPI: TargetType {
@@ -21,29 +23,37 @@ extension UserAPI: TargetType {
         case .getSchoolData(_, _):
             URL(string: URLConst.cnetURL)!
         default:
-            URL(string: URLConst.baseURL)!
+            URL(string: "\(URLConst.baseURL)/api")!
         }
     }
     
     var path: String {
         switch self {
         case .checkNicknameDuplicate(_):
-            "/api/profiles/isValidNickname"
+            return "/profiles/isValidNickname"
         case .getSchoolData(_, _):
-            ""
+            return ""
         case .postProfile(_):
-            "/api/profiles"
+            return "/profiles"
+        case .getMyVotes(_):
+            return "/mypage/posts"
+        case .getMyReviews(_):
+            return "/mypage/reviews"
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .checkNicknameDuplicate(_):
-                .post
+            return .post
         case .getSchoolData(_, _):
-                .get
+            return .get
         case .postProfile(_):
-                .post
+            return .post
+        case .getMyVotes(_):
+            return .get
+        case .getMyReviews(_):
+            return .get
         }
     }
     
@@ -67,6 +77,12 @@ extension UserAPI: TargetType {
         case let .postProfile(requestObject):
             let formData = MultipartFormDataHelper.createMultipartFormData(from: requestObject)
             return .uploadMultipart(formData)
+
+        case let .getMyVotes(requestObject):
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
+
+        case let .getMyReviews(requestObject):
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
         }
     }
     

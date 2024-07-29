@@ -44,22 +44,26 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
-}
 
-final class StubUserRepository: UserRepositoryType {
-    
-    func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError> {
-        Empty()
+    func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError> {
+        let requestObject: MyVotesRequestObject = .init(page: page, size: size)
+
+        return userDataSource.getMyVotes(requestObject)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
 
-    func getSchoolsData(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError> {
-        Empty()
-            .eraseToAnyPublisher()
-    }
+    func getMyReviews(page: Int, size: Int, visibilityScope: VisibilityScopeType) -> AnyPublisher<MyReviewsModel, WoteError> {
+        let requestObject: MyReviewsRequestObject = .init(
+            visibilityScope: visibilityScope.rawValue,
+            page: page,
+            size: size
+        )
 
-    func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
-        Empty()
+        return userDataSource.getMyReviews(requestObject)
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
 }
