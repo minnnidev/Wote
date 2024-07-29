@@ -66,4 +66,11 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getProfile() -> AnyPublisher<ProfileModel, WoteError> {
+        userDataSource.getProfile()
+            .map { $0.toModel() }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

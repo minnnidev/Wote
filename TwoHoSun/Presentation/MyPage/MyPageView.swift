@@ -64,6 +64,7 @@ struct MyPageView: View {
         .background(Color.background)
         .onAppear {
             viewModel.send(action: .loadMyVotes)
+            viewModel.send(action: .loadProfile)
         }
         .refreshable {
             viewModel.send(action: .changeSelectedType(.myVote))
@@ -79,25 +80,29 @@ extension MyPageView {
             // TODO: 화면 전환
         } label: {
             HStack(spacing: 14) {
-                Image("defaultProfile")
-                    .resizable()
+                ProfileImageView(imageURL: viewModel.myProfile?.profileImage)
                     .frame(width: 103, height: 103)
 
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 0) {
-                        Text("")
+                        Text(viewModel.myProfile?.nickname ?? "")
                             .font(.system(size: 20, weight: .medium))
                             .padding(.trailing, 12)
 
-                        ConsumerTypeLabel(consumerType: .adventurer, usage: .standard)
-
+                        if let consumerType = viewModel.myProfile?.consumerType {
+                            ConsumerTypeLabel(
+                                consumerType: ConsumerType(rawValue: consumerType) ?? .adventurer,
+                                usage: .standard
+                            )
+                        }
+                        
                         Spacer()
 
                         Image(systemName: "chevron.right")
                             .font(.system(size: 14))
                             .foregroundStyle(Color.subGray1)
                     }
-                    Text("")
+                    Text(viewModel.myProfile?.school.schoolName ?? "")
                         .font(.system(size: 14))
                 }
                 .foregroundStyle(.white)

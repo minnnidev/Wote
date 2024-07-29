@@ -11,6 +11,7 @@ import Combine
 protocol MyPageUseCaseType {
     func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError>
     func getMyReviews(page: Int, size: Int, visibilityScope: VisibilityScopeType) -> AnyPublisher<MyReviewsModel, WoteError>
+    func loadProfile() -> AnyPublisher<ProfileModel, WoteError>
 }
 
 final class MyPageUseCase: MyPageUseCaseType {
@@ -28,6 +29,10 @@ final class MyPageUseCase: MyPageUseCaseType {
     func getMyReviews(page: Int, size: Int, visibilityScope: VisibilityScopeType) -> AnyPublisher<MyReviewsModel, WoteError> {
         userRepository.getMyReviews(page: page, size: size, visibilityScope: visibilityScope)
     }
+
+    func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
+        userRepository.getProfile()
+    }
 }
 
 final class StubMyPageUseCase: MyPageUseCaseType {
@@ -40,6 +45,12 @@ final class StubMyPageUseCase: MyPageUseCaseType {
 
     func getMyReviews(page: Int, size: Int, visibilityScope: VisibilityScopeType) -> AnyPublisher<MyReviewsModel, WoteError> {
         Just(MyReviewsModel(total: 1, myReviews: [.reviewStub1]))
+            .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
+        Just(ProfileModel.profileStub)
             .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }
