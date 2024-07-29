@@ -25,15 +25,18 @@ final class ReviewWriteViewModel: ObservableObject {
     @Published var review: ReviewCreateModel?
     @Published var isCompleted = false
 
-    private let reviewUseCase: ReviewUseCaseType
     private let voteId: Int
+    private let reviewUseCase: ReviewUseCaseType
+    private let photoUseCase: PhotoUseCaseType
 
     init(
         voteId: Int,
-        reviewUseCase: ReviewUseCaseType
+        reviewUseCase: ReviewUseCaseType,
+        photoUseCase: PhotoUseCaseType
     ) {
         self.voteId = voteId
         self.reviewUseCase = reviewUseCase
+        self.photoUseCase = photoUseCase
     }
 
     private var cancellable = Set<AnyCancellable>()

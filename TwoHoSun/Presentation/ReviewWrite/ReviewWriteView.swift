@@ -346,6 +346,6 @@ extension ReviewWriteView {
 
 #Preview {
     ReviewWriteView(
-        viewModel: .init(voteId: 1, reviewUseCase: StubReviewUseCase())
+        viewModel: .init(voteId: 1, reviewUseCase: StubReviewUseCase(), photoUseCase: StubPhotoUseCase())
     )
 }
