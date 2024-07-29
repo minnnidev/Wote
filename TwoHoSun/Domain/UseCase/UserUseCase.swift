@@ -12,6 +12,7 @@ protocol UserUseCaseType {
     func checkNicknameDuplicated(_ nickname: String) -> AnyPublisher<Bool, WoteError>
     func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError>
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError>
+    func loadProfile() -> AnyPublisher<ProfileModel, WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -33,6 +34,10 @@ final class UserUseCase: UserUseCaseType {
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
         userRepository.setProfile(profile)
     }
+
+    func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
+        userRepository.getProfile()
+    }
 }
 
 final class StubUserUseCase: UserUseCaseType {
@@ -50,6 +55,12 @@ final class StubUserUseCase: UserUseCaseType {
 
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
         Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
+        Just(ProfileModel.profileStub)
+            .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }
 }

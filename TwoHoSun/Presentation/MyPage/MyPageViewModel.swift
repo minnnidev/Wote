@@ -47,12 +47,13 @@ final class MyPageViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .loadProfile:
-            myPageUseCase.loadProfile()
-                .sink { _ in
-                } receiveValue: { [weak self] profile in
-                    self?.myProfile = profile
-                }
-                .store(in: &cacellabels)
+            return
+//            myPageUseCase.loadProfile()
+//                .sink { _ in
+//                } receiveValue: { [weak self] profile in
+//                    self?.myProfile = profile
+//                }
+//                .store(in: &cacellabels)
 
         case .loadMyVotes:
             isLoading = true

@@ -62,6 +62,13 @@ struct MyPageView: View {
                 }
             }
         }
+        .navigationDestination(for: MyPageDestination.self) { dest in
+            switch dest {
+            case .modifyProfile:
+                ProfileModifyView(viewModel: appDependency.container.resolve(ProfileModifyViewModel.self)!)
+                    .environmentObject(router)
+            }
+        }
         .toolbarBackground(Color.background, for: .tabBar)
         .scrollIndicators(.hidden)
         .background(Color.background)
@@ -72,12 +79,6 @@ struct MyPageView: View {
         .refreshable {
             viewModel.send(action: .changeSelectedType(.myVote))
             viewModel.send(action: .loadMyVotes)
-        }
-        .navigationDestination(for: MyPageDestination.self) { dest in
-            switch dest {
-            case .modifyProfile:
-                ProfileModifyView(viewModel: appDependency.container.resolve(ProfileModifyViewModel.self)!)
-            }
         }
     }
 }
@@ -195,13 +196,7 @@ extension MyPageView {
             .padding(.horizontal, 8)
 
         case .myReview:
-            let myReviews: [ReviewModel] = [.init(id: 2,
-                                                       createDate: "",
-                                                       modifiedDate: "",
-                                                       postStatus: "CLOSED",
-                                                       title: "후기 테스트")]
-
-            ForEach(Array(zip(myReviews.indices, myReviews)), id: \.0) { index, data in
+            ForEach(Array(zip(viewModel.myReviews.indices, viewModel.myReviews)), id: \.0) { index, data in
                 Button {
 
                 } label: {
@@ -213,7 +208,7 @@ extension MyPageView {
                             .padding(.horizontal, 8)
                     }
                     .onAppear {
-                        if index == myReviews.count - 4 {
+                        if index == viewModel.myReviews.count - 4 {
                             viewModel.send(action: .loadMoreVotes)
                         }
                     }
