@@ -21,6 +21,8 @@ enum MyPageListType {
 }
 
 struct MyPageView: View {
+    @EnvironmentObject var router: NavigationRouter
+    
     @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     @StateObject var viewModel: MyPageViewModel
@@ -70,6 +72,12 @@ struct MyPageView: View {
             viewModel.send(action: .changeSelectedType(.myVote))
             viewModel.send(action: .loadMyVotes)
         }
+        .navigationDestination(for: MyPageDestination.self) { dest in
+            switch dest {
+            case .modifyProfile:
+                ProfileModifyView()
+            }
+        }
     }
 }
 
@@ -77,7 +85,7 @@ extension MyPageView {
 
     private var profileHeaderView: some View {
         Button {
-            // TODO: 화면 전환
+            router.push(to: MyPageDestination.modifyProfile)
         } label: {
             HStack(spacing: 14) {
                 ProfileImageView(imageURL: viewModel.myProfile?.profileImage)

@@ -21,6 +21,8 @@
 		AB0168242C577C070041B956 /* MyReviewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168232C577C070041B956 /* MyReviewsModel.swift */; };
 		AB0168262C5788570041B956 /* ProfileResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168252C5788570041B956 /* ProfileResponseObject.swift */; };
 		AB0168282C5788C00041B956 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168272C5788C00041B956 /* ProfileModel.swift */; };
+		AB01682A2C5790940041B956 /* ProfileModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0168292C5790940041B956 /* ProfileModifyView.swift */; };
+		AB01682C2C57915E0041B956 /* ProfileModifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB01682B2C57915E0041B956 /* ProfileModifyViewModel.swift */; };
 		AB03D7372B01378E000C927A /* CommonAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7362B01378E000C927A /* CommonAPIService.swift */; };
 		AB03D7392B0137CC000C927A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D7382B0137CC000C927A /* UserService.swift */; };
 		AB03D73B2B0137D5000C927A /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB03D73A2B0137D5000C927A /* PostService.swift */; };
@@ -229,6 +231,8 @@
 		AB0168232C577C070041B956 /* MyReviewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewsModel.swift; sourceTree = "<group>"; };
 		AB0168252C5788570041B956 /* ProfileResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponseObject.swift; sourceTree = "<group>"; };
 		AB0168272C5788C00041B956 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		AB0168292C5790940041B956 /* ProfileModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModifyView.swift; sourceTree = "<group>"; };
+		AB01682B2C57915E0041B956 /* ProfileModifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModifyViewModel.swift; sourceTree = "<group>"; };
 		AB03D7362B01378E000C927A /* CommonAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAPIService.swift; sourceTree = "<group>"; };
 		AB03D7382B0137CC000C927A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AB03D73A2B0137D5000C927A /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
@@ -756,6 +760,8 @@
 				FD9DDB6D2B06F76D006D738A /* MyPageViewModel.swift */,
 				AB01681B2C5771CF0041B956 /* MyPageVoteCell.swift */,
 				AB01681D2C577B3B0041B956 /* MyPageReviewCell.swift */,
+				AB0168292C5790940041B956 /* ProfileModifyView.swift */,
+				AB01682B2C57915E0041B956 /* ProfileModifyViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1353,6 +1359,7 @@
 				ABFEBD632C3795CA00367389 /* ReviewDetailView.swift in Sources */,
 				C7F1FD842ADDA2F000C5A2A1 /* LoginView.swift in Sources */,
 				C7DE44BD2AE0DCE7001639CB /* CommentCell.swift in Sources */,
+				AB01682A2C5790940041B956 /* ProfileModifyView.swift in Sources */,
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
 				C768F1A32AE656570020F82C /* SchoolModel.swift in Sources */,
 				AB481C692C4F70160030C614 /* ReviewUseCase.swift in Sources */,
@@ -1375,6 +1382,7 @@
 				ABC1CDD82C464FF20054E74C /* VoteCountsObject.swift in Sources */,
 				AB38A1C52B0BACC7004153B5 /* VoteListViewModel.swift in Sources */,
 				C7E30E2B2ADC40E4001AE89B /* LoginViewModel.swift in Sources */,
+				AB01682C2C57915E0041B956 /* ProfileModifyViewModel.swift in Sources */,
 				C7719FE62AF2861000A520CB /* ConsumerType.swift in Sources */,
 				C7A95F1B2B03EB7B00F8595A /* NavigationRouter.swift in Sources */,
 				ABC1CDCA2C464C810054E74C /* VoteRepository.swift in Sources */,
