@@ -17,6 +17,7 @@ protocol ReviewUseCaseType {
         reviewType: ReviewType
     ) -> AnyPublisher<[ReviewModel], WoteError>
     func loadReviewDetail(reviewId: Int) -> AnyPublisher<ReviewDetailModel, WoteError>
+    func createReview(postId: Int, review: ReviewCreateModel) -> AnyPublisher<Void, WoteError>
 }
 
 final class ReviewUseCase: ReviewUseCaseType {
@@ -43,6 +44,10 @@ final class ReviewUseCase: ReviewUseCaseType {
     func loadReviewDetail(reviewId: Int) -> AnyPublisher<ReviewDetailModel, WoteError> {
         reviewRepository.getReviewDetail(reviewId: reviewId)
     }
+
+    func createReview(postId: Int, review: ReviewCreateModel) -> AnyPublisher<Void, WoteError> {
+        reviewRepository.createReview(postId: postId, review: review)
+    }
 }
 
 final class StubReviewUseCase: ReviewUseCaseType {
@@ -67,6 +72,11 @@ final class StubReviewUseCase: ReviewUseCaseType {
     func loadReviewDetail(reviewId: Int) -> AnyPublisher<ReviewDetailModel, WoteError> {
         Just(ReviewDetailModel.reviewStub1)
             .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func createReview(postId: Int, review: ReviewCreateModel) -> AnyPublisher<Void, WoteError> {
+        Empty()
             .eraseToAnyPublisher()
     }
 }

@@ -63,7 +63,7 @@ struct MyPageVoteCell: View {
                 }
             }
 
-            if !(myVote.hasReview ?? true) {
+            if !(myVote.hasReview ?? true) && myVote.postStatus == "CLOSED" {
                 Button {
                     router.push(to: WoteDestination.reviewWrite(postId: myVote.id))
                 } label: {

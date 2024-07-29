@@ -59,6 +59,11 @@ struct ReviewWriteView: View {
             .onTapGesture {
                 dismissKeyboard()
             }
+            .overlay {
+                if viewModel.isLoading {
+                    ProgressView()
+                }
+            }
             .photosPicker(isPresented: $viewModel.isPhotoPickerShowed, selection: $viewModel.selectedItem)
             .confirmationDialog("imageAlert", isPresented: $viewModel.isImageSheetShowed) {
                 Button {
@@ -289,6 +294,7 @@ extension ReviewWriteView {
     private var reviewRegisterButton: some View {
         Button {
             isRegisterButtonDidTap = true
+
             if viewModel.isValid {
                 viewModel.send(action: .registerReview)
             }
@@ -302,6 +308,9 @@ extension ReviewWriteView {
                 .cornerRadius(10)
         }
         .disabled(viewModel.isCreatingReview)
+        .onChange(of: viewModel.isReviewCreated) { _ in
+            dismiss()
+        }
     }
 
     private func headerLabel(_ title: String, essential: Bool) -> some View {

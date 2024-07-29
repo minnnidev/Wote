@@ -36,8 +36,9 @@ final class ReviewWriteViewModel: ObservableObject {
     @Published var content: String = ""
     @Published var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
 
-    @Published var isCreatingReview = false
-    @Published var review: ReviewCreateModel?
+    @Published var isCreatingReview: Bool = false
+    @Published var isLoading: Bool = false
+    @Published var isReviewCreated: Bool = false
 
     private let voteId: Int
     private let reviewUseCase: ReviewUseCaseType
@@ -77,8 +78,23 @@ final class ReviewWriteViewModel: ObservableObject {
             self.isPurchased = isPurchased
 
         case .registerReview:
-             // TODO: API 연결
-            return
+            isLoading = true
+            
+            let review: ReviewCreateModel = .init(
+                title: title,
+                contents: content,
+                price: Int(price),
+                isPurchased: isPurchased,
+                image: selectedData
+            )
+            reviewUseCase.createReview(postId: voteId, review: review)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.isReviewCreated.toggle()
+                }
+                .store(in: &cancellables)
 
         case let .loadTransferable(item):
             photoUseCase.loadTransferable(item)
