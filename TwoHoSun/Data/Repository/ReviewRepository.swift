@@ -47,4 +47,18 @@ final class ReviewRepository: ReviewRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func createReview(postId: Int, review: ReviewCreateModel) -> AnyPublisher<Void, WoteError> {
+        let requestObject: ReviewCreateRequestObject = .init(
+            title: review.title,
+            contents: review.contents,
+            price: review.price,
+            isPurchased: review.isPurchased,
+            image: review.image
+        )
+
+        return reviewDataSource.createReview(postId: postId, object: requestObject)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

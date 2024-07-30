@@ -17,13 +17,9 @@ struct ReviewWriteView: View {
 
     @State private var isRegisterButtonDidTap = false
     @State private var croppedImage: UIImage?
-    @State private var showPicker: Bool = false
     @State private var isEditing: Bool = false
-    @State private var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
-    @State private var showCropView: Bool = false
-    @State private var isMine: Bool = false
 
-    @StateObject var viewModel = ReviewWriteViewModel() 
+    @StateObject var viewModel: ReviewWriteViewModel
 
     var body: some View {
         ZStack {
@@ -32,24 +28,15 @@ struct ReviewWriteView: View {
             VStack {
                 ScrollView {
                     VStack(spacing: 48) {
-                        VStack(spacing: 12) {
-//                            VoteCardCell(cellType: .standard,
-//                                         progressType: .closed,
-//                                         data: .init(id: 1,
-//                                                     createDate: "",
-//                                                     modifiedDate: "",
-//                                                     postStatus: "CLOSED",
-//                                                     author: .authorStub1, 
-//                                                     title: ""
-//                                                    )
-//                            )
-                            buySelection
-                        }
+                        buySelection
+
                         titleView
+
                         if viewModel.isPurchased {
                             priceView
                             imageView
                         }
+
                         contentView
                         Spacer()
                     }
@@ -72,85 +59,75 @@ struct ReviewWriteView: View {
             .onTapGesture {
                 dismissKeyboard()
             }
-            .customConfirmDialog(isPresented: $isEditing, isMine: $isMine) { _ in
+            .overlay {
+                if viewModel.isLoading {
+                    ProgressView()
+                }
+            }
+            .photosPicker(isPresented: $viewModel.isPhotoPickerShowed, selection: $viewModel.selectedItem)
+            .confirmationDialog("imageAlert", isPresented: $viewModel.isImageSheetShowed) {
                 Button {
-                    showCropView.toggle()
-                    isEditing = false
+                    viewModel.send(action: .presentPhotoPicker)
                 } label: {
                     Text("수정하기")
-                        .frame(maxWidth: .infinity)
                 }
-                .frame(height: 52)
-                Divider()
-                    .foregroundStyle(Color.gray300)
+
                 Button {
-                    showPicker.toggle()
-                    isEditing = false
-                } label: {
-                    Text("다른 상품사진 선택하기")
-                        .frame(maxWidth: .infinity)
-                }
-                .frame(height: 52)
-                Divider()
-                    .foregroundStyle(Color.gray300)
-                Button {
-                    croppedImage = nil
-                    isEditing = false
+                    viewModel.send(action: .removeImage)
                 } label: {
                     Text("삭제하기")
-                        .frame(maxWidth: .infinity)
                 }
-                .frame(height: 52)
             }
         }
     }
 }
 
 extension ReviewWriteView {
-    
+
     private var buySelection: some View {
         ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(Color.darkblue, lineWidth: 1)
-                HStack(spacing: 0) {
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            viewModel.clearData(true)
-                            croppedImage = nil
-                            isRegisterButtonDidTap = false
-                        }
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(viewModel.isPurchased ? Color.lightBlue : .clear)
-                            Text("샀다")
-                                .font(.system(size: 16, weight: viewModel.isPurchased ? .bold : .medium))
-                                .foregroundStyle(.white)
-                        }
+            RoundedRectangle(cornerRadius: 10)
+                .strokeBorder(Color.darkblue, lineWidth: 1)
+            HStack(spacing: 0) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.send(action: .selectReviewType(isPurchased: true))
+                        croppedImage = nil
+                        isRegisterButtonDidTap = false
                     }
-                    .frame(height: 44)
-                    .contentShape(Rectangle())
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            viewModel.clearData(false)
-                            croppedImage = nil
-                            isRegisterButtonDidTap = false
-                        }
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(viewModel.isPurchased ? .clear : Color.lightBlue)
-                            Text("안샀다")
-                                .font(.system(size: 16, weight: viewModel.isPurchased ? .bold : .medium))
-                                .foregroundStyle(.white)
-                        }
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(viewModel.isPurchased ? Color.lightBlue : .clear)
+                        Text("샀다")
+                            .font(.system(size: 16, weight: viewModel.isPurchased ? .bold : .medium))
+                            .foregroundStyle(.white)
                     }
                 }
-            
+                .frame(height: 44)
+                .contentShape(Rectangle())
+
+                Button {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.send(action: .selectReviewType(isPurchased: false))
+                        croppedImage = nil
+                        isRegisterButtonDidTap = false
+                    }
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(viewModel.isPurchased ? .clear : Color.lightBlue)
+                        Text("안샀다")
+                            .font(.system(size: 16, weight: viewModel.isPurchased ? .bold : .medium))
+                            .foregroundStyle(.white)
+                    }
+                }
+            }
+
         }
         .frame(height: 44)
     }
-    
+
     private var titleView: some View {
         VStack(alignment: .leading, spacing: 4) {
             headerLabel("제목을 입력해주세요. ", essential: true)
@@ -190,7 +167,7 @@ extension ReviewWriteView {
             }
         }
     }
-    
+
     private var priceView: some View {
         VStack(alignment: .leading) {
             headerLabel("결제한 상품의 가격을 알려주세요.", essential: false)
@@ -223,70 +200,56 @@ extension ReviewWriteView {
             )
         }
     }
-    
+
     private var imageView: some View {
         VStack(alignment: .leading) {
             headerLabel("구매한 상품의 사진을 등록해 주세요. ", essential: true)
-            if let croppedImage {
-                Image(uiImage: croppedImage)
+
+            if let data = viewModel.selectedData,
+               let image = UIImage(data: data) {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
+                    .frame(height: 240)
                     .clipShape(.rect(cornerRadius: 16))
                     .onTapGesture {
                         isEditing.toggle()
+                        viewModel.isImageSheetShowed.toggle()
                     }
             } else {
                 Button {
-                    showPicker.toggle()
+                    viewModel.send(action: .presentPhotoPicker)
                 } label: {
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 7) {
-                            Image(systemName: "plus")
-                                .font(.system(size: 16))
-                            Text("상품 이미지")
-                                .font(.system(size: 14, weight: .medium))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 44)
-                        .foregroundStyle(Color.lightBlue)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(!viewModel.isValid && isRegisterButtonDidTap ? .red : Color.darkBlue, lineWidth: 1)
-                        }
-                        if viewModel.image == nil && isRegisterButtonDidTap {
-                            HStack(spacing: 8) {
-                                Image(systemName: "light.beacon.max")
-                                Text("사진을 등록해주세요.")
-                            }
-                            .font(.system(size: 12))
-                            .foregroundStyle(.red)
-                        }
+                    HStack(spacing: 7) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 16))
+                        Text("상품 이미지")
+                            .font(.system(size: 14, weight: .medium))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .foregroundStyle(Color.lightBlue)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(Color.darkBlue, lineWidth: 1)
                     }
                 }
             }
         }
-        .cropImagePicker(show: $showPicker, showCropView: $showCropView, croppedImage: $croppedImage)
-//        .onChange(of: croppedImage ) { _, newValue in
-//            if let newValue = newValue {
-//                if let imageData = newValue.jpegData(compressionQuality: 1.0) {
-//                    viewModel.image = imageData
-//                }
-//            }
-//        }
     }
-    
+
     private var contentView: some View {
         VStack(alignment: .leading) {
             headerLabel("고민하는 내용을 작성해 주세요. ", essential: false)
             textEditorView
         }
     }
-    
+
     private var textEditorView: some View {
         ZStack(alignment: .bottomTrailing) {
             if viewModel.content.isEmpty {
-                TextEditor(text: $placeholderText)
+                TextEditor(text: $viewModel.placeholderText)
                     .foregroundStyle(Color.placeholderGray)
                     .scrollContentBackground(.hidden)
             }
@@ -318,7 +281,7 @@ extension ReviewWriteView {
             dismissKeyboard()
         }
     }
-    
+
     private var contentTextCountView: some View {
         Text("\(viewModel.content.count) ")
             .font(.system(size: 12, weight: .semibold))
@@ -327,12 +290,13 @@ extension ReviewWriteView {
             .font(.system(size: 12, weight: .semibold))
             .foregroundColor(.white)
     }
-    
+
     private var reviewRegisterButton: some View {
         Button {
             isRegisterButtonDidTap = true
+
             if viewModel.isValid {
-                viewModel.createReview()
+                viewModel.send(action: .registerReview)
             }
         } label: {
             Text("등록하기")
@@ -344,8 +308,11 @@ extension ReviewWriteView {
                 .cornerRadius(10)
         }
         .disabled(viewModel.isCreatingReview)
+        .onChange(of: viewModel.isReviewCreated) { _ in
+            dismiss()
+        }
     }
-    
+
     private func headerLabel(_ title: String, essential: Bool) -> some View {
         Text(title)
             .font(.system(size: 16, weight: .medium))
@@ -354,8 +321,14 @@ extension ReviewWriteView {
             .font(.system(size: 12, weight: essential ? .semibold : .medium))
             .foregroundColor(essential ? .red : Color.subGray3)
     }
-    
+
     private func dismissKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+}
+
+#Preview {
+    ReviewWriteView(
+        viewModel: .init(voteId: 1, reviewUseCase: StubReviewUseCase(), photoUseCase: StubPhotoUseCase())
+    )
 }

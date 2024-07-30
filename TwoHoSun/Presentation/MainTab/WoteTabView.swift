@@ -68,6 +68,10 @@ struct WoteTabView: View {
                         viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
                     )
                     .environmentObject(router)
+
+                case let .reviewWrite(postId):
+                    ReviewWriteView(viewModel: appDependency.container.resolve(ReviewWriteViewModel.self, argument: postId)!)
+                        .environmentObject(router)
                 }
             }
         }

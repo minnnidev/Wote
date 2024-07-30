@@ -12,6 +12,7 @@ enum ReviewAPI {
     case getReviews(visibilityScope: String)
     case getMoreReviews(MoreReviewRequestObject)
     case getReviewDetail(reviewId: Int)
+    case postReview(postId: Int, ReviewCreateRequestObject)
 }
 
 extension ReviewAPI: TargetType {
@@ -30,11 +31,16 @@ extension ReviewAPI: TargetType {
 
         case let .getReviewDetail(reviewId):
             return "/reviews/\(reviewId)/detail"
+
+        case let .postReview(postId, _):
+            return "/posts/\(postId)/reviews"
         }
     }
 
     var method: Moya.Method {
         switch self {
+        case .postReview(_, _):
+            return .post
         default:
             return .get
         }
@@ -51,6 +57,10 @@ extension ReviewAPI: TargetType {
         case let .getReviewDetail(reviewId):
             return .requestParameters(parameters: reviewId.toDictionary(),
                                       encoding: URLEncoding.queryString)
+
+        case let .postReview(_, requestObject):
+            let formData = MultipartFormDataHelper.createMultipartFormData(from: requestObject)
+            return .uploadMultipart(formData)
         }
     }
 

@@ -41,6 +41,7 @@ enum WoteDestination: Hashable {
     case search
     case voteDetail(postId: Int)
     case reviewDetail(postId: Int)
+    case reviewWrite(postId: Int)
 }
 
 enum VoteDestination: Hashable {

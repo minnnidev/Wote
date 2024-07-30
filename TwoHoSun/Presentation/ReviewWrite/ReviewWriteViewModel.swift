@@ -6,24 +6,59 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
+import PhotosUI
 
 final class ReviewWriteViewModel: ObservableObject {
+
+    enum Action {
+        case loadTransferable(_ item: PhotosPickerItem?)
+        case presentPhotoPicker
+        case removeImage
+        case selectReviewType(isPurchased: Bool)
+        case registerReview
+    }
+
+    /// 이미지
+    @Published var selectedData: Data?
+    @Published var isImageSheetShowed: Bool = false
+    @Published var isPhotoPickerShowed: Bool = false
+    @Published var selectedItem: PhotosPickerItem? = nil {
+        didSet {
+            send(action: .loadTransferable(selectedItem))
+        }
+    }
+
+    /// 리뷰
     @Published var isPurchased: Bool = true
     @Published var title: String = ""
     @Published var price: String = ""
     @Published var content: String = ""
-    @Published var image: Data?
+    @Published var placeholderText = "욕설,비방,광고 등 소비 고민과 관련없는 내용은 통보 없이 삭제될 수 있습니다."
 
-    @Published var isCreatingReview = false
-    @Published var review: ReviewCreateModel?
-    @Published var isCompleted = false
+    @Published var isCreatingReview: Bool = false
+    @Published var isLoading: Bool = false
+    @Published var isReviewCreated: Bool = false
 
-    private var cancellable = Set<AnyCancellable>()
+    private let voteId: Int
+    private let reviewUseCase: ReviewUseCaseType
+    private let photoUseCase: PhotoUseCaseType
+
+    init(
+        voteId: Int,
+        reviewUseCase: ReviewUseCaseType,
+        photoUseCase: PhotoUseCaseType
+    ) {
+        self.voteId = voteId
+        self.reviewUseCase = reviewUseCase
+        self.photoUseCase = photoUseCase
+    }
+
+    private var cancellables: Set<AnyCancellable> = []
 
     var isValid: Bool {
         if isPurchased {
-            if !title.isEmpty && image != nil {
+            if !title.isEmpty && selectedData != nil {
                 return true
             } else {
                 return false
@@ -37,27 +72,45 @@ final class ReviewWriteViewModel: ObservableObject {
         }
     }
 
-    func setReview() {
-        review = ReviewCreateModel(title: title,
-                                   contents: content.isEmpty ? nil : content,
-                                   price: price.isEmpty ? nil : Int(price),
-                                   isPurchased: isPurchased,
-                                   image: image)
-    }
-    
-    func createReview() {
-        isCreatingReview.toggle()
-        setReview()
-        guard let review = review else { return isCreatingReview.toggle()}
+    func send(action: Action) {
+        switch action {
+        case let .selectReviewType(isPurchased):
+            self.isPurchased = isPurchased
 
-        // TODO: 리뷰 등록 API
-    }
-    
-    func clearData(_ state: Bool) {
-        isPurchased = state
-        title = ""
-        price = ""
-        content = ""
-        image = nil
+        case .registerReview:
+            isLoading = true
+            
+            let review: ReviewCreateModel = .init(
+                title: title,
+                contents: content,
+                price: Int(price),
+                isPurchased: isPurchased,
+                image: selectedData
+            )
+            reviewUseCase.createReview(postId: voteId, review: review)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.isReviewCreated.toggle()
+                }
+                .store(in: &cancellables)
+
+        case let .loadTransferable(item):
+            photoUseCase.loadTransferable(item)
+                .receive(on: DispatchQueue.main)
+                .sink { _ in
+                } receiveValue: { [weak self] data in
+                    self?.selectedData = data
+                }
+                .store(in: &cancellables)
+
+        case .presentPhotoPicker:
+            isPhotoPickerShowed.toggle()
+
+        case .removeImage:
+            selectedItem = nil
+            selectedData = nil
+        }
     }
 }
