@@ -41,24 +41,24 @@ struct CommentsView: View {
                 ZStack {
                     Color.black.opacity(0.7)
                         .ignoresSafeArea()
-                    CustomAlertModalView(alertType: ismyCellconfirm ?
-                        .erase : .ban(nickname: viewModel.commentsDatas
-                            .filter { $0.commentId == scrollSpot }
-                            .first?.author?.nickname ?? ""),
-                                         isPresented: $viewModel.presentAlert) {
-                        if ismyCellconfirm {
-                            viewModel.deleteComments(commentId: scrollSpot)
-                        } else {
-                            if let commentIDtoBlock = viewModel.commentsDatas.first(where: {$0.commentId == scrollSpot})?.author?.id {
-
-                                // TODO: 유저 차단
-
-                                viewModel.presentAlert.toggle()
-                                viewModel.refreshComments()
-                            }
-                        }
-                    }
-                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
+//                    CustomAlertModalView(alertType: ismyCellconfirm ?
+//                        .erase : .ban(nickname: viewModel.commentsDatas
+//                            .filter { $0.commentId == scrollSpot }
+//                            .first?.author?.nickname ?? ""),
+//                                         isPresented: $viewModel.presentAlert) {
+//                        if ismyCellconfirm {
+//                            viewModel.deleteComments(commentId: scrollSpot)
+//                        } else {
+//                            if let commentIDtoBlock = viewModel.commentsDatas.first(where: {$0.commentId == scrollSpot})?.author?.id {
+//
+//                                // TODO: 유저 차단
+//
+//                                viewModel.presentAlert.toggle()
+//                                viewModel.refreshComments()
+//                            }
+//                        }
+//                    }
+//                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
                 }
             }
             if applyComplaint {
@@ -119,39 +119,40 @@ struct CommentsView: View {
 
 extension CommentsView {
     var comments : some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 28) {
-                    ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
-                        CommentCell(comment: comment) {
-                            scrollSpot = comment.commentId
-                            if let author = comment.author {
-                                replyForAnotherName = author.nickname
-                            } else {
-                                replyForAnotherName = "알 수 없음"
-                            }
-                            isFocus = true
-                        } onConfirmDiaog: { ismine, commentId in
-                            scrollSpot = commentId
-                            isFocus = false
-                            ismyCellconfirm = ismine
-                            showConfirm.toggle()
-                        }
-                    }
-                    Color.clear
-                        .frame(height:1, alignment: .bottom)
-                        .onAppear {
-                            lastCommentClick = true
-                        }
-//                    .onChange(of: scrollSpot) { _, _ in
-//                        proxy.scrollTo(scrollSpot, anchor: .top)
+        Text("Sample")
+//        ScrollViewReader { proxy in
+//            ScrollView {
+//                LazyVStack(alignment: .leading, spacing: 28) {
+////                    ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
+////                        CommentCell(comment: comment) {
+////                            scrollSpot = comment.commentId
+////                            if let author = comment.author {
+////                                replyForAnotherName = author.nickname
+////                            } else {
+////                                replyForAnotherName = "알 수 없음"
+////                            }
+////                            isFocus = true
+////                        } onConfirmDiaog: { ismine, commentId in
+////                            scrollSpot = commentId
+////                            isFocus = false
+////                            ismyCellconfirm = ismine
+////                            showConfirm.toggle()
+////                        }
 //                    }
-                    .padding(.bottom, isFocus && lastCommentClick ? 20 : 0)
-                }
-            }
-            .scrollIndicators(.hidden)
-        }
-        .padding(.horizontal, 24)
+//                    Color.clear
+//                        .frame(height:1, alignment: .bottom)
+//                        .onAppear {
+//                            lastCommentClick = true
+//                        }
+////                    .onChange(of: scrollSpot) { _, _ in
+////                        proxy.scrollTo(scrollSpot, anchor: .top)
+////                    }
+//                    .padding(.bottom, isFocus && lastCommentClick ? 20 : 0)
+//                }
+//            }
+//            .scrollIndicators(.hidden)
+//        }
+//        .padding(.horizontal, 24)
     }
 
     var commentInputView: some View {

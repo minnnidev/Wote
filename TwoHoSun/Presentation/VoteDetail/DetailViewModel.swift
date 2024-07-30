@@ -21,7 +21,7 @@ final class DetailViewModel: ObservableObject {
     @Published var agreeTopConsumerTypes: [ConsumerType]?
     @Published var disagreeTopConsumerTypes: [ConsumerType]?
 
-    @Published var comments: CommentsModel?
+    @Published var comments: CommentModel?
     @Published var voteDetail: VoteDetailModel?
     @Published var isVoteResultShowed: Bool = false
     @Published var isVoteConsumerTypeResultShowed: Bool = false

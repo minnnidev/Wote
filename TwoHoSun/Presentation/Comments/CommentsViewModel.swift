@@ -10,7 +10,7 @@ import SwiftUI
 final class CommentsViewModel: ObservableObject {
     
     @Published var comments: String = ""
-    @Published var commentsDatas = [CommentsModel]()
+    @Published var commentsDatas = [CommentModel]()
     @Published var presentAlert = false
 
     private var postId: Int

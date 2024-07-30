@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CommentCell: View {
+
     enum UserCommentType {
         case normal, banned, deletedUser
     }
@@ -16,19 +17,18 @@ struct CommentCell: View {
     @State private var isExpended = false
     @State private var canExpended: Bool?
 
-    let comment: CommentsModel
-    var onReplyButtonTapped: () -> Void
-    var onConfirmDiaog: (Bool, Int) -> Void
-    var childComments: [CommentsModel]?
+    let comment: CommentModel
+//    var onReplyButtonTapped: () -> Void
+    var childComments: [CommentModel]?
 
-    init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
-        self.comment = comment
-        self.onReplyButtonTapped = onReplyButtonTapped
-        self.onConfirmDiaog = onConfirmDiaog
-        if let subComments = comment.subComments {
-            self.childComments = subComments
-        }
-    }
+//    init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
+//        self.comment = comment
+//        self.onReplyButtonTapped = onReplyButtonTapped
+//        self.onConfirmDiaog = onConfirmDiaog
+//        if let subComments = comment.subComments {
+//            self.childComments = subComments
+//        }
+//    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -56,7 +56,7 @@ struct CommentCell: View {
 }
 
 extension CommentCell {
-    private func lastEditTimeText(comment: CommentsModel) -> some View {
+    private func lastEditTimeText(comment: CommentModel) -> some View {
         var isEdited: String {
             return comment.modifiedDate != comment.createDate ? "수정됨" : ""
         }
@@ -68,7 +68,7 @@ extension CommentCell {
             .foregroundStyle(Color.subGray1)
     }
 
-    private func makeCellView(comment: CommentsModel, parent: Bool) -> some View {
+    private func makeCellView(comment: CommentModel, parent: Bool) -> some View {
         let userType = determineUserType(comment: comment)
         return HStack(alignment: .top, spacing: 8) {
             ProfileImageView(imageURL: comment.author?.profileImage ,validAuthor: userType == .normal)
@@ -83,7 +83,7 @@ extension CommentCell {
         }
     }
 
-    private func userContentsView(comment: CommentsModel, userType: UserCommentType) -> some View {
+    private func userContentsView(comment: CommentModel, userType: UserCommentType) -> some View {
         return Group {
             if userType == .banned {
                 Text("이 사용자는 차단되었습니다")
@@ -109,7 +109,7 @@ extension CommentCell {
             }
         }
     }
-    private func userInformationView(comment: CommentsModel, userType: UserCommentType) -> some View {
+    private func userInformationView(comment: CommentModel, userType: UserCommentType) -> some View {
         return HStack(spacing: 8) {
             if let validauthor = comment.author {
                 ConsumerTypeLabel(consumerType: userType == .banned ? .banUser :
@@ -122,7 +122,7 @@ extension CommentCell {
                 Spacer()
                 if userType != .banned {
                     Button(action: {
-                        onConfirmDiaog(comment.isMine, comment.commentId)
+//                        onConfirmDiaog(comment.isMine, comment.commentId)
                     }, label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.subGray1)
@@ -139,7 +139,7 @@ extension CommentCell {
         }.padding(.bottom,6)
     }
 
-    private func determineUserType(comment: CommentsModel) -> UserCommentType {
+    private func determineUserType(comment: CommentModel) -> UserCommentType {
         guard let author = comment.author else {
             return .deletedUser
         }
@@ -152,12 +152,16 @@ extension CommentCell {
 
     var replyButtonView: some View {
         HStack {
-            Button(action: {onReplyButtonTapped()}, label: {
+            Button {
+//                onReplyButtonTapped()
+            } label: {
                 Text("답글달기")
                     .font(.system(size: 12))
                     .foregroundStyle(Color.subGray1)
-            })
+            }
+
             Spacer()
+
             if canExpended != nil {
                 Button {
                     withAnimation(nil) {
@@ -192,4 +196,8 @@ extension CommentCell {
             .padding(.top, 18)
         }
     }
+}
+
+#Preview {
+    CommentCell(comment: .commentStub1)
 }
