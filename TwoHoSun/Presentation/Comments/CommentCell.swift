@@ -8,32 +8,35 @@
 import SwiftUI
 
 struct CommentCell: View {
+
     enum UserCommentType {
         case normal, banned, deletedUser
     }
 
     @State private var isOpenComment: Bool = false
-    @State private var isExpended = false
+    @State private var isExpended: Bool = false
     @State private var canExpended: Bool?
 
-    let comment: CommentsModel
-    var onReplyButtonTapped: () -> Void
-    var onConfirmDiaog: (Bool, Int) -> Void
-    var childComments: [CommentsModel]?
+    var replyButtonDidTapped: () -> Void
+    var sheetButtonDidTapped: (Bool) -> Void
 
-    init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
-        self.comment = comment
-        self.onReplyButtonTapped = onReplyButtonTapped
-        self.onConfirmDiaog = onConfirmDiaog
-        if let subComments = comment.subComments {
-            self.childComments = subComments
-        }
-    }
+    let comment: CommentModel
+//    var onReplyButtonTapped: () -> Void
+
+//    init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
+//        self.comment = comment
+//        self.onReplyButtonTapped = onReplyButtonTapped
+//        self.onConfirmDiaog = onConfirmDiaog
+//        if let subComments = comment.subComments {
+//            self.childComments = subComments
+//        }
+//    }
 
     var body: some View {
         VStack(alignment: .leading) {
             makeCellView(comment: comment, parent: true)
-            if let childComments = childComments {
+
+            if let childComments = comment.subComments {
                 if isOpenComment {
                     VStack {
                         ForEach(Array(childComments.enumerated()), id:  \.1.commentId) { index, comment in
@@ -56,7 +59,8 @@ struct CommentCell: View {
 }
 
 extension CommentCell {
-    private func lastEditTimeText(comment: CommentsModel) -> some View {
+
+    private func lastEditTimeText(comment: CommentModel) -> some View {
         var isEdited: String {
             return comment.modifiedDate != comment.createDate ? "수정됨" : ""
         }
@@ -68,7 +72,7 @@ extension CommentCell {
             .foregroundStyle(Color.subGray1)
     }
 
-    private func makeCellView(comment: CommentsModel, parent: Bool) -> some View {
+    private func makeCellView(comment: CommentModel, parent: Bool) -> some View {
         let userType = determineUserType(comment: comment)
         return HStack(alignment: .top, spacing: 8) {
             ProfileImageView(imageURL: comment.author?.profileImage ,validAuthor: userType == .normal)
@@ -83,7 +87,7 @@ extension CommentCell {
         }
     }
 
-    private func userContentsView(comment: CommentsModel, userType: UserCommentType) -> some View {
+    private func userContentsView(comment: CommentModel, userType: UserCommentType) -> some View {
         return Group {
             if userType == .banned {
                 Text("이 사용자는 차단되었습니다")
@@ -109,24 +113,28 @@ extension CommentCell {
             }
         }
     }
-    private func userInformationView(comment: CommentsModel, userType: UserCommentType) -> some View {
+    private func userInformationView(comment: CommentModel, userType: UserCommentType) -> some View {
         return HStack(spacing: 8) {
             if let validauthor = comment.author {
                 ConsumerTypeLabel(consumerType: userType == .banned ? .banUser :
                                     ConsumerType(rawValue: validauthor.consumerType) ?? .adventurer,
                                   usage: .comments)
+
                 Text(userType == .banned ? "차단된 사용자" : validauthor.nickname)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(Color.white)
+
                 lastEditTimeText(comment: comment)
+
                 Spacer()
+
                 if userType != .banned {
-                    Button(action: {
-                        onConfirmDiaog(comment.isMine, comment.commentId)
-                    }, label: {
+                    Button {
+                        sheetButtonDidTapped(comment.isMine)
+                    } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.subGray1)
-                    })
+                    }
                 }
             } else {
                 ConsumerTypeLabel(consumerType: .withDrawel, usage: .comments)
@@ -139,7 +147,7 @@ extension CommentCell {
         }.padding(.bottom,6)
     }
 
-    private func determineUserType(comment: CommentsModel) -> UserCommentType {
+    private func determineUserType(comment: CommentModel) -> UserCommentType {
         guard let author = comment.author else {
             return .deletedUser
         }
@@ -152,12 +160,16 @@ extension CommentCell {
 
     var replyButtonView: some View {
         HStack {
-            Button(action: {onReplyButtonTapped()}, label: {
-                Text("답글달기")
+            Button {
+                replyButtonDidTapped()
+            } label: {
+                Text("답글 달기")
                     .font(.system(size: 12))
                     .foregroundStyle(Color.subGray1)
-            })
+            }
+
             Spacer()
+
             if canExpended != nil {
                 Button {
                     withAnimation(nil) {
@@ -175,9 +187,9 @@ extension CommentCell {
     @ViewBuilder
     func moreToggleButton() -> some View {
         if let subcomments = comment.subComments {
-            Button(action: {
+            Button {
                 isOpenComment.toggle()
-            }, label: {
+            } label: {
                 HStack {
                     Rectangle()
                         .fill(.gray)
@@ -187,9 +199,17 @@ extension CommentCell {
                         .foregroundStyle(.gray)
                     Spacer()
                 }
-            })
+            }
             .padding(.leading, 40)
             .padding(.top, 18)
         }
     }
+}
+
+#Preview {
+    CommentCell(replyButtonDidTapped: {
+
+    }, sheetButtonDidTapped: { _ in
+
+    }, comment: .commentStub1)
 }

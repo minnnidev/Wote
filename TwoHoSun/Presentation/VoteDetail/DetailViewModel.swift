@@ -14,6 +14,7 @@ final class DetailViewModel: ObservableObject {
         case loadDetail
         case vote(_ myChoice: Bool)
         case presentSheet
+        case presentComment
         case deleteVote
         case closeVote
     }
@@ -21,7 +22,7 @@ final class DetailViewModel: ObservableObject {
     @Published var agreeTopConsumerTypes: [ConsumerType]?
     @Published var disagreeTopConsumerTypes: [ConsumerType]?
 
-    @Published var comments: CommentsModel?
+    @Published var comments: CommentModel?
     @Published var voteDetail: VoteDetailModel?
     @Published var isVoteResultShowed: Bool = false
     @Published var isVoteConsumerTypeResultShowed: Bool = false
@@ -30,8 +31,9 @@ final class DetailViewModel: ObservableObject {
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
     @Published var isVoteManageSucceed: Bool = false
+    @Published var isCommentShowed: Bool = false
 
-    private let postId: Int
+    let postId: Int
     private let voteUseCase: VoteUseCaseType
 
     init(postId: Int, voteUseCase: VoteUseCaseType) {
@@ -78,6 +80,9 @@ final class DetailViewModel: ObservableObject {
             } else {
                 isOtherSheetShowed.toggle()
             }
+
+        case .presentComment:
+            isCommentShowed.toggle()
 
         case .deleteVote:
             voteUseCase.deleteVote(postId: postId)
