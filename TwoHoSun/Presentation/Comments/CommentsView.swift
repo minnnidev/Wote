@@ -35,52 +35,30 @@ struct CommentsView: View {
 
                 commentInputView
             }
-
-            if viewModel.presentAlert {
-                ZStack {
-                    Color.black.opacity(0.7)
-                        .ignoresSafeArea()
-
-//                    CustomAlertModalView(alertType: ismyCellconfirm ?
-//                        .erase : .ban(nickname: viewModel.commentsDatas
-//                            .filter { $0.commentId == scrollSpot }
-//                            .first?.author?.nickname ?? ""),
-//                                         isPresented: $viewModel.presentAlert) {
-//                        if ismyCellconfirm {
-//                            viewModel.deleteComments(commentId: scrollSpot)
-//                        } else {
-//                            if let commentIDtoBlock = viewModel.commentsDatas.first(where: {$0.commentId == scrollSpot})?.author?.id {
-//
-//                                // TODO: 유저 차단
-//
-//                                viewModel.presentAlert.toggle()
-//                                viewModel.refreshComments()
-//                            }
-//                        }
-//                    }
-//                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
-                }
-            }        }
+        }
         .onTapGesture {
             isFocus = false
             replyForAnotherName = nil
         }
+        .onAppear {
+            viewModel.send(action: .loadComments(postId: viewModel.postId))
+        }
         .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
             Button {
-
+                viewModel.send(action: .deleteComment)
             } label: {
                 Text("삭제하기")
             }
         }
         .confirmationDialog("OtherSheet", isPresented: $viewModel.isOtherSheetShowed) {
             Button {
-
+                viewModel.send(action: .reportComment)
             } label: {
                 Text("신고하기")
             }
 
             Button {
-
+                viewModel.send(action: .blockUser)
             } label: {
                 Text("차단하기")
             }
@@ -96,7 +74,7 @@ extension CommentsView {
                 ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
 
                     CommentCell(replyButtonDidTapped: {
-                        // TODO: 답글 달기
+                        viewModel.send(action: .replyAtComment(commentId: comment.commentId))
                     }, sheetButtonDidTapped: { isMine in
                         viewModel.send(action: .presentSheet(isMine))
                     }, comment: comment)
@@ -139,9 +117,9 @@ extension CommentsView {
             if isFocus {
                 Button {
                     if replyForAnotherName != nil {
-                        viewModel.postReply(commentId: scrollSpot)
+                        viewModel.send(action: .replyAtComment(commentId: scrollSpot))
                     } else {
-                        viewModel.postComment()
+                        viewModel.send(action: .writeComment(postId: viewModel.postId))
                     }
                     isFocus = false
                 } label: {

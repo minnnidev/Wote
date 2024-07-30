@@ -11,6 +11,12 @@ final class CommentsViewModel: ObservableObject {
 
     enum Action {
         case presentSheet(Bool)
+        case deleteComment
+        case reportComment
+        case blockUser
+        case writeComment(postId: Int)
+        case replyAtComment(commentId: Int)
+        case loadComments(postId: Int)
     }
 
     @Published var comments: String = ""
@@ -20,12 +26,11 @@ final class CommentsViewModel: ObservableObject {
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
 
-    private var postId: Int
+    var postId: Int
     private var bag = Set<AnyCancellable>()
 
     init(postId: Int) {
         self.postId = postId
-        self.getAllComments()
 
         commentsDatas = [.commentStub1]
     }
@@ -38,27 +43,30 @@ final class CommentsViewModel: ObservableObject {
             } else {
                 isOtherSheetShowed.toggle()
             }
+
+        case .deleteComment:
+            // TODO: 댓글 삭제 API 연결
+            return
+
+        case .reportComment:
+            // TODO: 댓글 신고 API 연결
+            return
+
+        case .blockUser:
+            // TODO: 회원 차단 API 연결
+            return
+
+        case let .writeComment(postId):
+            // TODO: 댓글 작성 API 연결
+            return
+
+        case let .replyAtComment(commentId):
+            // TODO: 대댓글 작성 API 연결
+            return
+
+        case let .loadComments(postId):
+            // TODO: 댓글 로드
+            return
         }
-    }
-
-    func refreshComments() {
-        self.comments = ""
-        self.getAllComments()
-    }
-
-    func getAllComments() {
-
-    }
-    
-    func postComment() {
-
-    }
-
-    func deleteComments(commentId: Int) {
-
-    }
-
-    func postReply(commentId: Int) {
-
     }
 }
