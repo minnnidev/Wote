@@ -33,7 +33,7 @@ final class DetailViewModel: ObservableObject {
     @Published var isVoteManageSucceed: Bool = false
     @Published var isCommentShowed: Bool = false
 
-    private let postId: Int
+    let postId: Int
     private let voteUseCase: VoteUseCaseType
 
     init(postId: Int, voteUseCase: VoteUseCaseType) {

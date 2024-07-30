@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var router: NavigationRouter
 
     @StateObject var viewModel: DetailViewModel
@@ -136,9 +137,11 @@ struct DetailView: View {
             }
         }
         .sheet(isPresented: $viewModel.isCommentShowed) {
-            CommentsView()
-                .presentationDetents([.height(600)])
-                .presentationDragIndicator(.visible)
+            CommentsView(
+                viewModel: appDependency.container.resolve(CommentsViewModel.self, argument: viewModel.postId)!
+            )
+            .presentationDetents([.height(600)])
+            .presentationDragIndicator(.visible)
         }
         .onChange(of: viewModel.isVoteManageSucceed) { _ in
             router.pop()
@@ -314,5 +317,7 @@ struct DetailContentView: View {
 #Preview {
     NavigationStack {
         DetailView(viewModel: .init(postId: 1, voteUseCase: StubVoteUseCase()))
+            .environmentObject(AppDependency())
+            .environmentObject(NavigationRouter())
     }
 }

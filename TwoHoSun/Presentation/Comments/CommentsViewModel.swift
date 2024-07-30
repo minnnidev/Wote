@@ -27,12 +27,12 @@ final class CommentsViewModel: ObservableObject {
     @Published var isOtherSheetShowed: Bool = false
 
     var postId: Int
-    private var bag = Set<AnyCancellable>()
 
-    init(postId: Int) {
+    private let commentUseCase: CommentUseCaseType
+
+    init(postId: Int, commentUseCase: CommentUseCaseType) {
         self.postId = postId
-
-        commentsDatas = [.commentStub1]
+        self.commentUseCase = commentUseCase
     }
 
     func send(action: Action) {
@@ -66,6 +66,7 @@ final class CommentsViewModel: ObservableObject {
 
         case let .loadComments(postId):
             // TODO: 댓글 로드
+            commentsDatas = [.commentStub1]
             return
         }
     }

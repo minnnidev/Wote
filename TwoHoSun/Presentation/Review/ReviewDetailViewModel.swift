@@ -22,7 +22,7 @@ final class ReviewDetailViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
 
-    private let id: Int
+    let id: Int
     private let reviewUseCase: ReviewUseCaseType
 
     init(id: Int, reviewUseCase: ReviewUseCaseType) {

@@ -13,7 +13,7 @@ struct CommentsView: View {
 
     @FocusState private var isFocus: Bool
 
-    @StateObject var viewModel = CommentsViewModel(postId: 0)
+    @StateObject var viewModel: CommentsViewModel
 
     var body: some View {
         ZStack {
@@ -160,5 +160,5 @@ extension CommentsView {
 }
 
 #Preview {
-    CommentsView()
+    CommentsView(viewModel: .init(postId: 1, commentUseCase: StubCommentUseCase()))
 }
