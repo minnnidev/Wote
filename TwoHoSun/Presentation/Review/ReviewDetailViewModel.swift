@@ -13,10 +13,14 @@ final class ReviewDetailViewModel: ObservableObject {
     enum Action {
         case loadDetail
         case deleteReview
+        case presentSheet
     }
 
     @Published var reviewDetailData: ReviewDetailModel?
     @Published var isLoading: Bool = false
+    @Published var isMySheetShowed: Bool = false
+    @Published var isOtherSheetShowed: Bool = false
+    @Published var isReviewDeleted: Bool = false
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -28,7 +32,7 @@ final class ReviewDetailViewModel: ObservableObject {
         self.reviewUseCase = reviewUseCase
     }
 
-    func send(_ action: Action) {
+    func send(action: Action) {
         switch action {
 
         case .loadDetail:
@@ -47,10 +51,18 @@ final class ReviewDetailViewModel: ObservableObject {
             reviewUseCase.deleteReview(postId: id)
                 .sink { _ in
                 } receiveValue: { [weak self] _ in
-                    NotificationCenter.default.post(name: .reviewDeleted, object: nil)
-                    // TODO: navigation stack pop
+                    self?.isReviewDeleted.toggle()
                 }
                 .store(in: &cancellables)
+
+        case .presentSheet:
+            let isMine = reviewDetailData?.isMine ?? false
+
+            if isMine {
+                isMySheetShowed.toggle()
+            } else {
+                isOtherSheetShowed.toggle()
+            }
         }
     }
 }
