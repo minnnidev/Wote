@@ -14,12 +14,14 @@ struct CommentCell: View {
     }
 
     @State private var isOpenComment: Bool = false
-    @State private var isExpended = false
+    @State private var isExpended: Bool = false
     @State private var canExpended: Bool?
+
+    var replyButtonDidTapped: () -> Void
+    var sheetButtonDidTapped: (Bool) -> Void
 
     let comment: CommentModel
 //    var onReplyButtonTapped: () -> Void
-    var childComments: [CommentModel]?
 
 //    init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
 //        self.comment = comment
@@ -33,7 +35,8 @@ struct CommentCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             makeCellView(comment: comment, parent: true)
-            if let childComments = childComments {
+
+            if let childComments = comment.subComments {
                 if isOpenComment {
                     VStack {
                         ForEach(Array(childComments.enumerated()), id:  \.1.commentId) { index, comment in
@@ -56,6 +59,7 @@ struct CommentCell: View {
 }
 
 extension CommentCell {
+
     private func lastEditTimeText(comment: CommentModel) -> some View {
         var isEdited: String {
             return comment.modifiedDate != comment.createDate ? "수정됨" : ""
@@ -115,18 +119,22 @@ extension CommentCell {
                 ConsumerTypeLabel(consumerType: userType == .banned ? .banUser :
                                     ConsumerType(rawValue: validauthor.consumerType) ?? .adventurer,
                                   usage: .comments)
+
                 Text(userType == .banned ? "차단된 사용자" : validauthor.nickname)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(Color.white)
+
                 lastEditTimeText(comment: comment)
+
                 Spacer()
+
                 if userType != .banned {
-                    Button(action: {
-//                        onConfirmDiaog(comment.isMine, comment.commentId)
-                    }, label: {
+                    Button {
+                        sheetButtonDidTapped(comment.isMine)
+                    } label: {
                         Image(systemName: "ellipsis")
                             .foregroundStyle(Color.subGray1)
-                    })
+                    }
                 }
             } else {
                 ConsumerTypeLabel(consumerType: .withDrawel, usage: .comments)
@@ -153,9 +161,9 @@ extension CommentCell {
     var replyButtonView: some View {
         HStack {
             Button {
-//                onReplyButtonTapped()
+                replyButtonDidTapped()
             } label: {
-                Text("답글달기")
+                Text("답글 달기")
                     .font(.system(size: 12))
                     .foregroundStyle(Color.subGray1)
             }
@@ -179,9 +187,9 @@ extension CommentCell {
     @ViewBuilder
     func moreToggleButton() -> some View {
         if let subcomments = comment.subComments {
-            Button(action: {
+            Button {
                 isOpenComment.toggle()
-            }, label: {
+            } label: {
                 HStack {
                     Rectangle()
                         .fill(.gray)
@@ -191,7 +199,7 @@ extension CommentCell {
                         .foregroundStyle(.gray)
                     Spacer()
                 }
-            })
+            }
             .padding(.leading, 40)
             .padding(.top, 18)
         }
@@ -199,5 +207,9 @@ extension CommentCell {
 }
 
 #Preview {
-    CommentCell(comment: .commentStub1)
+    CommentCell(replyButtonDidTapped: {
+
+    }, sheetButtonDidTapped: { _ in
+
+    }, comment: .commentStub1)
 }

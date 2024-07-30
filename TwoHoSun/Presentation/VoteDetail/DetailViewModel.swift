@@ -14,6 +14,7 @@ final class DetailViewModel: ObservableObject {
         case loadDetail
         case vote(_ myChoice: Bool)
         case presentSheet
+        case presentComment
         case deleteVote
         case closeVote
     }
@@ -30,6 +31,7 @@ final class DetailViewModel: ObservableObject {
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
     @Published var isVoteManageSucceed: Bool = false
+    @Published var isCommentShowed: Bool = false
 
     private let postId: Int
     private let voteUseCase: VoteUseCaseType
@@ -78,6 +80,9 @@ final class DetailViewModel: ObservableObject {
             } else {
                 isOtherSheetShowed.toggle()
             }
+
+        case .presentComment:
+            isCommentShowed.toggle()
 
         case .deleteVote:
             voteUseCase.deleteVote(postId: postId)

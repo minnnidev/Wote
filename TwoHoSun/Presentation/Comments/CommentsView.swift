@@ -9,14 +9,9 @@ import SwiftUI
 
 struct CommentsView: View {
     @State private var scrollSpot: Int = 0
-    @FocusState private var isFocus: Bool
-    @State private var ismyCellconfirm = false
-    @State private var showConfirm = false
     @State private var replyForAnotherName: String?
-    @State private var lastCommentClick = false
 
-    @Binding var showComplaint : Bool
-    @Binding var applyComplaint: Bool
+    @FocusState private var isFocus: Bool
 
     @StateObject var viewModel = CommentsViewModel(postId: 0)
 
@@ -24,6 +19,7 @@ struct CommentsView: View {
         ZStack {
             Color.lightGray
                 .ignoresSafeArea()
+
             VStack(spacing: 0) {
                 Text("댓글")
                     .foregroundStyle(.white)
@@ -34,13 +30,17 @@ struct CommentsView: View {
                     .overlay(Divider().background(Color.subGray1), alignment: .bottom)
                     .padding(.bottom, 13)
                 comments
+
                 forReplyLabel
+
                 commentInputView
             }
+
             if viewModel.presentAlert {
                 ZStack {
                     Color.black.opacity(0.7)
                         .ignoresSafeArea()
+
 //                    CustomAlertModalView(alertType: ismyCellconfirm ?
 //                        .erase : .ban(nickname: viewModel.commentsDatas
 //                            .filter { $0.commentId == scrollSpot }
@@ -60,106 +60,62 @@ struct CommentsView: View {
 //                    }
 //                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
                 }
-            }
-            if applyComplaint {
-                ZStack {
-                    Color.black.opacity(0.7)
-                        .ignoresSafeArea()
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.lightBlue)
-                            .frame(width: 283, height: 36)
-                        Text("신고해주셔서 감사합니다.")
-                            .foregroundStyle(.white)
-                            .font(.system(size: 16, weight: .semibold))
-                    }
-                    .padding(.bottom, UIScreen.main.bounds.height * 0.05)
-                }
-                .onTapGesture {
-                    applyComplaint.toggle()
-                }
-            }
-        }
+            }        }
         .onTapGesture {
             isFocus = false
             replyForAnotherName = nil
         }
-        .fullScreenCover(isPresented: $showComplaint, content: {
-            NavigationStack {
-                ComplaintView(isSheet: $showComplaint, isComplaintApply: $applyComplaint)
+        .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
+            Button {
+
+            } label: {
+                Text("삭제하기")
             }
-        })
-        .customConfirmDialog(isPresented: $showConfirm, isMine: $ismyCellconfirm, actions: { bindIsMine in
-            let isMine = bindIsMine.wrappedValue
-            VStack(spacing: 15) {
-                if !isMine {
-                    Button {
-                        showComplaint.toggle()
-                        showConfirm.toggle()
-                    } label: {
-                        Text("신고하기")
-                            .frame(maxWidth: .infinity)
-                    }
-                    Divider()
-                        .background(Color.gray300)
-                }
-                Button {
-                    viewModel.presentAlert.toggle()
-                    showConfirm.toggle()
-                } label: {
-                    Text(isMine ? "삭제하기" : "차단하기")
-                        .frame(maxWidth: .infinity)
-                }
-            }
-            .padding(.vertical, 15)
         }
-        )
+        .confirmationDialog("OtherSheet", isPresented: $viewModel.isOtherSheetShowed) {
+            Button {
+
+            } label: {
+                Text("신고하기")
+            }
+
+            Button {
+
+            } label: {
+                Text("차단하기")
+            }
+        }
     }
 }
 
 extension CommentsView {
-    var comments : some View {
-        Text("Sample")
-//        ScrollViewReader { proxy in
-//            ScrollView {
-//                LazyVStack(alignment: .leading, spacing: 28) {
-////                    ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
-////                        CommentCell(comment: comment) {
-////                            scrollSpot = comment.commentId
-////                            if let author = comment.author {
-////                                replyForAnotherName = author.nickname
-////                            } else {
-////                                replyForAnotherName = "알 수 없음"
-////                            }
-////                            isFocus = true
-////                        } onConfirmDiaog: { ismine, commentId in
-////                            scrollSpot = commentId
-////                            isFocus = false
-////                            ismyCellconfirm = ismine
-////                            showConfirm.toggle()
-////                        }
-//                    }
-//                    Color.clear
-//                        .frame(height:1, alignment: .bottom)
-//                        .onAppear {
-//                            lastCommentClick = true
-//                        }
-////                    .onChange(of: scrollSpot) { _, _ in
-////                        proxy.scrollTo(scrollSpot, anchor: .top)
-////                    }
-//                    .padding(.bottom, isFocus && lastCommentClick ? 20 : 0)
-//                }
-//            }
-//            .scrollIndicators(.hidden)
-//        }
-//        .padding(.horizontal, 24)
+
+    private var comments: some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
+
+                    CommentCell(replyButtonDidTapped: {
+                        // TODO: 답글 달기
+                    }, sheetButtonDidTapped: { isMine in
+                        viewModel.send(action: .presentSheet(isMine))
+                    }, comment: comment)
+
+                    Color.clear
+                        .frame(height: 1, alignment: .bottom)
+                }
+            }
+            .scrollIndicators(.hidden)
+            .padding(.horizontal, 24)
+        }
     }
 
-    var commentInputView: some View {
+    private var commentInputView: some View {
         HStack {
             ProfileImageView(imageURL: nil)
                 .frame(width: 32, height: 32)
-            withAnimation(.easeInOut) {
+
+                withAnimation(.easeInOut) {
                 TextField("", text: $viewModel.comments, prompt: Text("소비고민을 함께 나누어 보세요")
                     .foregroundColor(viewModel.comments.isEmpty ? Color.subGray1 :Color.white)
                     .font(.system(size: 14)) ,axis: .vertical)
@@ -176,29 +132,30 @@ extension CommentsView {
                             .background(isFocus ? Color.darkblue2325 : Color.textFieldGray)
                     }
                 }
-
             }
             .cornerRadius(12)
             .animation(.easeInOut(duration: 0.3), value: viewModel.comments)
+
             if isFocus {
-                Button(action: {
+                Button {
                     if replyForAnotherName != nil {
                         viewModel.postReply(commentId: scrollSpot)
                     } else {
                         viewModel.postComment()
                     }
                     isFocus = false
-                }, label: {
+                } label: {
                     Image(systemName: "paperplane")
-                        .foregroundStyle(viewModel.comments.isEmpty ?  Color.subGray1 : Color.white)
+                        .foregroundStyle(viewModel.comments.isEmpty ? Color.subGray1 : Color.white)
                         .font(.system(size: 20))
-                })
+                }
             }
         }
         .frame(maxWidth: .infinity)
         .padding(EdgeInsets(top: 11, leading: 24, bottom: 9, trailing: 24))
         .overlay(Divider().background(Color.subGray1), alignment: .top)
     }
+
     @ViewBuilder
     var forReplyLabel: some View {
         if let replyname = replyForAnotherName {
@@ -206,7 +163,9 @@ extension CommentsView {
                 Text("\(replyname)님에게 답글달기")
                     .font(.system(size: 14))
                     .foregroundStyle(Color.grayC4C4)
+
                 Spacer()
+
                 Button {
                     replyForAnotherName = nil
                 } label: {
@@ -220,4 +179,8 @@ extension CommentsView {
             .background(Divider().background(Color.subGray1), alignment: .top)
         }
     }
+}
+
+#Preview {
+    CommentsView()
 }

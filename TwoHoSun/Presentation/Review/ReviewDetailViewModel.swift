@@ -13,10 +13,12 @@ final class ReviewDetailViewModel: ObservableObject {
     enum Action {
         case loadDetail
         case deleteReview
+        case presentComment
     }
 
     @Published var reviewDetailData: ReviewDetailModel?
     @Published var isLoading: Bool = false
+    @Published var isCommentShowed: Bool = false
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -45,6 +47,9 @@ final class ReviewDetailViewModel: ObservableObject {
 
         case .deleteReview:
             return
+
+        case .presentComment:
+            isCommentShowed.toggle()
         }
     }
 }

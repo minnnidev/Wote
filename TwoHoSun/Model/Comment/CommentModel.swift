@@ -24,7 +24,7 @@ extension CommentModel {
             commentId: 1,
             createDate: "2024-07-25T01:58:07.347461",
             modifiedDate: "2024-07-25T01:58:07.347461",
-            content: "댓글",
+            content: "댓글댓글댓글댓글댓글댓글댓글댓글",
             subComments: [commentStub2, commentStub3],
             isMine: true,
             author: .authorStub1
