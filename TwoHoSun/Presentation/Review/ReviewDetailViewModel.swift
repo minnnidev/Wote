@@ -50,16 +50,16 @@ final class ReviewDetailViewModel: ObservableObject {
                 .store(in: &cancellables)
 
         case .deleteReview:
-            return
-
-        case .presentComment:
-            isCommentShowed.toggle()
             reviewUseCase.deleteReview(postId: id)
                 .sink { _ in
                 } receiveValue: { [weak self] _ in
                     self?.isReviewDeleted.toggle()
                 }
                 .store(in: &cancellables)
+
+
+        case .presentComment:
+            isCommentShowed.toggle()
 
         case .presentSheet:
             let isMine = reviewDetailData?.isMine ?? false

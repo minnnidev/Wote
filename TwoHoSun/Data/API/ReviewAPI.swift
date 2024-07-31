@@ -80,4 +80,8 @@ extension ReviewAPI: TargetType {
             APIConstants.headerWithAuthorization
         }
     }
+
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }

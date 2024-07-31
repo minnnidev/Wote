@@ -188,7 +188,7 @@ extension ReviewDetailView {
 
             CommentPreview()
                 .onTapGesture {
-                    viewModel.send(.presentComment)
+                    viewModel.send(action: .presentComment)
                 }
         }
     }

@@ -44,4 +44,8 @@ extension SearchAPI: TargetType {
             return APIConstants.headerWithAuthorization
         }
     }
+    
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }
