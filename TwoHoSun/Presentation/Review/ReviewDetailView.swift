@@ -58,10 +58,10 @@ struct ReviewDetailView: View {
         .toolbarBackground(Color.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .refreshable {
-            viewModel.send(.loadDetail)
+            viewModel.send(action: .loadDetail)
         }
         .onAppear {
-            viewModel.send(.loadDetail)
+            viewModel.send(action: .loadDetail)
         }
         .overlay {
             if viewModel.isLoading {
@@ -75,6 +75,29 @@ struct ReviewDetailView: View {
             .presentationDetents([.height(600)])
             .presentationDragIndicator(.visible)
         }
+        .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
+            Button {
+                viewModel.send(action: .deleteReview)
+            } label: {
+                Text("후기 삭제하기")
+            }
+        }
+        .confirmationDialog("OtherSheet", isPresented: $viewModel.isOtherSheetShowed) {
+            Button {
+                // TODO: - 신고 action
+            } label: {
+                Text("신고하기")
+            }
+
+            Button {
+                // TODO: - 차단 action
+            } label: {
+                Text("차단하기")
+            }
+        }
+        .onChange(of: viewModel.isReviewDeleted) { _ in
+            router.pop()
+        }
     }
 }
 
@@ -82,13 +105,13 @@ extension ReviewDetailView {
 
     private var menuButton: some View {
         Button {
-
+            viewModel.send(action: .presentSheet)
         } label: {
             Image(systemName: "ellipsis")
                 .foregroundStyle(Color.subGray1)
         }
     }
-
+    
     private func detailHeaderView(_ data: VoteModel) -> some View {
         VStack(spacing: 11) {
             HStack(spacing: 3) {
@@ -165,7 +188,7 @@ extension ReviewDetailView {
 
             CommentPreview()
                 .onTapGesture {
-                    viewModel.send(.presentComment)
+                    viewModel.send(action: .presentComment)
                 }
         }
     }
@@ -174,7 +197,7 @@ extension ReviewDetailView {
         HStack {
             Spacer()
             Button {
-                print("이야 공유하자")
+                // TODO: 공유
             } label: {
                 Label("공유", systemImage: "square.and.arrow.up")
                     .font(.system(size: 14))

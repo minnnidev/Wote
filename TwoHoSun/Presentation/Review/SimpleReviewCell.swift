@@ -11,7 +11,7 @@ struct SimpleReviewCell: View {
     let data: SimpleReviewModel
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
             Color.disableGray
 
             VStack(alignment: .leading, spacing: 6) {

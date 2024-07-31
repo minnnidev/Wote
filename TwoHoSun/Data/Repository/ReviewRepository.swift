@@ -61,4 +61,10 @@ final class ReviewRepository: ReviewRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func deleteReview(postId: Int) -> AnyPublisher<Void, WoteError> {
+        reviewDataSource.deleteReview(postId)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
