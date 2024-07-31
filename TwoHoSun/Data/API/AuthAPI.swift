@@ -49,4 +49,8 @@ extension AuthAPI: TargetType {
             APIConstants.headerWithOutToken
         }
     }
+
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }

@@ -104,4 +104,8 @@ extension UserAPI: TargetType {
             APIConstants.headerWithAuthorization
         }
     }
+
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }
