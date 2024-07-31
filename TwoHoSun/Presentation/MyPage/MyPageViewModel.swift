@@ -9,45 +9,98 @@ import Combine
 import SwiftUI
 
 final class MyPageViewModel: ObservableObject {
-    var selectedMyPageListType = MyPageListType.myVote
-    var selectedMyVoteCategoryType = MyVoteCategoryType.all
-    var selectedMyReviewCategoryType = MyReviewCategoryType.all
 
-    var profile: ProfileModel?
-    var cacellabels: Set<AnyCancellable> = []
-    var total = 0
-
-    private var votePage = 0
-    private var reviewPage = 0
-    private var isVoteLastPage = false
-    private var isReviewLastPage = false
-
-    func requestPosts(postType: PostService) {
-
+    enum Action {
+        case loadProfile
+        case loadMyVotes
+        case loadMoreVotes
+        case loadMyReviews
+        case loadMoreReviews
+        case changeSelectedType(_ type: MyPageListType)
     }
 
-    func fetchPosts(isFirstFetch: Bool = true) {
-        switch selectedMyPageListType {
-        case .myVote:
-            requestPosts(postType: .getMyPosts(page: votePage,
-                                               size: 10,
-                                               myVoteCategoryType: selectedMyVoteCategoryType.parameter))
-        case .myReview:
-            requestPosts(postType: .getMyReviews(page: reviewPage,
-                                                 size: 10,
-                                                 myReviewCategoryType: selectedMyReviewCategoryType.parameter))
+    @Published var selectedMyPageListType: MyPageListType = .myVote {
+        didSet {
+            if selectedMyPageListType == .myVote {
+                send(action: .loadMyVotes)
+            } else {
+                send(action: .loadMyReviews)
+            }
         }
     }
+    @Published var isLoading: Bool = false
+    @Published var myProfile: ProfileModel?
+    @Published var myVotes: [MyVoteModel] = .init()
+    @Published var myReviews: [ReviewModel] = .init()
+    @Published var total: Int = 0
 
-    func fetchMorePosts() {
-        switch selectedMyPageListType {
-        case .myVote:
-            guard !isVoteLastPage else { return }
+    private var votePage: Int = 0
+    private var reviewpage: Int = 0
+    private var cacellabels: Set<AnyCancellable> = []
+
+    private let myPageUseCase: MyPageUseCaseType
+
+    init(myPageUseCase: MyPageUseCaseType) {
+        self.myPageUseCase = myPageUseCase
+    }
+
+    func send(action: Action) {
+        switch action {
+        case .loadProfile:
+            return
+
+        case .loadMyVotes:
+            isLoading = true
+            votePage = 0
+
+            myPageUseCase.getMyVotes(page: votePage, size: 10)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] myVoteModel in
+                    self?.myVotes = myVoteModel.votes
+                    self?.total = myVoteModel.total
+                    self?.isLoading = false
+                }
+                .store(in: &cacellabels)
+
+        case .loadMoreVotes:
             votePage += 1
-        case .myReview:
-            guard !isReviewLastPage else { return }
-            reviewPage += 1
+
+            myPageUseCase.getMyVotes(page: votePage, size: 10)
+                .sink { _ in
+                } receiveValue: { [weak self] myVoteModel in
+                    self?.myVotes.append(contentsOf: myVoteModel.votes)
+                    self?.total = myVoteModel.total
+                }
+                .store(in: &cacellabels)
+
+        case .loadMyReviews:
+            isLoading = true
+            reviewpage = 0
+
+            myPageUseCase.getMyReviews(page: reviewpage, size: 10, visibilityScope: .global)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] myReviewModel in
+                    self?.isLoading = false
+                    self?.total = myReviewModel.total
+                    self?.myReviews = myReviewModel.myReviews
+                }
+                .store(in: &cacellabels)
+
+        case .loadMoreReviews:
+            reviewpage += 1
+
+            myPageUseCase.getMyReviews(page: reviewpage, size: 10, visibilityScope: .global)
+                .sink { _ in
+                } receiveValue: { [weak self] myReviewModel in
+                    self?.total = myReviewModel.total
+                    self?.myReviews.append(contentsOf: myReviewModel.myReviews)
+                }
+                .store(in: &cacellabels)
+
+        case let .changeSelectedType(type):
+            selectedMyPageListType = type
         }
-        fetchPosts(isFirstFetch: false)
     }
 }

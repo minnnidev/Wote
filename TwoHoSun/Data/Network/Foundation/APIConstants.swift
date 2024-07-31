@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Alamofire
 
 enum APIConstants {
+    
     enum NetworkHeaderKey: String {
         case contentType = "Content-Type"
         case authorization = "Authorization"
@@ -20,21 +22,31 @@ enum APIConstants {
     static var headerWithOutToken: [String: String] {
         [NetworkHeaderKey.contentType.rawValue: APIConstants.applicationJSON]
     }
+
     static var headerWithAuthorization: [String: String] {
         [
             NetworkHeaderKey.contentType.rawValue: APIConstants.applicationJSON,
-            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: "accessToken") ?? "")"
+            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: TokenType.accessToken) ?? "")"
         ]
     }
+
     static var headerXform: [String: String] {
         [
             NetworkHeaderKey.contentType.rawValue: APIConstants.applicationXForm
         ]
     }
+
     static var headerMultiPartForm: [String: String] {
         [
             NetworkHeaderKey.contentType.rawValue: APIConstants.multiPartForm,
-            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: "accessToken")!)"
+            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: TokenType.accessToken)!)"
+        ]
+    }
+
+    static var httpsHeaderWithAuthorization: HTTPHeaders {
+        [
+            NetworkHeaderKey.contentType.rawValue: APIConstants.applicationJSON,
+            NetworkHeaderKey.authorization.rawValue: "Bearer \(KeychainManager.shared.read(key: TokenType.accessToken) ?? "")"
         ]
     }
 }

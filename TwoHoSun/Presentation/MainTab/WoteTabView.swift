@@ -30,7 +30,8 @@ struct WoteTabView: View {
                             ReviewListView(viewModel:appDependency.container.resolve(ReviewListViewModel.self)!)
                                 .environmentObject(router)
                         case .myPage:
-                            MyPageView(selectedVisibilityScope: $visibilityScope)
+                            MyPageView(viewModel: appDependency.container.resolve(MyPageViewModel.self)!)
+                                .environmentObject(router)
                         }
                     }
                     .tabItem {
@@ -67,6 +68,10 @@ struct WoteTabView: View {
                         viewModel: appDependency.container.resolve(ReviewDetailViewModel.self, argument: postId)!
                     )
                     .environmentObject(router)
+
+                case let .reviewWrite(postId):
+                    ReviewWriteView(viewModel: appDependency.container.resolve(ReviewWriteViewModel.self, argument: postId)!)
+                        .environmentObject(router)
                 }
             }
         }

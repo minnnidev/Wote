@@ -41,10 +41,15 @@ enum WoteDestination: Hashable {
     case search
     case voteDetail(postId: Int)
     case reviewDetail(postId: Int)
+    case reviewWrite(postId: Int)
 }
 
 enum VoteDestination: Hashable {
     case voteWrite
+}
+
+enum MyPageDestination: Hashable {
+    case modifyProfile
 }
 
 final class NavigationRouter: ObservableObject {

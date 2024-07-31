@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var router: NavigationRouter
 
     @StateObject var viewModel: DetailViewModel
@@ -135,6 +136,13 @@ struct DetailView: View {
                 Text("차단하기")
             }
         }
+        .sheet(isPresented: $viewModel.isCommentShowed) {
+            CommentsView(
+                viewModel: appDependency.container.resolve(CommentsViewModel.self, argument: viewModel.postId)!
+            )
+            .presentationDetents([.height(600)])
+            .presentationDragIndicator(.visible)
+        }
         .onChange(of: viewModel.isVoteManageSucceed) { _ in
             router.pop()
         }
@@ -144,13 +152,10 @@ struct DetailView: View {
 extension DetailView {
 
     var commentPreview: some View {
-        CommentPreview(previewComment: viewModel.voteDetail?.commentPreview,
-                       commentCount: viewModel.voteDetail?.commentCount,
-                       commentPreviewImage: viewModel.voteDetail?.commentPreviewImage)
-//        .onTapGesture {
-            // TODO: 소비 성향 테스트 안 했을 시, 소비 성향 테스트로 이동
-            // TODO: 완료했을 시 댓글 보기
-//        }
+        CommentPreview()
+            .onTapGesture {
+                viewModel.send(action: .presentComment)
+            }
     }
 
     private func hiddenResultView(for type: VoteType, topConsumerTypesCount: Int) -> some View {
@@ -312,5 +317,7 @@ struct DetailContentView: View {
 #Preview {
     NavigationStack {
         DetailView(viewModel: .init(postId: 1, voteUseCase: StubVoteUseCase()))
+            .environmentObject(AppDependency())
+            .environmentObject(NavigationRouter())
     }
 }

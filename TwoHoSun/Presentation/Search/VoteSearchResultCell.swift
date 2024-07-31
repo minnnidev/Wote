@@ -70,7 +70,6 @@ struct VoteSearchResultCell: View {
                         VoteResultType(voteResult: voteResult).stampImage
                             .offset(x: -16, y: 16)
                     }
-
                 }
             }
         }

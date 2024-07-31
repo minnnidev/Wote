@@ -32,10 +32,11 @@ class NetworkProvider: NetworkProviderType {
         self.provider = MoyaProvider<MultiTarget>(session: session)
     }
 
-    func requestPublisher<U>(_ target: TargetType, _ responseType: U.Type) -> AnyPublisher<U, APIError> where U : Decodable {
+    func requestPublisher<U: Decodable>(_ target: TargetType, _ responseType: U.Type) -> AnyPublisher<U, APIError> {
         provider.requestPublisher(MultiTarget(target))
             .tryMap { response in
                 let decodedResponse = try JSONDecoder().decode(GeneralResponse<U>.self, from: response.data)
+
                 guard let data = decodedResponse.data else {
                     throw APIError.decodingError
                 }

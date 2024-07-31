@@ -25,6 +25,19 @@ final class UserAssmbly: Assembly {
             )
         }
 
+        container.register(MyPageViewModel.self) { res in
+            MyPageViewModel(
+                myPageUseCase: res.resolve(MyPageUseCaseType.self)!
+            )
+        }
+
+        container.register(ProfileModifyViewModel.self) { res in
+            ProfileModifyViewModel(
+                userUseCase: res.resolve(UserUseCaseType.self)!,
+                photoUseCase: res.resolve(PhotoUseCaseType.self)!
+            )
+        }
+
         // MARK: UseCases
 
         container.register(UserUseCaseType.self) { res in
@@ -32,6 +45,10 @@ final class UserAssmbly: Assembly {
         }
 
         container.register(PhotoUseCaseType.self) { _ in PhotoUseCase() }
+
+        container.register(MyPageUseCaseType.self) { res in
+            MyPageUseCase(userRepository: res.resolve(UserRepositoryType.self)!)
+        }
 
         // MARK: Repositories
 

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
+    @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var router: NavigationRouter
 
     @StateObject var viewModel: ReviewDetailViewModel
@@ -67,6 +68,13 @@ struct ReviewDetailView: View {
                 ProgressView()
             }
         }
+        .sheet(isPresented: $viewModel.isCommentShowed) {
+            CommentsView(
+                viewModel: appDependency.container.resolve(CommentsViewModel.self, argument: viewModel.id)!
+            )
+            .presentationDetents([.height(600)])
+            .presentationDragIndicator(.visible)
+        }
         .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
             Button {
                 viewModel.send(action: .deleteReview)
@@ -95,7 +103,6 @@ struct ReviewDetailView: View {
 
 extension ReviewDetailView {
 
-    @ViewBuilder
     private var menuButton: some View {
         Button {
             viewModel.send(action: .presentSheet)
@@ -179,13 +186,9 @@ extension ReviewDetailView {
                     .padding(.bottom, 28)
             }
 
-            CommentPreview(previewComment: viewModel.reviewDetailData?.commentPreview, commentCount: viewModel.reviewDetailData?.commentCount,
-                           commentPreviewImage: viewModel.reviewDetailData?.commentPreviewImage)
+            CommentPreview()
                 .onTapGesture {
-                    guard haveConsumerType else {
-                        // TODO: 소비 성향 테스트로 이동
-                        return
-                    }
+                    viewModel.send(.presentComment)
                 }
         }
     }
@@ -213,5 +216,7 @@ extension ReviewDetailView {
         ReviewDetailView(
             viewModel: .init(id: 1, reviewUseCase: StubReviewUseCase())
         )
+        .environmentObject(AppDependency())
+        .environmentObject(NavigationRouter())
     }
 }
