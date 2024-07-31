@@ -7,31 +7,37 @@
 
 import Foundation
 import Alamofire
+import SwiftUI
 
-class AuthInterceptor: RequestInterceptor {
+final class AuthInterceptor: RequestInterceptor {
+
+    @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
 
     static let shared = AuthInterceptor()
 
     private init() { }
 
+    /// 네트워크 실패 시 retry 메서드 실행 
     func retry(_ request: Request,
                for session: Session,
                dueTo error: Error,
                completion: @escaping (RetryResult) -> Void) {
-        print("====== retry ======")
+        print("retry 진입")
 
         guard let response = request.task?.response as? HTTPURLResponse,
-                response.statusCode == 401
-        else {
+              response.statusCode == 401 else {
             completion(.doNotRetryWithError(error))
             return
         }
 
-        reissueToken { succeed in
+        reissueToken { [weak self] succeed in
             if succeed {
+                /// 토큰  재발급에 성공하여 실패했던 통신을 재시도
                 completion(.retry)
             } else {
-                // TODO: - 갱신 실패 시 처리
+                /// 토큰 재발급을 실패하면 로그인 화면으로 진입
+                self?.isLoggedIn = false
+                completion(.doNotRetryWithError(error))
             }
         }
     }
@@ -44,13 +50,12 @@ class AuthInterceptor: RequestInterceptor {
         )
 
         let reissueTokenAPI: AuthAPI = .getNewToken(requestTokenObject)
-        
 
-        AF.request(reissueTokenAPI.baseURL,
-            method: reissueTokenAPI.method,
-            parameters: requestTokenObject.toDictionary(),
-            encoding: URLEncoding.default,
-            headers: ["Content-Type":"application/json"])
+        AF.request(URL(string: URLConst.baseURL + reissueTokenAPI.path)!,
+                   method: reissueTokenAPI.method,
+                   parameters: requestTokenObject.toDictionary(),
+                   encoding: JSONEncoding.default,
+                   headers: APIConstants.httpsHeaderWithAuthorization)
         .response { response in
             switch response.result {
 
@@ -74,7 +79,6 @@ class AuthInterceptor: RequestInterceptor {
                 }
 
             case let .failure(error):
-                // TODO: - 에러 처리
                 print(error.localizedDescription)
                 completion(false)
             }

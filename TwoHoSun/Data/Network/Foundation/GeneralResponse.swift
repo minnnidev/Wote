@@ -24,7 +24,7 @@ struct GeneralResponse<T: Decodable>: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         status = (try? values.decode(Int.self, forKey: .status)) ?? 0
         message = (try? values.decode(String.self, forKey: .message)) ?? ""
-        divisionCode = (try? values.decode(String.self, forKey: .divisionCode)) ?? ""
+        divisionCode = (try? values.decode(String.self, forKey: .divisionCode)) ?? nil
         data = (try? values.decode(T.self, forKey: .data)) ?? nil
     }
 }
