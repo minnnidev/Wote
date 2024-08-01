@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 protocol CommentRepositoryType {
-    
+    func getComments(of postId: Int) -> AnyPublisher<[CommentModel], WoteError>
 }

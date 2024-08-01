@@ -21,7 +21,8 @@ final class CommentsViewModel: ObservableObject {
 
     @Published var comments: String = ""
     @Published var commentsDatas = [CommentModel]()
-    @Published var presentAlert = false
+    @Published var isLoading: Bool = false
+    @Published var isEmptyComment: Bool = false
 
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
@@ -29,6 +30,7 @@ final class CommentsViewModel: ObservableObject {
     var postId: Int
 
     private let commentUseCase: CommentUseCaseType
+    private var cancellables: Set<AnyCancellable> = []
 
     init(postId: Int, commentUseCase: CommentUseCaseType) {
         self.postId = postId
@@ -65,9 +67,20 @@ final class CommentsViewModel: ObservableObject {
             return
 
         case let .loadComments(postId):
-            // TODO: 댓글 로드
-            commentsDatas = [.commentStub1]
-            return
+            isLoading = true
+
+            commentUseCase.loadComments(of: postId)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] comments in
+                    guard let self = self else { return }
+
+                    commentsDatas = comments
+                    isLoading = false
+
+                    if commentsDatas.count == 0 { isEmptyComment.toggle() }
+                }
+                .store(in: &cancellables)
         }
     }
 }

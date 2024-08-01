@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum CommentAPI {
-    case getComments(Int)
+    case getComments(CommentRequestObject)
 }
 
 extension CommentAPI: TargetType {
@@ -20,7 +20,7 @@ extension CommentAPI: TargetType {
     
     var path: String {
         switch self {
-        case let .getComments(postId):
+        case .getComments:
             return "/comments"
         }
     }
@@ -34,8 +34,8 @@ extension CommentAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case let .getComments(postId):
-            return .requestParameters(parameters: postId.toDictionary(), encoding: URLEncoding.queryString)
+        case let .getComments(requestObject):
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
         }
     }
     

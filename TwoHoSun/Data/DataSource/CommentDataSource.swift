@@ -6,16 +6,23 @@
 //
 
 import Foundation
+import Combine
 
 protocol CommentDataSourceType {
-
+    func getComments(_ object: CommentRequestObject) -> AnyPublisher<[CommentResponseObject], APIError>
 }
 
 final class CommentDataSource: CommentDataSourceType {
+
+    typealias Target = CommentAPI
 
     private let provider: NetworkProviderType
 
     init(provider: NetworkProviderType) {
         self.provider = provider
+    }
+
+    func getComments(_ object: CommentRequestObject) -> AnyPublisher<[CommentResponseObject], APIError> {
+        provider.requestPublisher(Target.getComments(object), [CommentResponseObject].self)
     }
 }

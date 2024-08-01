@@ -36,6 +36,15 @@ struct CommentsView: View {
                 commentInputView
             }
         }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            } else if viewModel.isEmptyComment {
+                Text("아직 댓글이 없습니다.")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.white)
+            }
+        }
         .onTapGesture {
             isFocus = false
             replyForAnotherName = nil
