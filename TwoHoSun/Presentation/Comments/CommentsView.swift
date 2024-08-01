@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CommentsView: View {
     @State private var scrollSpot: Int = 0
-    @State private var replyForAnotherName: String?
 
     @FocusState private var isFocus: Bool
 
@@ -29,6 +28,7 @@ struct CommentsView: View {
                     .padding(.top, 38)
                     .overlay(Divider().background(Color.subGray1), alignment: .bottom)
                     .padding(.bottom, 13)
+
                 comments
 
                 forReplyLabel
@@ -47,7 +47,7 @@ struct CommentsView: View {
         }
         .onTapGesture {
             isFocus = false
-            replyForAnotherName = nil
+            viewModel.send(action: .setParentComment(commentId: nil))
         }
         .onAppear {
             viewModel.send(action: .loadComments(postId: viewModel.postId))
@@ -83,10 +83,7 @@ extension CommentsView {
                 ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
 
                     CommentCell(replyButtonDidTapped: {
-                        viewModel.send(action: .replyAtComment(
-                            commentId: comment.commentId,
-                            postId: viewModel.postId)
-                        )
+                        viewModel.send(action: .setParentComment(commentId: comment.commentId))
                     }, sheetButtonDidTapped: { isMine in
                         viewModel.send(action: .presentSheet(isMine))
                     }, comment: comment)
@@ -128,8 +125,8 @@ extension CommentsView {
 
             if isFocus {
                 Button {
-                    if replyForAnotherName != nil {
-                        viewModel.send(action: .replyAtComment(commentId: scrollSpot, postId: viewModel.postId))
+                    if let parentCommentId = viewModel.parentCommentId {
+                        viewModel.send(action: .replyAtComment(commentId: parentCommentId, postId: viewModel.postId))
                     } else {
                         viewModel.send(action: .writeComment(postId: viewModel.postId))
                     }
@@ -147,17 +144,17 @@ extension CommentsView {
     }
 
     @ViewBuilder
-    var forReplyLabel: some View {
-        if let replyname = replyForAnotherName {
+    private var forReplyLabel: some View {
+        if let _ = viewModel.parentCommentId {
             HStack {
-                Text("\(replyname)님에게 답글달기")
+                Text("답글 달기")
                     .font(.system(size: 14))
                     .foregroundStyle(Color.grayC4C4)
 
                 Spacer()
 
                 Button {
-                    replyForAnotherName = nil
+                    viewModel.send(action: .setParentComment(commentId: nil))
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(.white)
