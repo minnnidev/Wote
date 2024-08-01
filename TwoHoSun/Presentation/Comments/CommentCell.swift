@@ -21,16 +21,6 @@ struct CommentCell: View {
     var sheetButtonDidTapped: (Bool) -> Void
 
     let comment: CommentModel
-//    var onReplyButtonTapped: () -> Void
-
-//    init(comment: CommentsModel, onReplyButtonTapped: @escaping () -> Void, onConfirmDiaog: @escaping (Bool, Int) -> Void) {
-//        self.comment = comment
-//        self.onReplyButtonTapped = onReplyButtonTapped
-//        self.onConfirmDiaog = onConfirmDiaog
-//        if let subComments = comment.subComments {
-//            self.childComments = subComments
-//        }
-//    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -42,7 +32,7 @@ struct CommentCell: View {
                         ForEach(Array(childComments.enumerated()), id:  \.1.commentId) { index, comment in
                             let last = index == childComments.count - 1
                             makeCellView(comment: comment, parent: false)
-// 
+ 
                             if last {
                                 moreToggleButton()
                             }

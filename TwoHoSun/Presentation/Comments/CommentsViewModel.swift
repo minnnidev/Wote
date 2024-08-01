@@ -18,11 +18,13 @@ final class CommentsViewModel: ObservableObject {
         case replyAtComment(commentId: Int, postId: Int)
         case loadComments(postId: Int)
         case setParentComment(commentId: Int?)
+        case setSelectedComment(commentId: Int?)
     }
 
     @Published var commentTextField: String = ""
     @Published var commentsDatas = [CommentModel]()
     @Published var parentCommentId: Int?
+    @Published var selectedCommentId: Int?
 
     @Published var isLoading: Bool = false
     @Published var isNoComment: Bool = false
@@ -54,8 +56,10 @@ final class CommentsViewModel: ObservableObject {
                     self?.isLoading = false
                 } receiveValue: { [weak self] _ in
                     guard let self = self else { return }
+
                     isLoading = false
                     send(action: .loadComments(postId: postId))
+                    selectedCommentId = nil
                 }
                 .store(in: &cancellables)
 
@@ -112,6 +116,9 @@ final class CommentsViewModel: ObservableObject {
 
         case let .setParentComment(commentId):
             parentCommentId = commentId
+
+        case let .setSelectedComment(commentId):
+            selectedCommentId = commentId
         }
     }
 }

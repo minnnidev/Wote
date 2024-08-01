@@ -54,7 +54,7 @@ struct CommentsView: View {
         }
         .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
             Button {
-                viewModel.send(action: .deleteComment)
+                viewModel.send(action: .deleteComment(commentId: viewModel.selectedCommentId ?? 0))
             } label: {
                 Text("삭제하기")
             }
@@ -86,6 +86,7 @@ extension CommentsView {
                         viewModel.send(action: .setParentComment(commentId: comment.commentId))
                     }, sheetButtonDidTapped: { isMine in
                         viewModel.send(action: .presentSheet(isMine))
+                        viewModel.send(action: .setSelectedComment(commentId: comment.commentId))
                     }, comment: comment)
 
                     Color.clear
