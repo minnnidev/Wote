@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CommentsView: View {
     @State private var scrollSpot: Int = 0
-    @State private var replyForAnotherName: String?
 
     @FocusState private var isFocus: Bool
 
@@ -29,6 +28,7 @@ struct CommentsView: View {
                     .padding(.top, 38)
                     .overlay(Divider().background(Color.subGray1), alignment: .bottom)
                     .padding(.bottom, 13)
+
                 comments
 
                 forReplyLabel
@@ -36,16 +36,25 @@ struct CommentsView: View {
                 commentInputView
             }
         }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            } else if viewModel.isNoComment {
+                Text("아직 댓글이 없습니다.")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.white)
+            }
+        }
         .onTapGesture {
             isFocus = false
-            replyForAnotherName = nil
+            viewModel.send(action: .setParentComment(commentId: nil))
         }
         .onAppear {
             viewModel.send(action: .loadComments(postId: viewModel.postId))
         }
         .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
             Button {
-                viewModel.send(action: .deleteComment)
+                viewModel.send(action: .deleteComment(commentId: viewModel.selectedCommentId ?? 0))
             } label: {
                 Text("삭제하기")
             }
@@ -74,9 +83,10 @@ extension CommentsView {
                 ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
 
                     CommentCell(replyButtonDidTapped: {
-                        viewModel.send(action: .replyAtComment(commentId: comment.commentId))
+                        viewModel.send(action: .setParentComment(commentId: comment.commentId))
                     }, sheetButtonDidTapped: { isMine in
                         viewModel.send(action: .presentSheet(isMine))
+                        viewModel.send(action: .setSelectedComment(commentId: comment.commentId))
                     }, comment: comment)
 
                     Color.clear
@@ -94,8 +104,8 @@ extension CommentsView {
                 .frame(width: 32, height: 32)
 
                 withAnimation(.easeInOut) {
-                TextField("", text: $viewModel.comments, prompt: Text("소비고민을 함께 나누어 보세요")
-                    .foregroundColor(viewModel.comments.isEmpty ? Color.subGray1 :Color.white)
+                TextField("", text: $viewModel.commentTextField, prompt: Text("소비고민을 함께 나누어 보세요")
+                    .foregroundColor(viewModel.commentTextField.isEmpty ? Color.subGray1 :Color.white)
                     .font(.system(size: 14)) ,axis: .vertical)
                 .font(.system(size: 14))
                 .foregroundStyle(Color.white)
@@ -112,19 +122,19 @@ extension CommentsView {
                 }
             }
             .cornerRadius(12)
-            .animation(.easeInOut(duration: 0.3), value: viewModel.comments)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.commentTextField)
 
             if isFocus {
                 Button {
-                    if replyForAnotherName != nil {
-                        viewModel.send(action: .replyAtComment(commentId: scrollSpot))
+                    if let parentCommentId = viewModel.parentCommentId {
+                        viewModel.send(action: .replyAtComment(commentId: parentCommentId, postId: viewModel.postId))
                     } else {
                         viewModel.send(action: .writeComment(postId: viewModel.postId))
                     }
                     isFocus = false
                 } label: {
                     Image(systemName: "paperplane")
-                        .foregroundStyle(viewModel.comments.isEmpty ? Color.subGray1 : Color.white)
+                        .foregroundStyle(viewModel.commentTextField.isEmpty ? Color.subGray1 : Color.white)
                         .font(.system(size: 20))
                 }
             }
@@ -135,17 +145,17 @@ extension CommentsView {
     }
 
     @ViewBuilder
-    var forReplyLabel: some View {
-        if let replyname = replyForAnotherName {
+    private var forReplyLabel: some View {
+        if let _ = viewModel.parentCommentId {
             HStack {
-                Text("\(replyname)님에게 답글달기")
+                Text("답글 달기")
                     .font(.system(size: 14))
                     .foregroundStyle(Color.grayC4C4)
 
                 Spacer()
 
                 Button {
-                    replyForAnotherName = nil
+                    viewModel.send(action: .setParentComment(commentId: nil))
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(.white)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class CommentRepository: CommentRepositoryType {
     
@@ -13,5 +14,36 @@ final class CommentRepository: CommentRepositoryType {
 
     init(commentDataSource: CommentDataSourceType) {
         self.commentDataSource = commentDataSource
+    }
+
+    func getComments(of postId: Int) -> AnyPublisher<[CommentModel], WoteError> {
+        let requestObject: CommentRequestObject = .init(postId: postId)
+
+        return commentDataSource.getComments(requestObject)
+            .map { $0.map { $0.toModel() } }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func postComment(at postId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
+        let requestObject: RegisterCommentRequestObject = .init(postId: postId, contents: comment)
+
+        return commentDataSource.postComment(requestObject)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func postSubComment(at commentId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
+        let requestObject: RegisterCommentRequestObject = .init(postId: nil, contents: comment)
+
+        return commentDataSource.postSubComment(commentId, requestObject)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func deleteComment(commentId: Int) -> AnyPublisher<Void, WoteError> {
+        commentDataSource.deleteComment(commentId)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
     }
 }
