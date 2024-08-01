@@ -40,4 +40,10 @@ final class CommentRepository: CommentRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func deleteComment(commentId: Int) -> AnyPublisher<Void, WoteError> {
+        commentDataSource.deleteComment(commentId)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

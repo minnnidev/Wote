@@ -12,6 +12,7 @@ enum CommentAPI {
     case getComments(CommentRequestObject)
     case postComment(RegisterCommentRequestObject)
     case postSubComment(commentId: Int, RegisterCommentRequestObject)
+    case deleteComment(commentId: Int)
 }
 
 extension CommentAPI: TargetType {
@@ -31,6 +32,8 @@ extension CommentAPI: TargetType {
         case let .postSubComment(commentId, _):
             return "/comments/\(commentId)"
 
+        case let .deleteComment(commentId):
+            return "/comments/\(commentId)"
         }
     }
     
@@ -44,6 +47,9 @@ extension CommentAPI: TargetType {
 
         case .postSubComment:
             return .post
+
+        case .deleteComment:
+            return .delete
         }
     }
     
@@ -61,6 +67,9 @@ extension CommentAPI: TargetType {
                 bodyEncoding: JSONEncoding.default,
                 urlParameters: commentId.toDictionary()
             )
+
+        case let .deleteComment(commentId):
+            return .requestParameters(parameters: commentId.toDictionary(), encoding: URLEncoding.queryString)
         }
     }
     

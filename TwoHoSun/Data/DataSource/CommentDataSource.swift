@@ -12,6 +12,7 @@ protocol CommentDataSourceType {
     func getComments(_ object: CommentRequestObject) -> AnyPublisher<[CommentResponseObject], APIError>
     func postComment(_ object: RegisterCommentRequestObject) -> AnyPublisher<Void, APIError>
     func postSubComment(_ commentId: Int, _ object: RegisterCommentRequestObject) -> AnyPublisher<Void, APIError>
+    func deleteComment(_ commentId: Int) -> AnyPublisher<Void, APIError>
 }
 
 final class CommentDataSource: CommentDataSourceType {
@@ -34,5 +35,9 @@ final class CommentDataSource: CommentDataSourceType {
 
     func postSubComment(_ commentId: Int, _ object: RegisterCommentRequestObject) -> AnyPublisher<Void, APIError> {
         provider.requestVoidPublisher(Target.postSubComment(commentId: commentId, object))
+    }
+
+    func deleteComment(_ commentId: Int) -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.deleteComment(commentId: commentId))
     }
 }

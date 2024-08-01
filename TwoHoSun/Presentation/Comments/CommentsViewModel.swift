@@ -11,7 +11,7 @@ final class CommentsViewModel: ObservableObject {
 
     enum Action {
         case presentSheet(Bool)
-        case deleteComment
+        case deleteComment(commentId: Int)
         case reportComment
         case blockUser
         case writeComment(postId: Int)
@@ -48,9 +48,16 @@ final class CommentsViewModel: ObservableObject {
                 isOtherSheetShowed.toggle()
             }
 
-        case .deleteComment:
-            // TODO: 댓글 삭제 API 연결
-            return
+        case let .deleteComment(commentId):
+            commentUseCase.deleteComment(commentId: commentId)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    guard let self = self else { return }
+                    isLoading = false
+                    send(action: .loadComments(postId: postId))
+                }
+                .store(in: &cancellables)
 
         case .reportComment:
             // TODO: 댓글 신고 API 연결
