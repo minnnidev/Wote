@@ -37,6 +37,7 @@
 		AB0C0F322C58B130007812C5 /* CommentAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F312C58B130007812C5 /* CommentAssembly.swift */; };
 		AB0C0F362C5A7E10007812C5 /* CommentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F352C5A7E10007812C5 /* CommentAPI.swift */; };
 		AB0C0F3E2C5B957D007812C5 /* CommentRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F3D2C5B957D007812C5 /* CommentRequestObject.swift */; };
+		AB0C0F402C5B98FA007812C5 /* RegisterCommentRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F3F2C5B98FA007812C5 /* RegisterCommentRequestObject.swift */; };
 		AB0CA9982C44E80500910C36 /* PhotoPickerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */; };
 		AB0D8C6E2C47BC49003CE8E2 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */; };
 		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
@@ -252,6 +253,7 @@
 		AB0C0F312C58B130007812C5 /* CommentAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAssembly.swift; sourceTree = "<group>"; };
 		AB0C0F352C5A7E10007812C5 /* CommentAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAPI.swift; sourceTree = "<group>"; };
 		AB0C0F3D2C5B957D007812C5 /* CommentRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRequestObject.swift; sourceTree = "<group>"; };
+		AB0C0F3F2C5B98FA007812C5 /* RegisterCommentRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCommentRequestObject.swift; sourceTree = "<group>"; };
 		AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerError.swift; sourceTree = "<group>"; };
 		AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateModel.swift; sourceTree = "<group>"; };
 		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 			children = (
 				C73F8E822AE54DD8001C6B07 /* CommentResponseObject.swift */,
 				AB0C0F3D2C5B957D007812C5 /* CommentRequestObject.swift */,
+				AB0C0F3F2C5B98FA007812C5 /* RegisterCommentRequestObject.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -1294,6 +1297,7 @@
 				AB4AA9682C500151008825CB /* ReviewSearchResultCell.swift in Sources */,
 				AB38A10B2B077DEE004153B5 /* VoteResultView.swift in Sources */,
 				AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */,
+				AB0C0F402C5B98FA007812C5 /* RegisterCommentRequestObject.swift in Sources */,
 				ABA1E8402AFD5841009051E0 /* VoteListView.swift in Sources */,
 				AB25070F2C3B1178009B0A3C /* Constants.swift in Sources */,
 				C7719FE82AF28A7B00A520CB /* ConsumerTypeLabel.swift in Sources */,

@@ -39,7 +39,7 @@ struct CommentsView: View {
         .overlay {
             if viewModel.isLoading {
                 ProgressView()
-            } else if viewModel.isEmptyComment {
+            } else if viewModel.isNoComment {
                 Text("아직 댓글이 없습니다.")
                     .font(.system(size: 16))
                     .foregroundStyle(.white)

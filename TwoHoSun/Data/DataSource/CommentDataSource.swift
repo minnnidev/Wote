@@ -10,6 +10,7 @@ import Combine
 
 protocol CommentDataSourceType {
     func getComments(_ object: CommentRequestObject) -> AnyPublisher<[CommentResponseObject], APIError>
+    func postComment(_ object: RegisterCommentRequestObject) -> AnyPublisher<Void, APIError>
 }
 
 final class CommentDataSource: CommentDataSourceType {
@@ -24,5 +25,9 @@ final class CommentDataSource: CommentDataSourceType {
 
     func getComments(_ object: CommentRequestObject) -> AnyPublisher<[CommentResponseObject], APIError> {
         provider.requestPublisher(Target.getComments(object), [CommentResponseObject].self)
+    }
+
+    func postComment(_ object: RegisterCommentRequestObject) -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.postComment(object))
     }
 }

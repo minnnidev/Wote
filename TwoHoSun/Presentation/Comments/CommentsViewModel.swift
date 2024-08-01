@@ -22,7 +22,7 @@ final class CommentsViewModel: ObservableObject {
     @Published var comments: String = ""
     @Published var commentsDatas = [CommentModel]()
     @Published var isLoading: Bool = false
-    @Published var isEmptyComment: Bool = false
+    @Published var isNoComment: Bool = false
 
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
@@ -59,8 +59,16 @@ final class CommentsViewModel: ObservableObject {
             return
 
         case let .writeComment(postId):
-            // TODO: 댓글 작성 API 연결
-            return
+            isLoading = true
+
+            commentUseCase.registerComment(at: postId, comment: comments)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.send(action: .loadComments(postId: postId))
+                }
+                .store(in: &cancellables)
 
         case let .replyAtComment(commentId):
             // TODO: 대댓글 작성 API 연결
@@ -68,6 +76,7 @@ final class CommentsViewModel: ObservableObject {
 
         case let .loadComments(postId):
             isLoading = true
+            isNoComment = false
 
             commentUseCase.loadComments(of: postId)
                 .sink { [weak self] _ in
@@ -78,7 +87,7 @@ final class CommentsViewModel: ObservableObject {
                     commentsDatas = comments
                     isLoading = false
 
-                    if commentsDatas.count == 0 { isEmptyComment.toggle() }
+                    if commentsDatas.count == 0 { isNoComment.toggle() }
                 }
                 .store(in: &cancellables)
         }

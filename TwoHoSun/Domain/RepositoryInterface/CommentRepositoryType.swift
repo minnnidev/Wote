@@ -10,4 +10,5 @@ import Combine
 
 protocol CommentRepositoryType {
     func getComments(of postId: Int) -> AnyPublisher<[CommentModel], WoteError>
+    func postComment(at postId: Int, comment: String) -> AnyPublisher<Void, WoteError>
 }
