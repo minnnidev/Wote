@@ -8,6 +8,6 @@
 import Foundation
 
 struct RegisterCommentRequestObject: Codable {
-    let postId: Int
+    let postId: Int?
     let contents: String
 }

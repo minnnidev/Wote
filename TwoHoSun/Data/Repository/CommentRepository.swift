@@ -32,4 +32,12 @@ final class CommentRepository: CommentRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func postSubComment(at commentId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
+        let requestObject: RegisterCommentRequestObject = .init(postId: nil, contents: comment)
+
+        return commentDataSource.postSubComment(commentId, requestObject)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

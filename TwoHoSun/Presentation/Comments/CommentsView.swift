@@ -83,7 +83,10 @@ extension CommentsView {
                 ForEach(viewModel.commentsDatas, id: \.commentId) { comment in
 
                     CommentCell(replyButtonDidTapped: {
-                        viewModel.send(action: .replyAtComment(commentId: comment.commentId))
+                        viewModel.send(action: .replyAtComment(
+                            commentId: comment.commentId,
+                            postId: viewModel.postId)
+                        )
                     }, sheetButtonDidTapped: { isMine in
                         viewModel.send(action: .presentSheet(isMine))
                     }, comment: comment)
@@ -103,8 +106,8 @@ extension CommentsView {
                 .frame(width: 32, height: 32)
 
                 withAnimation(.easeInOut) {
-                TextField("", text: $viewModel.comments, prompt: Text("소비고민을 함께 나누어 보세요")
-                    .foregroundColor(viewModel.comments.isEmpty ? Color.subGray1 :Color.white)
+                TextField("", text: $viewModel.commentTextField, prompt: Text("소비고민을 함께 나누어 보세요")
+                    .foregroundColor(viewModel.commentTextField.isEmpty ? Color.subGray1 :Color.white)
                     .font(.system(size: 14)) ,axis: .vertical)
                 .font(.system(size: 14))
                 .foregroundStyle(Color.white)
@@ -121,19 +124,19 @@ extension CommentsView {
                 }
             }
             .cornerRadius(12)
-            .animation(.easeInOut(duration: 0.3), value: viewModel.comments)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.commentTextField)
 
             if isFocus {
                 Button {
                     if replyForAnotherName != nil {
-                        viewModel.send(action: .replyAtComment(commentId: scrollSpot))
+                        viewModel.send(action: .replyAtComment(commentId: scrollSpot, postId: viewModel.postId))
                     } else {
                         viewModel.send(action: .writeComment(postId: viewModel.postId))
                     }
                     isFocus = false
                 } label: {
                     Image(systemName: "paperplane")
-                        .foregroundStyle(viewModel.comments.isEmpty ? Color.subGray1 : Color.white)
+                        .foregroundStyle(viewModel.commentTextField.isEmpty ? Color.subGray1 : Color.white)
                         .font(.system(size: 20))
                 }
             }

@@ -11,6 +11,7 @@ import Moya
 enum CommentAPI {
     case getComments(CommentRequestObject)
     case postComment(RegisterCommentRequestObject)
+    case postSubComment(commentId: Int, RegisterCommentRequestObject)
 }
 
 extension CommentAPI: TargetType {
@@ -26,6 +27,10 @@ extension CommentAPI: TargetType {
 
         case .postComment:
             return "/comments"
+
+        case let .postSubComment(commentId, _):
+            return "/comments/\(commentId)"
+
         }
     }
     
@@ -35,6 +40,9 @@ extension CommentAPI: TargetType {
             return .get
 
         case .postComment:
+            return .post
+
+        case .postSubComment:
             return .post
         }
     }
@@ -46,6 +54,13 @@ extension CommentAPI: TargetType {
 
         case let .postComment(requestObject):
             return .requestParameters(parameters: requestObject.toDictionary(), encoding: JSONEncoding.default)
+
+        case let .postSubComment(commentId, requestObject):
+            return .requestCompositeParameters(
+                bodyParameters: requestObject.toDictionary(),
+                bodyEncoding: JSONEncoding.default,
+                urlParameters: commentId.toDictionary()
+            )
         }
     }
     

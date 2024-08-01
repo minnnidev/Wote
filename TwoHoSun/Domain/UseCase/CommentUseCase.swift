@@ -11,6 +11,7 @@ import Combine
 protocol CommentUseCaseType {
     func loadComments(of postId: Int) -> AnyPublisher<[CommentModel], WoteError>
     func registerComment(at postId: Int, comment: String) -> AnyPublisher<Void, WoteError>
+    func registerSubComment(at commentId: Int, comment: String) -> AnyPublisher<Void, WoteError>
 }
 
 final class CommentUseCase: CommentUseCaseType {
@@ -28,6 +29,10 @@ final class CommentUseCase: CommentUseCaseType {
     func registerComment(at postId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
         commentRepository.postComment(at: postId, comment: comment)
     }
+
+    func registerSubComment(at commentId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
+        commentRepository.postSubComment(at: commentId, comment: comment)
+    }
 }
 
 final class StubCommentUseCase: CommentUseCaseType {
@@ -39,6 +44,11 @@ final class StubCommentUseCase: CommentUseCaseType {
     }
 
     func registerComment(at postId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func registerSubComment(at commentId: Int, comment: String) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

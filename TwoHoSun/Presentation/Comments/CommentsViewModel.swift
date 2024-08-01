@@ -15,15 +15,15 @@ final class CommentsViewModel: ObservableObject {
         case reportComment
         case blockUser
         case writeComment(postId: Int)
-        case replyAtComment(commentId: Int)
+        case replyAtComment(commentId: Int, postId: Int)
         case loadComments(postId: Int)
     }
 
-    @Published var comments: String = ""
+    @Published var commentTextField: String = ""
     @Published var commentsDatas = [CommentModel]()
+    
     @Published var isLoading: Bool = false
     @Published var isNoComment: Bool = false
-
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
 
@@ -61,7 +61,7 @@ final class CommentsViewModel: ObservableObject {
         case let .writeComment(postId):
             isLoading = true
 
-            commentUseCase.registerComment(at: postId, comment: comments)
+            commentUseCase.registerComment(at: postId, comment: commentTextField)
                 .sink { [weak self] _ in
                     self?.isLoading = false
                 } receiveValue: { [weak self] _ in
@@ -70,9 +70,17 @@ final class CommentsViewModel: ObservableObject {
                 }
                 .store(in: &cancellables)
 
-        case let .replyAtComment(commentId):
-            // TODO: 대댓글 작성 API 연결
-            return
+        case let .replyAtComment(commentId, postId):
+            isLoading = true
+
+            commentUseCase.registerSubComment(at: commentId, comment: commentTextField)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.send(action: .loadComments(postId: postId))
+                }
+                .store(in: &cancellables)
 
         case let .loadComments(postId):
             isLoading = true
