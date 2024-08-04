@@ -152,11 +152,15 @@ struct DetailView: View {
 
 extension DetailView {
 
-    var commentPreview: some View {
-        CommentPreview()
-            .onTapGesture {
-                viewModel.send(action: .presentComment)
-            }
+    private var commentPreview: some View {
+        CommentPreview(
+            previewComment: viewModel.voteDetail?.commentPreview,
+            commentCount: viewModel.voteDetail?.commentCount,
+            commentPreviewImage: viewModel.voteDetail?.commentPreviewImage
+        )
+        .onTapGesture {
+            viewModel.send(action: .presentComment)
+        }
     }
 
     private func hiddenResultView(for type: VoteType, topConsumerTypesCount: Int) -> some View {

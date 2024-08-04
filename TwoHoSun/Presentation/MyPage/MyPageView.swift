@@ -23,8 +23,6 @@ enum MyPageListType {
 struct MyPageView: View {
     @EnvironmentObject var appDependency: AppDependency
     @EnvironmentObject var router: NavigationRouter
-    
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
 
     @StateObject var viewModel: MyPageViewModel
 
@@ -38,12 +36,11 @@ struct MyPageView: View {
                 VStack(spacing: 0) {
                     profileHeaderView
                         .padding(.top, 24)
-                        .padding(.bottom, haveConsumerType ? 24 : 0)
+                        .padding(.bottom, 24)
 
-                    if !haveConsumerType {
+                    if let canUpdateType = viewModel.myProfile?.cantUpdateType, canUpdateType {
                         GoToTypeTestButton()
                             .padding(.horizontal, 24)
-                            .padding(.top, 24)
                     }
 
                     ScrollViewReader { proxy in
@@ -71,7 +68,7 @@ struct MyPageView: View {
         .background(Color.background)
         .onAppear {
             viewModel.send(action: .loadMyVotes)
-            viewModel.send(action: .loadProfile)
+            viewModel.send(action: .loadMyProfile)
         }
         .refreshable {
             viewModel.send(action: .changeSelectedType(.myVote))
@@ -98,7 +95,7 @@ extension MyPageView {
 
                         if let consumerType = viewModel.myProfile?.consumerType {
                             ConsumerTypeLabel(
-                                consumerType: ConsumerType(rawValue: consumerType) ?? .adventurer,
+                                consumerType: consumerType,
                                 usage: .standard
                             )
                         }
@@ -109,7 +106,8 @@ extension MyPageView {
                             .font(.system(size: 14))
                             .foregroundStyle(Color.subGray1)
                     }
-                    Text(viewModel.myProfile?.school.schoolName ?? "")
+
+                    Text(viewModel.myProfile?.schoolName ?? "")
                         .font(.system(size: 14))
                 }
                 .foregroundStyle(.white)
@@ -219,5 +217,8 @@ extension MyPageView {
 }
 
 #Preview {
-    MyPageView(viewModel: .init(myPageUseCase: StubMyPageUseCase()))
+    MyPageView(viewModel: .init(
+        myPageUseCase: StubMyPageUseCase(),
+        userUseCase: StubUserUseCase())
+    )
 }

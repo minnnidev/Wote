@@ -36,10 +36,19 @@ final class UserUseCase: UserUseCaseType {
 
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError> {
         userRepository.setProfile(profile)
+            .flatMap {
+                self.loadProfile()
+                    .map { _ in }
+            }
+            .eraseToAnyPublisher()
     }
 
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
         userRepository.getProfile()
+            .handleEvents(receiveOutput: { [weak self] profile in
+                self?.setProfileInLocal(profile: profile)
+            })
+            .eraseToAnyPublisher()
     }
 
     func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError> {
@@ -52,6 +61,21 @@ final class UserUseCase: UserUseCaseType {
 
     func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
         userRepository.postUserBlock(memberId)
+    }
+}
+
+extension UserUseCase {
+
+    private func setProfileInLocal(profile: ProfileModel) {
+        let userProfile: UserProfileModel = .init(
+            nickname: profile.nickname,
+            profileImage: profile.profileImage,
+            consumerType: nil,
+            schoolName: profile.school.schoolName,
+            cantUpdateType: profile.canUpdateConsumerType
+        )
+
+        UserDefaults.standard.setObject(userProfile, forKey: UserDefaultsKey.myProfile)
     }
 }
 
