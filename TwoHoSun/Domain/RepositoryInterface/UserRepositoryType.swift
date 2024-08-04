@@ -15,4 +15,5 @@ protocol UserRepositoryType {
     func getMyVotes(page: Int, size: Int) -> AnyPublisher<MyVotesModel, WoteError>
     func getMyReviews(page: Int, size: Int, visibilityScope: VisibilityScopeType) -> AnyPublisher<MyReviewsModel, WoteError>
     func getProfile() -> AnyPublisher<ProfileModel, WoteError>
+    func getBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError>
 }

@@ -13,6 +13,7 @@ protocol UserUseCaseType {
     func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError>
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError>
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError>
+    func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -38,6 +39,10 @@ final class UserUseCase: UserUseCaseType {
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
         userRepository.getProfile()
     }
+
+    func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError> {
+        userRepository.getBlockedUsers()
+    }
 }
 
 final class StubUserUseCase: UserUseCaseType {
@@ -60,6 +65,12 @@ final class StubUserUseCase: UserUseCaseType {
 
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
         Just(ProfileModel.profileStub)
+            .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError> {
+        Just([BlockedUserModel.stubBlockedUser1])
             .setFailureType(to: WoteError.self)
             .eraseToAnyPublisher()
     }

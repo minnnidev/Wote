@@ -73,4 +73,11 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func getBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError> {
+        userDataSource.getBlockedUsers()
+            .map { $0.map { $0.toModel() } }
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

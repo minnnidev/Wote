@@ -1151,13 +1151,13 @@
 			isa = PBXGroup;
 			children = (
 				ABA1E84F2AFEA3AF009051E0 /* SettingView.swift */,
-				FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */,
 				FD50A0472B01EBE000CF7F59 /* SettingNotificationView.swift */,
 				FD70B1F52B01C3080097B727 /* SettingBlockView.swift */,
 				FD50A0492B01F16200CF7F59 /* SettingAnnouncementView.swift */,
 				FD50A04B2B02084600CF7F59 /* SettingQuestionsView.swift */,
 				FD50A04D2B021B7200CF7F59 /* SettingTermsView.swift */,
 				AB0C0F852C5F92DE007812C5 /* SettingType.swift */,
+				FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";

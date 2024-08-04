@@ -18,8 +18,9 @@ final class SettingViewModel: ObservableObject {
     }
 
     @Published var blockUsersList: [BlockedUserModel] = []
+    @Published var isLoading: Bool = false
 
-    private var cancellable = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable> = []
 
     private let userUseCase: UserUseCaseType
     private let authUseCase: AuthUseCaseType
@@ -32,7 +33,15 @@ final class SettingViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .loadBlockUsers:
-            return
+            isLoading = true
+            userUseCase.loadBlockedUsers()
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] blockedUsers in
+                    self?.blockUsersList = blockedUsers
+                    self?.isLoading = false
+                }
+                .store(in: &cancellables)
 
         case let .unblockUser(memberId):
             // TODO: 차단 해제 API 연결
