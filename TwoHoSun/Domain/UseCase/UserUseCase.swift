@@ -15,6 +15,7 @@ protocol UserUseCaseType {
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError>
     func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError>
     func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
+    func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -47,6 +48,10 @@ final class UserUseCase: UserUseCaseType {
 
     func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
         userRepository.deleteBlockUser(memberId)
+    }
+
+    func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        userRepository.postUserBlock(memberId)
     }
 }
 
@@ -81,6 +86,11 @@ final class StubUserUseCase: UserUseCaseType {
     }
 
     func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

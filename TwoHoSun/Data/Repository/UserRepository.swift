@@ -86,4 +86,10 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func postUserBlock(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        userDataSource.postUserBlock(memberId)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }

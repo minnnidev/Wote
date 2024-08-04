@@ -20,6 +20,7 @@ protocol UserDataSourceType {
     func getProfile() -> AnyPublisher<ProfileResponseObject, APIError>
     func getBlockedUsers() -> AnyPublisher<[BlockedUserResponse], APIError>
     func deleteBlockUser(_ memberId: Int) -> AnyPublisher<Void, APIError>
+    func postUserBlock(_ memberId: Int) -> AnyPublisher<Void, APIError>
 }
 
 final class UserDataSource: UserDataSourceType {
@@ -66,5 +67,9 @@ final class UserDataSource: UserDataSourceType {
 
     func deleteBlockUser(_ memberId: Int) -> AnyPublisher<Void, APIError> {
         provider.requestVoidPublisher(Target.deleteBlockUser(memberId: memberId))
+    }
+
+    func postUserBlock(_ memberId: Int) -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.postUserBlock(memberId: memberId))
     }
 }
