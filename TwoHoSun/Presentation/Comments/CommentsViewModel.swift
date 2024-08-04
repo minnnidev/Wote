@@ -32,13 +32,19 @@ final class CommentsViewModel: ObservableObject {
     @Published var isOtherSheetShowed: Bool = false
 
     var postId: Int
-
-    private let commentUseCase: CommentUseCaseType
     private var cancellables: Set<AnyCancellable> = []
 
-    init(postId: Int, commentUseCase: CommentUseCaseType) {
+    private let commentUseCase: CommentUseCaseType
+    private let userUseCase: UserUseCaseType
+
+    init(
+        postId: Int,
+        commentUseCase: CommentUseCaseType,
+        userUseCase: UserUseCaseType
+    ) {
         self.postId = postId
         self.commentUseCase = commentUseCase
+        self.userUseCase = userUseCase
     }
 
     func send(action: Action) {

@@ -16,7 +16,11 @@ final class CommentAssembly: Assembly {
         // MARK: ViewModels
 
         container.register(CommentsViewModel.self) { res, postId in
-            CommentsViewModel(postId: postId, commentUseCase: res.resolve(CommentUseCaseType.self)!)
+            CommentsViewModel(
+                postId: postId,
+                commentUseCase: res.resolve(CommentUseCaseType.self)!,
+                userUseCase: res.resolve(UserUseCaseType.self)!
+            )
         }
 
         // MARK: UseCases

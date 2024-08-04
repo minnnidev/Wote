@@ -22,7 +22,8 @@ final class ReviewAssembly: Assembly {
         container.register(ReviewDetailViewModel.self) { res, postId in
             ReviewDetailViewModel(
                 id: postId,
-                reviewUseCase: res.resolve(ReviewUseCaseType.self)!
+                reviewUseCase: res.resolve(ReviewUseCaseType.self)!,
+                userUseCase: res.resolve(UserUseCaseType.self)!
             )
         }
 

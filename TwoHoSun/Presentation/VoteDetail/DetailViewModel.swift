@@ -35,10 +35,16 @@ final class DetailViewModel: ObservableObject {
 
     let postId: Int
     private let voteUseCase: VoteUseCaseType
+    private let userUseCase: UserUseCaseType
 
-    init(postId: Int, voteUseCase: VoteUseCaseType) {
+    init(
+        postId: Int,
+        voteUseCase: VoteUseCaseType,
+        userUseCase: UserUseCaseType
+    ) {
         self.postId = postId
         self.voteUseCase = voteUseCase
+        self.userUseCase = userUseCase
     }
 
     private var cancellables: Set<AnyCancellable> = []

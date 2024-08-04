@@ -28,10 +28,16 @@ final class ReviewDetailViewModel: ObservableObject {
 
     let id: Int
     private let reviewUseCase: ReviewUseCaseType
+    private let userUseCase: UserUseCaseType
 
-    init(id: Int, reviewUseCase: ReviewUseCaseType) {
+    init(
+        id: Int,
+        reviewUseCase: ReviewUseCaseType,
+        userUseCase: UserUseCaseType
+    ) {
         self.id = id
         self.reviewUseCase = reviewUseCase
+        self.userUseCase = userUseCase
     }
 
     func send(action: Action) {

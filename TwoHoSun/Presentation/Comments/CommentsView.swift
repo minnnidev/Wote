@@ -170,5 +170,9 @@ extension CommentsView {
 }
 
 #Preview {
-    CommentsView(viewModel: .init(postId: 1, commentUseCase: StubCommentUseCase()))
+    CommentsView(viewModel: .init(
+        postId: 1,
+        commentUseCase: StubCommentUseCase(),
+        userUseCase: StubUserUseCase()
+    ))
 }

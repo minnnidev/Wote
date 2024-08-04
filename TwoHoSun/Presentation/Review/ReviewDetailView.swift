@@ -214,7 +214,11 @@ extension ReviewDetailView {
 #Preview {
     NavigationStack {
         ReviewDetailView(
-            viewModel: .init(id: 1, reviewUseCase: StubReviewUseCase())
+            viewModel: .init(
+                id: 1,
+                reviewUseCase: StubReviewUseCase(),
+                userUseCase: StubUserUseCase()
+            )
         )
         .environmentObject(AppDependency())
         .environmentObject(NavigationRouter())
