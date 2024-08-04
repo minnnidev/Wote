@@ -11,7 +11,7 @@ struct SettingView: View {
     @State private var isSubmited: Bool = false
     @State private var showLogOut: Bool = false
 
-    @StateObject var viewModel = SettingViewModel()
+    @StateObject var viewModel: SettingViewModel
 
     var body: some View {
         ZStack {
@@ -168,6 +168,10 @@ extension SettingView {
 
 #Preview {
     NavigationStack {
-        SettingView()
+        SettingView(viewModel: .init(
+            userUseCase: StubUserUseCase(),
+            authUseCase: StubAuthUseCase()
+        )
+        )
     }
 }

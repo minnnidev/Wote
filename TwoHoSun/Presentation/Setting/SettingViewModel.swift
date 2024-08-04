@@ -8,11 +8,19 @@
 import Combine
 import SwiftUI
 
-class SettingViewModel: ObservableObject {
+final class SettingViewModel: ObservableObject {
 
     var blockUsersList: [BlockUserModel] = []
 
     private var cancellable = Set<AnyCancellable>()
+
+    private let userUseCase: UserUseCaseType
+    private let authUseCase: AuthUseCaseType
+
+    init(userUseCase: UserUseCaseType, authUseCase: AuthUseCaseType) {
+        self.userUseCase = userUseCase
+        self.authUseCase = authUseCase
+    }
 
     func requestLogOut() {
         // TODO: logout

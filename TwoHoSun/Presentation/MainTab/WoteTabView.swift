@@ -63,7 +63,7 @@ struct WoteTabView: View {
                     Text("Notification")
 
                 case .setting:
-                    SettingView()
+                    SettingView(viewModel: appDependency.container.resolve(SettingViewModel.self)!)
 
                 case let .voteDetail(postId):
                     DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
