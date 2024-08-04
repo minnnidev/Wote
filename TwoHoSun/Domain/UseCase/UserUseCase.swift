@@ -13,6 +13,9 @@ protocol UserUseCaseType {
     func searchSchool(_ query: String) -> AnyPublisher<[SchoolInfoModel], WoteError>
     func setProfile(_ profile: ProfileSettingModel) -> AnyPublisher<Void, WoteError>
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError>
+    func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError>
+    func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
+    func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -38,6 +41,18 @@ final class UserUseCase: UserUseCaseType {
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
         userRepository.getProfile()
     }
+
+    func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError> {
+        userRepository.getBlockedUsers()
+    }
+
+    func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        userRepository.deleteBlockUser(memberId)
+    }
+
+    func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        userRepository.postUserBlock(memberId)
+    }
 }
 
 final class StubUserUseCase: UserUseCaseType {
@@ -61,6 +76,22 @@ final class StubUserUseCase: UserUseCaseType {
     func loadProfile() -> AnyPublisher<ProfileModel, WoteError> {
         Just(ProfileModel.profileStub)
             .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError> {
+        Just([BlockedUserModel.stubBlockedUser1])
+            .setFailureType(to: WoteError.self)
+            .eraseToAnyPublisher()
+    }
+
+    func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        Empty()
             .eraseToAnyPublisher()
     }
 }

@@ -15,6 +15,7 @@ final class ReviewDetailViewModel: ObservableObject {
         case deleteReview
         case presentComment
         case presentSheet
+        case blockUser(memberId: Int)
     }
 
     @Published var reviewDetailData: ReviewDetailModel?
@@ -22,16 +23,22 @@ final class ReviewDetailViewModel: ObservableObject {
     @Published var isCommentShowed: Bool = false
     @Published var isMySheetShowed: Bool = false
     @Published var isOtherSheetShowed: Bool = false
-    @Published var isReviewDeleted: Bool = false
+    @Published var isReviewManageSucceed: Bool = false
 
     private var cancellables: Set<AnyCancellable> = []
 
     let id: Int
     private let reviewUseCase: ReviewUseCaseType
+    private let userUseCase: UserUseCaseType
 
-    init(id: Int, reviewUseCase: ReviewUseCaseType) {
+    init(
+        id: Int,
+        reviewUseCase: ReviewUseCaseType,
+        userUseCase: UserUseCaseType
+    ) {
         self.id = id
         self.reviewUseCase = reviewUseCase
+        self.userUseCase = userUseCase
     }
 
     func send(action: Action) {
@@ -53,10 +60,9 @@ final class ReviewDetailViewModel: ObservableObject {
             reviewUseCase.deleteReview(postId: id)
                 .sink { _ in
                 } receiveValue: { [weak self] _ in
-                    self?.isReviewDeleted.toggle()
+                    self?.isReviewManageSucceed.toggle()
                 }
                 .store(in: &cancellables)
-
 
         case .presentComment:
             isCommentShowed.toggle()
@@ -69,6 +75,14 @@ final class ReviewDetailViewModel: ObservableObject {
             } else {
                 isOtherSheetShowed.toggle()
             }
+
+        case let .blockUser(memberId):
+            userUseCase.blockUser(memberId)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.isReviewManageSucceed.toggle()
+                }
+                .store(in: &cancellables)
         }
     }
 }

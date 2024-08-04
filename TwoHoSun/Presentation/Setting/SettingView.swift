@@ -7,83 +7,17 @@
 
 import SwiftUI
 
-enum SettingType {
-    case notification
-    case block
-    case announcement
-    case questions
-    case terms
-    case appVersion
-    case logOut
-    
-    var label: String {
-        switch self {
-        case .notification:
-            "알림"
-        case .block:
-            "차단 목록"
-        case .announcement:
-            "공지사항"
-        case .questions:
-            "문의사항"
-        case .terms:
-            "이용약관"
-        case .appVersion:
-            "앱 버전"
-        case .logOut:
-            "로그아웃"
-        }
-    }
-    
-    var icon: String {
-        switch self {
-        case .notification:
-            "bell"
-        case .block:
-            "person.crop.circle"
-        case .announcement:
-            "megaphone"
-        case .questions:
-            "questionmark"
-        case .terms:
-            "doc.plaintext"
-        case .appVersion:
-            "apple.terminal.on.rectangle"
-        case .logOut:
-            "minus"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .notification:
-            Color.settingYellow
-        case .block:
-            Color.settingRed
-        case .announcement:
-            Color.settingRed
-        case .questions:
-            Color.settingBlue
-        case .terms:
-            Color.settingGray
-        case .appVersion:
-            Color.settingGray
-        case .logOut:
-            Color.settingGray
-        }
-    }
-}
-
 struct SettingView: View {
     @State private var isSubmited: Bool = false
     @State private var showLogOut: Bool = false
 
-    @StateObject var viewModel = SettingViewModel()
+    @StateObject var viewModel: SettingViewModel
 
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
+
             List {
                 settingSectionView {
                     settingLinkView(.notification) {
@@ -93,6 +27,7 @@ struct SettingView: View {
                         SettingBlockView(viewModel: viewModel)
                     }
                 }
+                
                 settingSectionView {
                     settingLinkView(.announcement) {
                         SettingAnnouncementView()
@@ -111,17 +46,21 @@ struct SettingView: View {
             }
             .foregroundStyle(.white)
             .scrollContentBackground(.hidden)
+
             if showLogOut {
                 CustomAlertModalView(alertType: .logOut, isPresented: $showLogOut) {
-                    viewModel.requestLogOut()
+                   // TODO: 로그아웃
                 }
             }
+
             if isSubmited {
                 ZStack {
                     Color.black.opacity(0.7)
+
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.lightBlue)
                         .frame(width: 283, height: 36)
+
                     Text("금방 답변 드리겠습니다 :)")
                         .foregroundStyle(.white)
                         .font(.system(size: 16, weight: .semibold))
@@ -149,12 +88,14 @@ struct SettingView: View {
 }
 
 extension SettingView {
+
     private var appVersionView: some View {
         HStack(spacing: 16) {
             ZStack {
                 SettingType.appVersion.color
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
                     .frame(width: 28, height: 28)
-                    .clipShape(.rect(cornerRadius: 5))
+
                 Image(systemName: SettingType.appVersion.icon)
                     .foregroundStyle(.white)
                     .font(.system(size: 15))
@@ -184,8 +125,9 @@ extension SettingView {
             HStack(spacing: 16) {
                 ZStack {
                     SettingType.logOut.color
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                         .frame(width: 28, height: 28)
-                        .clipShape(.rect(cornerRadius: 5))
+
                     Image(systemName: SettingType.logOut.icon)
                         .foregroundStyle(.white)
                         .font(.system(size: 15))
@@ -210,14 +152,26 @@ extension SettingView {
             HStack(spacing: 16) {
                 ZStack {
                     type.color
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                         .frame(width: 28, height: 28)
-                        .clipShape(.rect(cornerRadius: 5))
+
                     Image(systemName: type.icon)
                         .font(.system(size: 15))
                 }
+
                 Text(type.label)
             }
             .foregroundStyle(.white)
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        SettingView(viewModel: .init(
+            userUseCase: StubUserUseCase(),
+            authUseCase: StubAuthUseCase()
+        )
+        )
     }
 }

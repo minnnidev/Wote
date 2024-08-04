@@ -131,7 +131,8 @@ struct DetailView: View {
             }
 
             Button {
-                // TODO: - 차단 action
+                let memberId = viewModel.voteDetail?.post.author.id
+                viewModel.send(action: .blockUser(memberId: memberId ?? 0))
             } label: {
                 Text("차단하기")
             }
@@ -316,8 +317,12 @@ struct DetailContentView: View {
 
 #Preview {
     NavigationStack {
-        DetailView(viewModel: .init(postId: 1, voteUseCase: StubVoteUseCase()))
-            .environmentObject(AppDependency())
-            .environmentObject(NavigationRouter())
+        DetailView(viewModel: .init(
+            postId: 1,
+            voteUseCase: StubVoteUseCase(),
+            userUseCase: StubUserUseCase()
+        ))
+        .environmentObject(AppDependency())
+        .environmentObject(NavigationRouter())
     }
 }

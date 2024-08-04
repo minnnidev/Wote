@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct WoteNavigationBar: View {
+    @EnvironmentObject var router: NavigationRouter
+
     @Binding var selectedTab: WoteTabType
     @Binding var visibilityScope: VisibilityScopeType
-
-    var tapSearchButton: () -> ()
 
     var body: some View {
         switch selectedTab {
@@ -46,7 +46,7 @@ extension WoteNavigationBar {
 
     private var notificationButton: some View {
         Button {
-
+            router.push(to: WoteDestination.notification)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
@@ -61,7 +61,7 @@ extension WoteNavigationBar {
 
     private var searchButton: some View {
         Button {
-            tapSearchButton()
+            router.push(to: WoteDestination.search)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
@@ -76,7 +76,7 @@ extension WoteNavigationBar {
 
     private var settingButton: some View {
         Button {
-
+            router.push(to: WoteDestination.setting)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
@@ -142,10 +142,8 @@ extension WoteNavigationBar {
 #Preview {
     WoteNavigationBar(
         selectedTab: .constant(.consider),
-        visibilityScope: .constant(.global),
-        tapSearchButton: {
-            
-        }
+        visibilityScope: .constant(.global)
     )
+    .environmentObject(NavigationRouter())
 }
 

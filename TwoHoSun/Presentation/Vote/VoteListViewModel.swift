@@ -32,6 +32,33 @@ final class VoteListViewModel: ObservableObject {
         bind()
     }
 
+    private func bind() {
+        NotificationCenter.default.publisher(for: .voteDeleted)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.votes.remove(at: self.currentVote)
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .voteClosed)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.votes[self.currentVote].postStatus = PostStatus.closed.rawValue
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: .userBlocked)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                guard let self = self else { return }
+                guard let userId = notification.userInfo?["userId"] as? Int else { return }
+                self.votes.removeAll { $0.id == userId }
+            }
+            .store(in: &cancellables)
+    }
+
     func send(action: Action) {
         switch action {
         case .loadVotes:
@@ -74,24 +101,6 @@ final class VoteListViewModel: ObservableObject {
                 }
                 .store(in: &cancellables)
         }
-    }
-
-    private func bind() {
-        NotificationCenter.default.publisher(for: .voteDeleted)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.votes.remove(at: self.currentVote)
-            }
-            .store(in: &cancellables)
-
-        NotificationCenter.default.publisher(for: .voteClosed)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.votes[self.currentVote].postStatus = "CLOSED"
-            }
-            .store(in: &cancellables)
     }
 }
  

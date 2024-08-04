@@ -32,10 +32,7 @@ struct MyPageView: View {
         VStack {
             WoteNavigationBar(
                 selectedTab: .constant(.myPage),
-                visibilityScope: .constant(.global),
-                tapSearchButton: {
-                    // TODO: refactor navigation bar
-                }
+                visibilityScope: .constant(.global)
             )
             ScrollView {
                 VStack(spacing: 0) {

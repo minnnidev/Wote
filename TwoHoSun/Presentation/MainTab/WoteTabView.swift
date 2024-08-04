@@ -59,6 +59,12 @@ struct WoteTabView: View {
                     SearchView(viewModel: appDependency.container.resolve(SearchViewModel.self)!)
                         .environmentObject(router)
 
+                case .notification:
+                    Text("Notification")
+
+                case .setting:
+                    SettingView(viewModel: appDependency.container.resolve(SettingViewModel.self)!)
+
                 case let .voteDetail(postId):
                     DetailView(viewModel: appDependency.container.resolve(DetailViewModel.self, argument: postId)!)
                         .environmentObject(router)

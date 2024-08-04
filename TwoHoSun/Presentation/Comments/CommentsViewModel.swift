@@ -13,18 +13,18 @@ final class CommentsViewModel: ObservableObject {
         case presentSheet(Bool)
         case deleteComment(commentId: Int)
         case reportComment
-        case blockUser
+        case blockUser(memberId: Int)
         case writeComment(postId: Int)
-        case replyAtComment(commentId: Int, postId: Int)
-        case loadComments(postId: Int)
+        case replyAtComment(commentId: Int)
+        case loadComments
         case setParentComment(commentId: Int?)
-        case setSelectedComment(commentId: Int?)
+        case setSelectedComment(comment: CommentModel?)
     }
 
     @Published var commentTextField: String = ""
     @Published var commentsDatas = [CommentModel]()
     @Published var parentCommentId: Int?
-    @Published var selectedCommentId: Int?
+    @Published var selectedComment: CommentModel?
 
     @Published var isLoading: Bool = false
     @Published var isNoComment: Bool = false
@@ -32,13 +32,19 @@ final class CommentsViewModel: ObservableObject {
     @Published var isOtherSheetShowed: Bool = false
 
     var postId: Int
-
-    private let commentUseCase: CommentUseCaseType
     private var cancellables: Set<AnyCancellable> = []
 
-    init(postId: Int, commentUseCase: CommentUseCaseType) {
+    private let commentUseCase: CommentUseCaseType
+    private let userUseCase: UserUseCaseType
+
+    init(
+        postId: Int,
+        commentUseCase: CommentUseCaseType,
+        userUseCase: UserUseCaseType
+    ) {
         self.postId = postId
         self.commentUseCase = commentUseCase
+        self.userUseCase = userUseCase
     }
 
     func send(action: Action) {
@@ -58,8 +64,8 @@ final class CommentsViewModel: ObservableObject {
                     guard let self = self else { return }
 
                     isLoading = false
-                    send(action: .loadComments(postId: postId))
-                    selectedCommentId = nil
+                    loadComments()
+                    selectedComment = nil
                 }
                 .store(in: &cancellables)
 
@@ -67,9 +73,13 @@ final class CommentsViewModel: ObservableObject {
             // TODO: 댓글 신고 API 연결
             return
 
-        case .blockUser:
-            // TODO: 회원 차단 API 연결
-            return
+        case let .blockUser(memberId):
+            userUseCase.blockUser(memberId)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.loadComments()
+                }
+                .store(in: &cancellables)
 
         case let .writeComment(postId):
             isLoading = true
@@ -79,46 +89,52 @@ final class CommentsViewModel: ObservableObject {
                     self?.isLoading = false
                 } receiveValue: { [weak self] _ in
                     self?.isLoading = false
-                    self?.send(action: .loadComments(postId: postId))
+                    self?.loadComments()
                 }
                 .store(in: &cancellables)
 
-        case let .replyAtComment(commentId, postId):
+        case let .replyAtComment(commentId):
             isLoading = true
 
             commentUseCase.registerSubComment(at: commentId, comment: commentTextField)
                 .sink { [weak self] _ in
                     self?.isLoading = false
                 } receiveValue: { [weak self] _ in
-                    self?.isLoading = false
-                    self?.send(action: .loadComments(postId: postId))
-                    self?.parentCommentId = nil
-                }
-                .store(in: &cancellables)
-
-        case let .loadComments(postId):
-            isLoading = true
-            isNoComment = false
-
-            commentUseCase.loadComments(of: postId)
-                .sink { [weak self] _ in
-                    self?.isLoading = false
-                } receiveValue: { [weak self] comments in
                     guard let self = self else { return }
 
-
-                    commentsDatas = comments
                     isLoading = false
-
-                    if commentsDatas.count == 0 { isNoComment.toggle() }
+                    loadComments()
+                    parentCommentId = nil
                 }
                 .store(in: &cancellables)
+
+        case .loadComments:
+            loadComments()
 
         case let .setParentComment(commentId):
             parentCommentId = commentId
 
-        case let .setSelectedComment(commentId):
-            selectedCommentId = commentId
+        case let .setSelectedComment(comment):
+            selectedComment = comment
         }
+    }
+
+    private func loadComments() {
+        isLoading = true
+        isNoComment = false
+
+        commentUseCase.loadComments(of: postId)
+            .sink { [weak self] _ in
+                self?.isLoading = false
+            } receiveValue: { [weak self] comments in
+                guard let self = self else { return }
+
+
+                commentsDatas = comments
+                isLoading = false
+
+                if commentsDatas.count == 0 { isNoComment.toggle() }
+            }
+            .store(in: &cancellables)
     }
 }

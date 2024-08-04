@@ -15,6 +15,9 @@ enum UserAPI {
     case getMyVotes(MyVotesRequestObject)
     case getMyReviews(MyReviewsRequestObject)
     case getProfile
+    case getBlockedUsers
+    case deleteBlockUser(memberId: Int)
+    case postUserBlock(memberId: Int)
 }
 
 extension UserAPI: TargetType {
@@ -42,6 +45,10 @@ extension UserAPI: TargetType {
             return "/mypage/reviews"
         case .getProfile:
             return "/profiles"
+        case .getBlockedUsers:
+            return "/members/block"
+        case let .deleteBlockUser(memberId), let .postUserBlock(memberId):
+            return "/members/block/\(memberId)"
         }
     }
     
@@ -59,6 +66,12 @@ extension UserAPI: TargetType {
             return .get
         case .getProfile:
             return .get
+        case .getBlockedUsers:
+            return .get
+        case .deleteBlockUser:
+            return .delete
+        case .postUserBlock:
+            return .post
         }
     }
     
@@ -89,8 +102,11 @@ extension UserAPI: TargetType {
         case let .getMyReviews(requestObject):
             return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.queryString)
 
-        case .getProfile:
+        case .getProfile, .getBlockedUsers:
             return .requestPlain
+
+        case let .deleteBlockUser(memberId), let .postUserBlock(memberId):
+            return .requestParameters(parameters: memberId.toDictionary(), encoding: URLEncoding.default)
         }
     }
     

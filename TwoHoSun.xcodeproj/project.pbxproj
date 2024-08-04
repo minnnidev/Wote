@@ -38,6 +38,9 @@
 		AB0C0F362C5A7E10007812C5 /* CommentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F352C5A7E10007812C5 /* CommentAPI.swift */; };
 		AB0C0F3E2C5B957D007812C5 /* CommentRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F3D2C5B957D007812C5 /* CommentRequestObject.swift */; };
 		AB0C0F402C5B98FA007812C5 /* RegisterCommentRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F3F2C5B98FA007812C5 /* RegisterCommentRequestObject.swift */; };
+		AB0C0F862C5F92DE007812C5 /* SettingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F852C5F92DE007812C5 /* SettingType.swift */; };
+		AB0C0F882C5F951A007812C5 /* SettingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F872C5F951A007812C5 /* SettingAssembly.swift */; };
+		AB0C0F8A2C5F9A46007812C5 /* BlockedUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C0F892C5F9A46007812C5 /* BlockedUserResponse.swift */; };
 		AB0CA9982C44E80500910C36 /* PhotoPickerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */; };
 		AB0D8C6E2C47BC49003CE8E2 /* PostCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */; };
 		AB2507022C3B0471009B0A3C /* AuthRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */; };
@@ -196,7 +199,7 @@
 		C7EFA7DD2AF94DD800C9BEA0 /* CustomAlertModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */; };
 		C7F1FD842ADDA2F000C5A2A1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */; };
 		C7F1FD862ADDA37E00C5A2A1 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */; };
-		FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */; };
+		FD0113CD2B10139700CCAEE7 /* BlockedUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0113CC2B10139700CCAEE7 /* BlockedUserModel.swift */; };
 		FD0E8B5A2B0DDCBB002CED68 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */; };
 		FD132BF22ADBE8FB00F31AAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD132BF12ADBE8FB00F31AAF /* Assets.xcassets */; };
 		FD132BF52ADBE8FB00F31AAF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD132BF42ADBE8FB00F31AAF /* Preview Assets.xcassets */; };
@@ -254,6 +257,9 @@
 		AB0C0F352C5A7E10007812C5 /* CommentAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentAPI.swift; sourceTree = "<group>"; };
 		AB0C0F3D2C5B957D007812C5 /* CommentRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRequestObject.swift; sourceTree = "<group>"; };
 		AB0C0F3F2C5B98FA007812C5 /* RegisterCommentRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCommentRequestObject.swift; sourceTree = "<group>"; };
+		AB0C0F852C5F92DE007812C5 /* SettingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingType.swift; sourceTree = "<group>"; };
+		AB0C0F872C5F951A007812C5 /* SettingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAssembly.swift; sourceTree = "<group>"; };
+		AB0C0F892C5F9A46007812C5 /* BlockedUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserResponse.swift; sourceTree = "<group>"; };
 		AB0CA9972C44E80500910C36 /* PhotoPickerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerError.swift; sourceTree = "<group>"; };
 		AB0D8C6D2C47BC49003CE8E2 /* PostCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreateModel.swift; sourceTree = "<group>"; };
 		AB2507012C3B0471009B0A3C /* AuthRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryType.swift; sourceTree = "<group>"; };
@@ -413,7 +419,7 @@
 		C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModalView.swift; sourceTree = "<group>"; };
 		C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
-		FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserModel.swift; sourceTree = "<group>"; };
+		FD0113CC2B10139700CCAEE7 /* BlockedUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserModel.swift; sourceTree = "<group>"; };
 		FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		FD132BEA2ADBE8FA00F31AAF /* TwoHoSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoHoSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD132BF12ADBE8FB00F31AAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -471,6 +477,7 @@
 				AB01681F2C577B920041B956 /* MyReviewsRequestObject.swift */,
 				AB0168212C577BC90041B956 /* MyReviewsReponseObject.swift */,
 				AB0168252C5788570041B956 /* ProfileResponseObject.swift */,
+				AB0C0F892C5F9A46007812C5 /* BlockedUserResponse.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -482,6 +489,7 @@
 				AB0168192C5768EC0041B956 /* MyVotesModel.swift */,
 				AB0168232C577C070041B956 /* MyReviewsModel.swift */,
 				AB0168272C5788C00041B956 /* ProfileModel.swift */,
+				FD0113CC2B10139700CCAEE7 /* BlockedUserModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -553,7 +561,6 @@
 			isa = PBXGroup;
 			children = (
 				FDF2D6CD2AE5DAD90027EE8F /* VoteInfoModel.swift */,
-				FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */,
 				FDF2D6CF2AE5E62B0027EE8F /* ChartModel.swift */,
 				ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */,
 				AB38A10C2B07D914004153B5 /* PostDetailModel.swift */,
@@ -734,6 +741,7 @@
 				AB481C5B2C4F64100030C614 /* ReviewAssembly.swift */,
 				AB4AA95C2C4FCF13008825CB /* SearchAssembly.swift */,
 				AB0C0F312C58B130007812C5 /* CommentAssembly.swift */,
+				AB0C0F872C5F951A007812C5 /* SettingAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -1143,12 +1151,13 @@
 			isa = PBXGroup;
 			children = (
 				ABA1E84F2AFEA3AF009051E0 /* SettingView.swift */,
-				FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */,
 				FD50A0472B01EBE000CF7F59 /* SettingNotificationView.swift */,
 				FD70B1F52B01C3080097B727 /* SettingBlockView.swift */,
 				FD50A0492B01F16200CF7F59 /* SettingAnnouncementView.swift */,
 				FD50A04B2B02084600CF7F59 /* SettingQuestionsView.swift */,
 				FD50A04D2B021B7200CF7F59 /* SettingTermsView.swift */,
+				AB0C0F852C5F92DE007812C5 /* SettingType.swift */,
+				FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1235,6 +1244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB0C0F882C5F951A007812C5 /* SettingAssembly.swift in Sources */,
 				FD5ABEA22B0BCF2800272A53 /* PostDetailModel.swift in Sources */,
 				AB03D7482B0276F9000C927A /* ProfileImageView.swift in Sources */,
 				ABDED8852B00B17F00D78BEA /* VoteWriteViewModel.swift in Sources */,
@@ -1293,7 +1303,7 @@
 				AB38A1152B08FDD1004153B5 /* EndLabel.swift in Sources */,
 				AB7FE89C2C3EB0E200EDED20 /* ErrorAlertView.swift in Sources */,
 				C73F8E902AE562FE001C6B07 /* Date+.swift in Sources */,
-				FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */,
+				FD0113CD2B10139700CCAEE7 /* BlockedUserModel.swift in Sources */,
 				AB4AA9682C500151008825CB /* ReviewSearchResultCell.swift in Sources */,
 				AB38A10B2B077DEE004153B5 /* VoteResultView.swift in Sources */,
 				AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */,
@@ -1391,6 +1401,7 @@
 				AB25071D2C3BFA86009B0A3C /* AuthAPI.swift in Sources */,
 				FD9DDB6C2B06F746006D738A /* ReviewResponseObject.swift in Sources */,
 				AB6845B62AFC147D00C3F7C2 /* TypeTestViewModel.swift in Sources */,
+				AB0C0F862C5F92DE007812C5 /* SettingType.swift in Sources */,
 				AB4AA9662C4FFEC5008825CB /* VoteSearchResultCell.swift in Sources */,
 				5E5099732AFBE3AF0053E529 /* ParticleView.swift in Sources */,
 				AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */,
@@ -1442,6 +1453,7 @@
 				5E5099712AFBE2970053E529 /* CelebrateScean.swift in Sources */,
 				C73F8E8E2AE56168001C6B07 /* String+.swift in Sources */,
 				C73F8E832AE54DD8001C6B07 /* CommentResponseObject.swift in Sources */,
+				AB0C0F8A2C5F9A46007812C5 /* BlockedUserResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

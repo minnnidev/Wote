@@ -90,12 +90,14 @@ struct ReviewDetailView: View {
             }
 
             Button {
-                // TODO: - 차단 action
+                viewModel.send(action: .blockUser(
+                    memberId: viewModel.reviewDetailData?.reviewPost.author?.id ?? 0
+                ))
             } label: {
                 Text("차단하기")
             }
         }
-        .onChange(of: viewModel.isReviewDeleted) { _ in
+        .onChange(of: viewModel.isReviewManageSucceed) { _ in
             router.pop()
         }
     }
@@ -214,7 +216,11 @@ extension ReviewDetailView {
 #Preview {
     NavigationStack {
         ReviewDetailView(
-            viewModel: .init(id: 1, reviewUseCase: StubReviewUseCase())
+            viewModel: .init(
+                id: 1,
+                reviewUseCase: StubReviewUseCase(),
+                userUseCase: StubUserUseCase()
+            )
         )
         .environmentObject(AppDependency())
         .environmentObject(NavigationRouter())

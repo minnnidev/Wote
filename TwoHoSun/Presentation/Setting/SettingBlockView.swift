@@ -14,6 +14,7 @@ struct SettingBlockView: View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
+            
             if viewModel.blockUsersList.isEmpty {
                 Text("차단한 사용자가 없습니다.")
                     .font(.system(size: 16, weight: .medium))
@@ -22,8 +23,23 @@ struct SettingBlockView: View {
                 ScrollView {
                     Divider()
                         .foregroundStyle(Color.dividerGray)
-                    ForEach(viewModel.blockUsersList) { user in
-                        BlockListCell(blockUser: user, viewModel: viewModel)
+
+//                    ForEach(viewModel.blockUsersList, id: \.id) { user in
+//                        BlockListCell(
+//                            blockUser: user,
+//                            unblockButtonDidTapped: { id in
+//                                viewModel.send(action: .unblockUser(memberId: id))
+//                            }
+//                        )
+//                    }
+
+                    ForEach(Array(viewModel.blockUsersList.enumerated()), id: \.element.id) { index, user in
+                        BlockListCell(
+                            blockUser: user,
+                            unblockButtonDidTapped: { _ in
+                                viewModel.send(action: .unblockUser(memberId: user.id, index: index))
+                            }
+                        )
                     }
                 }
                 .padding(.horizontal, 16)
@@ -41,16 +57,15 @@ struct SettingBlockView: View {
             }
         }
         .onAppear {
-            viewModel.getBlockUsers()
+            viewModel.send(action: .loadBlockUsers)
         }
     }
 }
 
 struct BlockListCell: View {
-    @State var isBlocked: Bool = true
-    var blockUser: BlockUserModel
-    var viewModel: SettingViewModel
-    
+    var blockUser: BlockedUserModel
+    var unblockButtonDidTapped: (Int) -> ()
+
     var body: some View {
         HStack {
             Image("defaultProfile")
@@ -60,34 +75,33 @@ struct BlockListCell: View {
             Text(blockUser.nickname)
                 .foregroundStyle(.white)
                 .font(.system(size: 16, weight: .bold))
+
             Spacer()
+
             Button {
-                isBlocked.toggle()
+                unblockButtonDidTapped(blockUser.id)
             } label: {
                 ZStack {
-                    if isBlocked {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 103, height: 44)
-                            .foregroundStyle(Color.lightBlue)
-                    } else {
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(lineWidth: 1)
-                            .frame(width: 103, height: 44)
-                            .foregroundStyle(Color.lightBlue)
-                    }
-                    Text(isBlocked ? "차단중" : "차단하기")
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 103, height: 44)
+                        .foregroundStyle(Color.lightBlue)
+
+                    Text("차단 해제하기")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(isBlocked ? .white : Color.lightBlue)
+                        .foregroundStyle(Color.woteWhite)
                 }
             }
         }
         .padding(.horizontal, 8)
-        .onDisappear {
-            if !isBlocked {
-                viewModel.deleteBlockUser(memberId: blockUser.id)
-            }
-        }
+
         Divider()
             .foregroundStyle(Color.dividerGray)
     }
+}
+
+#Preview {
+    BlockListCell(
+        blockUser: .stubBlockedUser1) { id in
+            print("차단 해제하기")
+        }
 }
