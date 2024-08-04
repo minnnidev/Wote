@@ -19,6 +19,7 @@ protocol UserDataSourceType {
     func getMyReviews(_ object: MyReviewsRequestObject) -> AnyPublisher<MyReviewsReponseObject, APIError>
     func getProfile() -> AnyPublisher<ProfileResponseObject, APIError>
     func getBlockedUsers() -> AnyPublisher<[BlockedUserResponse], APIError>
+    func deleteBlockUser(_ memberId: Int) -> AnyPublisher<Void, APIError>
 }
 
 final class UserDataSource: UserDataSourceType {
@@ -61,5 +62,9 @@ final class UserDataSource: UserDataSourceType {
 
     func getBlockedUsers() -> AnyPublisher<[BlockedUserResponse], APIError> {
         provider.requestPublisher(Target.getBlockedUsers, [BlockedUserResponse].self)
+    }
+
+    func deleteBlockUser(_ memberId: Int) -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.deleteBlockUser(memberId: memberId))
     }
 }

@@ -12,7 +12,7 @@ final class SettingViewModel: ObservableObject {
 
     enum Action {
         case loadBlockUsers
-        case unblockUser(memberId: Int)
+        case unblockUser(memberId: Int, index: Int)
         case logout(deviceToken: String)
         case withdraw
     }
@@ -43,9 +43,13 @@ final class SettingViewModel: ObservableObject {
                 }
                 .store(in: &cancellables)
 
-        case let .unblockUser(memberId):
-            // TODO: 차단 해제 API 연결
-            return
+        case let .unblockUser(memberId, idx):
+            userUseCase.unblockUser(memberId)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.blockUsersList.remove(at: idx)
+                }
+                .store(in: &cancellables)
 
         case .logout(let deviceToken):
             // TODO: 로그아웃 API 연결

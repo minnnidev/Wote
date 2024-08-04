@@ -24,11 +24,20 @@ struct SettingBlockView: View {
                     Divider()
                         .foregroundStyle(Color.dividerGray)
 
-                    ForEach(viewModel.blockUsersList, id: \.id) { user in
+//                    ForEach(viewModel.blockUsersList, id: \.id) { user in
+//                        BlockListCell(
+//                            blockUser: user,
+//                            unblockButtonDidTapped: { id in
+//                                viewModel.send(action: .unblockUser(memberId: id))
+//                            }
+//                        )
+//                    }
+
+                    ForEach(Array(viewModel.blockUsersList.enumerated()), id: \.element.id) { index, user in
                         BlockListCell(
                             blockUser: user,
-                            unblockButtonDidTapped: { id in
-                                viewModel.send(action: .unblockUser(memberId: id))
+                            unblockButtonDidTapped: { _ in
+                                viewModel.send(action: .unblockUser(memberId: user.id, index: index))
                             }
                         )
                     }
