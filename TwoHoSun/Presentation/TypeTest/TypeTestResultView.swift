@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TypeTestResultView: View {
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var router: NavigationRouter
 
     var spendType: ConsumerType
 
@@ -16,35 +16,37 @@ struct TypeTestResultView: View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
+
             VStack(spacing: 0) {
                 Spacer()
                     .frame(height: 50)
+
                 HStack {
                     Text(spendType.description)
                         .font(.system(size: 20, weight: .medium))
                         .foregroundStyle(Color.lightBlue)
                         .kerning(-1)
+
                     Spacer()
                 }
                 .padding(.bottom, 24)
+
                 HStack {
                     Text(spendType.title)
                         .font(.system(size: 36, weight: .bold))
                         .foregroundStyle(.white)
+
                     Spacer()
                 }
+
                 Spacer()
-                ZStack {
-                    ParticleView()
-                    spendType.icon
-                }
+
+                spendType.icon
+
                 Spacer()
+
                 pushToHomeButton
-                dismissButton
-                    .onTapGesture {
-                        dismiss()
-                    }
-                    .padding(.vertical, 35)
+                    .padding(.bottom, 35)
             }
             .padding(.horizontal, 24)
         }
@@ -56,14 +58,14 @@ extension TypeTestResultView {
 
     private var pushToHomeButton: some View {
         Button {
-            // TODO: 투표 만들기로 이동
             var transaction = Transaction()
             transaction.disablesAnimations = true
+
             withTransaction(transaction) {
-                // TODO: navigation 2개 dequeue
+                router.pop(of: 3)
             }
         } label: {
-            Text("소비 고민 등록하러 가기")
+            Text("확인")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
@@ -72,22 +74,9 @@ extension TypeTestResultView {
                 .clipShape(.rect(cornerRadius: 10))
         }
     }
-
-    private var dismissButton: some View {
-        Button(action: {
-            // TODO: navigation dismiss
-        }, label: {
-            HStack(spacing: 7) {
-                Image(systemName: "xmark")
-                    .font(.system(size: 16, weight: .medium))
-                Text("닫기")
-                    .font(.system(size: 16, weight: .medium))
-            }
-            .foregroundStyle(Color.subGray1)
-        })
-    }
 }
 
 #Preview {
     TypeTestResultView(spendType: .riskAverse)
+        .environmentObject(NavigationRouter())
 }

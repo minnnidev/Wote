@@ -16,6 +16,7 @@ protocol UserUseCaseType {
     func loadBlockedUsers() -> AnyPublisher<[BlockedUserModel], WoteError>
     func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
     func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
+    func registerConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError>
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -62,6 +63,15 @@ final class UserUseCase: UserUseCaseType {
     func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
         userRepository.postUserBlock(memberId)
     }
+
+    func registerConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError> {
+        userRepository.putConsumerType(consumerType)
+            .flatMap {
+                self.loadProfile()
+                    .map { _ in }
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 extension UserUseCase {
@@ -70,12 +80,20 @@ extension UserUseCase {
         let userProfile: UserProfileModel = .init(
             nickname: profile.nickname,
             profileImage: profile.profileImage,
-            consumerType: nil,
+            consumerType: setConsumerType(profile.consumerType),
             schoolName: profile.school.schoolName,
             cantUpdateType: profile.canUpdateConsumerType
         )
 
         UserDefaults.standard.setObject(userProfile, forKey: UserDefaultsKey.myProfile)
+    }
+
+    private func setConsumerType(_ typeRawValue: String?) -> ConsumerType? {
+        if let typeRawValue = typeRawValue {
+            return ConsumerType(rawValue: typeRawValue)
+        } else {
+            return nil
+        }
     }
 }
 
@@ -115,6 +133,11 @@ final class StubUserUseCase: UserUseCaseType {
     }
 
     func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func registerConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

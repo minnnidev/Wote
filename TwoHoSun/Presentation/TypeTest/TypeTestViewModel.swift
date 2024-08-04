@@ -8,13 +8,25 @@ import Combine
 import SwiftUI
 
 final class TypeTestViewModel: ObservableObject {
-    @Published var testChoices = [-1, -1, -1, -1, -1, -1, -1]
-    @Published var typeScores = [ConsumerType: Int]()
-    @Published var testProgressValue = 1.0
-    @Published var succeedPutData = false
+
+    enum Action {
+        case setConsumerType
+        case registerConsumerType
+    }
+
+    @Published var testChoices: [Int] = [-1, -1, -1, -1, -1, -1, -1]
+    @Published var typeScores: [ConsumerType: Int] = .init()
+    @Published var testProgressValue: Double = 1.0
+    @Published var isPutDataSucceed: Bool = false 
     @Published var userType: ConsumerType?
 
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
+    private var cancellables: Set<AnyCancellable> = []
+
+    private let userUseCase: UserUseCaseType
+
+    init(userUseCase: UserUseCaseType) {
+        self.userUseCase = userUseCase
+    }
 
     var questionNumber: Int {
         Int(testProgressValue)
@@ -40,17 +52,22 @@ final class TypeTestViewModel: ObservableObject {
         }
     }
 
-    func setUserSpendType() {
-        let maxScore = typeScores.values.max()!
-        let maxScoreTypes = typeScores.filter { $0.value == maxScore }.map { $0.key }
-        userType = maxScoreTypes.randomElement()!
-    }
+    func send(action: Action) {
+        switch action {
+        case .setConsumerType:
+            let maxScore = typeScores.values.max()!
+            let maxScoreTypes = typeScores.filter { $0.value == maxScore }.map { $0.key }
+            userType = maxScoreTypes.randomElement()!
 
-    func putUserSpendType() {
-        setUserSpendType()
-        var cancellable: AnyCancellable?
-        guard let userType = userType else {return}
+        case .registerConsumerType:
+            guard let consumerType = userType else { return }
 
-        // TODO: 소비 성향 등록
+            userUseCase.registerConsumerType(consumerType)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.isPutDataSucceed.toggle()
+                }
+                .store(in: &cancellables)
+        }
     }
 }

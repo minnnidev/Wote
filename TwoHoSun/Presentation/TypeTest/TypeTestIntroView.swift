@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TypeTestIntroView: View {
+    @EnvironmentObject var router: NavigationRouter
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -43,7 +44,7 @@ extension TypeTestIntroView {
 
     private var goToTestButton: some View {
         Button {
-            // TODO: Test View로 이동
+            router.push(to: TypeTestDestination.test)
         } label: {
             Text("소비 성향 테스트하러가기")
                 .font(.system(size: 16, weight: .semibold))
@@ -73,5 +74,6 @@ extension TypeTestIntroView {
 #Preview {
     NavigationStack {
         TypeTestIntroView()
+            .environmentObject(NavigationRouter())
     }
 }

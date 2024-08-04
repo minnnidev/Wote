@@ -39,8 +39,7 @@ struct MyPageView: View {
                         .padding(.bottom, 24)
 
                     if let canUpdateType = viewModel.myProfile?.cantUpdateType, canUpdateType {
-                        GoToTypeTestButton()
-                            .padding(.horizontal, 24)
+                        goToTypeTestButton
                     }
 
                     ScrollViewReader { proxy in
@@ -114,6 +113,15 @@ extension MyPageView {
             }
             .padding(.leading, 24)
             .padding(.trailing, 16)
+        }
+    }
+
+    private var goToTypeTestButton: some View {
+        Button {
+            router.push(to: TypeTestDestination.testIntro)
+        } label: {
+            GoToTypeTestButton()
+                .padding(.horizontal, 24)
         }
     }
 
@@ -221,4 +229,6 @@ extension MyPageView {
         myPageUseCase: StubMyPageUseCase(),
         userUseCase: StubUserUseCase())
     )
+    .environmentObject(NavigationRouter())
+    .environmentObject(AppDependency())
 }

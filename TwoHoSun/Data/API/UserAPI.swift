@@ -18,6 +18,7 @@ enum UserAPI {
     case getBlockedUsers
     case deleteBlockUser(memberId: Int)
     case postUserBlock(memberId: Int)
+    case putConsumerType(ConsumerTypeRequestObject)
 }
 
 extension UserAPI: TargetType {
@@ -49,6 +50,8 @@ extension UserAPI: TargetType {
             return "/members/block"
         case let .deleteBlockUser(memberId), let .postUserBlock(memberId):
             return "/members/block/\(memberId)"
+        case .putConsumerType:
+            return "/profiles/consumerType"
         }
     }
     
@@ -72,6 +75,8 @@ extension UserAPI: TargetType {
             return .delete
         case .postUserBlock:
             return .post
+        case .putConsumerType:
+            return .put
         }
     }
     
@@ -107,6 +112,9 @@ extension UserAPI: TargetType {
 
         case let .deleteBlockUser(memberId), let .postUserBlock(memberId):
             return .requestParameters(parameters: memberId.toDictionary(), encoding: URLEncoding.default)
+
+        case let .putConsumerType(requestObject):
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: JSONEncoding.default)
         }
     }
     

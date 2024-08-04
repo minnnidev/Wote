@@ -39,6 +39,10 @@ final class UserAssmbly: Assembly {
             )
         }
 
+        container.register(TypeTestViewModel.self) { res in
+            TypeTestViewModel(userUseCase: res.resolve(UserUseCaseType.self)!)
+        }
+
         // MARK: UseCases
 
         container.register(UserUseCaseType.self) { res in

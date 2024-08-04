@@ -80,6 +80,20 @@ struct WoteTabView: View {
                         .environmentObject(router)
                 }
             }
+            .navigationDestination(for: TypeTestDestination.self) { dest in
+                switch dest {
+                case .testIntro:
+                    TypeTestIntroView()
+                        .environmentObject(router)
+                case .test:
+                    TypeTestView(viewModel: appDependency.container.resolve(TypeTestViewModel.self)!)
+                        .environmentObject(router)
+
+                case let .testResult(resultType):
+                    TypeTestResultView(spendType: resultType)
+                        .environmentObject(router)
+                }
+            }
         }
     }
 }

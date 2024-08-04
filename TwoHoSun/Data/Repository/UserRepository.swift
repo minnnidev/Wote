@@ -92,4 +92,12 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func putConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError> {
+        let requestObject: ConsumerTypeRequestObject = .init(consumerType: consumerType.rawValue)
+
+        return userDataSource.putConsumerType(requestObject)
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
