@@ -49,7 +49,7 @@ struct SettingView: View {
 
             if showLogOut {
                 CustomAlertModalView(alertType: .logOut, isPresented: $showLogOut) {
-                    viewModel.requestLogOut()
+                   // TODO: 로그아웃
                 }
             }
 

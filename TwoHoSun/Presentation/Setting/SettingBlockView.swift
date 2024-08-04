@@ -23,7 +23,8 @@ struct SettingBlockView: View {
                 ScrollView {
                     Divider()
                         .foregroundStyle(Color.dividerGray)
-                    ForEach(viewModel.blockUsersList) { user in
+
+                    ForEach(viewModel.blockUsersList, id: \.id) { user in
                         BlockListCell(
                             blockUser: user,
                             unblockButtonDidTapped: { id in
@@ -53,7 +54,7 @@ struct SettingBlockView: View {
 }
 
 struct BlockListCell: View {
-    var blockUser: BlockUserModel
+    var blockUser: BlockedUserModel
     var unblockButtonDidTapped: (Int) -> ()
 
     var body: some View {
@@ -78,7 +79,7 @@ struct BlockListCell: View {
 
                     Text("차단 해제하기")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Color.lightBlue)
+                        .foregroundStyle(Color.woteWhite)
                 }
             }
         }
@@ -87,4 +88,11 @@ struct BlockListCell: View {
         Divider()
             .foregroundStyle(Color.dividerGray)
     }
+}
+
+#Preview {
+    BlockListCell(
+        blockUser: .stubBlockedUser1) { id in
+            print("차단 해제하기")
+        }
 }

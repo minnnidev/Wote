@@ -198,7 +198,7 @@
 		C7EFA7DD2AF94DD800C9BEA0 /* CustomAlertModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */; };
 		C7F1FD842ADDA2F000C5A2A1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */; };
 		C7F1FD862ADDA37E00C5A2A1 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */; };
-		FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */; };
+		FD0113CD2B10139700CCAEE7 /* BlockedUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0113CC2B10139700CCAEE7 /* BlockedUserModel.swift */; };
 		FD0E8B5A2B0DDCBB002CED68 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */; };
 		FD132BF22ADBE8FB00F31AAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD132BF12ADBE8FB00F31AAF /* Assets.xcassets */; };
 		FD132BF52ADBE8FB00F31AAF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD132BF42ADBE8FB00F31AAF /* Preview Assets.xcassets */; };
@@ -417,7 +417,7 @@
 		C7EFA7DC2AF94DD800C9BEA0 /* CustomAlertModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModalView.swift; sourceTree = "<group>"; };
 		C7F1FD832ADDA2F000C5A2A1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C7F1FD852ADDA37E00C5A2A1 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
-		FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserModel.swift; sourceTree = "<group>"; };
+		FD0113CC2B10139700CCAEE7 /* BlockedUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserModel.swift; sourceTree = "<group>"; };
 		FD0E8B592B0DDCBB002CED68 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		FD132BEA2ADBE8FA00F31AAF /* TwoHoSun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoHoSun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD132BF12ADBE8FB00F31AAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -486,6 +486,7 @@
 				AB0168192C5768EC0041B956 /* MyVotesModel.swift */,
 				AB0168232C577C070041B956 /* MyReviewsModel.swift */,
 				AB0168272C5788C00041B956 /* ProfileModel.swift */,
+				FD0113CC2B10139700CCAEE7 /* BlockedUserModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -557,7 +558,6 @@
 			isa = PBXGroup;
 			children = (
 				FDF2D6CD2AE5DAD90027EE8F /* VoteInfoModel.swift */,
-				FD0113CC2B10139700CCAEE7 /* BlockUserModel.swift */,
 				FDF2D6CF2AE5E62B0027EE8F /* ChartModel.swift */,
 				ABBFB6312AE3EABD006CE8CA /* VoteCreateRequestModel.swift */,
 				AB38A10C2B07D914004153B5 /* PostDetailModel.swift */,
@@ -1300,7 +1300,7 @@
 				AB38A1152B08FDD1004153B5 /* EndLabel.swift in Sources */,
 				AB7FE89C2C3EB0E200EDED20 /* ErrorAlertView.swift in Sources */,
 				C73F8E902AE562FE001C6B07 /* Date+.swift in Sources */,
-				FD0113CD2B10139700CCAEE7 /* BlockUserModel.swift in Sources */,
+				FD0113CD2B10139700CCAEE7 /* BlockedUserModel.swift in Sources */,
 				AB4AA9682C500151008825CB /* ReviewSearchResultCell.swift in Sources */,
 				AB38A10B2B077DEE004153B5 /* VoteResultView.swift in Sources */,
 				AB8D1E172C3AFEC500D333AC /* AuthAssembly.swift in Sources */,

@@ -95,9 +95,10 @@ struct SettingTermsView: View {
                 .listRowSeparatorTint(Color.gray600)
             }
             .scrollContentBackground(.hidden)
+
             if showWithdrawal {
                 CustomAlertModalView(alertType: .withdrawal, isPresented: $showWithdrawal) {
-                    viewModel.deleteUser()
+                    // TODO: 탈퇴
                 }
             }
         }

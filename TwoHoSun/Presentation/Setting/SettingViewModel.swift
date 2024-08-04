@@ -17,7 +17,7 @@ final class SettingViewModel: ObservableObject {
         case withdraw
     }
 
-    @Published var blockUsersList: [BlockUserModel] = []
+    @Published var blockUsersList: [BlockedUserModel] = []
 
     private var cancellable = Set<AnyCancellable>()
 
