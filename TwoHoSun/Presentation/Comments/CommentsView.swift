@@ -50,11 +50,11 @@ struct CommentsView: View {
             viewModel.send(action: .setParentComment(commentId: nil))
         }
         .onAppear {
-            viewModel.send(action: .loadComments(postId: viewModel.postId))
+            viewModel.send(action: .loadComments)
         }
         .confirmationDialog("MySheet", isPresented: $viewModel.isMySheetShowed) {
             Button {
-                viewModel.send(action: .deleteComment(commentId: viewModel.selectedCommentId ?? 0))
+                viewModel.send(action: .deleteComment(commentId: viewModel.selectedComment?.commentId ?? 0))
             } label: {
                 Text("삭제하기")
             }
@@ -67,7 +67,7 @@ struct CommentsView: View {
             }
 
             Button {
-                viewModel.send(action: .blockUser)
+                viewModel.send(action: .blockUser(memberId: viewModel.selectedComment?.author?.id ?? 0))
             } label: {
                 Text("차단하기")
             }
@@ -86,7 +86,7 @@ extension CommentsView {
                         viewModel.send(action: .setParentComment(commentId: comment.commentId))
                     }, sheetButtonDidTapped: { isMine in
                         viewModel.send(action: .presentSheet(isMine))
-                        viewModel.send(action: .setSelectedComment(commentId: comment.commentId))
+                        viewModel.send(action: .setSelectedComment(comment: comment))
                     }, comment: comment)
 
                     Color.clear
@@ -127,7 +127,7 @@ extension CommentsView {
             if isFocus {
                 Button {
                     if let parentCommentId = viewModel.parentCommentId {
-                        viewModel.send(action: .replyAtComment(commentId: parentCommentId, postId: viewModel.postId))
+                        viewModel.send(action: .replyAtComment(commentId: parentCommentId))
                     } else {
                         viewModel.send(action: .writeComment(postId: viewModel.postId))
                     }
