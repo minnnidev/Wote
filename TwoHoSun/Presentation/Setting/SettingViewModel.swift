@@ -10,7 +10,14 @@ import SwiftUI
 
 final class SettingViewModel: ObservableObject {
 
-    var blockUsersList: [BlockUserModel] = []
+    enum Action {
+        case loadBlockUsers
+        case unblockUser(memberId: Int)
+        case logout(deviceToken: String)
+        case withdraw
+    }
+
+    @Published var blockUsersList: [BlockUserModel] = []
 
     private var cancellable = Set<AnyCancellable>()
 
@@ -22,19 +29,22 @@ final class SettingViewModel: ObservableObject {
         self.authUseCase = authUseCase
     }
 
-    func requestLogOut() {
-        // TODO: logout
-    }
-    
-    func deleteUser() {
-        // TODO: 탈퇴
-    }
-    
-    func getBlockUsers() {
-        // TODO: 차단 목록 조회
-    }
-    
-    func deleteBlockUser(memberId: Int) {
-        // TODO: 차단 해제
+    func send(action: Action) {
+        switch action {
+        case .loadBlockUsers:
+            return
+
+        case let .unblockUser(memberId):
+            // TODO: 차단 해제 API 연결
+            return
+
+        case .logout(let deviceToken):
+            // TODO: 로그아웃 API 연결
+            return
+
+        case .withdraw:
+            // TODO: 회원 탈퇴 API 연결
+            return
+        }
     }
 }
