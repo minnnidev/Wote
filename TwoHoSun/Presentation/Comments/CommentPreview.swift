@@ -56,7 +56,8 @@ extension CommentPreview {
             ProfileImageView(imageURL: previewImage)
                 .frame(width: 24, height: 24)
         } else {
-            //  TODO: 댓글이 업을 땐 내 프로필 이미지 가져오기
+            ProfileImageView(imageURL: UserData.shared.userProfile.profileImage)
+                .frame(width: 24, height: 24)
         }
     }
 
