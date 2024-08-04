@@ -47,6 +47,11 @@ struct TypeTestView: View {
                 backButton
             }
         }
+        .onChange(of: viewModel.isPutDataSucceed) { _ in
+            if let typeResult = viewModel.userType {
+                router.push(to: TypeTestDestination.testResult(typeResult: typeResult))
+            }
+        }
     }
 }
 
@@ -135,10 +140,6 @@ extension TypeTestView {
 
                 viewModel.send(action: .setConsumerType)
                 viewModel.send(action: .registerConsumerType)
-
-                if let typeResult = viewModel.userType {
-                    router.push(to: TypeTestDestination.testResult(typeResult: typeResult))
-                }
             }
         } label: {
             HStack {
@@ -179,5 +180,5 @@ struct ChoiceButtonStyle: ButtonStyle {
 }
 
 #Preview {
-    TypeTestView(viewModel: .init(typeTestUseCase: StubTypeTestUseCase()))
+    TypeTestView(viewModel: .init(userUseCase: StubUserUseCase()))
 }

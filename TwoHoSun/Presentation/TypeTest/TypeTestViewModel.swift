@@ -14,18 +14,18 @@ final class TypeTestViewModel: ObservableObject {
         case registerConsumerType
     }
 
-    @Published var testChoices = [-1, -1, -1, -1, -1, -1, -1]
-    @Published var typeScores = [ConsumerType: Int]()
-    @Published var testProgressValue = 1.0
-    @Published var isPutDataSucceed = false
+    @Published var testChoices: [Int] = [-1, -1, -1, -1, -1, -1, -1]
+    @Published var typeScores: [ConsumerType: Int] = .init()
+    @Published var testProgressValue: Double = 1.0
+    @Published var isPutDataSucceed: Bool = false 
     @Published var userType: ConsumerType?
 
     private var cancellables: Set<AnyCancellable> = []
 
-    private let typeTestUseCase: TypeTestUseCaseType
+    private let userUseCase: UserUseCaseType
 
-    init(typeTestUseCase: TypeTestUseCaseType) {
-        self.typeTestUseCase = typeTestUseCase
+    init(userUseCase: UserUseCaseType) {
+        self.userUseCase = userUseCase
     }
 
     var questionNumber: Int {
@@ -60,10 +60,14 @@ final class TypeTestViewModel: ObservableObject {
             userType = maxScoreTypes.randomElement()!
 
         case .registerConsumerType:
-            guard let userType = userType else { return }
+            guard let consumerType = userType else { return }
 
-            // TODO: 소비 성향 등록 API 
-            isPutDataSucceed.toggle()
+            userUseCase.registerConsumerType(consumerType)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.isPutDataSucceed.toggle()
+                }
+                .store(in: &cancellables)
         }
     }
 }
