@@ -100,7 +100,7 @@ extension CommentsView {
 
     private var commentInputView: some View {
         HStack {
-            ProfileImageView(imageURL: nil)
+            ProfileImageView(imageURL: UserData.shared.userProfile.profileImage)
                 .frame(width: 32, height: 32)
 
                 withAnimation(.easeInOut) {
