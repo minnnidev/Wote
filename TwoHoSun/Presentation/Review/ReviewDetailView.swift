@@ -188,10 +188,14 @@ extension ReviewDetailView {
                     .padding(.bottom, 28)
             }
 
-            CommentPreview()
-                .onTapGesture {
-                    viewModel.send(action: .presentComment)
-                }
+            CommentPreview(
+                previewComment: viewModel.reviewDetailData?.commentPreview,
+                commentCount: viewModel.reviewDetailData?.commentCount,
+                commentPreviewImage: viewModel.reviewDetailData?.commentPreviewImage
+            )
+            .onTapGesture {
+                viewModel.send(action: .presentComment)
+            }
         }
     }
 
