@@ -17,6 +17,7 @@ final class DetailViewModel: ObservableObject {
         case presentComment
         case deleteVote
         case closeVote
+        case blockUser(memberId: Int)
     }
 
     @Published var agreeTopConsumerTypes: [ConsumerType]?
@@ -105,6 +106,18 @@ final class DetailViewModel: ObservableObject {
                 } receiveValue: { [weak self] _ in
                     NotificationCenter.default.post(name: .voteClosed, object: nil)
                     self?.send(action: .loadDetail)
+                }
+                .store(in: &cancellables)
+
+        case let .blockUser(memberId):
+            userUseCase.blockUser(memberId)
+                .sink { _ in
+                } receiveValue: { [weak self] _ in
+                    NotificationCenter.default.post(
+                        name: .userBlocked,
+                        object: ["userId": memberId]
+                    )
+                    self?.isVoteManageSucceed.toggle()
                 }
                 .store(in: &cancellables)
         }
