@@ -12,5 +12,5 @@ struct UserProfileModel: Codable {
     let profileImage: String?
     let consumerType: ConsumerType?
     let schoolName: String
-    let typeTestCount: Int
+    let cantUpdateType: Bool
 }

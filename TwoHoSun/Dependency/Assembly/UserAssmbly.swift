@@ -27,7 +27,8 @@ final class UserAssmbly: Assembly {
 
         container.register(MyPageViewModel.self) { res in
             MyPageViewModel(
-                myPageUseCase: res.resolve(MyPageUseCaseType.self)!
+                myPageUseCase: res.resolve(MyPageUseCaseType.self)!,
+                userUseCase: res.resolve(UserUseCaseType.self)!
             )
         }
 

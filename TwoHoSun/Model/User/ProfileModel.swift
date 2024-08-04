@@ -13,7 +13,7 @@ struct ProfileModel: Encodable {
     let lastSchoolRegisterDate: String
     let nickname: String
     let profileImage: String?
-    let consumerType: String
+    let consumerType: String?
     let school: SchoolModel
     let canUpdateConsumerType: Bool
 }

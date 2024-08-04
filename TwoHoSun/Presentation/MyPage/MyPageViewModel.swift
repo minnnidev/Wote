@@ -11,6 +11,7 @@ import SwiftUI
 final class MyPageViewModel: ObservableObject {
 
     enum Action {
+        case loadMyProfile
         case loadMyVotes
         case loadMoreVotes
         case loadMyReviews
@@ -28,7 +29,7 @@ final class MyPageViewModel: ObservableObject {
         }
     }
     @Published var isLoading: Bool = false
-    @Published var myProfile: UserProfileModel = UserData.shared.userProfile
+    @Published var myProfile: UserProfileModel?
     @Published var myVotes: [MyVoteModel] = .init()
     @Published var myReviews: [ReviewModel] = .init()
     @Published var total: Int = 0
@@ -38,13 +39,35 @@ final class MyPageViewModel: ObservableObject {
     private var cacellabels: Set<AnyCancellable> = []
 
     private let myPageUseCase: MyPageUseCaseType
+    private let userUseCase: UserUseCaseType
 
-    init(myPageUseCase: MyPageUseCaseType) {
+    init(myPageUseCase: MyPageUseCaseType, userUseCase: UserUseCaseType) {
         self.myPageUseCase = myPageUseCase
+        self.userUseCase = userUseCase
     }
 
     func send(action: Action) {
         switch action {
+
+        case .loadMyProfile:
+            if let savedProfile = UserDefaults.standard.getObject(UserProfileModel.self, forKey: UserDefaultsKey.myProfile) {
+                myProfile = savedProfile
+            } else {
+                userUseCase.loadProfile()
+                    .sink { _ in
+                    } receiveValue: { [weak self] profile in
+                        let myProfle: UserProfileModel = .init(
+                            nickname: profile.nickname,
+                            profileImage: profile.profileImage,
+                            consumerType: self?.setConsumerType(profile.consumerType),
+                            schoolName: profile.school.schoolName,
+                            cantUpdateType: profile.canUpdateConsumerType
+                        )
+
+                        self?.myProfile = myProfle
+                    }
+                    .store(in: &cacellabels)
+            }
 
         case .loadMyVotes:
             isLoading = true
@@ -98,6 +121,14 @@ final class MyPageViewModel: ObservableObject {
 
         case let .changeSelectedType(type):
             selectedMyPageListType = type
+        }
+    }
+
+    private func setConsumerType(_ typeString: String?) -> ConsumerType? {
+        if let type = typeString {
+            return ConsumerType(rawValue: type)
+        } else {
+            return nil
         }
     }
 }

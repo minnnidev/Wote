@@ -26,7 +26,7 @@ final class UserData: ObservableObject {
                 profileImage: nil,
                 consumerType: nil,
                 schoolName: "",
-                typeTestCount: 0
+                cantUpdateType: true
             )
         }
     }

@@ -38,7 +38,7 @@ struct MyPageView: View {
                         .padding(.top, 24)
                         .padding(.bottom, 24)
 
-                    if viewModel.myProfile.typeTestCount < 2 {
+                    if let canUpdateType = viewModel.myProfile?.cantUpdateType, canUpdateType {
                         GoToTypeTestButton()
                             .padding(.horizontal, 24)
                     }
@@ -68,6 +68,7 @@ struct MyPageView: View {
         .background(Color.background)
         .onAppear {
             viewModel.send(action: .loadMyVotes)
+            viewModel.send(action: .loadMyProfile)
         }
         .refreshable {
             viewModel.send(action: .changeSelectedType(.myVote))
@@ -83,16 +84,16 @@ extension MyPageView {
             router.push(to: MyPageDestination.modifyProfile)
         } label: {
             HStack(spacing: 14) {
-                ProfileImageView(imageURL: viewModel.myProfile.profileImage)
+                ProfileImageView(imageURL: viewModel.myProfile?.profileImage)
                     .frame(width: 103, height: 103)
 
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 0) {
-                        Text(viewModel.myProfile.nickname)
+                        Text(viewModel.myProfile?.nickname ?? "")
                             .font(.system(size: 20, weight: .medium))
                             .padding(.trailing, 12)
 
-                        if let consumerType = viewModel.myProfile.consumerType {
+                        if let consumerType = viewModel.myProfile?.consumerType {
                             ConsumerTypeLabel(
                                 consumerType: consumerType,
                                 usage: .standard
@@ -106,7 +107,7 @@ extension MyPageView {
                             .foregroundStyle(Color.subGray1)
                     }
 
-                    Text(viewModel.myProfile.schoolName)
+                    Text(viewModel.myProfile?.schoolName ?? "")
                         .font(.system(size: 14))
                 }
                 .foregroundStyle(.white)
@@ -216,5 +217,8 @@ extension MyPageView {
 }
 
 #Preview {
-    MyPageView(viewModel: .init(myPageUseCase: StubMyPageUseCase()))
+    MyPageView(viewModel: .init(
+        myPageUseCase: StubMyPageUseCase(),
+        userUseCase: StubUserUseCase())
+    )
 }
