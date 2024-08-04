@@ -48,7 +48,7 @@ enum SettingType {
         case .terms:
             "doc.plaintext"
         case .appVersion:
-            "apple.terminal.on.rectangle"
+            "doc.plaintext"
         case .logOut:
             "minus"
         }

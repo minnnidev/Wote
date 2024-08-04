@@ -39,6 +39,8 @@ enum AllNavigation: Decodable, Hashable {
 
 enum WoteDestination: Hashable {
     case search
+    case setting
+    case notification
     case voteDetail(postId: Int)
     case reviewDetail(postId: Int)
     case reviewWrite(postId: Int)

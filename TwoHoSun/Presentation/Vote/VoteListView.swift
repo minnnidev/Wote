@@ -21,10 +21,7 @@ struct VoteListView: View {
             VStack(spacing: 0) {
                 WoteNavigationBar(
                     selectedTab: .constant(.consider),
-                    visibilityScope: $viewModel.visibilityScope,
-                    tapSearchButton: {
-                        router.push(to: WoteDestination.search)
-                    }
+                    visibilityScope: $viewModel.visibilityScope
                 )
 
                 Spacer()

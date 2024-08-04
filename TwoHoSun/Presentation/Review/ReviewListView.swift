@@ -21,10 +21,7 @@ struct ReviewListView: View {
             VStack(spacing: 0) {
                 WoteNavigationBar(
                     selectedTab: .constant(.review),
-                    visibilityScope: $viewModel.visibilityScope,
-                    tapSearchButton: {
-                        reviewRouter.push(to: WoteDestination.search)
-                    }
+                    visibilityScope: $viewModel.visibilityScope
                 )
 
                 ScrollView {
