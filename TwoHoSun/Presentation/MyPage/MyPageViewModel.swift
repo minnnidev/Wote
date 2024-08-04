@@ -11,7 +11,6 @@ import SwiftUI
 final class MyPageViewModel: ObservableObject {
 
     enum Action {
-        case loadProfile
         case loadMyVotes
         case loadMoreVotes
         case loadMyReviews
@@ -29,7 +28,7 @@ final class MyPageViewModel: ObservableObject {
         }
     }
     @Published var isLoading: Bool = false
-    @Published var myProfile: ProfileModel?
+    @Published var myProfile: UserProfileModel = UserData.shared.userProfile
     @Published var myVotes: [MyVoteModel] = .init()
     @Published var myReviews: [ReviewModel] = .init()
     @Published var total: Int = 0
@@ -46,8 +45,6 @@ final class MyPageViewModel: ObservableObject {
 
     func send(action: Action) {
         switch action {
-        case .loadProfile:
-            return
 
         case .loadMyVotes:
             isLoading = true
