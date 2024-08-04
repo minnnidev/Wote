@@ -10,17 +10,13 @@ import SwiftUI
 struct GoToTypeTestButton: View {
 
     var body: some View {
-        Button {
-            // TODO: Test로 이동
-        } label: {
-            Text("소비 성향 테스트하러가기")
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(.white)
-                .frame(height: 52)
-                .frame(maxWidth: .infinity)
-                .background(Color.lightBlue)
-                .clipShape(.rect(cornerRadius: 10))
-        }
+        Text("소비 성향 테스트하러가기")
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundStyle(.white)
+            .frame(height: 52)
+            .frame(maxWidth: .infinity)
+            .background(Color.lightBlue)
+            .clipShape(.rect(cornerRadius: 10))
     }
 }
 

@@ -46,6 +46,12 @@ enum WoteDestination: Hashable {
     case reviewWrite(postId: Int)
 }
 
+enum TypeTestDestination: Hashable {
+    case testIntro
+    case test
+    case testResult(typeResult: ConsumerType)
+}
+
 enum VoteDestination: Hashable {
     case voteWrite
 }
@@ -65,6 +71,12 @@ final class NavigationRouter: ObservableObject {
         guard !path.isEmpty else { return }
 
         path.removeLast()
+    }
+
+    func pop(of count: Int) {
+        guard count > 0 else { return }
+
+        path.removeLast(min(count, path.count))
     }
 
     func popToRootView() {

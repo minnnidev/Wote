@@ -111,6 +111,7 @@
 		AB76E2342C4793EE00204A22 /* ChooseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76E2332C4793EE00204A22 /* ChooseResponseObject.swift */; };
 		AB7D52032C5FC54B00107B86 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D52022C5FC54B00107B86 /* UserData.swift */; };
 		AB7D52052C5FC5C100107B86 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D52042C5FC5C100107B86 /* UserProfileModel.swift */; };
+		AB7D52072C5FE09000107B86 /* TypeTestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D52062C5FE09000107B86 /* TypeTestUseCase.swift */; };
 		AB7FE87F2C3E455700EDED20 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE87E2C3E455700EDED20 /* ProfileType.swift */; };
 		AB7FE8812C3E45B400EDED20 /* UserRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */; };
 		AB7FE8852C3E461C00EDED20 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */; };
@@ -332,6 +333,7 @@
 		AB76E2332C4793EE00204A22 /* ChooseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseResponseObject.swift; sourceTree = "<group>"; };
 		AB7D52022C5FC54B00107B86 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		AB7D52042C5FC5C100107B86 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
+		AB7D52062C5FE09000107B86 /* TypeTestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTestUseCase.swift; sourceTree = "<group>"; };
 		AB7FE87E2C3E455700EDED20 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
 		AB7FE8802C3E45B300EDED20 /* UserRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryType.swift; sourceTree = "<group>"; };
 		AB7FE8842C3E461C00EDED20 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 				AB4AA95A2C4FCEA3008825CB /* SearchUseCase.swift */,
 				AB01680F2C57582F0041B956 /* MyPageUseCase.swift */,
 				AB0C0F292C58AE0E007812C5 /* CommentUseCase.swift */,
+				AB7D52062C5FE09000107B86 /* TypeTestUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1364,6 +1367,7 @@
 				ABA1E8492AFD5C0B009051E0 /* ReviewWriteView.swift in Sources */,
 				AB2507392C3D536B009B0A3C /* AuthInterceptor.swift in Sources */,
 				C7F1FD862ADDA37E00C5A2A1 /* BottomSheetView.swift in Sources */,
+				AB7D52072C5FE09000107B86 /* TypeTestUseCase.swift in Sources */,
 				ABA1E84A2AFD5C0B009051E0 /* ReviewWriteViewModel.swift in Sources */,
 				FD50A04C2B02084600CF7F59 /* SettingQuestionsView.swift in Sources */,
 				FD1B6D462B0BEBC50097F789 /* ReviewCreateModel.swift in Sources */,

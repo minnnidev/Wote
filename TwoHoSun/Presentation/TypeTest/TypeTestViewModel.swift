@@ -8,13 +8,25 @@ import Combine
 import SwiftUI
 
 final class TypeTestViewModel: ObservableObject {
+
+    enum Action {
+        case setConsumerType
+        case registerConsumerType
+    }
+
     @Published var testChoices = [-1, -1, -1, -1, -1, -1, -1]
     @Published var typeScores = [ConsumerType: Int]()
     @Published var testProgressValue = 1.0
-    @Published var succeedPutData = false
+    @Published var isPutDataSucceed = false
     @Published var userType: ConsumerType?
 
-    @AppStorage("haveConsumerType") var haveConsumerType: Bool = false
+    private var cancellables: Set<AnyCancellable> = []
+
+    private let typeTestUseCase: TypeTestUseCaseType
+
+    init(typeTestUseCase: TypeTestUseCaseType) {
+        self.typeTestUseCase = typeTestUseCase
+    }
 
     var questionNumber: Int {
         Int(testProgressValue)
@@ -40,17 +52,18 @@ final class TypeTestViewModel: ObservableObject {
         }
     }
 
-    func setUserSpendType() {
-        let maxScore = typeScores.values.max()!
-        let maxScoreTypes = typeScores.filter { $0.value == maxScore }.map { $0.key }
-        userType = maxScoreTypes.randomElement()!
-    }
+    func send(action: Action) {
+        switch action {
+        case .setConsumerType:
+            let maxScore = typeScores.values.max()!
+            let maxScoreTypes = typeScores.filter { $0.value == maxScore }.map { $0.key }
+            userType = maxScoreTypes.randomElement()!
 
-    func putUserSpendType() {
-        setUserSpendType()
-        var cancellable: AnyCancellable?
-        guard let userType = userType else {return}
+        case .registerConsumerType:
+            guard let userType = userType else { return }
 
-        // TODO: 소비 성향 등록
+            // TODO: 소비 성향 등록 API 
+            isPutDataSucceed.toggle()
+        }
     }
 }
