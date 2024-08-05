@@ -53,17 +53,29 @@ final class SettingViewModel: ObservableObject {
                 .store(in: &cancellables)
 
         case .logout:
+            isLoading = true
+
             let deviceToken = KeychainManager.shared.read(key: TokenType.deviceToken) ?? ""
             authUseCase.logout(deviceToken)
-                .sink { _ in
+                .sink { [weak self] _ in
+                    self?.isLoading = false
                 } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
                     self?.isLoggedIn.toggle()
                 }
                 .store(in: &cancellables)
 
         case .withdraw:
-            // TODO: 회원 탈퇴 API 연결 - keychain 삭제
-            return
+            isLoading = true
+
+            userUseCase.withDraw()
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.isLoggedIn.toggle()
+                }
+                .store(in: &cancellables)
         }
     }
 }

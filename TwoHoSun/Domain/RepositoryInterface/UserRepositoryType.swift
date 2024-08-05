@@ -19,4 +19,5 @@ protocol UserRepositoryType {
     func deleteBlockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
     func postUserBlock(_ memberId: Int) -> AnyPublisher<Void, WoteError>
     func putConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError>
+    func postWithDraw() -> AnyPublisher<Void, WoteError>
 }

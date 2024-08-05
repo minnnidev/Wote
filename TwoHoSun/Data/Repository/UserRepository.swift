@@ -100,4 +100,10 @@ final class UserRepository: UserRepositoryType {
             .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
+
+    func postWithDraw() -> AnyPublisher<Void, WoteError> {
+        userDataSource.postWithDraw()
+            .mapError { WoteError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
