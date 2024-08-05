@@ -69,6 +69,7 @@
 		AB38A1CD2B0D5580004153B5 /* ReviewDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */; };
 		AB3BACFD2AF7A5FC00E792BE /* SearchTextFieldState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3BACFC2AF7A5FC00E792BE /* SearchTextFieldState.swift */; };
 		AB3F153E2C5FF11500C77E13 /* ConsumerTypeRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F153D2C5FF11500C77E13 /* ConsumerTypeRequestObject.swift */; };
+		AB3F15422C60C37200C77E13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F15412C60C37200C77E13 /* AppDelegate.swift */; };
 		AB44D22A2C4015FF0011000F /* MultipartFormDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */; };
 		AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */; };
 		AB4522562ADDDBC400B69F24 /* SchoolResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522552ADDDBC400B69F24 /* SchoolResponseObject.swift */; };
@@ -292,6 +293,7 @@
 		AB38A1CC2B0D5580004153B5 /* ReviewDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailModel.swift; sourceTree = "<group>"; };
 		AB3BACFC2AF7A5FC00E792BE /* SearchTextFieldState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldState.swift; sourceTree = "<group>"; };
 		AB3F153D2C5FF11500C77E13 /* ConsumerTypeRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumerTypeRequestObject.swift; sourceTree = "<group>"; };
+		AB3F15412C60C37200C77E13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataHelper.swift; sourceTree = "<group>"; };
 		AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchView.swift; sourceTree = "<group>"; };
 		AB4522552ADDDBC400B69F24 /* SchoolResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolResponseObject.swift; sourceTree = "<group>"; };
@@ -907,6 +909,7 @@
 				FD3205672ADD5C0D00B0D5F6 /* TwoHoSunApp.swift */,
 				AB25070E2C3B1178009B0A3C /* Constants.swift */,
 				AB7D52022C5FC54B00107B86 /* UserData.swift */,
+				AB3F15412C60C37200C77E13 /* AppDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1405,6 +1408,7 @@
 				ABA1E82D2AFD0CD5009051E0 /* VoteContentCell.swift in Sources */,
 				C768F1A32AE656570020F82C /* SchoolModel.swift in Sources */,
 				AB481C692C4F70160030C614 /* ReviewUseCase.swift in Sources */,
+				AB3F15422C60C37200C77E13 /* AppDelegate.swift in Sources */,
 				ABBBC67C2AE49CC800B1E614 /* VoteCreateRequestObject.swift in Sources */,
 				AB4AA9642C4FD8F9008825CB /* SearchResponseObject.swift in Sources */,
 				AB25071D2C3BFA86009B0A3C /* AuthAPI.swift in Sources */,
