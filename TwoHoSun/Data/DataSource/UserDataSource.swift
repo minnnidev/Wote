@@ -22,6 +22,7 @@ protocol UserDataSourceType {
     func deleteBlockUser(_ memberId: Int) -> AnyPublisher<Void, APIError>
     func postUserBlock(_ memberId: Int) -> AnyPublisher<Void, APIError>
     func putConsumerType(_ object: ConsumerTypeRequestObject) -> AnyPublisher<Void, APIError>
+    func postWithDraw() -> AnyPublisher<Void, APIError>
 }
 
 final class UserDataSource: UserDataSourceType {
@@ -76,5 +77,9 @@ final class UserDataSource: UserDataSourceType {
 
     func putConsumerType(_ object: ConsumerTypeRequestObject) -> AnyPublisher<Void, APIError> {
         provider.requestVoidPublisher(Target.putConsumerType(object))
+    }
+
+    func postWithDraw() -> AnyPublisher<Void, APIError> {
+        provider.requestVoidPublisher(Target.postWithDraw)
     }
 }

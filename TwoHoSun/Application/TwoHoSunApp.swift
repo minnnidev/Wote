@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct TwoHoSunApp: App {
+    @UIApplicationDelegateAdaptor var delegate: AppDelegate
     @StateObject private var appDependency = AppDependency()
 
     var body: some Scene {

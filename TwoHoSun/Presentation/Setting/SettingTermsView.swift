@@ -98,7 +98,7 @@ struct SettingTermsView: View {
 
             if showWithdrawal {
                 CustomAlertModalView(alertType: .withdrawal, isPresented: $showWithdrawal) {
-                    // TODO: 탈퇴
+                    viewModel.send(action: .withdraw)
                 }
             }
         }

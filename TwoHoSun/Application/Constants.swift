@@ -20,6 +20,7 @@ extension Constants {
     struct TokenType {
         static let accessToken = "accessToken"
         static let refreshToken = "refreshToken"
+        static let deviceToken = "deviceToken"
     }
 
     struct AppStorageKey {

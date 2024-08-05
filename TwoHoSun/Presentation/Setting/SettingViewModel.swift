@@ -13,12 +13,13 @@ final class SettingViewModel: ObservableObject {
     enum Action {
         case loadBlockUsers
         case unblockUser(memberId: Int, index: Int)
-        case logout(deviceToken: String)
+        case logout
         case withdraw
     }
 
     @Published var blockUsersList: [BlockedUserModel] = []
     @Published var isLoading: Bool = false
+    @AppStorage(AppStorageKey.loginState) private var isLoggedIn: Bool = false
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -51,13 +52,30 @@ final class SettingViewModel: ObservableObject {
                 }
                 .store(in: &cancellables)
 
-        case .logout(let deviceToken):
-            // TODO: 로그아웃 API 연결
-            return
+        case .logout:
+            isLoading = true
+
+            let deviceToken = KeychainManager.shared.read(key: TokenType.deviceToken) ?? ""
+            authUseCase.logout(deviceToken)
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.isLoggedIn.toggle()
+                }
+                .store(in: &cancellables)
 
         case .withdraw:
-            // TODO: 회원 탈퇴 API 연결
-            return
+            isLoading = true
+
+            userUseCase.withDraw()
+                .sink { [weak self] _ in
+                    self?.isLoading = false
+                } receiveValue: { [weak self] _ in
+                    self?.isLoading = false
+                    self?.isLoggedIn.toggle()
+                }
+                .store(in: &cancellables)
         }
     }
 }

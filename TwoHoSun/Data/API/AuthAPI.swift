@@ -11,6 +11,7 @@ import Moya
 enum AuthAPI {
     case loginWithApple(AppleUserRequestObject)
     case getNewToken(RefreshTokenRequestObject)
+    case postLogout(LogoutRequestObject)
 }
 
 extension AuthAPI: TargetType {
@@ -22,9 +23,11 @@ extension AuthAPI: TargetType {
     var path: String {
         switch self {
         case .loginWithApple(_):
-            "/login/oauth2/code/apple"
+            return "/login/oauth2/code/apple"
         case .getNewToken(_):
-            "/api/auth/refresh"
+            return "/api/auth/refresh"
+        case .postLogout:
+            return "/api/auth/logout"
         }
     }
     
@@ -35,18 +38,25 @@ extension AuthAPI: TargetType {
     var task: Moya.Task {
         switch self {
         case let .loginWithApple(requestObject):
-                .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.default)
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.default)
+
         case let .getNewToken(requestObject):
-                .requestParameters(parameters: requestObject.toDictionary(), encoding: URLEncoding.default)
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: JSONEncoding.default)
+
+        case let .postLogout(requestObject):
+            return .requestParameters(parameters: requestObject.toDictionary(), encoding: JSONEncoding.default)
+
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .loginWithApple(_):
+        case .loginWithApple:
             APIConstants.headerXform
-        case .getNewToken(_):
+        case .getNewToken:
             APIConstants.headerWithOutToken
+        case .postLogout:
+            APIConstants.headerWithAuthorization
         }
     }
 

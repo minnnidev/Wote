@@ -17,6 +17,8 @@ protocol UserUseCaseType {
     func unblockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
     func blockUser(_ memberId: Int) -> AnyPublisher<Void, WoteError>
     func registerConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError>
+    func withDraw() -> AnyPublisher<Void, WoteError>
+    func deleteKeyChain()
 }
 
 final class UserUseCase: UserUseCaseType {
@@ -71,6 +73,20 @@ final class UserUseCase: UserUseCaseType {
                     .map { _ in }
             }
             .eraseToAnyPublisher()
+    }
+
+    func withDraw() -> AnyPublisher<Void, WoteError> {
+        userRepository.postWithDraw()
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.deleteKeyChain()
+            })
+            .eraseToAnyPublisher()
+    }
+
+    func deleteKeyChain() {
+        KeychainManager.shared.delete(key: TokenType.accessToken)
+        KeychainManager.shared.delete(key: TokenType.refreshToken)
+        KeychainManager.shared.delete(key: TokenType.deviceToken)
     }
 }
 
@@ -140,5 +156,14 @@ final class StubUserUseCase: UserUseCaseType {
     func registerConsumerType(_ consumerType: ConsumerType) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
+    }
+
+    func withDraw() -> AnyPublisher<Void, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func deleteKeyChain() {
+        /// 키체인 삭제
     }
 }
