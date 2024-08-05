@@ -11,6 +11,7 @@ import Combine
 
 protocol AuthUseCaseType {
     func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<AuthenticationState, WoteError>
+    func logout(_ deviceToken: String) -> AnyPublisher<Void, WoteError>
 }
 
 final class AuthUseCase: AuthUseCaseType {
@@ -32,11 +33,15 @@ final class AuthUseCase: AuthUseCaseType {
             .map { $0.authenticationState }
             .eraseToAnyPublisher()
     }
+
+    func logout(_ deviceToken: String) -> AnyPublisher<Void, WoteError> {
+        authRepository.logout(deviceToken)
+    }
 }
 
 extension AuthUseCase {
 
-    func getCredential(_ authorization: ASAuthorization) -> String {
+    private func getCredential(_ authorization: ASAuthorization) -> String {
         guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return "" }
         guard let authorizationCode = credential.authorizationCode else { return "" }
         guard let authoriazationCodeString = String(data: authorizationCode, encoding: .utf8) else { return "" }
@@ -48,6 +53,11 @@ extension AuthUseCase {
 final class StubAuthUseCase: AuthUseCaseType {
 
     func loginWithApple(_ authorization: ASAuthorization) -> AnyPublisher<AuthenticationState, WoteError> {
+        Empty()
+            .eraseToAnyPublisher()
+    }
+
+    func logout(_ deviceToken: String) -> AnyPublisher<Void, WoteError> {
         Empty()
             .eraseToAnyPublisher()
     }

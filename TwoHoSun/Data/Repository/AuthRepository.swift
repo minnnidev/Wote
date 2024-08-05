@@ -58,12 +58,13 @@ final class AuthRepository: AuthRepositoryType {
             }
             .eraseToAnyPublisher()
     }
-}
 
-final class StubAuthRepository: AuthRepositoryType {
+    func logout(_ deviceToken: String) -> AnyPublisher<Void, WoteError> {
+        let requestObject: LogoutRequestObject = .init(deviceToken: deviceToken)
 
-    func loginWithApple(_ authorizationCode: String) -> AnyPublisher<User, WoteError> {
-        Empty()
+        return authDataSource.logout(requestObject)
+            .map { _ in }
+            .mapError { WoteError.error($0) }
             .eraseToAnyPublisher()
     }
 }

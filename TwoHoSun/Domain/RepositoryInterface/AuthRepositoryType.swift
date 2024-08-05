@@ -10,4 +10,5 @@ import Combine
 
 protocol AuthRepositoryType {
     func loginWithApple(_ authorizationCode: String) -> AnyPublisher<User, WoteError>
+    func logout(_ deviceToken: String) -> AnyPublisher<Void, WoteError>
 }

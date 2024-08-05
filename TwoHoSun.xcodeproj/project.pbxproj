@@ -70,6 +70,7 @@
 		AB3BACFD2AF7A5FC00E792BE /* SearchTextFieldState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3BACFC2AF7A5FC00E792BE /* SearchTextFieldState.swift */; };
 		AB3F153E2C5FF11500C77E13 /* ConsumerTypeRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F153D2C5FF11500C77E13 /* ConsumerTypeRequestObject.swift */; };
 		AB3F15422C60C37200C77E13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F15412C60C37200C77E13 /* AppDelegate.swift */; };
+		AB3F15442C60C90900C77E13 /* LogoutRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F15432C60C90900C77E13 /* LogoutRequestObject.swift */; };
 		AB44D22A2C4015FF0011000F /* MultipartFormDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */; };
 		AB4522532ADDD99500B69F24 /* SchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */; };
 		AB4522562ADDDBC400B69F24 /* SchoolResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4522552ADDDBC400B69F24 /* SchoolResponseObject.swift */; };
@@ -294,6 +295,7 @@
 		AB3BACFC2AF7A5FC00E792BE /* SearchTextFieldState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldState.swift; sourceTree = "<group>"; };
 		AB3F153D2C5FF11500C77E13 /* ConsumerTypeRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumerTypeRequestObject.swift; sourceTree = "<group>"; };
 		AB3F15412C60C37200C77E13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AB3F15432C60C90900C77E13 /* LogoutRequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutRequestObject.swift; sourceTree = "<group>"; };
 		AB44D2292C4015FF0011000F /* MultipartFormDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataHelper.swift; sourceTree = "<group>"; };
 		AB4522522ADDD99500B69F24 /* SchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchView.swift; sourceTree = "<group>"; };
 		AB4522552ADDDBC400B69F24 /* SchoolResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolResponseObject.swift; sourceTree = "<group>"; };
@@ -596,6 +598,7 @@
 				AB2507162C3BF94E009B0A3C /* AppleUserRequestObject.swift */,
 				AB2507182C3BF95D009B0A3C /* AppleUserResponseObject.swift */,
 				AB2507462C3D6D25009B0A3C /* RefreshTokenRequestObject.swift */,
+				AB3F15432C60C90900C77E13 /* LogoutRequestObject.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1267,6 +1270,7 @@
 				AB76E2322C4793DA00204A22 /* ChooseRequestObject.swift in Sources */,
 				C7974E0D2B0A869600BE9AF9 /* CommentPreview.swift in Sources */,
 				AB2507152C3BF830009B0A3C /* Tokens.swift in Sources */,
+				AB3F15442C60C90900C77E13 /* LogoutRequestObject.swift in Sources */,
 				ABE51ED12B054ED5009C6CA5 /* DetailHeaderView.swift in Sources */,
 				AB01681E2C577B3B0041B956 /* MyPageReviewCell.swift in Sources */,
 				AB4AA95F2C4FD7D2008825CB /* SearchAPI.swift in Sources */,
