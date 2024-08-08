@@ -1,5 +1,5 @@
 //
-//  VoteCreateRequestModel.swift
+//  VoteType.swift
 //  TwoHoSun
 //
 //  Created by 김민 on 10/21/23.

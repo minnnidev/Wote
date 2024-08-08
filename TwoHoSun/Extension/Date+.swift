@@ -35,11 +35,7 @@ extension Date {
     func differenceCurrentTime() -> (String, Int) {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.second, .minute, .hour, .day], from: self, to: .now)
-//        if let year = components.year, year > 0  {
-//            return [.year : year]
-//        } else if let month = components.month, month > 0 {
-//            return [.month: month]
-//        } else 
+
         if let day = components.day, day > 0 {
             return (TimeCalendar.day.beforeString, day)
         } else if let hour = components.hour, hour > 0 {
