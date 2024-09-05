@@ -35,5 +35,3 @@
 - Clean Architecture
 
 </br>
-
-# 리팩토링한 부분 정리
